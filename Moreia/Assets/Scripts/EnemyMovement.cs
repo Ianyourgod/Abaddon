@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -15,19 +16,28 @@ public class EnemyMovement : MonoBehaviour
         Right
     }
 
-    private float lastMovement = 0f;
-
+    [Header("References")]
     [SerializeField] LayerMask collideLayers;
-    [SerializeField] float movementDelay = 0.1f;
+
+    [Header("Attributes")]
+    public float detectionDistance = 1f;
 
     void Start()
     {
         Controller.OnTick += MakeDecision;
     }
 
+    public bool CheckPlayerIsInRange()
+    {
+        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
+    }
+
     void MakeDecision()
     {
-        return;
+        if (CheckPlayerIsInRange()){
+            Move();
+            return;
+        }
     }
 
     void Move()
@@ -36,7 +46,7 @@ public class EnemyMovement : MonoBehaviour
         // todo: deadzone if we add controller support?
         sbyte horizontal, vertical;
 
-        (horizontal, vertical) = GetAxis();
+        (horizontal, vertical) = ToPlayer();
 
         if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0))
             return;
@@ -47,18 +57,26 @@ public class EnemyMovement : MonoBehaviour
             (vertical == 1 ? Direction.Up : Direction.Down) :
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
-        if (IsValidMove(direction) && Time.time - lastMovement > movementDelay)
+        if (IsValidMove(direction))
         {
             transform.Translate(horizontal, vertical, 0);
-            lastMovement = Time.time;
             OnTick?.Invoke();
         }
     }
 
-    private (sbyte, sbyte) GetAxis()
+    public static float Clamp(float value, float min, float max)
     {
-        float raw_horizontal = Input.GetAxisRaw("Horizontal");
-        float raw_vertical = Input.GetAxisRaw("Vertical");
+        return (value < min) ? min : (value > max) ? max : value;
+    }
+
+    private (sbyte, sbyte) ToPlayer()
+    {
+        float raw_horizontal = Clamp(Controller.main.transform.position.x - transform.position.x, -1.0f, 1f);
+        float raw_vertical = Clamp(Controller.main.transform.position.y - transform.position.y, -1.0f, 1f);
+
+        if (raw_horizontal != 0 && raw_vertical != 0) {
+            raw_vertical = 0f;
+        }
 
         // todo: deadzone if we add controller support?
         sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
@@ -81,5 +99,11 @@ public class EnemyMovement : MonoBehaviour
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Handles.color = Color.cyan;
+        Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
     }
 }

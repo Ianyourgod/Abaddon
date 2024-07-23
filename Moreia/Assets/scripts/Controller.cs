@@ -56,14 +56,21 @@ public class Controller : MonoBehaviour
         }
     }
 
+    private sbyte BoolToSbyte(bool value)
+    {
+        return (sbyte) (value ? 1 : 0);
+    }
+
     private (sbyte, sbyte) GetAxis()
     {
-        float raw_horizontal = Input.GetAxisRaw("Horizontal");
-        float raw_vertical = Input.GetAxisRaw("Vertical");
+        // todo: allow people to rebind movement keys
+        sbyte up = BoolToSbyte(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
+        sbyte down = BoolToSbyte(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow));
+        sbyte left = BoolToSbyte(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow));
+        sbyte right = BoolToSbyte(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow));
 
-        // todo: deadzone if we add controller support?
-        sbyte horizontal = (sbyte) Mathf.Round(raw_horizontal); // sbyte is int8
-        sbyte vertical = (sbyte) Mathf.Round(raw_vertical); // sbyte is int8
+        sbyte horizontal = (sbyte) (right - left); // sbyte is int8
+        sbyte vertical = (sbyte) (up - down); // sbyte is int8
 
         return (horizontal, vertical);
     }

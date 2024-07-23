@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    public static Controller main;
+
     public delegate void TickAction();
     public static event TickAction OnTick;
 
@@ -19,6 +21,11 @@ public class Controller : MonoBehaviour
 
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
+
+    void Awake()
+    {
+        main = this;
+    }
 
     void Update()
     {

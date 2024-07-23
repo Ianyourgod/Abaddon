@@ -56,12 +56,12 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private sbyte BoolToSbyte(bool value)
+    sbyte BoolToSbyte(bool value)
     {
         return (sbyte) (value ? 1 : 0);
     }
 
-    private (sbyte, sbyte) GetAxis()
+    (sbyte, sbyte) GetAxis()
     {
         // todo: allow people to rebind movement keys
         sbyte up = BoolToSbyte(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
@@ -75,7 +75,7 @@ public class Controller : MonoBehaviour
         return (horizontal, vertical);
     }
 
-    private bool IsValidMove(Direction direction)
+    bool IsValidMove(Direction direction)
     {
         switch (direction)
         {

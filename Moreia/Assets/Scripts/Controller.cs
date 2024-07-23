@@ -20,7 +20,10 @@ public class Controller : MonoBehaviour
     private float lastMovement = 0f;
 
     [SerializeField] LayerMask collideLayers;
+    [SerializeField] GameObject spriteChild;
     [SerializeField] float movementDelay = 0.1f;
+    [SerializeField] float animationLerpDelay = 0.1f;
+    [SerializeField] Animator animator;
 
     void Awake()
     {
@@ -51,17 +54,18 @@ public class Controller : MonoBehaviour
 
         if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
             transform.Translate(horizontal, vertical, 0);
+            //spriteChild.transform.Translate(horizontal, vertical, 0);
             lastMovement = Time.time;
             OnTick?.Invoke();
         }
     }
 
-    private sbyte BoolToSbyte(bool value)
+    sbyte BoolToSbyte(bool value)
     {
         return (sbyte) (value ? 1 : 0);
     }
 
-    private (sbyte, sbyte) GetAxis()
+    (sbyte, sbyte) GetAxis()
     {
         // todo: allow people to rebind movement keys
         sbyte up = BoolToSbyte(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
@@ -75,19 +79,33 @@ public class Controller : MonoBehaviour
         return (horizontal, vertical);
     }
 
-    private bool IsValidMove(Direction direction)
+    bool IsValidMove(Direction direction)
     {
         switch (direction)
         {
             case Direction.Up:
+                animator.Play("Player_animation_back_level_0_idle");
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
             case Direction.Down:
+                animator.Play("Player_animation_front_level_0_idle");
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider == null;
             case Direction.Left:
+                animator.Play("Player_animation_left_level_0_idle");
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider == null;
             case Direction.Right:
+                animator.Play("Player_animation_right_level_0_idle");
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
+    }
+
+    float Lerp(float a, float b, float t)
+    {
+        return a + (b - a) * t;
+    }
+
+    Vector2 Lerp(Vector2 a, Vector2 b, float t)
+    {
+        return new Vector2(Lerp(a.x, b.x, t), Lerp(a.y, b.y, t));
     }
 }

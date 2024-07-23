@@ -6,7 +6,6 @@ using UnityEditor;
 public class EnemyMovement : MonoBehaviour
 {
     int movementPriority;
-
     public delegate void TickAction();
     public static event TickAction OnTick;
 
@@ -62,7 +61,6 @@ public class EnemyMovement : MonoBehaviour
         if (IsValidMove(direction))
         {
             transform.Translate(horizontal, vertical, 0);
-            OnTick?.Invoke();
         }
     }
 

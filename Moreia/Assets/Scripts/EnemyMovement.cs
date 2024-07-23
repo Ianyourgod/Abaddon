@@ -5,6 +5,8 @@ using UnityEditor;
 
 public class EnemyMovement : MonoBehaviour
 {
+    int movementPriority;
+
     public delegate void TickAction();
     public static event TickAction OnTick;
 
@@ -21,6 +23,7 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Attributes")]
     public float detectionDistance = 1f;
+    [SerializeField] float enemyDecisionDelay;
 
     void Start()
     {
@@ -35,8 +38,7 @@ public class EnemyMovement : MonoBehaviour
     void MakeDecision()
     {
         if (CheckPlayerIsInRange()){
-            Move();
-            return;
+            Invoke(nameof(Move), enemyDecisionDelay);
         }
     }
 
@@ -75,7 +77,14 @@ public class EnemyMovement : MonoBehaviour
         float raw_vertical = Clamp(Controller.main.transform.position.y - transform.position.y, -1.0f, 1f);
 
         if (raw_horizontal != 0 && raw_vertical != 0) {
-            raw_vertical = 0f;
+            movementPriority = Random.Range(1, 3);
+
+            if (movementPriority == 1) {
+                raw_horizontal = 0f;
+            }
+            else if (movementPriority == 2) {
+                raw_vertical = 0f;
+            }
         }
 
         // todo: deadzone if we add controller support?

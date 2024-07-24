@@ -71,15 +71,12 @@ public class EnemyMovement : MonoBehaviour
         float raw_vertical = Clamp(Controller.main.transform.position.y - transform.position.y, -1.0f, 1f);
 
         if (raw_horizontal != 0 && raw_vertical != 0) {
-            movementPriority = Random.Range(1, 3);
-
-            if (movementPriority == 1) {
+            if ((bool)Random.Range(0,1)) {
                 raw_horizontal = 0f;
             }
-            else if (movementPriority == 2) {
+            else {
                 raw_vertical = 0f;
             }
-            // in the case of 3, the enemy will not move
         }
 
         sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8

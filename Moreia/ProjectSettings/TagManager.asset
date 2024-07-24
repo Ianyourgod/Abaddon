@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Enemy
   - Player
-  - walls
-  - floor
   - 
+  - floor
+  - walls
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Tilemaps
     uniqueID: 3432360757
+    locked: 0
+  - name: Edge Case
+    uniqueID: 3849355093
     locked: 0
   - name: Player
     uniqueID: 1401633483

@@ -47,7 +47,7 @@ TagManager:
   - name: Edge Case
     uniqueID: 3849355093
     locked: 0
-  - name: Player
+  - name: Characters
     uniqueID: 1401633483
     locked: 0
   - name: UI

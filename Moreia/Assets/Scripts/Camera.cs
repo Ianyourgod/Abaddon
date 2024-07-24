@@ -7,6 +7,8 @@ public class Camera : MonoBehaviour
     [SerializeField] float lerpSpeed = 0.1f;
 
     void Update() {
+        if (!Controller.main) return;
+
         Vector2 playerPosition = Controller.main.transform.position;
         Vector2 cameraPosition = transform.position;
 

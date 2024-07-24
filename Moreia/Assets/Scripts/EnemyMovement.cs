@@ -6,8 +6,6 @@ using UnityEditor;
 public class EnemyMovement : MonoBehaviour
 {
     int movementPriority;
-    public delegate void TickAction();
-    public static event TickAction OnTick;
 
     private enum Direction
     {
@@ -21,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] LayerMask collideLayers;
 
     [Header("Attributes")]
-    public float detectionDistance = 1f;
+    [SerializeField] float detectionDistance = 1f;
     [SerializeField] float enemyDecisionDelay;
 
     void Start()
@@ -43,8 +41,6 @@ public class EnemyMovement : MonoBehaviour
 
     void Move()
     {
-
-        // todo: deadzone if we add controller support?
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = ToPlayer();
@@ -83,19 +79,17 @@ public class EnemyMovement : MonoBehaviour
             else if (movementPriority == 2) {
                 raw_vertical = 0f;
             }
+            // in the case of 3, the enemy will not move
         }
 
-        // todo: deadzone if we add controller support?
         sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
         sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
 
         return (horizontal, vertical);
     }
 
-    private bool IsValidMove(Direction direction)
-    {
-        switch (direction)
-        {
+    private bool IsValidMove(Direction direction) {
+        switch (direction) {
             case Direction.Up:
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
             case Direction.Down:
@@ -108,8 +102,7 @@ public class EnemyMovement : MonoBehaviour
         return false;
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
     }

@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour
-{
+public class Controller : MonoBehaviour {
     public static Controller main;
 
     public delegate void TickAction();
     public static event TickAction OnTick;
 
-    private enum Direction
-    {
+    private enum Direction {
         Up,
         Down,
         Left,
@@ -20,25 +18,18 @@ public class Controller : MonoBehaviour
     private float lastMovement = 0f;
 
     [SerializeField] LayerMask collideLayers;
-    [SerializeField] GameObject spriteChild;
     [SerializeField] float movementDelay = 0.1f;
-    [SerializeField] float animationLerpDelay = 0.1f;
     [SerializeField] Animator animator;
 
-    void Awake()
-    {
+    void Awake() {
         main = this;
     }
 
-    void Update()
-    {
+    void Update() {
         Move();
     }
 
-    void Move()
-    {
-
-        // todo: deadzone if we add controller support?
+    void Move() {
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = GetAxis();
@@ -54,19 +45,16 @@ public class Controller : MonoBehaviour
 
         if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
             transform.Translate(horizontal, vertical, 0);
-            //spriteChild.transform.Translate(horizontal, vertical, 0);
             lastMovement = Time.time;
             OnTick?.Invoke();
         }
     }
 
-    sbyte BoolToSbyte(bool value)
-    {
+    sbyte BoolToSbyte(bool value) {
         return (sbyte) (value ? 1 : 0);
     }
 
-    (sbyte, sbyte) GetAxis()
-    {
+    (sbyte, sbyte) GetAxis() {
         // todo: allow people to rebind movement keys
         sbyte up = BoolToSbyte(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
         sbyte down = BoolToSbyte(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow));
@@ -79,10 +67,8 @@ public class Controller : MonoBehaviour
         return (horizontal, vertical);
     }
 
-    bool IsValidMove(Direction direction)
-    {
-        switch (direction)
-        {
+    bool IsValidMove(Direction direction) {
+        switch (direction) {
             case Direction.Up:
                 animator.Play("Player_animation_back_level_0_idle");
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
@@ -97,15 +83,5 @@ public class Controller : MonoBehaviour
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
-    }
-
-    float Lerp(float a, float b, float t)
-    {
-        return a + (b - a) * t;
-    }
-
-    Vector2 Lerp(Vector2 a, Vector2 b, float t)
-    {
-        return new Vector2(Lerp(a.x, b.x, t), Lerp(a.y, b.y, t));
     }
 }

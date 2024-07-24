@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] LayerMask collideLayers;
 
     [Header("Attributes")]
-    public float detectionDistance = 1f;
+    [SerializeField] float detectionDistance = 1f;
     [SerializeField] float enemyDecisionDelay;
 
     void Start()
@@ -88,10 +88,8 @@ public class EnemyMovement : MonoBehaviour
         return (horizontal, vertical);
     }
 
-    private bool IsValidMove(Direction direction)
-    {
-        switch (direction)
-        {
+    private bool IsValidMove(Direction direction) {
+        switch (direction) {
             case Direction.Up:
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
             case Direction.Down:
@@ -104,8 +102,7 @@ public class EnemyMovement : MonoBehaviour
         return false;
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
     }

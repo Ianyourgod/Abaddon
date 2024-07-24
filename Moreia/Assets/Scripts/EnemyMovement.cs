@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField] LayerMask collideLayers;
+    [SerializeField] Animator animator;
 
     [Header("Attributes")]
     [SerializeField] float detectionDistance = 1f;
@@ -88,10 +89,12 @@ public class EnemyMovement : MonoBehaviour
     private Collider2D IsValidMove(Direction direction) {
         switch (direction) {
             case Direction.Up:
+                animator.Play("Goblin_animation_front_idle");
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
             case Direction.Down:
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider;
             case Direction.Left:
+                animator.Play("Goblin_animation_left_idle");
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider;
             case Direction.Right:
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider;

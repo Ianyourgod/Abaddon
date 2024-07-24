@@ -15,15 +15,22 @@ public class Controller : MonoBehaviour {
         Right
     }
 
+    public uint constitution = 10; // aka max health 
+    public uint health = 20; // current health
+
     private float lastMovement = 0f;
+    public string current_player_direction = "Down";
 
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
+    [SerializeField] RectTransform healthBar;
+    private float original_anchor_position;
 
     void Awake() {
         main = this;
-    }
+        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+    } 
 
     void Update() {
         Move();
@@ -46,8 +53,8 @@ public class Controller : MonoBehaviour {
         if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
             transform.Translate(horizontal, vertical, 0);
             lastMovement = Time.time;
-            OnTick?.Invoke();
         }
+        OnTick?.Invoke();
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -71,17 +78,81 @@ public class Controller : MonoBehaviour {
         switch (direction) {
             case Direction.Up:
                 animator.Play("Player_animation_back_level_0_idle");
+                current_player_direction = "Up";
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
             case Direction.Down:
                 animator.Play("Player_animation_front_level_0_idle");
+                current_player_direction = "Down";
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider == null;
             case Direction.Left:
                 animator.Play("Player_animation_left_level_0_idle");
+                current_player_direction = "Left";
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider == null;
             case Direction.Right:
                 animator.Play("Player_animation_right_level_0_idle");
+                current_player_direction = "Right";
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
     }
+
+    private void ChangeHealthBar() {
+        float new_bar_width = (health / (float) (constitution * 2)) * 194;
+        healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
+        healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
+    }
+
+    public void DamagePlayer(uint damage) {
+        if (damage >= health) {
+            health = 0;
+            ChangeHealthBar();
+            Destroy(gameObject);
+            return;
+            // todo: death
+        }
+        health -= damage;
+
+        switch (current_player_direction) {
+            case "Up":
+                animator.Play("Player_animation_back_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+            case "Down":
+                animator.Play("Player_animation_front_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+            case "Left":
+                animator.Play("Player_animation_left_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+            case "Right":
+                animator.Play("Player_animation_right_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+        };
+
+        ChangeHealthBar();
+    }
+
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        switch (current_player_direction)
+        {
+            case "Up":
+                animator.Play("Player_animation_back_level_0_idle");
+                break;
+            case "Down":
+                animator.Play("Player_animation_front_level_0_idle");
+                break;
+            case "Left":
+                animator.Play("Player_animation_left_level_0_idle");
+                break;
+            case "Right":
+                animator.Play("Player_animation_right_level_0_idle");
+                break;
+        };
+    }
+
 }

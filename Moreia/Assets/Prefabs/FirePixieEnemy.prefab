@@ -134,7 +134,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   detectionDistance: 4
-  enemyDecisionDelay: 0.23
+  enemyDecisionDelay: 0.075
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0

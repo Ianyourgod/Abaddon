@@ -71,7 +71,7 @@ public class EnemyMovement : MonoBehaviour
         float raw_vertical = Clamp(Controller.main.transform.position.y - transform.position.y, -1.0f, 1f);
 
         if (raw_horizontal != 0 && raw_vertical != 0) {
-            if ((bool)Random.Range(0,1)) {
+            if (Random.Range(0,2) == 0) { // ints are exclusive on the second input, when they're floats they aint, unity sucks balls 
                 raw_horizontal = 0f;
             }
             else {

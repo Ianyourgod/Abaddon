@@ -46,11 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab0361a34be4ca4f9075ebeba72b887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constitution: 10
+  health: 20
   collideLayers:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 1344
   movementDelay: 0.1
   animator: {fileID: 7842820053772704081}
+  healthBar: {fileID: 0}
 --- !u!61 &6429215519232914106
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,7 +152,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -1279200398, guid: 3e89ea96c5596ad49801c9864a4931f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Edge Case 2
+    uniqueID: 4216101561
+    locked: 0
   - name: Tilemaps
     uniqueID: 3432360757
     locked: 0

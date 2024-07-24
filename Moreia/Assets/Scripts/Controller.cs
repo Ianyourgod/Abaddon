@@ -92,7 +92,7 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 215;
+        float new_bar_width = (health / (float) (constitution * 2)) * 194;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }

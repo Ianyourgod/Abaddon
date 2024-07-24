@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour {
     public uint health = 20; // current health
 
     private float lastMovement = 0f;
+    public string current_player_direction = "Down";
 
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
@@ -28,7 +29,7 @@ public class Controller : MonoBehaviour {
 
     void Awake() {
         main = this;
-        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2; 
+        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
     } 
 
     void Update() {
@@ -77,15 +78,19 @@ public class Controller : MonoBehaviour {
         switch (direction) {
             case Direction.Up:
                 animator.Play("Player_animation_back_level_0_idle");
+                current_player_direction = "Up";
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
             case Direction.Down:
                 animator.Play("Player_animation_front_level_0_idle");
+                current_player_direction = "Down";
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider == null;
             case Direction.Left:
                 animator.Play("Player_animation_left_level_0_idle");
+                current_player_direction = "Left";
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider == null;
             case Direction.Right:
                 animator.Play("Player_animation_right_level_0_idle");
+                current_player_direction = "Right";
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
@@ -107,6 +112,47 @@ public class Controller : MonoBehaviour {
         }
         health -= damage;
 
+        switch (current_player_direction) {
+            case "Up":
+                animator.Play("Player_animation_back_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+            case "Down":
+                animator.Play("Player_animation_front_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+            case "Left":
+                animator.Play("Player_animation_left_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+            case "Right":
+                animator.Play("Player_animation_right_level_0_hurt");
+                StartCoroutine(ExecuteAfterTime(0.25f));
+                break;
+        };
+
         ChangeHealthBar();
     }
+
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        switch (current_player_direction)
+        {
+            case "Up":
+                animator.Play("Player_animation_back_level_0_idle");
+                break;
+            case "Down":
+                animator.Play("Player_animation_front_level_0_idle");
+                break;
+            case "Left":
+                animator.Play("Player_animation_left_level_0_idle");
+                break;
+            case "Right":
+                animator.Play("Player_animation_right_level_0_idle");
+                break;
+        };
+    }
+
 }

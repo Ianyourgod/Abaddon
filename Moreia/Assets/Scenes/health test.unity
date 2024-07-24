@@ -6992,6 +6992,10 @@ PrefabInstance:
       propertyPath: attackDamage
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: enemyDecisionDelay
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GoblinEnemy

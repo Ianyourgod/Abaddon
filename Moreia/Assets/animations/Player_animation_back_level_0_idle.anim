@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -1209761201, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
-    - time: 0.2
-      value: {fileID: -115858557, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
-    - time: 0.41666666
-      value: {fileID: -1163844440, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
-    - time: 0.6166667
-      value: {fileID: 1442514438, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
+      value: {fileID: -646578579, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
+    - time: 0.26666668
+      value: {fileID: 456073036, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
+    - time: 0.55
+      value: {fileID: 735891586, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
+    - time: 0.81666666
+      value: {fileID: -989123825, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,16 +46,16 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -1209761201, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
-    - {fileID: -115858557, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
-    - {fileID: -1163844440, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
-    - {fileID: 1442514438, guid: a1a240c84c144a044bff4ba7f532fef6, type: 3}
+    - {fileID: -646578579, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
+    - {fileID: 456073036, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
+    - {fileID: 735891586, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
+    - {fileID: -989123825, guid: 9a221ee0c2f0b394d88a10b7b40103ac, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6333333
+    m_StopTime: 0.96666664
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -74,4 +74,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.96666664
+    functionName: 
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

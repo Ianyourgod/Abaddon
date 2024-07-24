@@ -6,8 +6,6 @@ using UnityEditor;
 public class EnemyMovement : MonoBehaviour
 {
     int movementPriority;
-    public delegate void TickAction();
-    public static event TickAction OnTick;
 
     private enum Direction
     {
@@ -43,8 +41,6 @@ public class EnemyMovement : MonoBehaviour
 
     void Move()
     {
-
-        // todo: deadzone if we add controller support?
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = ToPlayer();
@@ -83,9 +79,9 @@ public class EnemyMovement : MonoBehaviour
             else if (movementPriority == 2) {
                 raw_vertical = 0f;
             }
+            // in the case of 3, the enemy will not move
         }
 
-        // todo: deadzone if we add controller support?
         sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
         sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
 

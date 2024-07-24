@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6462628820561290990}
   - component: {fileID: 6613495682198188706}
   m_Layer: 6
-  m_Name: GoblinEnemy
+  m_Name: GnomeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

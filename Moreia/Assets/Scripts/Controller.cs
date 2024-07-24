@@ -15,15 +15,21 @@ public class Controller : MonoBehaviour {
         Right
     }
 
+    public uint constitution = 10; // aka max health 
+    public uint health = 20; // current health
+
     private float lastMovement = 0f;
 
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
+    [SerializeField] RectTransform healthBar;
+    private float original_anchor_position;
 
     void Awake() {
         main = this;
-    }
+        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2; 
+    } 
 
     void Update() {
         Move();
@@ -46,8 +52,8 @@ public class Controller : MonoBehaviour {
         if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
             transform.Translate(horizontal, vertical, 0);
             lastMovement = Time.time;
-            OnTick?.Invoke();
         }
+        OnTick?.Invoke();
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -83,5 +89,24 @@ public class Controller : MonoBehaviour {
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
+    }
+
+    private void ChangeHealthBar() {
+        float new_bar_width = (health / (float) (constitution * 2)) * 215;
+        healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
+        healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
+    }
+
+    public void DamagePlayer(uint damage) {
+        if (damage >= health) {
+            health = 0;
+            ChangeHealthBar();
+            Destroy(gameObject);
+            return;
+            // todo: death
+        }
+        health -= damage;
+
+        ChangeHealthBar();
     }
 }

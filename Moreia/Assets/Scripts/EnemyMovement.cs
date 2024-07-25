@@ -26,7 +26,7 @@ public class EnemyMovement : MonoBehaviour
 
     public static uint Attacking = 0;
     public static uint health = 10;
-    private Direction direction = Direction.Up;
+    private Direction direction = Direction.Down;
 
     void Start() {
         Controller.OnTick += MakeDecision;

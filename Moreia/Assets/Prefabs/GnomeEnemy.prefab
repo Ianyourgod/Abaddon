@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6462628818639776132}
   - component: {fileID: 6462628818639776139}
-  - component: {fileID: 531569217667832999}
+  - component: {fileID: 18587455}
   m_Layer: 0
-  m_Name: GoblinSprite
+  m_Name: GnomeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6462628818639776133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6462628820561290989}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 1401633483
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -462487305, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &531569217667832999
+--- !u!95 &18587455
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 6613495682198188706}
   m_Layer: 6
   m_Name: GnomeEnemy
-  m_TagString: Untagged
+  m_TagString: first_enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,10 +154,10 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 1408
-  animator: {fileID: 531569217667832999}
+  animator: {fileID: 18587455}
   detectionDistance: 4
   enemyDecisionDelay: 0.075
-  attackDamage: 1
+  attackDamage: 2
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0

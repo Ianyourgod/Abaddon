@@ -69,8 +69,8 @@ public class Inventory : MonoBehaviour
 		inventoryObject.SetActive(true);
 		inventoryObject.SetActive(false);
 		craftObject.SetActive(false);
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	private void Update()
@@ -80,8 +80,8 @@ public class Inventory : MonoBehaviour
 			inventoryObject.SetActive(true);
 			equipmentObject.SetActive(true);
 			craftObject.SetActive(true);
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
 			//playerMovement.enabled = false;
 			if (shadow) shadow.SetActive(true);
 		}
@@ -90,8 +90,8 @@ public class Inventory : MonoBehaviour
 			inventoryObject.SetActive(false);
 			equipmentObject.SetActive(false);
 			craftObject.SetActive(false);
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
 			//playerMovement.enabled = true;
 			if (shadow) shadow.SetActive(false);
 		}

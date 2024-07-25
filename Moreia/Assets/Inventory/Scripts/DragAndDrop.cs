@@ -66,10 +66,10 @@ public class DragAndDrop : MonoBehaviour
 
 	private void Update()
 	{
-
 		if (followMouseImage.transform.childCount > 1) for (int i = 0; i < followMouseImage.transform.childCount; i++) if (i < followMouseImage.transform.childCount) Destroy(followMouseImage.transform.GetChild(i));
 
 		timer -= Time.deltaTime;
+
 
 		if (invObj.activeSelf)
 		{

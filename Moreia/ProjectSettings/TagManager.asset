@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - first_enemy
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 1401633483
+    locked: 0
+  - name: AttackerLayer
+    uniqueID: 2462842303
     locked: 0
   - name: UI
     uniqueID: 669816403

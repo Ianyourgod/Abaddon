@@ -75,14 +75,16 @@ public class DragAndDrop : MonoBehaviour
 		{
 			if (curSlot && curSlotsItem)
 			{
-				var textChild = curSlotsItem.transform.parent.transform.GetChild(0).transform.GetChild(0);
-				textChild.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	
+				//Debug.Log(curSlot);
+				//Debug.Log(curSlotsItem);
+				//var textChild = curSlotsItem.transform.parent.transform.GetChild(0).transform.GetChild(0);
+				/*textChild.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	
 				textChild.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
 				textChild.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
 				textChild.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 				textChild.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
 				textChild.GetComponent<RectTransform>().offsetMax = new Vector2(-10, textChild.GetComponent<RectTransform>().offsetMax.y);
-				textChild.GetComponent<RectTransform>().offsetMax = new Vector2(textChild.GetComponent<RectTransform>().offsetMax.x, -0);
+				textChild.GetComponent<RectTransform>().offsetMax = new Vector2(textChild.GetComponent<RectTransform>().offsetMax.x, -0);*/
 			}
 
 			followMouseImage.transform.position = Input.mousePosition;
@@ -136,7 +138,7 @@ public class DragAndDrop : MonoBehaviour
 							clicks++;
 							if (!started)
 							{
-								StartCoroutine(DoubleClick());
+								DoubleClick();
 								return;
 							}
 						}
@@ -438,59 +440,9 @@ public class DragAndDrop : MonoBehaviour
 		}
 	}
 
-	public IEnumerator DoubleClick()
+	public void DoubleClick()
 	{
-		started = true;
-		yield return new WaitForSeconds(0.25f);
-		started = false;
-		if (clicks >= 2)
-		{
-			Destroy(curSlot.GetComponent<Slot>().clone);
-			clicks = 0;
-			Item clicked = curSlotsItem;
-
-			amountToAdd = curSlotsItem.maxStackSize - curSlotsItem.amountInStack;
-			globalAmount = 0;
-
-			for (int i = 0; i < inv.slots.Length; i++)
-			{
-				if (inv.slots[i].slotsItem)
-				{
-					if (inv.slots[i].slotsItem.ItemID == clicked.ItemID)
-					{
-						globalAmount += inv.slots[i].slotsItem.amountInStack;
-					}
-				}
-			}
-
-			for (int i = 0; i < inv.slots.Length; i++)
-			{
-				var curSlot = inv.slots[i].GetComponent<Slot>();
-
-				if (curSlot.slotsItem && clicked)
-				{
-					if (curSlot.slotsItem.ItemID == clicked.ItemID)
-					{
-						itemAmountsDescending = GetItem(0, inv.slots[i].slotsItem.ItemID).ToList();
-						itemAmountsAscending = itemAmountsDescending.OrderBy(o => o.amountInStack).ToList();
-						positiveItems = GetIdenticalItems(inv.slots[i].slotsItem.ItemID).ToList();
-
-						descendingAmounts = itemAmountsDescending.ToArray();
-						ascendingAmounts = itemAmountsAscending.ToArray();
-						identicalItems = positiveItems.ToArray();
-
-						if (globalAmount < amountToAdd) amountToAdd = globalAmount - clicked.amountInStack;
-					}
-				}
-			}
-
-			shouldCheck = true;
-		}
-		else
-		{
-			clicks = 0;
-			yield break;
-		}
+		Debug.Log("Doubled");
 	}
 
 	public List<Item> GetItem(int type, int ID)

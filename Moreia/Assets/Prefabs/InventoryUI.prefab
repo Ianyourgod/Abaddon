@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -111,7 +111,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4244016839992970723}
-  - {fileID: 11319895607309178}
+  - {fileID: 2968466368982234744}
   - {fileID: 7960256517973579580}
   - {fileID: 5384614044581424009}
   m_Father: {fileID: 0}
@@ -244,7 +244,7 @@ MonoBehaviour:
   itemAmountsAscending: []
   positiveItems: []
   shouldCheck: 0
---- !u!1001 &2219033201142345564
+--- !u!1001 &4022204837827668574
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -341,10 +341,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b3a2094ba7a82439566bb46595d9bc, type: 3}
---- !u!224 &11319895607309178 stripped
+--- !u!224 &2968466368982234744 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2225800289665047590, guid: 06b3a2094ba7a82439566bb46595d9bc, type: 3}
-  m_PrefabInstance: {fileID: 2219033201142345564}
+  m_PrefabInstance: {fileID: 4022204837827668574}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4651672444214103128
 PrefabInstance:

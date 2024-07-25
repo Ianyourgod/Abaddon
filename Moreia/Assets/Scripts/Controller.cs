@@ -20,6 +20,7 @@ public class Controller : MonoBehaviour {
     public uint attackDamage = 3;
 
     private float lastMovement = 0f;
+    public static uint Attacking = 0;
     private Direction current_player_direction = Direction.Down;
 
     [SerializeField] LayerMask collideLayers;
@@ -54,7 +55,7 @@ public class Controller : MonoBehaviour {
 
         Collider2D hit = SendRaycast(direction);
 
-        if (EnemyMovement.Attacking != 1) {
+        if (Attacking != 1) {
             PlayAnimation(direction, 1);
             if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
                 transform.Translate(horizontal, vertical, 0);
@@ -74,7 +75,7 @@ public class Controller : MonoBehaviour {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
         StartCoroutine(ExecuteAfterTime(1f, direction, 2));
-        EnemyMovement.Attacking = 1;
+        Attacking = 1;
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -223,7 +224,7 @@ public class Controller : MonoBehaviour {
                 break;
             case 2:
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-                EnemyMovement.Attacking = 0;
+                Attacking = 0;
                 switch (direction)
                 {
                     case Direction.Up:

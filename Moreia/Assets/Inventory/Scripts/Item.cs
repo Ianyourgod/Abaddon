@@ -71,10 +71,6 @@ public class Item : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-            else if (amountInStack != 0)
-            {
-
-            }
         }
 
         if (close && canBePicked)

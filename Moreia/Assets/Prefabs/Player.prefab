@@ -51,10 +51,9 @@ MonoBehaviour:
   constitution: 10
   health: 20
   attackDamage: 3
-  current_player_direction: Down
   collideLayers:
     serializedVersion: 2
-    m_Bits: 1344
+    m_Bits: 3392
   movementDelay: 0.1
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
@@ -204,7 +203,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1279200398, guid: 3e89ea96c5596ad49801c9864a4931f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

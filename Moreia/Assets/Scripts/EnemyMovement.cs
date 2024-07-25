@@ -26,6 +26,7 @@ public class EnemyMovement : MonoBehaviour
 
     public static uint Attacking = 0;
     public static uint health = 10;
+    private Direction direction = Direction.Down;
 
     void Start() {
         Controller.OnTick += MakeDecision;
@@ -50,41 +51,24 @@ public class EnemyMovement : MonoBehaviour
             return;
 
         // get the direction we are moving
-        Direction direction =
+        direction =
             horizontal == 0 ?
             (vertical == 1 ? Direction.Up : Direction.Down) :
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
         Collider2D hit = IsValidMove(direction);
+        PlayAnimation(direction, 1);
 
-        if (hit == null) {
+        if (hit == null && Attacking == 0) {
             transform.Translate(horizontal, vertical, 0);
         } else {
-            if (hit.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Attacking == 0)
             {
+                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
                 Controller.main.DamagePlayer(attackDamage);
                 Attacking = 1;
-                switch (direction)
-                {
-                    case Direction.Up:
-                        animator.Play("Goblin_animation_back_attack");
-                        StartCoroutine(ExecuteAfterTime(1f, 1));
-                        transform.Translate(0, 0.5f, 0);
-                        break;
-                    case Direction.Down:
-                        animator.Play("Goblin_animation_front_attack");
-                        StartCoroutine(ExecuteAfterTime(1f, 2));
-                        transform.Translate(0, -0.5f, 0);
-                        break;
-                    case Direction.Left:
-                        animator.Play("Goblin_animation_left_attack");
-                        StartCoroutine(ExecuteAfterTime(1f, 3));
-                        break;
-                    case Direction.Right:
-                        animator.Play("Goblin_animation_right_attack");
-                        StartCoroutine(ExecuteAfterTime(1f, 4));
-                        break;
-                }
+                StartCoroutine(ExecuteAfterTime(1f, direction, 0));
+                PlayAnimation(direction, 3);
             }
         }
     }
@@ -115,19 +99,81 @@ public class EnemyMovement : MonoBehaviour
     private Collider2D IsValidMove(Direction direction) {
         switch (direction) {
             case Direction.Up:
-                animator.Play("Goblin_animation_back_idle");
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
             case Direction.Down:
-                animator.Play("Goblin_animation_front_idle");
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider;
             case Direction.Left:
-                animator.Play("Goblin_animation_left_idle");
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider;
             case Direction.Right:
-                animator.Play("Goblin_animation_right_idle");
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider;
         }
         return null;
+    }
+
+    // 1 is idle, 2 is hurt, 3 is attack
+    private void PlayAnimation(Direction direction, uint action)
+    {
+        switch (direction)
+        {
+            case Direction.Up:
+                switch (action)
+                {
+                    case 1:
+                        animator.Play("Goblin_animation_back_idle");
+                        break;
+                    case 2:
+                        animator.Play("Goblin_animation_back_hurt");
+                        break;
+                    case 3:
+                        transform.Translate(0, 0.5f, 0);
+                        animator.Play("Goblin_animation_back_attack");
+                        break;
+                }
+                break;
+            case Direction.Down:
+                switch (action)
+                {
+                    case 1:
+                        animator.Play("Goblin_animation_front_idle");
+                        break;
+                    case 2:
+                        animator.Play("Goblin_animation_front_hurt");
+                        break;
+                    case 3:
+                        transform.Translate(0, -0.5f, 0);
+                        animator.Play("Goblin_animation_front_attack");
+                        break;
+                }
+                break;
+            case Direction.Left:
+                switch (action)
+                {
+                    case 1:
+                        animator.Play("Goblin_animation_left_idle");
+                        break;
+                    case 2:
+                        animator.Play("Goblin_animation_left_hurt");
+                        break;
+                    case 3:
+                        animator.Play("Goblin_animation_left_attack");
+                        break;
+                }
+                break;
+            case Direction.Right:
+                switch (action)
+                {
+                    case 1:
+                        animator.Play("Goblin_animation_right_idle");
+                        break;
+                    case 2:
+                        animator.Play("Goblin_animation_right_hurt");
+                        break;
+                    case 3:
+                        animator.Play("Goblin_animation_right_attack");
+                        break;
+                }
+                break;
+        }
     }
 
     private void OnDrawGizmosSelected() {
@@ -140,32 +186,44 @@ public class EnemyMovement : MonoBehaviour
         if (damage >= health)
         {
             health = 0;
+            // prevent the player from locking up after death
+            Attacking = 0;
             Destroy(gameObject);
             return;
-        }
+            }
+            PlayAnimation(direction, 2);
+            StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
             Debug.Log("ouch");
         health -= damage;
     }
     }
 
-    IEnumerator ExecuteAfterTime(float time, uint direction)
+    // intent 0 is attack, 1 is hurt
+    IEnumerator ExecuteAfterTime(float time, Direction direction, uint intent)
     {
         yield return new WaitForSeconds(time);
-        Attacking = 0;
-        switch (direction) {
+
+        switch (intent)
+        {
+            case 0:
+                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+                Attacking = 0;
+                PlayAnimation(direction, 1);
+                switch (direction) {
+                    case Direction.Up:
+                        transform.Translate(0, -0.5f, 0);
+                        break;
+                    case Direction.Down:
+                        transform.Translate(0, 0.5f, 0);
+                        break;
+                    default:
+                        break;
+                }
+                break;
             case 1:
-                animator.Play("Goblin_animation_back_idle");
-                transform.Translate(0, -0.5f, 0);
+                PlayAnimation(direction, 1);
                 break;
-            case 2:
-                animator.Play("Goblin_animation_front_idle");
-                transform.Translate(0, 0.5f, 0);
-                break;
-            case 3:
-                animator.Play("Goblin_animation_left_idle");
-                break;
-            case 4:
-                animator.Play("Goblin_animation_right_idle");
+            default:
                 break;
         }
     }

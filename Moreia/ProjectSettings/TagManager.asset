@@ -17,7 +17,7 @@ TagManager:
   - 
   - floor
   - walls
-  - 
+  - door
   - 
   - 
   - 
@@ -51,11 +51,14 @@ TagManager:
   - name: Edge Case
     uniqueID: 3849355093
     locked: 0
+  - name: Doors
+    uniqueID: 2328773513
+    locked: 0
   - name: Characters
     uniqueID: 1401633483
     locked: 0
-  - name: Enemies
-    uniqueID: 1481966073
+  - name: AttackerLayer
+    uniqueID: 2462842303
     locked: 0
   - name: UI
     uniqueID: 669816403

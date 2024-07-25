@@ -20,7 +20,7 @@ public class Controller : MonoBehaviour {
     public uint attackDamage = 3;
 
     private float lastMovement = 0f;
-    public string current_player_direction = "Down";
+    private Direction current_player_direction = Direction.Down;
 
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
@@ -55,14 +55,26 @@ public class Controller : MonoBehaviour {
         Collider2D hit = SendRaycast(direction);
 
         if (EnemyMovement.Attacking != 1) {
+            PlayAnimation(direction, 1);
             if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
                 transform.Translate(horizontal, vertical, 0);
                 lastMovement = Time.time;
-            } else if (hit != null && Time.time - lastMovement > movementDelay) {
-                hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(attackDamage, hit.gameObject.tag);
+                OnTick?.Invoke();
+            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                Attack(hit, direction);
+            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                hit.gameObject.GetComponent<Door>().DoorDestroy();
             }
-            OnTick?.Invoke();
         }
+    }
+
+    private void Attack(Collider2D hit, Direction direction)
+    {
+        hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(attackDamage, hit.gameObject.tag);
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        PlayAnimation(direction, 3);
+        StartCoroutine(ExecuteAfterTime(1f, direction, 2));
+        EnemyMovement.Attacking = 1;
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -83,25 +95,80 @@ public class Controller : MonoBehaviour {
     }
 
     bool IsValidMove(Direction direction) {
+        current_player_direction = direction;
         switch (direction) {
             case Direction.Up:
-                animator.Play("Player_animation_back_level_0_idle");
-                current_player_direction = "Up";
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
             case Direction.Down:
-                animator.Play("Player_animation_front_level_0_idle");
-                current_player_direction = "Down";
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider == null;
             case Direction.Left:
-                animator.Play("Player_animation_left_level_0_idle");
-                current_player_direction = "Left";
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider == null;
             case Direction.Right:
-                animator.Play("Player_animation_right_level_0_idle");
-                current_player_direction = "Right";
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
+    }
+
+    // 1 is idle, 2 is hurt, 3 is attack
+    private void PlayAnimation(Direction direction, uint action) {
+        switch (direction) {
+            case Direction.Up:
+                switch (action) {
+                    case 1:
+                        animator.Play("Player_animation_back_level_0_idle");
+                        break;
+                    case 2:
+                        animator.Play("Player_animation_back_level_0_hurt");
+                        break;
+                    case 3:
+                        transform.Translate(0, 0.5f, 0);
+                        animator.Play("Player_animation_back_level_0_attack");
+                        break;
+                }
+                break;  
+            case Direction.Down:
+                switch (action) {
+                    case 1:
+                        animator.Play("Player_animation_front_level_0_idle");
+                        break;
+                    case 2:
+                        animator.Play("Player_animation_front_level_0_hurt");
+                        break;
+                    case 3:
+                        transform.Translate(0, -0.5f, 0);
+                        animator.Play("Player_animation_front_level_0_attack");
+                        break;
+                }
+                break;
+            case Direction.Left:
+                switch (action) {
+                    case 1:
+                        animator.Play("Player_animation_left_level_0_idle");
+                        break;
+                    case 2:
+                        animator.Play("Player_animation_left_level_0_hurt");
+                        break;
+                    case 3:
+                        transform.Translate(-0.5f, 0, 0);
+                        animator.Play("Player_animation_left_level_0_attack");
+                        break;
+                }
+                break;
+            case Direction.Right:
+                switch (action) {
+                    case 1:
+                        animator.Play("Player_animation_right_level_0_idle");
+                        break;
+                    case 2:
+                        animator.Play("Player_animation_right_level_0_hurt");
+                        break;
+                    case 3:
+                        transform.Translate(0.5f, 0, 0);
+                        animator.Play("Player_animation_right_level_0_attack");
+                        break;
+                }
+                break;
+        }
     }
 
     private Collider2D SendRaycast(Direction direction)
@@ -137,47 +204,46 @@ public class Controller : MonoBehaviour {
         }
         health -= damage;
 
-        switch (current_player_direction) {
-            case "Up":
-                animator.Play("Player_animation_back_level_0_hurt");
-                StartCoroutine(ExecuteAfterTime(0.25f));
-                break;
-            case "Down":
-                animator.Play("Player_animation_front_level_0_hurt");
-                StartCoroutine(ExecuteAfterTime(0.25f));
-                break;
-            case "Left":
-                animator.Play("Player_animation_left_level_0_hurt");
-                StartCoroutine(ExecuteAfterTime(0.25f));
-                break;
-            case "Right":
-                animator.Play("Player_animation_right_level_0_hurt");
-                StartCoroutine(ExecuteAfterTime(0.25f));
-                break;
-        };
+        PlayAnimation(current_player_direction, 2);
+        StartCoroutine(ExecuteAfterTime(0.25f, current_player_direction, 1));
 
         ChangeHealthBar();
     }
 
-    IEnumerator ExecuteAfterTime(float time)
+    // additionalRoutine 1 is nothing, 2 is attack (moves back after animation plays)
+    IEnumerator ExecuteAfterTime(float time, Direction direction, uint additionalRoutine)
     {
         yield return new WaitForSeconds(time);
 
-        switch (current_player_direction)
+        PlayAnimation(direction, 1);
+
+        switch (additionalRoutine)
         {
-            case "Up":
-                animator.Play("Player_animation_back_level_0_idle");
+            case 1:
                 break;
-            case "Down":
-                animator.Play("Player_animation_front_level_0_idle");
+            case 2:
+                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+                EnemyMovement.Attacking = 0;
+                switch (direction)
+                {
+                    case Direction.Up:
+                        transform.Translate(0, -0.5f, 0);
+                        break;
+                    case Direction.Down:
+                        transform.Translate(0, 0.5f, 0);
+                        break;
+                    case Direction.Left:
+                        transform.Translate(0.5f, 0, 0);
+                        break;
+                    case Direction.Right:
+                        transform.Translate(-0.5f, 0, 0);
+                        break;
+                }
+                OnTick?.Invoke();
                 break;
-            case "Left":
-                animator.Play("Player_animation_left_level_0_idle");
+            default:
                 break;
-            case "Right":
-                animator.Play("Player_animation_right_level_0_idle");
-                break;
-        };
+        }
     }
 
 }

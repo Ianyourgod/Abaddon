@@ -24,7 +24,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float enemyDecisionDelay;
     [SerializeField] uint attackDamage = 1;
 
-    public static uint Attacking = 0;
     public static uint health = 10;
     private Direction direction = Direction.Down;
 
@@ -59,14 +58,14 @@ public class EnemyMovement : MonoBehaviour
         Collider2D hit = IsValidMove(direction);
         PlayAnimation(direction, 1);
 
-        if (hit == null && Attacking == 0) {
+        if (hit == null && Controller.Attacking == 0) {
             transform.Translate(horizontal, vertical, 0);
         } else {
-            if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Attacking == 0)
+            if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0)
             {
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
                 Controller.main.DamagePlayer(attackDamage);
-                Attacking = 1;
+                Controller.Attacking = 1;
                 StartCoroutine(ExecuteAfterTime(1f, direction, 0));
                 PlayAnimation(direction, 3);
             }
@@ -187,7 +186,7 @@ public class EnemyMovement : MonoBehaviour
         {
             health = 0;
             // prevent the player from locking up after death
-            Attacking = 0;
+            Controller.Attacking = 0;
             Destroy(gameObject);
             return;
             }
@@ -207,7 +206,7 @@ public class EnemyMovement : MonoBehaviour
         {
             case 0:
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-                Attacking = 0;
+                Controller.Attacking = 0;
                 PlayAnimation(direction, 1);
                 switch (direction) {
                     case Direction.Up:

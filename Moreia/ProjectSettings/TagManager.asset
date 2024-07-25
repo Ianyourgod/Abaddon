@@ -54,8 +54,8 @@ TagManager:
   - name: Characters
     uniqueID: 1401633483
     locked: 0
-  - name: Enemies
-    uniqueID: 1481966073
+  - name: AttackerLayer
+    uniqueID: 2462842303
     locked: 0
   - name: UI
     uniqueID: 669816403

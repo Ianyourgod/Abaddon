@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e48ffb44615a83f69ad04764b14d042
+guid: 1ad55264d6f40ba479e9f06b857dbd53
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_0
+      name: LEVEL0player_attack_forward_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 6144
-        width: 3072
-        height: 3072
+        y: 2048
+        width: 1024
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e6055acbe76913449e5e00ed14efde7
-      internalID: -167885630
+      spriteID: 05fb05c3c27bb0149ab17e9fdab02a55
+      internalID: -539083188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_1
+      name: LEVEL0player_attack_forward_1
       rect:
         serializedVersion: 2
-        x: 3072
-        y: 6144
-        width: 3072
-        height: 3072
+        x: 1024
+        y: 2048
+        width: 1024
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +164,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aab5c7f3f08df5347a32a7a5ab79e05d
-      internalID: 1640765868
+      spriteID: 4700b315b4b77714c9dae953d0dbda0b
+      internalID: 768663678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_2
+      name: LEVEL0player_attack_forward_2
       rect:
         serializedVersion: 2
-        x: 6144
-        y: 6144
-        width: 3072
-        height: 3072
+        x: 2048
+        y: 2048
+        width: 1024
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,83 +185,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b058470a6e358d488869827ce3ab957
-      internalID: -910877450
+      spriteID: 2b05920e249d395448e9a6fafaaf33fa
+      internalID: 600529043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3072
-        width: 3072
-        height: 3072
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 948649e8c5331214e928076466e83103
-      internalID: 998173737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_4
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 3072
-        width: 3072
-        height: 3072
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d759d4e02f804e94c87960d9c958ea39
-      internalID: 930093275
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_5
-      rect:
-        serializedVersion: 2
-        x: 6144
-        y: 3072
-        width: 3072
-        height: 3072
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8bce6c5504268f845a65c96a33ef2f37
-      internalID: 73990986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_6
+      name: LEVEL0player_attack_forward_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3072
-        height: 3072
+        width: 1024
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,20 +206,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08ffdd158151a484a8ee66f5ee95b8d5
-      internalID: -926590108
+      spriteID: d21c14d03544fde4b8001cbbc5c532fd
+      internalID: 1202305625
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_7
+      name: LEVEL0player_attack_forward_4
       rect:
         serializedVersion: 2
-        x: 3072
+        x: 1024
         y: 0
-        width: 3072
-        height: 3072
+        width: 1024
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,20 +227,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16c29c6dee81ae54596342a123829a86
-      internalID: -473646280
+      spriteID: d799a6fd732edfc4bb01d6fc8ac25ff6
+      internalID: -23350815
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL0enemy_attack_left_8
+      name: LEVEL0player_attack_forward_5
       rect:
         serializedVersion: 2
-        x: 6144
+        x: 2048
         y: 0
-        width: 3072
-        height: 3072
+        width: 1024
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -311,8 +248,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a37d5c0d141175a4f98301821b448e47
-      internalID: -637954343
+      spriteID: 880d17f9c6213514a997bbad6642be71
+      internalID: -2027606992
       vertices: []
       indices: 
       edges: []
@@ -328,15 +265,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LEVEL0enemy_attack_left_3: 998173737
-      LEVEL0enemy_attack_left_5: 73990986
-      LEVEL0enemy_attack_left_8: -637954343
-      LEVEL0enemy_attack_left_4: 930093275
-      LEVEL0enemy_attack_left_2: -910877450
-      LEVEL0enemy_attack_left_1: 1640765868
-      LEVEL0enemy_attack_left_6: -926590108
-      LEVEL0enemy_attack_left_0: -167885630
-      LEVEL0enemy_attack_left_7: -473646280
+      LEVEL0player_attack_forward_2: 600529043
+      LEVEL0player_attack_forward_5: -2027606992
+      LEVEL0player_attack_forward_3: 1202305625
+      LEVEL0player_attack_forward_1: 768663678
+      LEVEL0player_attack_forward_4: -23350815
+      LEVEL0player_attack_forward_0: -539083188
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

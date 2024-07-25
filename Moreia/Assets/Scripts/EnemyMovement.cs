@@ -24,6 +24,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float enemyDecisionDelay;
     [SerializeField] uint attackDamage = 1;
 
+    public static uint Attacking = 0;
+    public static uint health = 10;
+
     void Start() {
         Controller.OnTick += MakeDecision;
     }
@@ -57,8 +60,31 @@ public class EnemyMovement : MonoBehaviour
         if (hit == null) {
             transform.Translate(horizontal, vertical, 0);
         } else {
-            if (hit.gameObject.layer == LayerMask.NameToLayer("Player")) {
+            if (hit.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
                 Controller.main.DamagePlayer(attackDamage);
+                Attacking = 1;
+                switch (direction)
+                {
+                    case Direction.Up:
+                        animator.Play("Goblin_animation_back_attack");
+                        StartCoroutine(ExecuteAfterTime(1f, 1));
+                        transform.Translate(0, 0.5f, 0);
+                        break;
+                    case Direction.Down:
+                        animator.Play("Goblin_animation_front_attack");
+                        StartCoroutine(ExecuteAfterTime(1f, 2));
+                        transform.Translate(0, -0.5f, 0);
+                        break;
+                    case Direction.Left:
+                        animator.Play("Goblin_animation_left_attack");
+                        StartCoroutine(ExecuteAfterTime(1f, 3));
+                        break;
+                    case Direction.Right:
+                        animator.Play("Goblin_animation_right_attack");
+                        StartCoroutine(ExecuteAfterTime(1f, 4));
+                        break;
+                }
             }
         }
     }
@@ -89,14 +115,16 @@ public class EnemyMovement : MonoBehaviour
     private Collider2D IsValidMove(Direction direction) {
         switch (direction) {
             case Direction.Up:
-                animator.Play("Goblin_animation_front_idle");
+                animator.Play("Goblin_animation_back_idle");
                 return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
             case Direction.Down:
+                animator.Play("Goblin_animation_front_idle");
                 return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider;
             case Direction.Left:
                 animator.Play("Goblin_animation_left_idle");
                 return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider;
             case Direction.Right:
+                animator.Play("Goblin_animation_right_idle");
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider;
         }
         return null;
@@ -105,5 +133,40 @@ public class EnemyMovement : MonoBehaviour
     private void OnDrawGizmosSelected() {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
+    }
+
+    public void DamageEnemy(uint damage, string targetTag) {
+    if (targetTag == gameObject.tag) {
+        if (damage >= health)
+        {
+            health = 0;
+            Destroy(gameObject);
+            return;
+        }
+            Debug.Log("ouch");
+        health -= damage;
+    }
+    }
+
+    IEnumerator ExecuteAfterTime(float time, uint direction)
+    {
+        yield return new WaitForSeconds(time);
+        Attacking = 0;
+        switch (direction) {
+            case 1:
+                animator.Play("Goblin_animation_back_idle");
+                transform.Translate(0, -0.5f, 0);
+                break;
+            case 2:
+                animator.Play("Goblin_animation_front_idle");
+                transform.Translate(0, 0.5f, 0);
+                break;
+            case 3:
+                animator.Play("Goblin_animation_left_idle");
+                break;
+            case 4:
+                animator.Play("Goblin_animation_right_idle");
+                break;
+        }
     }
 }

@@ -6940,10 +6940,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628818639776132, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628818639776132, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -462487305, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
+    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1481966073
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -6989,6 +7005,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 18587455}
+    - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: attackDamage
       value: 2
       objectReference: {fileID: 0}
@@ -6999,6 +7019,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GoblinEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_TagString
+      value: first_enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}

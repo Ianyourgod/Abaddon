@@ -69,31 +69,29 @@ public class Inventory : MonoBehaviour
 		inventoryObject.SetActive(true);
 		inventoryObject.SetActive(false);
 		craftObject.SetActive(false);
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	private void Update()
 	{
 		if (Input.GetKeyDown(inventoryKey) && inventoryObject.activeInHierarchy == false)
 		{
-			Debug.Log("Done");
 			inventoryObject.SetActive(true);
 			equipmentObject.SetActive(true);
 			craftObject.SetActive(true);
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
 			//playerMovement.enabled = false;
 			if (shadow) shadow.SetActive(true);
 		}
 		else if (Input.GetKeyDown(inventoryKey) || (Input.GetKeyDown(KeyCode.Escape)) && inventoryObject.activeInHierarchy == true)
 		{
-			Debug.Log("Done 2");
 			inventoryObject.SetActive(false);
 			equipmentObject.SetActive(false);
 			craftObject.SetActive(false);
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
 			//playerMovement.enabled = true;
 			if (shadow) shadow.SetActive(false);
 		}

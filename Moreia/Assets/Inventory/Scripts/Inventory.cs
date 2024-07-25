@@ -68,6 +68,7 @@ public class Inventory : MonoBehaviour
 
 		inventoryObject.SetActive(true);
 		inventoryObject.SetActive(false);
+		equipmentObject.SetActive(false);
 		craftObject.SetActive(false);
 		//Cursor.visible = false;
 		//Cursor.lockState = CursorLockMode.Locked;

@@ -196,9 +196,10 @@ public class Slot : MonoBehaviour
 		}
 		else if (GetComponent<EquipmentSlot>() && !GetComponent<CraftingSlot>())
 		{
-			Debug.Log(slotsItem);
+			//Debug.Log(slotsItem);
 			if (!beingDragged)
 			{
+				Debug.Log(slotsItem);
 				if (slotsItem)
 				{
 					if (slotsItem.amountInStack > 0) itemImage.sprite = slotsItem.itemSprite;
@@ -206,6 +207,7 @@ public class Slot : MonoBehaviour
 				}
 				else
 				{
+					Debug.Log(itemImage);
 					itemImage.sprite = defaultSprite;
 					amountText.text = "";
 				}
@@ -333,11 +335,13 @@ public class Slot : MonoBehaviour
 	{
 		if (transform.childCount > 1)
 		{
+			//Debug.Log("IS Item");
 			slotsItem = transform.GetChild(1).GetComponent<Item>();
 		}
 
 		else
 		{
+			//Debug.Log("IS NOT Item");
 			slotsItem = null;
 		}
 	}

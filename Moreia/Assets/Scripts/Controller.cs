@@ -17,6 +17,7 @@ public class Controller : MonoBehaviour {
 
     public uint constitution = 10; // aka max health 
     public uint health = 20; // current health
+    public uint attackDamage = 3;
 
     private float lastMovement = 0f;
     public string current_player_direction = "Down";
@@ -36,7 +37,8 @@ public class Controller : MonoBehaviour {
         Move();
     }
 
-    void Move() {
+    void Move()
+    {
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = GetAxis();
@@ -45,16 +47,22 @@ public class Controller : MonoBehaviour {
             return;
 
         // get the direction we are moving
-        Direction direction = 
+        Direction direction =
             horizontal == 0 ?
             (vertical == 1 ? Direction.Up : Direction.Down) :
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
-        if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
-            transform.Translate(horizontal, vertical, 0);
-            lastMovement = Time.time;
+        Collider2D hit = SendRaycast(direction);
+
+        if (EnemyMovement.Attacking != 1) {
+            if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
+                transform.Translate(horizontal, vertical, 0);
+                lastMovement = Time.time;
+            } else if (hit != null && Time.time - lastMovement > movementDelay) {
+                hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(attackDamage, hit.gameObject.tag);
+            }
+            OnTick?.Invoke();
         }
-        OnTick?.Invoke();
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -94,6 +102,23 @@ public class Controller : MonoBehaviour {
                 return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
         }
         return false;
+    }
+
+    private Collider2D SendRaycast(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Up:
+                return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
+            case Direction.Down:
+                return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider;
+            case Direction.Left:
+                return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider;
+            case Direction.Right:
+                return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider;
+        }
+        return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
+
     }
 
     private void ChangeHealthBar() {

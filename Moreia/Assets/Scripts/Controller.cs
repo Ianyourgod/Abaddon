@@ -69,6 +69,7 @@ public class Controller : MonoBehaviour {
     private void Attack(Collider2D hit, Direction direction)
     {
         hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(attackDamage, hit.gameObject.tag);
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
         StartCoroutine(ExecuteAfterTime(1f, direction, 2));
     }
@@ -218,7 +219,7 @@ public class Controller : MonoBehaviour {
             case 1:
                 break;
             case 2:
-                OnTick?.Invoke();
+                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
                 switch (direction)
                 {
                     case Direction.Up:
@@ -234,6 +235,7 @@ public class Controller : MonoBehaviour {
                         transform.Translate(-0.5f, 0, 0);
                         break;
                 }
+                OnTick?.Invoke();
                 break;
             default:
                 break;

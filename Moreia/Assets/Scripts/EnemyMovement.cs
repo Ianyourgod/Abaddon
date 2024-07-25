@@ -64,6 +64,7 @@ public class EnemyMovement : MonoBehaviour
         } else {
             if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Attacking == 0)
             {
+                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
                 Controller.main.DamagePlayer(attackDamage);
                 Attacking = 1;
                 StartCoroutine(ExecuteAfterTime(1f, direction, 0));
@@ -205,6 +206,7 @@ public class EnemyMovement : MonoBehaviour
         switch (intent)
         {
             case 0:
+                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
                 Attacking = 0;
                 PlayAnimation(direction, 1);
                 switch (direction) {

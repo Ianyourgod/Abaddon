@@ -62,6 +62,8 @@ public class Controller : MonoBehaviour {
                 OnTick?.Invoke();
             } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 Attack(hit, direction);
+            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                hit.gameObject.GetComponent<Door>().DoorDestroy();
             }
         }
     }
@@ -72,6 +74,7 @@ public class Controller : MonoBehaviour {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
         StartCoroutine(ExecuteAfterTime(1f, direction, 2));
+        EnemyMovement.Attacking = 1;
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -220,6 +223,7 @@ public class Controller : MonoBehaviour {
                 break;
             case 2:
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+                EnemyMovement.Attacking = 0;
                 switch (direction)
                 {
                     case Direction.Up:

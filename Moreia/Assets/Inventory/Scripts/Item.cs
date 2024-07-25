@@ -71,10 +71,6 @@ public class Item : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-            else if (amountInStack != 0)
-            {
-
-            }
         }
 
         if (close && canBePicked)
@@ -95,20 +91,16 @@ public class Item : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 int possibleAmount = 0;
-                Debug.Log(possibleAmount);
 
                 foreach (Slot slot in player.slots)
                 {
-                    Debug.Log("Here I Exist");
                     if (!slot.gameObject.GetComponent<EquipmentSlot>() && !slot.slotsItem)
                     {
-                        Debug.Log("First Item");
                         possibleAmount += maxStackSize;
                     }
 
                     if (slot.slotsItem && slot.slotsItem.ItemID == ItemID)
                     {
-                        Debug.Log("Stacking");
                         possibleAmount += slot.slotsItem.maxStackSize - slot.slotsItem.amountInStack;
                     }
                 }
@@ -119,12 +111,10 @@ public class Item : MonoBehaviour
                     {
                         if (possibleAmount > amountInStack)
                         {
-                            Debug.Log("No Stack");
                             player.AddItem(this, null);
                         }
                         else
                         {
-                            Debug.Log("Little Guy");
                             var clone = Instantiate(this);
                             clone.amountInStack = possibleAmount;
                             amountInStack -= possibleAmount;

@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   constitution: 10
   health: 20
+  attackDamage: 3
+  current_player_direction: Down
   collideLayers:
     serializedVersion: 2
     m_Bits: 1344

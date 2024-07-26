@@ -550,19 +550,19 @@ PrefabInstance:
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.data[18]
       value: 
-      objectReference: {fileID: 1903083766}
+      objectReference: {fileID: 1226738126}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.data[19]
       value: 
-      objectReference: {fileID: 337124815}
+      objectReference: {fileID: 1460993377}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.data[20]
       value: 
-      objectReference: {fileID: 365001454}
+      objectReference: {fileID: 1554504352}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.data[21]
       value: 
-      objectReference: {fileID: 1402678342}
+      objectReference: {fileID: 1028986866}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: equipSlots.Array.size
       value: 4
@@ -942,7 +942,7 @@ PrefabInstance:
     - target: {fileID: 4244016840595489268, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: possibleEqips.Array.data[0]
       value: 
-      objectReference: {fileID: 1471078880}
+      objectReference: {fileID: 0}
     - target: {fileID: 4244016840595489268, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: possibleEqips.Array.data[1]
       value: 
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   equipmentType: Head
   curItem: {fileID: 0}
   possibleEqips:
-  - {fileID: 1471078880}
+  - {fileID: 0}
   curItemObj: {fileID: 0}
   equipped: 0
 --- !u!114 &1460993377
@@ -1269,17 +1269,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460993374}
   m_CullTransparentMesh: 1
---- !u!114 &1471078880 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4021851572459078754, guid: 492f5bc35e1e02148a29b55c323c1c2e, type: 3}
-  m_PrefabInstance: {fileID: 1750606167}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec21a3790fc79554da20cd1c50df411b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1471078881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5750703530437217982, guid: 492f5bc35e1e02148a29b55c323c1c2e, type: 3}
@@ -1471,6 +1460,10 @@ PrefabInstance:
     - target: {fileID: 5750703530437217978, guid: 492f5bc35e1e02148a29b55c323c1c2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750703530437217982, guid: 492f5bc35e1e02148a29b55c323c1c2e, type: 3}
+      propertyPath: equipmentType
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 492f5bc35e1e02148a29b55c323c1c2e, type: 3}

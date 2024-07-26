@@ -66,6 +66,11 @@ public class Inventory : MonoBehaviour
 			if (slot) slot.CustomStart();
 		}
 
+		foreach (Slot slot in equipSlots)
+		{
+			if (slot) slot.CustomStart();
+		}
+
 		inventoryObject.SetActive(true);
 		inventoryObject.SetActive(false);
 		equipmentObject.SetActive(false);

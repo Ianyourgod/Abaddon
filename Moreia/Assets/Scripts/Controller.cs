@@ -87,6 +87,7 @@ public class Controller : MonoBehaviour {
                         }
                         NextEnemy();
                     } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
+                        Debug.Log(hit.gameObject);
                         hit.gameObject.GetComponent<Portal>().PortalTravel();
                     }
                 }

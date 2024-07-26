@@ -35,7 +35,7 @@ public class Controller : MonoBehaviour {
         main = this;
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
-    } 
+    }
 
     void Update() {
         enemies = FindObjectsOfType<EnemyMovement>();

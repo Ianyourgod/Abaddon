@@ -5,9 +5,6 @@ using UnityEngine;
 public class Controller : MonoBehaviour {
     public static Controller main;
 
-    public delegate void TickAction();
-    public static event TickAction OnTick;
-
     private enum Direction {
         Up,
         Down,
@@ -28,6 +25,9 @@ public class Controller : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
     private float original_anchor_position;
+    public EnemyMovement[] enemies;
+    private int current_enemy = 0;
+    public bool done_with_enemies = true;
 
     void Awake() {
         main = this;
@@ -35,6 +35,14 @@ public class Controller : MonoBehaviour {
     } 
 
     void Update() {
+        enemies = FindObjectsOfType<EnemyMovement>();
+        if (!done_with_enemies) {
+            if (current_enemy >= enemies.Length) {
+                done_with_enemies = true;
+            } else {
+                return;
+            }
+        }
         Move();
     }
 
@@ -56,17 +64,29 @@ public class Controller : MonoBehaviour {
         Collider2D hit = SendRaycast(direction);
 
         if (Attacking != 1) {
+            current_enemy = 0;
+            done_with_enemies = false;
             PlayAnimation(direction, 1);
             if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
                 transform.Translate(horizontal, vertical, 0);
                 lastMovement = Time.time;
-                OnTick?.Invoke();
+                NextEnemy();
             } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 Attack(hit, direction);
             } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                 hit.gameObject.GetComponent<Door>().DoorDestroy();
+                NextEnemy();
             }
         }
+    }
+
+    public void NextEnemy() {
+        if (current_enemy >= enemies.Length) {
+            done_with_enemies = true;
+            return;
+        }
+        enemies[current_enemy].MakeDecision();
+        current_enemy++;
     }
 
     private void Attack(Collider2D hit, Direction direction)
@@ -240,7 +260,7 @@ public class Controller : MonoBehaviour {
                         transform.Translate(-0.5f, 0, 0);
                         break;
                 }
-                OnTick?.Invoke();
+                NextEnemy();
                 break;
             default:
                 break;

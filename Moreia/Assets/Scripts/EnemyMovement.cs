@@ -36,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void MakeDecision() {
-        if (!transform) return; // the enemy can be dead but this will still be called so we have to check
+        if (!this) return; // the enemy can be dead but this will still be called so we have to check
         if (CheckPlayerIsInRange()){
             Invoke(nameof(Move), enemyDecisionDelay);
         }

@@ -25,6 +25,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
     private float original_anchor_position;
+    private Inventory inventory;
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_enemies = true;
@@ -32,6 +33,7 @@ public class Controller : MonoBehaviour {
     void Awake() {
         main = this;
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        inventory = FindObjectOfType<Inventory>();
     } 
 
     void Update() {
@@ -71,11 +73,21 @@ public class Controller : MonoBehaviour {
                 transform.Translate(horizontal, vertical, 0);
                 lastMovement = Time.time;
                 NextEnemy();
-            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+            } else if (hit != null && Time.time - lastMovement > movementDelay) {
+              if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 Attack(hit, direction);
-            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                hit.gameObject.GetComponent<Door>().DoorDestroy();
-                NextEnemy();
+            } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                if ((hit.gameObject.GetComponent<Door>().NeedsKey && inventory.CheckIfItemExists(1)) || !hit.gameObject.GetComponent<Door>().NeedsKey)
+                {
+                    hit.gameObject.GetComponent<Door>().DoorDestroy();
+                    NextEnemy();
+                } else {
+                    Debug.Log("need key");
+                    NextEnemy();
+                }
+            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("portal"))
+            {
+                hit.gameObject.GetComponent<Portal>().PortalTravel();
             }
         }
     }

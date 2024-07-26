@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Door : MonoBehaviour
+public class Portal : MonoBehaviour
 {
-    [SerializeField] public bool NeedsKey;
+    [SerializeField] string SceneTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +19,9 @@ public class Door : MonoBehaviour
 
     }
 
-    public void DoorDestroy()
+    public void PortalTravel()
     {
-        Debug.Log("door opened");
-        Destroy(gameObject);
+        Debug.Log("portal traveled through");
+        SceneManager.LoadSceneAsync(SceneTarget);
     }
 }

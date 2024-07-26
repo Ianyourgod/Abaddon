@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour {
     public static Controller main;
@@ -63,31 +64,37 @@ public class Controller : MonoBehaviour {
             (vertical == 1 ? Direction.Up : Direction.Down) :
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
-        Collider2D hit = SendRaycast(direction);
-
         if (Attacking != 1) {
+            Collider2D hit = SendRaycast(direction);
             current_enemy = 0;
             done_with_enemies = false;
             PlayAnimation(direction, 1);
+            
             if (Time.time - lastMovement > movementDelay) {
-                if (IsValidMove(direction)) {
+                if (hit == null) {
                     transform.Translate(horizontal, vertical, 0);
                     lastMovement = Time.time;
                     NextEnemy();
-                } else if (hit != null) {
+                } else {
+                    // if we hit an enemy, attack it
                     if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                         Attack(hit, direction);
+                    // if we hit a door, attempt to open it
                     } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                        if ((hit.gameObject.GetComponent<Door>().NeedsKey && inventory.CheckIfItemExists(1))
-                            || !hit.gameObject.GetComponent<Door>().NeedsKey)
-                        {
+                        // if the door needs a key, check if we have it
+                        bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
+                        bool hasKey = inventory.CheckIfItemExists(1);
+                        if ((needsKey && hasKey) || !needsKey) {
                             hit.gameObject.GetComponent<Door>().DoorDestroy();
                         } else {
                             Debug.Log("need key");
                         }
                         NextEnemy();
+                    // if we hit a portal, travel through it
                     } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
                         hit.gameObject.GetComponent<Portal>().PortalTravel();
+                    } else {
+                        NextEnemy();
                     }
                 }
             }
@@ -233,9 +240,9 @@ public class Controller : MonoBehaviour {
         if (damage >= health) {
             health = 0;
             ChangeHealthBar();
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
-            // todo: death
+            // todo: death animation
         }
         health -= damage;
 

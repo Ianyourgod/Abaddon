@@ -69,25 +69,27 @@ public class Controller : MonoBehaviour {
             current_enemy = 0;
             done_with_enemies = false;
             PlayAnimation(direction, 1);
-            if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
-                transform.Translate(horizontal, vertical, 0);
-                lastMovement = Time.time;
-                NextEnemy();
-            } else if (hit != null && Time.time - lastMovement > movementDelay) {
-              if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                Attack(hit, direction);
-            } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                if ((hit.gameObject.GetComponent<Door>().NeedsKey && inventory.CheckIfItemExists(1)) || !hit.gameObject.GetComponent<Door>().NeedsKey)
-                {
-                    hit.gameObject.GetComponent<Door>().DoorDestroy();
+            if (Time.time - lastMovement > movementDelay) {
+                if (IsValidMove(direction)) {
+                    transform.Translate(horizontal, vertical, 0);
+                    lastMovement = Time.time;
                     NextEnemy();
-                } else {
-                    Debug.Log("need key");
-                    NextEnemy();
+                } else if (hit != null) {
+                    if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                        Attack(hit, direction);
+                    } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                        if ((hit.gameObject.GetComponent<Door>().NeedsKey && inventory.CheckIfItemExists(1))
+                            || !hit.gameObject.GetComponent<Door>().NeedsKey)
+                        {
+                            hit.gameObject.GetComponent<Door>().DoorDestroy();
+                        } else {
+                            Debug.Log("need key");
+                        }
+                        NextEnemy();
+                    } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
+                        hit.gameObject.GetComponent<Portal>().PortalTravel();
+                    }
                 }
-            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("portal"))
-            {
-                hit.gameObject.GetComponent<Portal>().PortalTravel();
             }
         }
     }

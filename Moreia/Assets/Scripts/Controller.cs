@@ -92,6 +92,7 @@ public class Controller : MonoBehaviour {
                         NextEnemy();
                     // if we hit a portal, travel through it
                     } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
+                        Debug.Log(hit.gameObject);
                         hit.gameObject.GetComponent<Portal>().PortalTravel();
                     } else {
                         NextEnemy();

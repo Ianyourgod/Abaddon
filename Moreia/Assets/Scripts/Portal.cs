@@ -21,7 +21,6 @@ public class Portal : MonoBehaviour
 
     public void PortalTravel()
     {
-        Debug.Log("portal traveled through");
         SceneManager.LoadSceneAsync(SceneTarget);
     }
 }

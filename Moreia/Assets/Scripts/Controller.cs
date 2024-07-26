@@ -29,13 +29,16 @@ public class Controller : MonoBehaviour {
     [SerializeField] RectTransform healthBar;
     private float original_anchor_position;
 
+    public bool active = true;
+
     void Awake() {
         main = this;
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
     } 
 
     void Update() {
-        Move();
+        if (active)
+            Move();
     }
 
     void Move()

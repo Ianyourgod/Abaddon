@@ -74,3 +74,6 @@ crashlytics-build.properties
 # removing DS Store
 *.DS_Store 
 
+# crashes (you dont want to expose your memory dumps!)
+mono_crash.*
+

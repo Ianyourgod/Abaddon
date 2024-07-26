@@ -34,10 +34,10 @@ public class EnemyMovement : MonoBehaviour
         if (CheckPlayerIsInRange()){
             Invoke(nameof(Move), enemyDecisionDelay);
         } else {
-            StartCoroutine(nameof(Controller.main.NextEnemy));
+            Invoke(nameof(Controller.main.NextEnemy), 0f);
         }
     }
-
+    
     void Move() {
         sbyte horizontal, vertical;
 

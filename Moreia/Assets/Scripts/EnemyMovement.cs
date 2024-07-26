@@ -5,8 +5,6 @@ using UnityEditor;
 
 public class EnemyMovement : MonoBehaviour
 {
-    int movementPriority;
-
     private enum Direction {
         Up,
         Down,
@@ -20,18 +18,23 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] float detectionDistance = 1f;
+    [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
     [SerializeField] uint attackDamage = 1;
 
-    public static uint health = 10;
+    public uint health = 10;
     private Direction direction = Direction.Down;
 
-    public bool CheckPlayerIsInRange() {
+    bool CheckPlayerIsInDetectionRange() {
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
+    bool CheckPlayerIsInFollowRange() {
+        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= followDistance;
+    }
+
     public void MakeDecision() {
-        if (CheckPlayerIsInRange()){
+        if (CheckPlayerIsInDetectionRange()){
             Invoke(nameof(Move), enemyDecisionDelay);
         } else {
             Invoke(nameof(callNextEnemy), 0f);
@@ -183,23 +186,21 @@ public class EnemyMovement : MonoBehaviour
     private void OnDrawGizmosSelected() {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
     }
 
     public void DamageEnemy(uint damage, string targetTag) {
-    if (targetTag == gameObject.tag) {
-        if (damage >= health)
-        {
+        if (damage >= health) {
             health = 0;
             // prevent the player from locking up after death
             Controller.Attacking = 0;
             Destroy(gameObject);
             return;
-            }
-            PlayAnimation(direction, 2);
-            StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
-            Debug.Log("ouch");
+        }
+        PlayAnimation(direction, 2);
+        StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         health -= damage;
-    }
     }
 
     // intent 0 is attack, 1 is hurt

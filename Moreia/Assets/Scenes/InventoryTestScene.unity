@@ -473,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 2087882385}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.size
-      value: 18
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.data[0]
@@ -547,6 +547,22 @@ PrefabInstance:
       propertyPath: slots.Array.data[17]
       value: 
       objectReference: {fileID: 14935342}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[18]
+      value: 
+      objectReference: {fileID: 1903083766}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[19]
+      value: 
+      objectReference: {fileID: 337124815}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[20]
+      value: 
+      objectReference: {fileID: 365001454}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[21]
+      value: 
+      objectReference: {fileID: 1402678342}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: equipSlots.Array.size
       value: 4
@@ -1038,6 +1054,10 @@ PrefabInstance:
     - target: {fileID: 4244016840743525289, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244016840743525291, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4244016840743525302, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: m_Name

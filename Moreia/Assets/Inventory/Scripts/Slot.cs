@@ -196,10 +196,8 @@ public class Slot : MonoBehaviour
 		}
 		else if (GetComponent<EquipmentSlot>() && !GetComponent<CraftingSlot>())
 		{
-			//Debug.Log(slotsItem);
 			if (!beingDragged)
 			{
-				Debug.Log(slotsItem);
 				if (slotsItem)
 				{
 					if (slotsItem.amountInStack > 0) itemImage.sprite = slotsItem.itemSprite;
@@ -207,7 +205,6 @@ public class Slot : MonoBehaviour
 				}
 				else
 				{
-					Debug.Log(itemImage);
 					itemImage.sprite = defaultSprite;
 					amountText.text = "";
 				}

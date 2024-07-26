@@ -5,9 +5,6 @@ using UnityEngine;
 public class Controller : MonoBehaviour {
     public static Controller main;
 
-    public delegate void TickAction();
-    public static event TickAction OnTick;
-
     private enum Direction {
         Up,
         Down,
@@ -29,6 +26,9 @@ public class Controller : MonoBehaviour {
     [SerializeField] RectTransform healthBar;
     private float original_anchor_position;
     private Inventory inventory;
+    public EnemyMovement[] enemies;
+    private int current_enemy = 0;
+    public bool done_with_enemies = true;
 
     void Awake() {
         main = this;
@@ -37,6 +37,14 @@ public class Controller : MonoBehaviour {
     } 
 
     void Update() {
+        enemies = FindObjectsOfType<EnemyMovement>();
+        if (!done_with_enemies) {
+            if (current_enemy >= enemies.Length) {
+                done_with_enemies = true;
+            } else {
+                return;
+            }
+        }
         Move();
     }
 
@@ -58,25 +66,39 @@ public class Controller : MonoBehaviour {
         Collider2D hit = SendRaycast(direction);
 
         if (Attacking != 1) {
+            current_enemy = 0;
+            done_with_enemies = false;
             PlayAnimation(direction, 1);
             if (IsValidMove(direction) && Time.time - lastMovement > movementDelay) {
                 transform.Translate(horizontal, vertical, 0);
                 lastMovement = Time.time;
-                OnTick?.Invoke();
-            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                NextEnemy();
+            } else if (hit != null && Time.time - lastMovement > movementDelay) {
+              if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 Attack(hit, direction);
-            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+            } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                 if ((hit.gameObject.GetComponent<Door>().NeedsKey && inventory.CheckIfItemExists(1)) || !hit.gameObject.GetComponent<Door>().NeedsKey)
                 {
                     hit.gameObject.GetComponent<Door>().DoorDestroy();
+                    NextEnemy();
                 } else {
                     Debug.Log("need key");
+                    NextEnemy();
                 }
             } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("portal"))
             {
                 hit.gameObject.GetComponent<Portal>().PortalTravel();
             }
         }
+    }
+
+    public void NextEnemy() {
+        if (current_enemy >= enemies.Length) {
+            done_with_enemies = true;
+            return;
+        }
+        enemies[current_enemy].MakeDecision();
+        current_enemy++;
     }
 
     private void Attack(Collider2D hit, Direction direction)
@@ -250,7 +272,7 @@ public class Controller : MonoBehaviour {
                         transform.Translate(-0.5f, 0, 0);
                         break;
                 }
-                OnTick?.Invoke();
+                NextEnemy();
                 break;
             default:
                 break;

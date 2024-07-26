@@ -7,8 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
     int movementPriority;
 
-    private enum Direction
-    {
+    private enum Direction {
         Up,
         Down,
         Left,
@@ -27,18 +26,15 @@ public class EnemyMovement : MonoBehaviour
     public static uint health = 10;
     private Direction direction = Direction.Down;
 
-    void Start() {
-        Controller.OnTick += MakeDecision;
-    }
-
     public bool CheckPlayerIsInRange() {
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
-    void MakeDecision() {
-        if (!this) return; // the enemy can be dead but this will still be called so we have to check
+    public void MakeDecision() {
         if (CheckPlayerIsInRange()){
             Invoke(nameof(Move), enemyDecisionDelay);
+        } else {
+            StartCoroutine(nameof(Controller.main.NextEnemy));
         }
     }
 
@@ -47,8 +43,10 @@ public class EnemyMovement : MonoBehaviour
 
         (horizontal, vertical) = ToPlayer();
 
-        if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0))
+        if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0)) {
+            Controller.main.NextEnemy();
             return;
+        }
 
         // get the direction we are moving
         direction =
@@ -61,14 +59,16 @@ public class EnemyMovement : MonoBehaviour
 
         if (hit == null && Controller.Attacking == 0) {
             transform.Translate(horizontal, vertical, 0);
+            Controller.main.NextEnemy();
         } else {
-            if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0)
-            {
+            if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0) {
+                Controller.main.enabled = false;
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
                 Controller.main.DamagePlayer(attackDamage);
-                Controller.Attacking = 1;
                 StartCoroutine(ExecuteAfterTime(1f, direction, 0));
                 PlayAnimation(direction, 3);
+            } else {
+                Controller.main.NextEnemy();
             }
         }
     }
@@ -99,13 +99,13 @@ public class EnemyMovement : MonoBehaviour
     private Collider2D IsValidMove(Direction direction) {
         switch (direction) {
             case Direction.Up:
-                return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
+                return Physics2D.Raycast(transform.position + new Vector3(0, 0.51f), transform.up, 0.4f, collideLayers).collider;
             case Direction.Down:
-                return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider;
+                return Physics2D.Raycast(transform.position + new Vector3(0, -0.51f), -transform.up, 0.4f, collideLayers).collider;
             case Direction.Left:
-                return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider;
+                return Physics2D.Raycast(transform.position + new Vector3(-0.51f, 0), -transform.right, 0.4f, collideLayers).collider;
             case Direction.Right:
-                return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider;
+                return Physics2D.Raycast(transform.position + new Vector3(0.51f, 0), transform.right, 0.4f, collideLayers).collider;
         }
         return null;
     }
@@ -207,7 +207,7 @@ public class EnemyMovement : MonoBehaviour
         {
             case 0:
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-                Controller.Attacking = 0;
+                Controller.main.enabled = true;
                 PlayAnimation(direction, 1);
                 switch (direction) {
                     case Direction.Up:
@@ -218,7 +218,8 @@ public class EnemyMovement : MonoBehaviour
                         break;
                     default:
                         break;
-                }
+                } 
+                Controller.main.NextEnemy();
                 break;
             case 1:
                 PlayAnimation(direction, 1);

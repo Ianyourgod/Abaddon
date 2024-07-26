@@ -28,10 +28,12 @@ public class Controller : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
     private float original_anchor_position;
+    private Inventory inventory;
 
     void Awake() {
         main = this;
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        inventory = FindObjectOfType<Inventory>();
     } 
 
     void Update() {
@@ -64,7 +66,15 @@ public class Controller : MonoBehaviour {
             } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 Attack(hit, direction);
             } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                hit.gameObject.GetComponent<Door>().DoorDestroy();
+                if ((hit.gameObject.GetComponent<Door>().NeedsKey && inventory.CheckIfItemExists(1)) || !hit.gameObject.GetComponent<Door>().NeedsKey)
+                {
+                    hit.gameObject.GetComponent<Door>().DoorDestroy();
+                } else {
+                    Debug.Log("need key");
+                }
+            } else if (hit != null && Time.time - lastMovement > movementDelay && hit.gameObject.layer == LayerMask.NameToLayer("portal"))
+            {
+                hit.gameObject.GetComponent<Portal>().PortalTravel();
             }
         }
     }

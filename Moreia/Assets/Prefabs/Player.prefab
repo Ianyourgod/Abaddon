@@ -53,8 +53,8 @@ MonoBehaviour:
   attackDamage: 3
   collideLayers:
     serializedVersion: 2
-    m_Bits: 3392
-  movementDelay: 0.1
+    m_Bits: 7488
+  movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
 --- !u!61 &6429215519232914106

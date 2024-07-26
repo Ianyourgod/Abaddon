@@ -473,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 2087882385}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.size
-      value: 18
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: slots.Array.data[0]
@@ -547,6 +547,22 @@ PrefabInstance:
       propertyPath: slots.Array.data[17]
       value: 
       objectReference: {fileID: 14935342}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[18]
+      value: 
+      objectReference: {fileID: 1903083766}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[19]
+      value: 
+      objectReference: {fileID: 337124815}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[20]
+      value: 
+      objectReference: {fileID: 365001454}
+    - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: slots.Array.data[21]
+      value: 
+      objectReference: {fileID: 1402678342}
     - target: {fileID: -8792534140407856874, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: equipSlots.Array.size
       value: 4

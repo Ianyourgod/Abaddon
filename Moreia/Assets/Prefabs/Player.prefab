@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7842820053425721010}
   - component: {fileID: 7842820053425721011}
   - component: {fileID: 6429215519232914106}
-  - component: {fileID: -8792534140407856874}
   - component: {fileID: 4638862481907037744}
+  - component: {fileID: 363174881920157338}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -83,36 +83,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-8792534140407856874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7842820053425721020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cf572ae3739e2e48b38d887ecc10ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryKey: 9
-  inventoryObject: {fileID: 8687865404560118802, guid: c7c92d28fa60a0d42b9a97e321e44704, type: 3}
-  equipmentObject: {fileID: 1823293887568339730, guid: 06b3a2094ba7a82439566bb46595d9bc, type: 3}
-  craftObject: {fileID: 7469639958202798190, guid: e6b9d38fda3133c479cab25034f8ae3c, type: 3}
-  shadow: {fileID: 0}
-  hotbarParent: {fileID: 0}
-  font: {fileID: 0}
-  throwPosition: {fileID: 0}
-  pickupRange: 0
-  throwForceUp: 0
-  throwForceForward: 0
-  playerMovement: {fileID: 0}
-  slots:
-  - {fileID: 8244430195735951915, guid: c111f71777bf7c2428aafbda5f15dd1b, type: 3}
-  - {fileID: 8244430195735951915, guid: c111f71777bf7c2428aafbda5f15dd1b, type: 3}
-  equipSlots: []
-  emptySlots: []
-  readyToAdd: 1
 --- !u!114 &4638862481907037744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +101,56 @@ MonoBehaviour:
   autoLoad: 0
   timeBetweenSaves: 0
   items: []
+--- !u!114 &363174881920157338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053425721020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf572ae3739e2e48b38d887ecc10ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryKey: 9
+  inventoryObject: {fileID: 0}
+  equipmentObject: {fileID: 0}
+  craftObject: {fileID: 0}
+  shadow: {fileID: 0}
+  hotbarParent: {fileID: 0}
+  font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+  throwPosition: {fileID: 0}
+  pickupRange: 0
+  throwForceUp: 0
+  throwForceForward: 0
+  playerMovement: {fileID: 0}
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  equipSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  emptySlots: []
+  readyToAdd: 1
 --- !u!1 &7842820053772704083
 GameObject:
   m_ObjectHideFlags: 0

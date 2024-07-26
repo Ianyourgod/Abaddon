@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour
 			craftObject.SetActive(true);
 			//Cursor.visible = true;
 			//Cursor.lockState = CursorLockMode.None;
-			//playerMovement.enabled = false;
+			playerMovement.enabled = false;
 			if (shadow) shadow.SetActive(true);
 		}
 		else if (Input.GetKeyDown(inventoryKey) || (Input.GetKeyDown(KeyCode.Escape)) && inventoryObject.activeInHierarchy == true)
@@ -98,7 +98,7 @@ public class Inventory : MonoBehaviour
 			craftObject.SetActive(false);
 			//Cursor.visible = false;
 			//Cursor.lockState = CursorLockMode.Locked;
-			//playerMovement.enabled = true;
+			playerMovement.enabled = true;
 			if (shadow) shadow.SetActive(false);
 		}
 

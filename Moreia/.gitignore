@@ -77,3 +77,5 @@ crashlytics-build.properties
 # crashes (you dont want to expose your memory dumps!)
 mono_crash.*
 
+# vscode directory for the fools that use inferior ides
+.vscode/

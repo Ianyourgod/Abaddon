@@ -15,9 +15,10 @@ public class EnemyMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] Animator animator;
+    [SerializeField] Pathfinding2D pathfinding;
 
     [Header("Attributes")]
-    [SerializeField] float detectionDistance = 1f;
+    [SerializeField] int detectionDistance = 1;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
     [SerializeField] uint attackDamage = 1;
@@ -25,16 +26,29 @@ public class EnemyMovement : MonoBehaviour
     public uint health = 10;
     private Direction direction = Direction.Down;
 
+    private Vector2 movementTarget;
+    private bool followingPlayer = false;
+    private bool directionChange = false;
+
+    private Vector3 StartPosition;
+
+    private void Start() {
+        StartPosition = transform.position;
+        int gridSize = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeX = gridSize;
+        pathfinding.grid.gridSizeY = gridSize;
+    }
+
     bool CheckPlayerIsInDetectionRange() {
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
     bool CheckPlayerIsInFollowRange() {
-        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= followDistance;
+        return UnityEngine.Vector2.Distance(Controller.main.transform.position, StartPosition) <= followDistance;
     }
 
     public void MakeDecision() {
-        if (CheckPlayerIsInDetectionRange()){
+        if (followingPlayer || CheckPlayerIsInDetectionRange()){
             Invoke(nameof(Move), enemyDecisionDelay);
         } else {
             Invoke(nameof(callNextEnemy), 0f);
@@ -47,6 +61,15 @@ public class EnemyMovement : MonoBehaviour
 
     void Move() {
         sbyte horizontal, vertical;
+
+        if (CheckPlayerIsInDetectionRange()) {
+            followingPlayer = true;
+            movementTarget = Controller.main.transform.position;
+        } else if (followingPlayer && !CheckPlayerIsInFollowRange()) {
+            followingPlayer = false;
+            Invoke(nameof(callNextEnemy), 0f);
+            return;
+        }
 
         (horizontal, vertical) = ToPlayer();
 
@@ -65,6 +88,7 @@ public class EnemyMovement : MonoBehaviour
         PlayAnimation(direction, 1);
 
         if (hit == null && Controller.Attacking == 0) {
+            
             transform.Translate(horizontal, vertical, 0);
             Controller.main.NextEnemy();
         } else {
@@ -85,7 +109,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private (sbyte, sbyte) ToPlayer() {
-        float raw_horizontal = Clamp(Controller.main.transform.position.x - transform.position.x, -1.0f, 1f);
+        /*float raw_horizontal = Clamp(Controller.main.transform.position.x - transform.position.x, -1.0f, 1f);
         float raw_vertical = Clamp(Controller.main.transform.position.y - transform.position.y, -1.0f, 1f);
 
         if (raw_horizontal != 0 && raw_vertical != 0) {
@@ -93,6 +117,37 @@ public class EnemyMovement : MonoBehaviour
                 raw_horizontal = 0f;
             }
             else {
+                raw_vertical = 0f;
+            }
+        }
+
+        sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
+        sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
+
+        return (horizontal, vertical);
+        */
+
+        List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
+
+        if (path == null) {
+            return (0, 0);
+        }
+
+        // get the relative position of the next node
+        Vector2 nextNode = path[0].worldPosition - pathfinding.grid.worldBottomLeft;
+
+        nextNode.y -= detectionDistance;
+        nextNode.x -= detectionDistance;
+
+        float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
+        float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);
+
+        if (raw_horizontal != 0 && raw_vertical != 0) {
+            if (directionChange) {
+                directionChange = false;
+                raw_horizontal = 0f;
+            } else {
+                directionChange = true;
                 raw_vertical = 0f;
             }
         }
@@ -184,9 +239,13 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void OnDrawGizmosSelected() {
+        pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.CreateGrid();
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
         Handles.color = Color.red;
+        // draw a square around the player
         Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
     }
 

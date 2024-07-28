@@ -79,3 +79,5 @@ mono_crash.*
 
 # vscode directory for the fools that use inferior ides
 .vscode/
+
+.markdownlint.json

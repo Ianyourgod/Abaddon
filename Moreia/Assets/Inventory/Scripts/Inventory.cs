@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour
 	[Tooltip("This is the forward force that will be applied to the item when throwing it.")]
 	public float throwForceForward;
 	[Tooltip("Select your movement script of choice. It could be our built-in FPS controller or any other.")]
-	public MonoBehaviour playerMovement;
+	public Controller playerMovement;
 
 	[Header("Slots")]
 	[Tooltip("Drag all of your slots in here. NOTE: They HAVE to be in ascending order or else the items will not go to the first empty slot but in a random one!")]

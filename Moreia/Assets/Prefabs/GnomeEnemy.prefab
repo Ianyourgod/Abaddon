@@ -158,8 +158,8 @@ MonoBehaviour:
     m_Bits: 3520
   animator: {fileID: 18587455}
   pathfinding: {fileID: 3445834741458170001}
-  detectionDistance: 3
-  followDistance: 5
+  detectionDistance: 4
+  followDistance: 10
   enemyDecisionDelay: 0.075
   attackDamage: 2
   health: 10
@@ -215,5 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclemaps: []
-  gridSizeX: 7
-  gridSizeY: 7
+  worldBottomLeft: {x: -4, y: -4, z: 0}
+  gridSizeX: 9
+  gridSizeY: 9

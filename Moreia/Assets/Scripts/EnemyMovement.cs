@@ -44,12 +44,30 @@ public class EnemyMovement : MonoBehaviour
     }
 
     bool CheckPlayerIsInFollowRange() {
-        return UnityEngine.Vector2.Distance(Controller.main.transform.position, StartPosition) <= followDistance;
+        float distance = UnityEngine.Vector2.Distance(Controller.main.transform.position, StartPosition);
+        return distance <= followDistance;
     }
 
     public void MakeDecision() {
-        if (followingPlayer || CheckPlayerIsInDetectionRange()){
-            Invoke(nameof(Move), enemyDecisionDelay);
+        bool inFollowRange = CheckPlayerIsInFollowRange();
+        bool inDetectionRange = CheckPlayerIsInDetectionRange();
+        bool atHome = transform.position == StartPosition;
+
+        if (inDetectionRange && inFollowRange) {
+            Invoke(nameof(MoveToPlayer), enemyDecisionDelay);
+        } else if (!inFollowRange && !atHome) {
+            (sbyte horizontal, sbyte vertical) = ToHome();
+            
+            if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0)) {
+                Invoke(nameof(callNextEnemy), 0f);
+                return;
+            }
+            direction =
+                horizontal == 0 ?
+                (vertical == 1 ? Direction.Up : Direction.Down) :
+                (horizontal == 1 ? Direction.Right : Direction.Left);
+
+            Move(direction);
         } else {
             Invoke(nameof(callNextEnemy), 0f);
         }
@@ -59,7 +77,7 @@ public class EnemyMovement : MonoBehaviour
         Controller.main.NextEnemy();
     }
 
-    void Move() {
+    void MoveToPlayer() {
         sbyte horizontal, vertical;
 
         if (CheckPlayerIsInDetectionRange()) {
@@ -73,8 +91,9 @@ public class EnemyMovement : MonoBehaviour
 
         (horizontal, vertical) = ToPlayer();
 
+        // the diagonal case *probably* shouldn't happen, but just in case
         if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0)) {
-            Controller.main.NextEnemy();
+            Invoke(nameof(callNextEnemy), 0f);
             return;
         }
 
@@ -84,13 +103,31 @@ public class EnemyMovement : MonoBehaviour
             (vertical == 1 ? Direction.Up : Direction.Down) :
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
+        Move(direction);
+    }
+
+    private Vector2 DirectionToVector(Direction direction) {
+        switch (direction) {
+            case Direction.Up:
+                return Vector2.up;
+            case Direction.Down:
+                return Vector2.down;
+            case Direction.Left:
+                return Vector2.left;
+            case Direction.Right:
+                return Vector2.right;
+        }
+        return Vector2.zero;
+    }
+
+    private void Move(Direction direction) {
         Collider2D hit = IsValidMove(direction);
         PlayAnimation(direction, 1);
 
         if (hit == null && Controller.Attacking == 0) {
-            
-            transform.Translate(horizontal, vertical, 0);
-            Controller.main.NextEnemy();
+            Vector2 movement = DirectionToVector(direction);
+            transform.Translate(movement.x, movement.y, 0);
+            Invoke(nameof(callNextEnemy), 0f);
         } else {
             if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0) {
                 Controller.main.enabled = false;
@@ -99,7 +136,7 @@ public class EnemyMovement : MonoBehaviour
                 StartCoroutine(ExecuteAfterTime(1f, direction, 0));
                 PlayAnimation(direction, 3);
             } else {
-                Controller.main.NextEnemy();
+                Invoke(nameof(callNextEnemy), 0f);
             }
         }
     }
@@ -138,6 +175,43 @@ public class EnemyMovement : MonoBehaviour
 
         nextNode.y -= detectionDistance;
         nextNode.x -= detectionDistance;
+
+        float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
+        float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);
+
+        if (raw_horizontal != 0 && raw_vertical != 0) {
+            if (directionChange) {
+                directionChange = false;
+                raw_horizontal = 0f;
+            } else {
+                directionChange = true;
+                raw_vertical = 0f;
+            }
+        }
+
+        sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
+        sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
+
+        return (horizontal, vertical);
+    }
+
+    private (sbyte, sbyte) ToHome() {
+        pathfinding.grid.gridSizeX = (int) (followDistance * 2 + 1);
+        pathfinding.grid.gridSizeY = (int) (followDistance * 2 + 1);
+        List<Node2D> path = pathfinding.FindPath(transform.position, StartPosition);
+
+        pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
+
+        if (path == null) {
+            return (0, 0);
+        }
+
+        // get the relative position of the next node
+        Vector2 nextNode = path[0].worldPosition - pathfinding.grid.worldBottomLeft;
+
+        nextNode.y -= followDistance;
+        nextNode.x -= followDistance;
 
         float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
         float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);

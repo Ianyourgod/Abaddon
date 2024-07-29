@@ -107,8 +107,8 @@ public class Controller : MonoBehaviour {
             done_with_enemies = true;
             return;
         }
-        enemies[current_enemy].MakeDecision();
         current_enemy++;
+        enemies[current_enemy - 1].MakeDecision();
     }
 
     private void Attack(Collider2D hit, Direction direction)

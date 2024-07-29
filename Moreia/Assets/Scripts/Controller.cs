@@ -312,7 +312,7 @@ public class Controller : MonoBehaviour {
                 break;
         }
 
-        Math.Clamp(health, 0, max_health);
+        health = Math.Clamp(health, 0, max_health);
 
         ChangeHealthBar();
     }

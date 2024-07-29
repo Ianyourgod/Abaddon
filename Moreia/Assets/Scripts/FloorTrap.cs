@@ -22,9 +22,4 @@ public class FloorTrap : MonoBehaviour
     {
         Controller.main.DamagePlayer(damage);
     }
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        Debug.Log("never gonna run around and desert you");
-    }
 }

@@ -58,6 +58,8 @@ public class DragAndDrop : MonoBehaviour
 	[HideInInspector]
 	public bool shouldCheck;
 
+	private float last_click;
+
 	private void Start()
 	{
 		invObj = inv.inventoryObject;
@@ -129,6 +131,7 @@ public class DragAndDrop : MonoBehaviour
 			if (Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
 			{
 				curSlot = GetObjectUnderMouse(true);
+				GameObject obj = GetObjectUnderMouse(true);
 				if (curSlot)
 				{
 					if (curSlot.gameObject.GetComponent<Slot>())
@@ -136,11 +139,14 @@ public class DragAndDrop : MonoBehaviour
 						if (curSlot.GetComponent<Slot>().slotsItem)
 						{
 							clicks++;
-							if (!started)
+
+							if (!started && Time.time - last_click < 0.25)
 							{
-								DoubleClick();
+								Item objectsItem = obj.GetComponent<Slot>().slotsItem;
+								DoubleClick(objectsItem);
 								return;
 							}
+							last_click = Time.time;
 						}
 					}
 				}
@@ -440,8 +446,9 @@ public class DragAndDrop : MonoBehaviour
 		}
 	}
 
-	public void DoubleClick()
+	public void DoubleClick(Item clickedItem)
 	{
+		Controller.main.ConsumeHealthPotion(clickedItem.ItemID);
 	}
 
 	public List<Item> GetItem(int type, int ID)

@@ -115,21 +115,11 @@ public class Inventory : MonoBehaviour
 
 	public bool CheckIfItemExists(int id)
     {
-		foreach (Slot i in slots)
-        {
-			try 
-			{
-				if (i.transform.GetChild(1).GetComponent<Item>().ItemID == id)
-				{
-					return true;
-				}
-			}
-			catch (UnityException)
-            {
-
-            }
+		if (GetItemAmount(id) > 0) {
+			return true;
+        } else {
+			return false;
         }
-		return false;
     }
 
 	public int GetItemAmount(int id)

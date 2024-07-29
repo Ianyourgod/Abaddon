@@ -14,7 +14,6 @@ public class Controller : MonoBehaviour {
         Right
     }
 
-
     private float lastMovement = 0f;
     public static uint Attacking = 0;
     private Direction current_player_direction = Direction.Down;
@@ -24,8 +23,9 @@ public class Controller : MonoBehaviour {
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_enemies = true;
-    public uint health;
-    public uint attackDamage;
+    public int health;
+    public int max_health;
+    public int attackDamage;
 
     public System.Random rnd = new System.Random();
 
@@ -38,13 +38,15 @@ public class Controller : MonoBehaviour {
     // stats
     [Header("Base Stats")]
     [Tooltip("Constitution (maximum health)")]
-    [SerializeField] public uint constitution = 10;
+    [SerializeField] public int constitution = 10;
     [Tooltip("Dexterity (dodge chance)")]
-    [SerializeField] public uint dexterity = 10;
+    [SerializeField] public int dexterity = 8;
     [Tooltip("Strength (attack damage)")]
-    [SerializeField] public uint strength = 10;
+    [SerializeField] public int strength = 8;
     [Tooltip("Wisdom (ability damage)")]
-    [SerializeField] public uint wisdom = 10;
+    [SerializeField] public int wisdom = 8;
+    [Tooltip("High end of range to add")]
+    [SerializeField] public int maximum_stat_roll = 7;
 
     void Awake() {
         main = this;
@@ -52,12 +54,13 @@ public class Controller : MonoBehaviour {
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
-        constitution += Convert.ToUInt32(rnd.Next(0, 5));
-        dexterity += Convert.ToUInt32(rnd.Next(0, 5));
-        strength += Convert.ToUInt32(rnd.Next(0, 5));
-        wisdom += Convert.ToUInt32(rnd.Next(0, 5));
+        constitution += rnd.Next(1, maximum_stat_roll);
+        dexterity += rnd.Next(1, maximum_stat_roll);
+        strength += rnd.Next(1, maximum_stat_roll);
+        wisdom += rnd.Next(1, maximum_stat_roll);
 
         health = constitution * 2; // current health
+        max_health = health;
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
 
@@ -137,7 +140,7 @@ public class Controller : MonoBehaviour {
 
     private void Attack(Collider2D hit, Direction direction)
     {
-        hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(attackDamage, hit.gameObject.tag);
+        hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
         StartCoroutine(ExecuteAfterTime(1f, direction, 2));
@@ -262,9 +265,9 @@ public class Controller : MonoBehaviour {
             // todo: death animation
         }
 
-        if (Convert.ToUInt32(rnd.Next(0, 100)) > 7.5 * ((dexterity - 1) / 2))
+        if (rnd.Next(10, 25) > dexterity)
         {
-            health -= damage;
+            health -= Convert.ToInt32(damage);
             PlayAnimation(current_player_direction, 2);
             StartCoroutine(ExecuteAfterTime(0.25f, current_player_direction, 1));
         } else
@@ -312,4 +315,57 @@ public class Controller : MonoBehaviour {
         }
     }
 
+    // first int is stat, second int is modifier
+    // stat 1 is constitution
+    // stat 2 is dexterity
+    // stat 3 is strength
+    // stat 4 is wisdom
+    public (int, int) ReturnItemStatModifier(int id)
+    {
+        int stat;
+        int modifier;
+        switch (id)
+        {
+            case 2:
+                stat = 2;
+                modifier = 1;
+                break;
+            case 3:
+                stat = 1;
+                modifier = 1;
+                break;
+            default:
+                return (0, 0);
+        }
+        return (stat, modifier);
+    }
+
+    // bool is true to unequip and false to equip
+    public void EquipItem(int id, bool unequip)
+    {
+        int negative = 1;
+        if (unequip) { negative = -1; }
+        (int, int) stat_tuple = ReturnItemStatModifier(id);
+        switch (stat_tuple.Item1)
+        {
+            case 1:
+                Console.WriteLine("{0} added to constitution", stat_tuple.Item2);
+                constitution += stat_tuple.Item2 * negative;
+                break;
+            case 2:
+                Console.WriteLine("{0} added to dexterity", stat_tuple.Item2);
+                dexterity += stat_tuple.Item2 * negative;
+                break;
+            case 3:
+                Console.WriteLine("{0} added to strength", stat_tuple.Item2);
+                strength += stat_tuple.Item2 * negative;
+                break;
+            case 4:
+                Console.WriteLine("{0} added to wisdom", stat_tuple.Item2);
+                wisdom += stat_tuple.Item2 * negative;
+                break;
+            default:
+                break;
+        }
+    }
 }

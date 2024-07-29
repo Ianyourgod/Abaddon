@@ -25,6 +25,8 @@ public class EquipmentSlot : MonoBehaviour
 	public GameObject curItemObj;
 	[HideInInspector]
 	public bool equipped;
+	[HideInInspector]
+	public int currentEquippedItemID;
 	int searchID;
 
 	private void Update()
@@ -36,8 +38,10 @@ public class EquipmentSlot : MonoBehaviour
 
 	public void Equip()
 	{
+		currentEquippedItemID = GetComponent<Slot>().slotsItem.ItemID;
 		Debug.Log("Equip");
 		equipped = true;
+		Controller.main.EquipItem(currentEquippedItemID, false);
 		EqippableItem assigned = null;
 		if (GetComponent<Slot>().slotsItem)
 		{
@@ -62,6 +66,8 @@ public class EquipmentSlot : MonoBehaviour
 	public void Unequip()
 	{
 		equipped = false;
+		Controller.main.EquipItem(currentEquippedItemID, true);
+		currentEquippedItemID = -1;
 		foreach (EqippableItem item in possibleEqips)
 		{
 			if (item.ItemID == searchID)

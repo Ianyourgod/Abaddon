@@ -6893,6 +6893,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4146738294898886900, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1897976036}
+    - target: {fileID: 4146738294898886900, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1897976036}
     - target: {fileID: 4244016839992970722, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -6953,6 +6961,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4244016840595489268, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1897976036}
+    - target: {fileID: 4244016840595489268, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1897976036}
     - target: {fileID: 4244016840595489268, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: possibleEqips.Array.size
       value: 2
@@ -7105,6 +7121,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4956379395382008086, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1897976036}
+    - target: {fileID: 4956379395382008086, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1897976036}
     - target: {fileID: 4992874749684793224, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -7117,6 +7141,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7140503603506638893, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1897976036}
+    - target: {fileID: 7140503603506638893, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1897976036}
     - target: {fileID: 8400946852051801649, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7443,6 +7475,7 @@ MonoBehaviour:
   possibleEqips: []
   curItemObj: {fileID: 0}
   equipped: 0
+  currentEquippedItemID: 0
 --- !u!114 &791908938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7611,6 +7644,7 @@ MonoBehaviour:
   possibleEqips: []
   curItemObj: {fileID: 0}
   equipped: 0
+  currentEquippedItemID: 0
 --- !u!114 &1027775241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7845,6 +7879,7 @@ MonoBehaviour:
   possibleEqips: []
   curItemObj: {fileID: 0}
   equipped: 0
+  currentEquippedItemID: 0
 --- !u!114 &1414205510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9804,6 +9839,7 @@ MonoBehaviour:
   - {fileID: 0}
   curItemObj: {fileID: 0}
   equipped: 0
+  currentEquippedItemID: 0
 --- !u!114 &2099203081
 MonoBehaviour:
   m_ObjectHideFlags: 0

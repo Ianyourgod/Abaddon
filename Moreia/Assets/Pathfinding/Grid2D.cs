@@ -121,9 +121,10 @@ public class Grid2D : MonoBehaviour
             Gizmos.DrawWireCube(transform.position, new Vector3(gridSizeX, gridSizeY, 1));
             foreach (Node2D n in Grid)
             {
-                if (n.obstacle)
-                    Gizmos.color = Color.red;
-                else
+                if (n.obstacle) {
+                    Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+                    Gizmos.DrawCube(n.worldPosition + halfNodeSize, Vector3.one);
+                } else
                     Gizmos.color = Color.white;
 
                 if (path != null && path.Contains(n))

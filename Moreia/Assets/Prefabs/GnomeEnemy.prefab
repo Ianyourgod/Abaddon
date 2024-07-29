@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6462628818639776132}
   - component: {fileID: 6462628818639776139}
   - component: {fileID: 18587455}
+  - component: {fileID: 4503870971181943354}
   m_Layer: 0
   m_Name: GnomeSprite
   m_TagString: Untagged
@@ -105,6 +106,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4503870971181943354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628818639776133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ce2e5c1d9c59e36955507d920636bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMovement: {fileID: 6462628820561290990}
 --- !u!1 &6462628820561290991
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6462628820561290989}
   - component: {fileID: 6462628820561290990}
+  - component: {fileID: 2067440025226379969}
   - component: {fileID: 6613495682198188706}
   - component: {fileID: 3445834741458170001}
   - component: {fileID: 2650337504027634204}
@@ -158,11 +173,25 @@ MonoBehaviour:
     m_Bits: 3520
   animator: {fileID: 18587455}
   pathfinding: {fileID: 3445834741458170001}
-  detectionDistance: 3
-  followDistance: 5
+  animation_prefix: Goblin
+  attack: {fileID: 2067440025226379969}
+  detectionDistance: 4
+  followDistance: 10
   enemyDecisionDelay: 0.075
-  attackDamage: 2
   health: 10
+--- !u!114 &2067440025226379969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628820561290991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af1f3be3c8a4cd6eac2ec7c8b0e9f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,5 +244,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclemaps: []
-  gridSizeX: 7
-  gridSizeY: 7
+  worldBottomLeft: {x: -4, y: -4, z: 0}
+  gridSizeX: 9
+  gridSizeY: 9

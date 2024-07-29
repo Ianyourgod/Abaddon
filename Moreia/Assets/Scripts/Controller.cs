@@ -65,13 +65,13 @@ public class Controller : MonoBehaviour {
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
         if (Attacking != 1) {
-            Collider2D hit = SendRaycast(direction);
+            (bool validMove, Collider2D hit) = IsValidMove(direction);
             current_enemy = 0;
             done_with_enemies = false;
             PlayAnimation(direction, 1);
             
             if (Time.time - lastMovement > movementDelay) {
-                if (hit == null) {
+                if (validMove) {
                     transform.Translate(horizontal, vertical, 0);
                     lastMovement = Time.time;
                     NextEnemy();
@@ -107,8 +107,8 @@ public class Controller : MonoBehaviour {
             done_with_enemies = true;
             return;
         }
-        enemies[current_enemy].MakeDecision();
         current_enemy++;
+        enemies[current_enemy - 1].MakeDecision();
     }
 
     private void Attack(Collider2D hit, Direction direction)
@@ -137,19 +137,11 @@ public class Controller : MonoBehaviour {
         return (horizontal, vertical);
     }
 
-    bool IsValidMove(Direction direction) {
+    // (if it hit something, what it hit)
+    (bool, Collider2D) IsValidMove(Direction direction) {
         current_player_direction = direction;
-        switch (direction) {
-            case Direction.Up:
-                return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider == null;
-            case Direction.Down:
-                return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider == null;
-            case Direction.Left:
-                return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider == null;
-            case Direction.Right:
-                return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider == null;
-        }
-        return false;
+        Collider2D hit = SendRaycast(direction);
+        return (hit == null, hit);
     }
 
     // 1 is idle, 2 is hurt, 3 is attack

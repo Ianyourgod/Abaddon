@@ -256,14 +256,6 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage) {
-        if (damage >= health) {
-            health = 0;
-            ChangeHealthBar();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            return;
-            // todo: death animation
-        }
-
         if (rnd.Next(10, 25) > dexterity)
         {
             health -= Convert.ToInt32(damage);
@@ -272,6 +264,13 @@ public class Controller : MonoBehaviour {
         {
             Debug.Log("dodged");
             // todo: dodge animation
+        }
+
+        if (health <= 0) {
+            ChangeHealthBar();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
+            // todo: death animation
         }
 
         ChangeHealthBar();

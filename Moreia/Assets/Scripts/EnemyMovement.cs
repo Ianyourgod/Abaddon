@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private enum Direction {
+    public enum Direction {
         Up,
         Down,
         Left,
@@ -133,7 +133,6 @@ public class EnemyMovement : MonoBehaviour
             if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0) {
                 Controller.main.enabled = false;
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-                StartCoroutine(ExecuteAfterTime(1f, direction, 0));
                 PlayAnimation(direction, 3);
             } else {
                 Invoke(nameof(callNextEnemy), 0f);
@@ -146,24 +145,6 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private (sbyte, sbyte) ToPlayer() {
-        /*float raw_horizontal = Clamp(Controller.main.transform.position.x - transform.position.x, -1.0f, 1f);
-        float raw_vertical = Clamp(Controller.main.transform.position.y - transform.position.y, -1.0f, 1f);
-
-        if (raw_horizontal != 0 && raw_vertical != 0) {
-            if (Random.Range(0,2) == 0) { // ints are exclusive on the second input, when they're floats they aint, unity sucks balls 
-                raw_horizontal = 0f;
-            }
-            else {
-                raw_vertical = 0f;
-            }
-        }
-
-        sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
-        sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
-
-        return (horizontal, vertical);
-        */
-
         List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
 
         if (path == null) {
@@ -336,51 +317,35 @@ public class EnemyMovement : MonoBehaviour
         health -= damage;
     }
 
-    BaseAttack.Direction DirectionToAttackDirection(Direction direction) {
-        switch (direction) {
-            case Direction.Up:
-                return BaseAttack.Direction.Up;
-            case Direction.Down:
-                return BaseAttack.Direction.Down;
-            case Direction.Left:
-                return BaseAttack.Direction.Left;
-            case Direction.Right:
-                return BaseAttack.Direction.Right;
-        }
-        return BaseAttack.Direction.Up;
-    }
-
     // this is called by the animation
-    public void AttackTiming(BaseAttack.Direction direction) {
+    public void AttackTiming(Direction direction) {
         attack.Attack(direction);
     }
 
-    // intent 0 is attack, 1 is hurt
+    public void AttackEnd(Direction direction) {
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+        Controller.main.enabled = true;
+        PlayAnimation(direction, 1);
+        switch (direction) {
+            case Direction.Up:
+                transform.Translate(0, -0.5f, 0);
+                break;
+            case Direction.Down:
+                transform.Translate(0, 0.5f, 0);
+                break;
+            default:
+                break;
+        }
+        Controller.main.NextEnemy();
+    }
+
+    // intent 1 is hurt
     IEnumerator ExecuteAfterTime(float time, Direction direction, uint intent)
     {
         yield return new WaitForSeconds(time);
 
         switch (intent)
         {
-            case 0:
-                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-                Controller.main.enabled = true;
-                PlayAnimation(direction, 1);
-                switch (direction) {
-                    case Direction.Up:
-                        transform.Translate(0, -0.5f, 0);
-                        break;
-                    case Direction.Down:
-                        transform.Translate(0, 0.5f, 0);
-                        break;
-                    default:
-                        break;
-                }
-                // run attack script
-                // attack.Attack(DirectionToAttackDirection(direction));
-                // Controller.main.DamagePlayer(attackDamage);
-                Controller.main.NextEnemy();
-                break;
             case 1:
                 PlayAnimation(direction, 1);
                 break;

@@ -36,7 +36,6 @@ public class EquipmentSlot : MonoBehaviour
 
 	public void Equip()
 	{
-		Debug.Log("Equip");
 		equipped = true;
 		EqippableItem assigned = null;
 		if (GetComponent<Slot>().slotsItem)

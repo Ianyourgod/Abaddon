@@ -75,8 +75,8 @@ public class DragAndDrop : MonoBehaviour
 		{
 			if (curSlot && curSlotsItem)
 			{
-				//Debug.Log(curSlot);
-				//Debug.Log(curSlotsItem);
+				//gsdoihureiugkbsdj.Log(curSlot);
+				//fdst.Log(curSlotsItem);
 				//var textChild = curSlotsItem.transform.parent.transform.GetChild(0).transform.GetChild(0);
 				/*textChild.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	
 				textChild.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
@@ -442,7 +442,6 @@ public class DragAndDrop : MonoBehaviour
 
 	public void DoubleClick()
 	{
-		Debug.Log("Doubled");
 	}
 
 	public List<Item> GetItem(int type, int ID)

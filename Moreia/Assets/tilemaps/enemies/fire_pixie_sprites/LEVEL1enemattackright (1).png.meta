@@ -121,9 +121,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 10240
-        width: 4096
-        height: 2048
+        y: 12800
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5afb24b0467add888c1249b222730b0
-      internalID: 1894703441
+      spriteID: 92857733df953cdf18b5abe612de7c75
+      internalID: -39199084
       vertices: []
       indices: 
       edges: []
@@ -141,10 +141,10 @@ TextureImporter:
       name: LEVEL1enemattackright (1)_1
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 10240
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 12800
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f188110eb2a872ebbb36c271e119ea70
-      internalID: 50655641
+      spriteID: 0e148fed377e3193385d9c58efe8f0de
+      internalID: -651434598
       vertices: []
       indices: 
       edges: []
@@ -163,9 +163,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 8192
-        width: 4096
-        height: 2048
+        y: 10240
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 480b39b6f091769e3ae822d98fad77ee
-      internalID: 1196453972
+      spriteID: ef524e1fecc6a675daec4cc957bdd2d0
+      internalID: -375389548
       vertices: []
       indices: 
       edges: []
@@ -183,10 +183,10 @@ TextureImporter:
       name: LEVEL1enemattackright (1)_3
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 8192
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 10240
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22046981e5d88e9c69152304233e2c01
-      internalID: 653102376
+      spriteID: bf4c63ddf8fce39d3a5c333630c46a00
+      internalID: 1933657012
       vertices: []
       indices: 
       edges: []
@@ -205,9 +205,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6144
-        width: 4096
-        height: 2048
+        y: 7680
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8562ffab42ec0f73da59e95ef112242e
-      internalID: 1573484946
+      spriteID: 0f14cdb63b9b1b44b947459b6e1f0ab8
+      internalID: -1548730518
       vertices: []
       indices: 
       edges: []
@@ -225,10 +225,10 @@ TextureImporter:
       name: LEVEL1enemattackright (1)_5
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 6144
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 7680
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e61cc1aa1d6cf01593acd108e03562f
-      internalID: 1491379702
+      spriteID: 3a2faf20e6faf4bc0bae5a1d32e160d5
+      internalID: 2028954306
       vertices: []
       indices: 
       edges: []
@@ -247,9 +247,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 4096
-        width: 4096
-        height: 2048
+        y: 5120
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,8 +257,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31b0fd33fc428b0c683f8942dc561aff
-      internalID: 977548171
+      spriteID: ac09cb88c6a6e3e31b3f430c2da1eada
+      internalID: -1000184343
       vertices: []
       indices: 
       edges: []
@@ -267,10 +267,10 @@ TextureImporter:
       name: LEVEL1enemattackright (1)_7
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 4096
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 5120
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,8 +278,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9be6de437baa2753c996796de01fce22
-      internalID: -433690832
+      spriteID: d65f8f1c43a885c05bb549b6f14a136b
+      internalID: -736947933
       vertices: []
       indices: 
       edges: []
@@ -289,9 +289,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2048
-        width: 4096
-        height: 2048
+        y: 2560
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,8 +299,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4bcb2d7c41fcaddcacbe10b0ef4f35f
-      internalID: 1410698540
+      spriteID: 92c7460bb3945a879a8f121be83ab0a8
+      internalID: -1200327555
       vertices: []
       indices: 
       edges: []
@@ -309,10 +309,10 @@ TextureImporter:
       name: LEVEL1enemattackright (1)_9
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 2048
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 2560
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,8 +320,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ab8d66d0b621fc6e9a0949281006062
-      internalID: 1593707886
+      spriteID: 2d30d191b5d73ab46b22bf5f498fb322
+      internalID: -130664037
       vertices: []
       indices: 
       edges: []
@@ -332,8 +332,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4096
-        height: 2048
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,8 +341,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ffbc8c947ecda975a621d817e3e1ce0
-      internalID: 830960925
+      spriteID: 29c69c3d51a90d38b80f41fa5a246125
+      internalID: 72294589
       vertices: []
       indices: 
       edges: []
@@ -351,10 +351,10 @@ TextureImporter:
       name: LEVEL1enemattackright (1)_11
       rect:
         serializedVersion: 2
-        x: 4096
+        x: 7840
         y: 0
-        width: 4096
-        height: 2048
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,8 +362,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be6bb47f8181280e3aae3f17121ec207
-      internalID: -569530583
+      spriteID: 989132acae2342dcda31cb5c5126f552
+      internalID: -1101300685
       vertices: []
       indices: 
       edges: []
@@ -379,18 +379,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LEVEL1enemattackright (1)_4: 1573484946
-      LEVEL1enemattackright (1)_11: -569530583
-      LEVEL1enemattackright (1)_0: 1894703441
-      LEVEL1enemattackright (1)_1: 50655641
-      LEVEL1enemattackright (1)_10: 830960925
-      LEVEL1enemattackright (1)_9: 1593707886
-      LEVEL1enemattackright (1)_2: 1196453972
-      LEVEL1enemattackright (1)_8: 1410698540
-      LEVEL1enemattackright (1)_6: 977548171
-      LEVEL1enemattackright (1)_7: -433690832
-      LEVEL1enemattackright (1)_5: 1491379702
-      LEVEL1enemattackright (1)_3: 653102376
+      LEVEL1enemattackright (1)_4: -1548730518
+      LEVEL1enemattackright (1)_11: -1101300685
+      LEVEL1enemattackright (1)_0: -39199084
+      LEVEL1enemattackright (1)_1: -651434598
+      LEVEL1enemattackright (1)_10: 72294589
+      LEVEL1enemattackright (1)_9: -130664037
+      LEVEL1enemattackright (1)_2: -375389548
+      LEVEL1enemattackright (1)_8: -1200327555
+      LEVEL1enemattackright (1)_6: -1000184343
+      LEVEL1enemattackright (1)_7: -736947933
+      LEVEL1enemattackright (1)_5: 2028954306
+      LEVEL1enemattackright (1)_3: 1933657012
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

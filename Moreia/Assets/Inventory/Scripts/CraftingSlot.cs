@@ -69,7 +69,6 @@ public class CraftingSlot : MonoBehaviour
 
 			yield return new WaitForSeconds(0.0001f);
 
-			Debug.Log("Crafting...");
 			inv.AddItem(newItem);
 			yield return null;
 		}
@@ -120,7 +119,6 @@ public class CraftingSlot : MonoBehaviour
 			newItem.amountInStack = craftedItemAmount * times;
 
 			inv.AddItem(newItem);
-			Debug.Log("Crafting as many items as possible...  (x" + times + ")");
 			yield return null;
 		}
 	}

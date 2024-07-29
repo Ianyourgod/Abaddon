@@ -332,13 +332,11 @@ public class Slot : MonoBehaviour
 	{
 		if (transform.childCount > 1)
 		{
-			//Debug.Log("IS Item");
 			slotsItem = transform.GetChild(1).GetComponent<Item>();
 		}
 
 		else
 		{
-			//Debug.Log("IS NOT Item");
 			slotsItem = null;
 		}
 	}

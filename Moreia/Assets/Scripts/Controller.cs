@@ -299,6 +299,25 @@ public class Controller : MonoBehaviour {
         NextEnemy();
     }
 
+    // id 4 is minor potion
+    public void ConsumeHealthPotion(int id)
+    {
+        inventory.RemoveItemAmount(id, 1);
+        switch (id)
+        {
+            // minor health potion, restores 5 hp
+            case 4:
+                health += 5;
+                break;
+            default:
+                break;
+        }
+
+        Math.clamp(health, 0, max_health);
+
+        ChangeHealthBar();
+    }
+
     // first int is stat, second int is modifier
     // stat 1 is constitution
     // stat 2 is dexterity

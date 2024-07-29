@@ -166,7 +166,8 @@ public class Inventory : MonoBehaviour
 					}
 				}
 			}
-			hotbarParent.SelectItem();
+			// not using a hotbar
+			// hotbarParent.SelectItem();
 		}
 	}
 

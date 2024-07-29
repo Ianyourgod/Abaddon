@@ -16,12 +16,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] LayerMask collideLayers;
     [SerializeField] Animator animator;
     [SerializeField] Pathfinding2D pathfinding;
+    [SerializeField] string animation_prefix = "Goblin";
+    [SerializeField] BaseAttack attack;
 
     [Header("Attributes")]
     [SerializeField] int detectionDistance = 1;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
-    [SerializeField] uint attackDamage = 1;
 
     public uint health = 10;
     private Direction direction = Direction.Down;
@@ -132,7 +133,6 @@ public class EnemyMovement : MonoBehaviour
             if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0) {
                 Controller.main.enabled = false;
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-                Controller.main.DamagePlayer(attackDamage);
                 StartCoroutine(ExecuteAfterTime(1f, direction, 0));
                 PlayAnimation(direction, 3);
             } else {
@@ -255,14 +255,14 @@ public class EnemyMovement : MonoBehaviour
                 switch (action)
                 {
                     case 1:
-                        animator.Play("Goblin_animation_back_idle");
+                        animator.Play($"{animation_prefix}_animation_back_idle");
                         break;
                     case 2:
-                        animator.Play("Goblin_animation_back_hurt");
+                        animator.Play($"{animation_prefix}_animation_back_hurt");
                         break;
                     case 3:
                         transform.Translate(0, 0.5f, 0);
-                        animator.Play("Goblin_animation_back_attack");
+                        animator.Play($"{animation_prefix}_animation_back_attack");
                         break;
                 }
                 break;
@@ -270,14 +270,14 @@ public class EnemyMovement : MonoBehaviour
                 switch (action)
                 {
                     case 1:
-                        animator.Play("Goblin_animation_front_idle");
+                        animator.Play($"{animation_prefix}_animation_front_idle");
                         break;
                     case 2:
-                        animator.Play("Goblin_animation_front_hurt");
+                        animator.Play($"{animation_prefix}_animation_front_hurt");
                         break;
                     case 3:
                         transform.Translate(0, -0.5f, 0);
-                        animator.Play("Goblin_animation_front_attack");
+                        animator.Play($"{animation_prefix}_animation_front_attack");
                         break;
                 }
                 break;
@@ -285,13 +285,13 @@ public class EnemyMovement : MonoBehaviour
                 switch (action)
                 {
                     case 1:
-                        animator.Play("Goblin_animation_left_idle");
+                        animator.Play($"{animation_prefix}_animation_left_idle");
                         break;
                     case 2:
-                        animator.Play("Goblin_animation_left_hurt");
+                        animator.Play($"{animation_prefix}_animation_left_hurt");
                         break;
                     case 3:
-                        animator.Play("Goblin_animation_left_attack");
+                        animator.Play($"{animation_prefix}_animation_left_attack");
                         break;
                 }
                 break;
@@ -299,13 +299,13 @@ public class EnemyMovement : MonoBehaviour
                 switch (action)
                 {
                     case 1:
-                        animator.Play("Goblin_animation_right_idle");
+                        animator.Play($"{animation_prefix}_animation_right_idle");
                         break;
                     case 2:
-                        animator.Play("Goblin_animation_right_hurt");
+                        animator.Play($"{animation_prefix}_animation_right_hurt");
                         break;
                     case 3:
-                        animator.Play("Goblin_animation_right_attack");
+                        animator.Play($"{animation_prefix}_animation_right_attack");
                         break;
                 }
                 break;
@@ -336,6 +336,25 @@ public class EnemyMovement : MonoBehaviour
         health -= damage;
     }
 
+    BaseAttack.Direction DirectionToAttackDirection(Direction direction) {
+        switch (direction) {
+            case Direction.Up:
+                return BaseAttack.Direction.Up;
+            case Direction.Down:
+                return BaseAttack.Direction.Down;
+            case Direction.Left:
+                return BaseAttack.Direction.Left;
+            case Direction.Right:
+                return BaseAttack.Direction.Right;
+        }
+        return BaseAttack.Direction.Up;
+    }
+
+    // this is called by the animation
+    public void AttackTiming(BaseAttack.Direction direction) {
+        attack.Attack(direction);
+    }
+
     // intent 0 is attack, 1 is hurt
     IEnumerator ExecuteAfterTime(float time, Direction direction, uint intent)
     {
@@ -356,7 +375,10 @@ public class EnemyMovement : MonoBehaviour
                         break;
                     default:
                         break;
-                } 
+                }
+                // run attack script
+                // attack.Attack(DirectionToAttackDirection(direction));
+                // Controller.main.DamagePlayer(attackDamage);
                 Controller.main.NextEnemy();
                 break;
             case 1:

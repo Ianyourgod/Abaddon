@@ -262,7 +262,7 @@ public class Controller : MonoBehaviour {
             // todo: death animation
         }
 
-        if (Convert.ToUInt32(rnd.Next(0, 100)) > 7.5 * ((dexterity - 1) / 2))
+        if (Convert.ToUInt32(rnd.Next(0, 100)) > 7.5 * ((Math.Max(dexterity - 1) / 2))
         {
             health -= damage;
             PlayAnimation(current_player_direction, 2);

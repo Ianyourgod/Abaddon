@@ -7,6 +7,8 @@ public class Grid2D : MonoBehaviour
 {
     public Node2D[,] Grid;
     [SerializeField] Tilemap[] obstaclemaps;
+    [SerializeField] LayerMask collideLayers;
+
     public List<Node2D> path;
     public Vector3 worldBottomLeft;
 
@@ -27,7 +29,13 @@ public class Grid2D : MonoBehaviour
             if (tilemap.HasTile(tilemap.WorldToCell(worldPosition)))
                 return true;
         }
+        if (SendRaycast(worldPosition) != null) return true;
         return false;
+    }
+
+    private Collider2D SendRaycast(Vector3 position)
+    {
+        return Physics2D.Raycast(position, transform.up, 0.1f, collideLayers).collider;
     }
 
     public void CreateGrid()

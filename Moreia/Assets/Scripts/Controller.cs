@@ -253,7 +253,7 @@ public class Controller : MonoBehaviour {
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }
 
-    public void DamagePlayer(uint damage) {
+    public void DamagePlayer(uint damage, bool dodgeable = true) {
         if (damage >= health) {
             health = 0;
             ChangeHealthBar();
@@ -262,13 +262,11 @@ public class Controller : MonoBehaviour {
             // todo: death animation
         }
 
-        if (Convert.ToUInt32(rnd.Next(0, 100)) > 7.5 * ((Math.Max(dexterity - 1) / 2))
-        {
+        if ((Convert.ToUInt32(rnd.Next(0, 100)) > 7.5 * ((Math.Max(dexterity - 1, 0) / 2)) && dodgeable) || !dodgeable) {
             health -= damage;
             PlayAnimation(current_player_direction, 2);
             StartCoroutine(ExecuteAfterTime(0.25f, current_player_direction, 1));
-        } else
-        {
+        } else {
             Debug.Log("dodged");
             // todo: dodge animation
         }

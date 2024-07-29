@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 20.48, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -243,7 +243,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055fe4027667eafec85e7f9fe215bd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclemaps: []
+  obstaclemaps:
+  - {fileID: 0}
+  - {fileID: 0}
+  collideLayers:
+    serializedVersion: 2
+    m_Bits: 1088
   worldBottomLeft: {x: -4.5, y: -4.5, z: 0}
   gridSizeX: 9
   gridSizeY: 9

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseAttack : MonoBehaviour {
     [SerializeField] public uint damage = 1;
 
-    public void Attack(EnemyMovement.Direction direction) {
+    public virtual void Attack(EnemyMovement.Direction direction) {
         Controller.main.DamagePlayer(damage);
     }
 }

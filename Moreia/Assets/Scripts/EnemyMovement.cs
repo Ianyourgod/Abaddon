@@ -341,7 +341,7 @@ public class EnemyMovement : MonoBehaviour
             default:
                 break;
         }
-        Controller.main.NextEnemy();
+        Invoke(nameof(callNextEnemy), 0f);
     }
 
     // intent 1 is hurt

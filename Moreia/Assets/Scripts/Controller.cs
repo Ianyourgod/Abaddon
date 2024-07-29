@@ -13,14 +13,12 @@ public class Controller : MonoBehaviour {
         Right
     }
 
-    public uint constitution = 10; // aka max health 
-    public uint health = 20; // current health
-    public uint attackDamage = 3;
 
     private float lastMovement = 0f;
     public static uint Attacking = 0;
     private Direction current_player_direction = Direction.Down;
 
+    [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
@@ -30,11 +28,27 @@ public class Controller : MonoBehaviour {
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_enemies = true;
+    public uint health;
+    public uint attackDamage;
+
+    // stats
+    [Header("Base Stats")]
+    [Tooltip("Constitution (maximum health)")]
+    [SerializeField] public uint constitution = 10;
+    [Tooltip("Dexterity (dodge chance)")]
+    [SerializeField] public uint dexterity = 10;
+    [Tooltip("Strength (attack damage)")]
+    [SerializeField] public uint strength = 12;
+    [Tooltip("Wisdom (ability damage)")]
+    [SerializeField] public uint wisdom = 10;
 
     void Awake() {
         main = this;
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
+
+        health = constitution * 2; // current health
+        attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
 
     void Update() {

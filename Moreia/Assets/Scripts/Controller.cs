@@ -98,7 +98,7 @@ public class Controller : MonoBehaviour {
             PlayAnimation(direction, 1);
             
             if (Time.time - lastMovement > movementDelay) {
-                if (validMove) {
+                if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
                     transform.Translate(horizontal, vertical, 0);
                     lastMovement = Time.time;
                     NextEnemy();

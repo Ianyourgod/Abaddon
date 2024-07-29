@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6462628818639776132}
   - component: {fileID: 6462628818639776139}
+  - component: {fileID: 7236194330999352524}
+  - component: {fileID: 75584858099250781}
   m_Layer: 0
   m_Name: FirePixieSprite
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6462628818639776133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6462628820561290989}
@@ -71,10 +73,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.43619916, b: 0, a: 1}
+  m_Sprite: {fileID: -1613038047, guid: be428e8604856f49aa16f11d349b319a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +86,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7236194330999352524
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628818639776133}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 594aa04cf66384e28b54476869e7a3ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &75584858099250781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628818639776133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ce2e5c1d9c59e36955507d920636bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMovement: {fileID: 6462628820561290990}
 --- !u!1 &6462628820561290991
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +129,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6462628820561290989}
   - component: {fileID: 6462628820561290990}
+  - component: {fileID: 2419149611409422748}
   - component: {fileID: 6613495682198188706}
+  - component: {fileID: 8905533853578730615}
+  - component: {fileID: 3237090208551826293}
   m_Layer: 6
   m_Name: FirePixieEnemy
   m_TagString: Untagged
@@ -133,8 +171,27 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 384
+  animator: {fileID: 7236194330999352524}
+  pathfinding: {fileID: 8905533853578730615}
+  animation_prefix: Fire_Pixie
+  attack: {fileID: 2419149611409422748}
   detectionDistance: 4
+  followDistance: 10
   enemyDecisionDelay: 0.075
+  health: 10
+--- !u!114 &2419149611409422748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628820561290991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af1f3be3c8a4cd6eac2ec7c8b0e9f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -161,3 +218,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8905533853578730615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628820561290991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2559437a887bfd5aa22de959bd73e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 3237090208551826293}
+--- !u!114 &3237090208551826293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628820561290991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055fe4027667eafec85e7f9fe215bd5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclemaps: []
+  worldBottomLeft: {x: -4.5, y: -4.5, z: 0}
+  gridSizeX: 9
+  gridSizeY: 9

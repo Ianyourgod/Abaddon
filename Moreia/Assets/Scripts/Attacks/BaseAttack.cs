@@ -5,14 +5,7 @@ using UnityEngine;
 public class BaseAttack : MonoBehaviour {
     [SerializeField] uint damage = 1;
 
-    public enum Direction {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
-    public void Attack(Direction direction) {
+    public void Attack(EnemyMovement.Direction direction) {
         Controller.main.DamagePlayer(damage);
     }
 }

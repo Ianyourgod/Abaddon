@@ -14,7 +14,6 @@ public class Controller : MonoBehaviour {
         Right
     }
 
-
     private float lastMovement = 0f;
     public static uint Attacking = 0;
     private Direction current_player_direction = Direction.Down;
@@ -25,6 +24,7 @@ public class Controller : MonoBehaviour {
     private int current_enemy = 0;
     public bool done_with_enemies = true;
     public uint health;
+    public uint max_health;
     public uint attackDamage;
 
     public System.Random rnd = new System.Random();
@@ -58,6 +58,7 @@ public class Controller : MonoBehaviour {
         wisdom += Convert.ToUInt32(rnd.Next(0, 5));
 
         health = constitution * 2; // current health
+        max_health = health;
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
 
@@ -312,4 +313,47 @@ public class Controller : MonoBehaviour {
         }
     }
 
+    // first int is stat, second int is modifier
+    // stat 1 is constitution
+    // stat 2 is dexterity
+    // stat 3 is strength
+    // stat 4 is wisdom
+    public (int, int) ReturnItemStatModifier(int id)
+    {
+        int stat;
+        int modifier;
+        switch (id)
+        {
+            case 2:
+                stat = 2;
+                modifier = 1;
+            case 3:
+                stat = 1;
+                modifier = 1;
+            default:
+                return (null, null);
+        }
+        return (stat, modifier)
+    }
+
+    // bool is true to unequip and false to equip
+    public void EquipItem(int id, bool unequip)
+    {
+        int negative = 1;
+        if (unequip) { negative = -1 };
+        stat_tuple = ReturnItemStatModifier(id);
+        switch (stat_tuple.Item1)
+        {
+            case 1:
+                constitution += stat_tuple.Item2 * negative;
+            case 2:
+                dexterity += stat_tuple.Item2 * negative;
+            case 3:
+                strength += stat_tuple.Item2 * negative;
+            case 4:
+                wisdom += stat_tuple.Item2 * negative;
+            default:
+                break;
+        }
+    }
 }

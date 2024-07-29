@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Controller : MonoBehaviour {
     public static Controller main;
 
-    private enum Direction {
+    public enum Direction {
         Up,
         Down,
         Left,
@@ -143,7 +143,6 @@ public class Controller : MonoBehaviour {
         hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
-        StartCoroutine(ExecuteAfterTime(1f, direction, 2));
         Attacking = 1;
     }
 
@@ -269,7 +268,6 @@ public class Controller : MonoBehaviour {
         {
             health -= Convert.ToInt32(damage);
             PlayAnimation(current_player_direction, 2);
-            StartCoroutine(ExecuteAfterTime(0.25f, current_player_direction, 1));
         } else
         {
             Debug.Log("dodged");
@@ -279,40 +277,26 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
     }
 
-    // additionalRoutine 1 is nothing, 2 is attack (moves back after animation plays)
-    IEnumerator ExecuteAfterTime(float time, Direction direction, uint additionalRoutine)
+    public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
     {
-        yield return new WaitForSeconds(time);
-
-        PlayAnimation(direction, 1);
-
-        switch (additionalRoutine)
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+        Attacking = 0;
+        switch (direction)
         {
-            case 1:
+            case PlayerAnimationPlayer.Direction.Up:
+                transform.Translate(0, -0.5f, 0);
                 break;
-            case 2:
-                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-                Attacking = 0;
-                switch (direction)
-                {
-                    case Direction.Up:
-                        transform.Translate(0, -0.5f, 0);
-                        break;
-                    case Direction.Down:
-                        transform.Translate(0, 0.5f, 0);
-                        break;
-                    case Direction.Left:
-                        transform.Translate(0.5f, 0, 0);
-                        break;
-                    case Direction.Right:
-                        transform.Translate(-0.5f, 0, 0);
-                        break;
-                }
-                NextEnemy();
+            case PlayerAnimationPlayer.Direction.Down:
+                transform.Translate(0, 0.5f, 0);
                 break;
-            default:
+            case PlayerAnimationPlayer.Direction.Left:
+                transform.Translate(0.5f, 0, 0);
+                break;
+            case PlayerAnimationPlayer.Direction.Right:
+                transform.Translate(-0.5f, 0, 0);
                 break;
         }
+        NextEnemy();
     }
 
     // first int is stat, second int is modifier

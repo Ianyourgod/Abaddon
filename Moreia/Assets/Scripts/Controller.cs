@@ -256,14 +256,6 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage) {
-        if (damage >= health) {
-            health = 0;
-            ChangeHealthBar();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            return;
-            // todo: death animation
-        }
-
         if (rnd.Next(10, 25) > dexterity)
         {
             health -= Convert.ToInt32(damage);
@@ -272,6 +264,13 @@ public class Controller : MonoBehaviour {
         {
             Debug.Log("dodged");
             // todo: dodge animation
+        }
+
+        if (health <= 0) {
+            ChangeHealthBar();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
+            // todo: death animation
         }
 
         ChangeHealthBar();
@@ -297,6 +296,25 @@ public class Controller : MonoBehaviour {
                 break;
         }
         NextEnemy();
+    }
+
+    // id 4 is minor potion
+    public void ConsumeHealthPotion(int id)
+    {
+        inventory.RemoveItemAmount(id, 1);
+        switch (id)
+        {
+            // minor health potion, restores 5 hp
+            case 4:
+                health += 5;
+                break;
+            default:
+                break;
+        }
+
+        health = Math.Clamp(health, 0, max_health);
+
+        ChangeHealthBar();
     }
 
     // first int is stat, second int is modifier

@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 7842820053772704082}
   - component: {fileID: 7842820053772704080}
   - component: {fileID: 7842820053772704081}
+  - component: {fileID: 1872257724}
   m_Layer: 7
   m_Name: Animated Sprite
   m_TagString: Untagged
@@ -263,3 +264,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1872257724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053772704083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868312c70a154df4f8f709db284f21a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7842820053772704081}

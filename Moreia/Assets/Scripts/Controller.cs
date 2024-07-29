@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +19,6 @@ public class Controller : MonoBehaviour {
     public static uint Attacking = 0;
     private Direction current_player_direction = Direction.Down;
 
-    [Header("Misc")]
-    [SerializeField] LayerMask collideLayers;
-    [SerializeField] float movementDelay = 0.1f;
-    [SerializeField] Animator animator;
-    [SerializeField] RectTransform healthBar;
     private float original_anchor_position;
     private Inventory inventory;
     public EnemyMovement[] enemies;
@@ -31,6 +27,14 @@ public class Controller : MonoBehaviour {
     public uint health;
     public uint attackDamage;
 
+    public System.Random rnd = new System.Random();
+
+    [Header("Misc")]
+    [SerializeField] LayerMask collideLayers;
+    [SerializeField] float movementDelay = 0.1f;
+    [SerializeField] Animator animator;
+    [SerializeField] RectTransform healthBar;
+
     // stats
     [Header("Base Stats")]
     [Tooltip("Constitution (maximum health)")]
@@ -38,7 +42,7 @@ public class Controller : MonoBehaviour {
     [Tooltip("Dexterity (dodge chance)")]
     [SerializeField] public uint dexterity = 10;
     [Tooltip("Strength (attack damage)")]
-    [SerializeField] public uint strength = 12;
+    [SerializeField] public uint strength = 10;
     [Tooltip("Wisdom (ability damage)")]
     [SerializeField] public uint wisdom = 10;
 
@@ -46,6 +50,12 @@ public class Controller : MonoBehaviour {
         main = this;
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
+
+        // stat randomization
+        constitution += Convert.ToUInt32(rnd.Next(0, 5));
+        dexterity += Convert.ToUInt32(rnd.Next(0, 5));
+        strength += Convert.ToUInt32(rnd.Next(0, 5));
+        wisdom += Convert.ToUInt32(rnd.Next(0, 5));
 
         health = constitution * 2; // current health
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
@@ -251,10 +261,17 @@ public class Controller : MonoBehaviour {
             return;
             // todo: death animation
         }
-        health -= damage;
 
-        PlayAnimation(current_player_direction, 2);
-        StartCoroutine(ExecuteAfterTime(0.25f, current_player_direction, 1));
+        if (Convert.ToUInt32(rnd.Next(0, 100)) > 7.5 * ((dexterity - 1) / 2))
+        {
+            health -= damage;
+            PlayAnimation(current_player_direction, 2);
+            StartCoroutine(ExecuteAfterTime(0.25f, current_player_direction, 1));
+        } else
+        {
+            Debug.Log("dodged");
+            // todo: dodge animation
+        }
 
         ChangeHealthBar();
     }

@@ -7710,6 +7710,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: worldBottomLeft.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: worldBottomLeft.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: collideLayers.m_Bits
+      value: 1088
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: obstaclemaps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: obstaclemaps.Array.data[0]
+      value: 
+      objectReference: {fileID: 675965939}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: obstaclemaps.Array.data[1]
+      value: 
+      objectReference: {fileID: 1972888567}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 4

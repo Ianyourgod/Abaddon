@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class Grid2D : MonoBehaviour
 {
     public Node2D[,] Grid;
     [SerializeField] Tilemap[] obstaclemaps;
+    [SerializeField] LayerMask collideLayers;
+
     public List<Node2D> path;
     public Vector3 worldBottomLeft;
 
@@ -24,10 +27,19 @@ public class Grid2D : MonoBehaviour
     {
         foreach (Tilemap tilemap in obstaclemaps)
         {
-            if (tilemap.HasTile(tilemap.WorldToCell(worldPosition)))
+            Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+            if (tilemap.HasTile(cellPosition))
                 return true;
         }
+        Vector3 new_position = worldPosition + new Vector3(0.5f, -0.5f, 0);
+        if (new_position == transform.position) return false;
+        if (SendRaycast(new_position) != null) return true;
         return false;
+    }
+
+    private Collider2D SendRaycast(Vector3 position)
+    {
+        return Physics2D.Raycast(position, transform.up, 0.1f, collideLayers).collider;
     }
 
     public void CreateGrid()
@@ -42,6 +54,10 @@ public class Grid2D : MonoBehaviour
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * x + Vector3.up * y;
                 Grid[x, y] = new Node2D(false, worldPoint, x, y);
+
+                if (x == Math.Floor((float) gridSizeX / 2) && y == Math.Floor((float) gridSizeY / 2)) {
+                    Grid[x, y].SetObstacle(false);
+                } else
 
                 if (HasTile(Grid[x, y].worldPosition))
                     Grid[x, y].SetObstacle(true);

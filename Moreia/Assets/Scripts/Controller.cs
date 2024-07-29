@@ -119,7 +119,6 @@ public class Controller : MonoBehaviour {
                         NextEnemy();
                     // if we hit a portal, travel through it
                     } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
-                        Debug.Log(hit.gameObject);
                         hit.gameObject.GetComponent<Portal>().PortalTravel();
                     } else {
                         NextEnemy();
@@ -255,13 +254,16 @@ public class Controller : MonoBehaviour {
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }
 
-    public void DamagePlayer(uint damage) {
+    public void DamagePlayer(uint damage, bool dodgeable = true) {
+        if (damage >= health) {
+            health = 0;
+        }
+
         if (rnd.Next(10, 25) > dexterity)
         {
             health -= Convert.ToInt32(damage);
             PlayAnimation(current_player_direction, 2);
-        } else
-        {
+        } else {
             Debug.Log("dodged");
             // todo: dodge animation
         }
@@ -269,7 +271,6 @@ public class Controller : MonoBehaviour {
         if (health <= 0) {
             ChangeHealthBar();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            return;
             // todo: death animation
         }
 

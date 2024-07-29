@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 682f23f916cc9dbca821c75ddb0f5927
+guid: 0e65f23f8fc16d1baa46a1e9969587b9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,55 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_0
+      name: LEVEL1enemattackleft(2)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12800
+        width: 7840
+        height: 2560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c1e4ec08897b660295eb57e0ef15031
+      internalID: 179704742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LEVEL1enemattackleft(2)_1
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 12800
+        width: 7840
+        height: 2560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58634c83c2fae356ca1a17d5d3f40b66
+      internalID: -2100309028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LEVEL1enemattackleft(2)_2
       rect:
         serializedVersion: 2
         x: 0
         y: 10240
-        width: 4096
-        height: 2048
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 896b94a4d37dec1b19dedd7d8a347dec
-      internalID: 421725240
+      spriteID: 07d29df786aae0fe4ac04af3a45698bd
+      internalID: 193456614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_1
+      name: LEVEL1enemattackleft(2)_3
       rect:
         serializedVersion: 2
-        x: 4096
+        x: 7840
         y: 10240
-        width: 4096
-        height: 2048
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c91dd29cbb08d9e0c97561635b898a24
-      internalID: 675725118
+      spriteID: 6e16d8d65dbda47f4bc2098e957a3a87
+      internalID: -513660330
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_2
+      name: LEVEL1enemattackleft(2)_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 8192
-        width: 4096
-        height: 2048
+        y: 7680
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d400ea5eb1cd4d70a83c8f3807e83958
-      internalID: 542720304
+      spriteID: afb772e7893921fd285fa86b5251673d
+      internalID: -1598606843
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_3
+      name: LEVEL1enemattackleft(2)_5
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 8192
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 7680
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,62 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ea5aa01de86f31b3990e94fe39f76de
-      internalID: -590473129
+      spriteID: a1c5bc698039e0dde894bcc3f0ca77f5
+      internalID: -1191222685
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 6144
-        width: 4096
-        height: 2048
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71bf85fa1169a65eebbceb1eef072c33
-      internalID: -2123247710
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL1enemattackleft_5
-      rect:
-        serializedVersion: 2
-        x: 4096
-        y: 6144
-        width: 4096
-        height: 2048
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d5ba2b58ba714ae5bdb7bdfdf762ddd
-      internalID: -911150418
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL1enemattackleft_6
+      name: LEVEL1enemattackleft(2)_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 4096
-        width: 4096
-        height: 2048
+        y: 5120
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bdd853d9d9ed223cb4a3327888c09c3
-      internalID: -1025100259
+      spriteID: 77000939ed75faa3cbeee4c5e662bbeb
+      internalID: 1996879719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_7
+      name: LEVEL1enemattackleft(2)_7
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 4096
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 5120
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +278,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f7203929206e04709c37fb9e2379912
-      internalID: 297680908
+      spriteID: 67a1b3da8a9ba6de7b59e76c0c35191a
+      internalID: -1720465515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_8
+      name: LEVEL1enemattackleft(2)_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 2048
-        width: 4096
-        height: 2048
+        y: 2560
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +299,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 577ee398351d63e89b9610ca4df7be64
-      internalID: -460647565
+      spriteID: e250c04def1431c66a6b6fe5b21e2d57
+      internalID: -1098912899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_9
+      name: LEVEL1enemattackleft(2)_9
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 2048
-        width: 4096
-        height: 2048
+        x: 7840
+        y: 2560
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,20 +320,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33d30983b3fc41001a429f7a51af1fab
-      internalID: -651319188
+      spriteID: acfb341cdaa09a738bfc70cdaa6be3e3
+      internalID: -974259595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_10
+      name: LEVEL1enemattackleft(2)_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4096
-        height: 2048
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,20 +341,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd13133079b4af5a5adaa4bcbc7ce5ef
-      internalID: 382002460
+      spriteID: 843ef52ecc16cdd9087044f74656404b
+      internalID: -2063018016
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackleft_11
+      name: LEVEL1enemattackleft(2)_11
       rect:
         serializedVersion: 2
-        x: 4096
+        x: 7840
         y: 0
-        width: 4096
-        height: 2048
+        width: 7840
+        height: 2560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,8 +362,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40ebb647de5eab30ab5410d9e09a9659
-      internalID: 1049069757
+      spriteID: f059c59a9e350f7d09435d88bef4d6f1
+      internalID: -1794910111
       vertices: []
       indices: 
       edges: []
@@ -379,18 +379,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LEVEL1enemattackleft_4: -2123247710
-      LEVEL1enemattackleft_11: 1049069757
-      LEVEL1enemattackleft_2: 542720304
-      LEVEL1enemattackleft_3: -590473129
-      LEVEL1enemattackleft_7: 297680908
-      LEVEL1enemattackleft_0: 421725240
-      LEVEL1enemattackleft_8: -460647565
-      LEVEL1enemattackleft_6: -1025100259
-      LEVEL1enemattackleft_5: -911150418
-      LEVEL1enemattackleft_1: 675725118
-      LEVEL1enemattackleft_10: 382002460
-      LEVEL1enemattackleft_9: -651319188
+      LEVEL1enemattackleft(2)_0: 179704742
+      LEVEL1enemattackleft(2)_10: -2063018016
+      LEVEL1enemattackleft(2)_3: -513660330
+      LEVEL1enemattackleft(2)_1: -2100309028
+      LEVEL1enemattackleft(2)_9: -974259595
+      LEVEL1enemattackleft(2)_8: -1098912899
+      LEVEL1enemattackleft(2)_6: 1996879719
+      LEVEL1enemattackleft(2)_2: 193456614
+      LEVEL1enemattackleft(2)_5: -1191222685
+      LEVEL1enemattackleft(2)_7: -1720465515
+      LEVEL1enemattackleft(2)_4: -1598606843
+      LEVEL1enemattackleft(2)_11: -1794910111
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

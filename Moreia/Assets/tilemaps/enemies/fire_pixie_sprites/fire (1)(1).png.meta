@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: baa9b3a794be48f71ba4d5a4f1b40979
+guid: 9cc9125f3285c45ba8f6a1bd163dbe2a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_0
+      name: fire (1)(1)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 12800
-        width: 7840
-        height: 2560
+        y: 4096
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92857733df953cdf18b5abe612de7c75
-      internalID: -39199084
+      spriteID: e9edc98f79969351fb858de263f49639
+      internalID: 1961529036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_1
+      name: fire (1)(1)_1
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 12800
-        width: 7840
-        height: 2560
+        x: 2048
+        y: 4096
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e148fed377e3193385d9c58efe8f0de
-      internalID: -651434598
+      spriteID: beb1f1d8e0ea4b357ad114fb6c5e8866
+      internalID: 5521028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_2
+      name: fire (1)(1)_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 10240
-        width: 7840
-        height: 2560
+        x: 4096
+        y: 4096
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,41 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef524e1fecc6a675daec4cc957bdd2d0
-      internalID: -375389548
+      spriteID: fba6d3318027f05eba5e6125a3c91937
+      internalID: 394525438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_3
-      rect:
-        serializedVersion: 2
-        x: 7840
-        y: 10240
-        width: 7840
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf4c63ddf8fce39d3a5c333630c46a00
-      internalID: 1933657012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_4
+      name: fire (1)(1)_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 7680
-        width: 7840
-        height: 2560
+        y: 2048
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f14cdb63b9b1b44b947459b6e1f0ab8
-      internalID: -1548730518
+      spriteID: 568610b8f34d005198658d0f424775f0
+      internalID: -979140377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_5
+      name: fire (1)(1)_4
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 7680
-        width: 7840
-        height: 2560
+        x: 2048
+        y: 2048
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a2faf20e6faf4bc0bae5a1d32e160d5
-      internalID: 2028954306
+      spriteID: be7759f8a0be72c999c8f7ea66b3d3a1
+      internalID: 2066887102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_6
+      name: fire (1)(1)_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 5120
-        width: 7840
-        height: 2560
+        x: 4096
+        y: 2048
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,83 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac09cb88c6a6e3e31b3f430c2da1eada
-      internalID: -1000184343
+      spriteID: 5ed333e329effed92b0b4afcb2441bc3
+      internalID: -1630631862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_7
-      rect:
-        serializedVersion: 2
-        x: 7840
-        y: 5120
-        width: 7840
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d65f8f1c43a885c05bb549b6f14a136b
-      internalID: -736947933
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 2560
-        width: 7840
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92c7460bb3945a879a8f121be83ab0a8
-      internalID: -1200327555
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_9
-      rect:
-        serializedVersion: 2
-        x: 7840
-        y: 2560
-        width: 7840
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d30d191b5d73ab46b22bf5f498fb322
-      internalID: -130664037
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_10
+      name: fire (1)(1)_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 7840
-        height: 2560
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29c69c3d51a90d38b80f41fa5a246125
-      internalID: 72294589
+      spriteID: d4a8acb98cce3397cb2e8f3943c7ed52
+      internalID: 945069673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LEVEL1enemattackright (1)_11
+      name: fire (1)(1)_7
       rect:
         serializedVersion: 2
-        x: 7840
+        x: 2048
         y: 0
-        width: 7840
-        height: 2560
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,8 +278,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 989132acae2342dcda31cb5c5126f552
-      internalID: -1101300685
+      spriteID: 022098ae516ea3c0cae05885416ec6e8
+      internalID: -498423315
       vertices: []
       indices: 
       edges: []
@@ -379,18 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LEVEL1enemattackright (1)_4: -1548730518
-      LEVEL1enemattackright (1)_11: -1101300685
-      LEVEL1enemattackright (1)_0: -39199084
-      LEVEL1enemattackright (1)_1: -651434598
-      LEVEL1enemattackright (1)_10: 72294589
-      LEVEL1enemattackright (1)_9: -130664037
-      LEVEL1enemattackright (1)_2: -375389548
-      LEVEL1enemattackright (1)_8: -1200327555
-      LEVEL1enemattackright (1)_6: -1000184343
-      LEVEL1enemattackright (1)_7: -736947933
-      LEVEL1enemattackright (1)_5: 2028954306
-      LEVEL1enemattackright (1)_3: 1933657012
+      fire (1)(1)_1: 5521028
+      fire (1)(1)_6: 945069673
+      fire (1)(1)_3: -979140377
+      fire (1)(1)_5: -1630631862
+      fire (1)(1)_7: -498423315
+      fire (1)(1)_4: 2066887102
+      fire (1)(1)_2: 394525438
+      fire (1)(1)_0: 1961529036
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

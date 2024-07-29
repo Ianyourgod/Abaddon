@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 20.48, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6462628820561290989}
   - component: {fileID: 6462628820561290990}
-  - component: {fileID: 2419149611409422748}
+  - component: {fileID: 2309056572890118907}
   - component: {fileID: 6613495682198188706}
   - component: {fileID: 8905533853578730615}
   - component: {fileID: 3237090208551826293}
@@ -174,12 +174,12 @@ MonoBehaviour:
   animator: {fileID: 7236194330999352524}
   pathfinding: {fileID: 8905533853578730615}
   animation_prefix: Fire_Pixie
-  attack: {fileID: 2419149611409422748}
+  attack: {fileID: 2309056572890118907}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
   health: 10
---- !u!114 &2419149611409422748
+--- !u!114 &2309056572890118907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,10 +188,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6462628820561290991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af1f3be3c8a4cd6eac2ec7c8b0e9f14, type: 3}
+  m_Script: {fileID: 11500000, guid: 31c5bf5e11845a07485b34081e709006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  fireball_prefab: {fileID: 4476263217152093388, guid: 1ac43963423b598348a6f270b1b753f2, type: 3}
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -243,7 +244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055fe4027667eafec85e7f9fe215bd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclemaps: []
+  obstaclemaps:
+  - {fileID: 0}
+  - {fileID: 0}
+  collideLayers:
+    serializedVersion: 2
+    m_Bits: 64
   worldBottomLeft: {x: -4.5, y: -4.5, z: 0}
   gridSizeX: 9
   gridSizeY: 9

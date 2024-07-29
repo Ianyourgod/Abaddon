@@ -151,6 +151,11 @@ public class EnemyMovement : MonoBehaviour
             return (0, 0);
         }
 
+        // shouldnt happen but just in case
+        if (path.Count == 0) {
+            return (0, 0);
+        }
+
         // get the relative position of the next node
         Vector2 nextNode = path[0].worldPosition - pathfinding.grid.worldBottomLeft;
 
@@ -336,7 +341,7 @@ public class EnemyMovement : MonoBehaviour
             default:
                 break;
         }
-        Controller.main.NextEnemy();
+        Invoke(nameof(callNextEnemy), 0f);
     }
 
     // intent 1 is hurt

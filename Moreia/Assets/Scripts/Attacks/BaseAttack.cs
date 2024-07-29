@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseAttack : MonoBehaviour {
-    [SerializeField] uint damage = 1;
+    [SerializeField] public uint damage = 1;
 
-    public void Attack(EnemyMovement.Direction direction) {
+    public virtual void Attack(EnemyMovement.Direction direction) {
         Controller.main.DamagePlayer(damage);
     }
 }

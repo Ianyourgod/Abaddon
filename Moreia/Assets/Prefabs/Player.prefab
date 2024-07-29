@@ -48,15 +48,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab0361a34be4ca4f9075ebeba72b887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constitution: 10
+  enemies: []
+  done_with_enemies: 1
   health: 20
+  max_health: 0
   attackDamage: 3
   collideLayers:
     serializedVersion: 2
-    m_Bits: 7488
+    m_Bits: 15680
   movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
+  constitution: 10
+  dexterity: 8
+  strength: 8
+  wisdom: 8
+  maximum_stat_roll: 7
 --- !u!61 &6429215519232914106
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -124,7 +131,7 @@ MonoBehaviour:
   pickupRange: 0
   throwForceUp: 0
   throwForceForward: 0
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 7842820053425721011}
   slots:
   - {fileID: 0}
   - {fileID: 0}

@@ -58,6 +58,8 @@ public class DragAndDrop : MonoBehaviour
 	[HideInInspector]
 	public bool shouldCheck;
 
+	private float last_click;
+
 	private void Start()
 	{
 		invObj = inv.inventoryObject;
@@ -136,11 +138,13 @@ public class DragAndDrop : MonoBehaviour
 						if (curSlot.GetComponent<Slot>().slotsItem)
 						{
 							clicks++;
-							if (!started)
+
+							if (!started && Time.time - last_click < 0.25)
 							{
 								DoubleClick();
 								return;
 							}
+							last_click = Time.time;
 						}
 					}
 				}

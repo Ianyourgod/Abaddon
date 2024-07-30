@@ -7409,6 +7409,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Darkener
       objectReference: {fileID: 0}
+    - target: {fileID: 8048803055124369969, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048803055124369970, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7439,11 +7447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 804.5
+      value: 785
       objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 494.5
+      value: 521.4
       objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_LocalScale.x
@@ -7487,11 +7495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.000038624
       objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.0000038147
       objectReference: {fileID: 0}
     - target: {fileID: 8048803055124369972, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9219,12 +9227,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1920057354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763b730f797294b80a0f647c385aeb5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 02123739edaf046d895e178f658b172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 1
-  darkener: {fileID: 764820496}
-  startingColor: {r: 0, g: 0, b: 0, a: 1}
+  transistionScriptableObject: {fileID: 11400000, guid: 04359389d16cf4c02a42ba37afda5d5a, type: 2}
+  panel: {fileID: 764820496}
 --- !u!1001 &1924155339
 PrefabInstance:
   m_ObjectHideFlags: 0

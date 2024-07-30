@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 99855960}
   - component: {fileID: 99855959}
   - component: {fileID: 99855958}
-  - component: {fileID: 99855957}
+  - component: {fileID: 99855962}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -143,22 +143,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &99855957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99855956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be03c4e7bf6854779979173b08124013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPlayScene: Level 0
-  background: {fileID: 884197818}
-  fadeSpeed: 10
-  darkenerInOtherScene: {fileID: 8048803055124369970, guid: 677fda0dcb74c44dfb287212bcf64206, type: 3}
 --- !u!114 &99855958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +230,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &99855962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99855956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 128973b1064ce4c2c867b6f030fab7a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transistionScriptableObject: {fileID: 11400000, guid: 04359389d16cf4c02a42ba37afda5d5a, type: 2}
+  panel: {fileID: 884197818}
+  StartPlayScene: Level 0
 --- !u!1 &124146083
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +357,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1364,9 +1363,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 99855957}
-        m_TargetAssemblyTypeName: MainMenuHandler, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 99855962}
+        m_TargetAssemblyTypeName: TransitionIntoHandler, Assembly-CSharp
+        m_MethodName: SwitchScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

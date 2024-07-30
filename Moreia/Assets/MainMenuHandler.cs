@@ -10,9 +10,6 @@ public class MainMenuHandler : MonoBehaviour
     [SerializeField] Image background;
     [SerializeField] float fadeSpeed = 10;
     private bool startFadingOut;
-    public void StartGame() {
-        startFadingOut = true;
-    }
 
     void Update() {
         if (startFadingOut) {

@@ -22,9 +22,7 @@ public class Door : MonoBehaviour
     {
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         if (NeedsKey) {
-            string locked = (NeedsKey ? "Locked" : "");
-
-            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}{locked}");
+            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}Locked");
         }
     }
 

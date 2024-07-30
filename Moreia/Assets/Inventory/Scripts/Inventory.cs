@@ -113,13 +113,20 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public bool CheckIfItemExists(int id)
-    {
-		if (GetItemAmount(id) > 0) {
-			return true;
-        } else {
-			return false;
-        }
+	public bool CheckIfItemExists(int id) {
+		// more efficient !!!!!!
+		foreach (Slot slot in slots)
+		{
+			if (slot.slotsItem)
+			{
+				Item z = slot.slotsItem;
+				if (z.ItemID == id)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
     }
 
 	public int GetItemAmount(int id)

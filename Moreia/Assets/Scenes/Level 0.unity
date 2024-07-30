@@ -10430,6 +10430,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8724993537770392862, guid: 12d4c83b3a612684492fd56b40d1385a, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1897976033}
     - target: {fileID: 8724993537770392864, guid: 12d4c83b3a612684492fd56b40d1385a, type: 3}
       propertyPath: m_Name
       value: Door Left

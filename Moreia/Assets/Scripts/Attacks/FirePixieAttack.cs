@@ -11,7 +11,6 @@ public class FirePixieAttack : BaseAttack {
         if (IsFireballThere(direction)) {
             return false;
         }
-        Debug.Log("fireball not there");
 
         if (collider != null && collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
             return true;
@@ -39,8 +38,7 @@ public class FirePixieAttack : BaseAttack {
                 break;
         }
 
-        Collider2D collider = Physics2D.Raycast(transform.position, dir, 1f, LayerMask.NameToLayer("Fireball")).collider;
-        print(collider);
+        Collider2D collider = Physics2D.Raycast(transform.position, dir, 1f, LayerMask.GetMask("Fireball")).collider;
         return collider != null;
     }
 

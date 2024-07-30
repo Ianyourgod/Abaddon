@@ -13,17 +13,18 @@ public class Fireball : MonoBehaviour
         Controller.OnTick += CustomUpdate;
     }
 
+    void OnDestroy() {
+        Controller.OnTick -= CustomUpdate;
+    }
+
     void CustomUpdate() {
         timeAlive++;
         if (timeAlive > lastingTime) {
             Destroy(gameObject);
         }
 
-        // check if we're colliding with the player
-        Collider2D collider = Physics2D.OverlapCircle(transform.position, 0.5f, LayerMask.GetMask("Player"));
-
-        if (collider != null) {
-            Controller.main.DamagePlayer(damage);
+        if (transform.position == Controller.main.transform.position) {
+            Controller.main.DamagePlayer(damage, false);
         }
     }
 }

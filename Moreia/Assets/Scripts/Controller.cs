@@ -92,7 +92,6 @@ public class Controller : MonoBehaviour {
             return;
 
         done_with_tick = false;
-        OnTick?.Invoke();
 
         // get the direction we are moving
         Direction direction =
@@ -108,7 +107,7 @@ public class Controller : MonoBehaviour {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
                 transform.Translate(horizontal, vertical, 0);
                 lastMovement = Time.time;
-                NextEnemy();
+                FinishTick();
             } else {
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
@@ -123,15 +122,20 @@ public class Controller : MonoBehaviour {
                     } else {
                         Debug.Log("need key");
                     }
-                    NextEnemy();
+                    FinishTick();
                 // if we hit a portal, travel through it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
                     hit.gameObject.GetComponent<Portal>().PortalTravel();
                 } else {
-                    NextEnemy();
+                    FinishTick();
                 }
             }
         }
+    }
+
+    void FinishTick() {
+        OnTick?.Invoke();
+        NextEnemy();
     }
 
     public void NextEnemy() {
@@ -264,7 +268,7 @@ public class Controller : MonoBehaviour {
             health = 0;
         }
 
-        if (rnd.Next(10, 25) > dexterity)
+        if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
             PlayAnimation(current_player_direction, 2);
@@ -300,7 +304,7 @@ public class Controller : MonoBehaviour {
                 transform.Translate(-0.5f, 0, 0);
                 break;
         }
-        NextEnemy();
+        FinishTick();
     }
 
     // id 4 is minor potion

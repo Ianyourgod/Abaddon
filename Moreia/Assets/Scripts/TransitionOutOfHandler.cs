@@ -10,7 +10,7 @@ public class TransitionOutOfHandler : MonoBehaviour
     [SerializeField] UnityEngine.UI.Image panel;
     private float timeElapsed = 0;
 
-    void Awake() {
+    void Start() {
         enabled = true;
         panel.enabled = true;
         panel.gameObject.SetActive(true);
@@ -18,6 +18,7 @@ public class TransitionOutOfHandler : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Starting");
         Color start = transistionScriptableObject.transistionColor;
         Color end = new Color(start.r, start.g, start.b, 0);
         float t = timeElapsed / transistionScriptableObject.timeToFade;

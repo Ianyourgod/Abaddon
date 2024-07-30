@@ -15,4 +15,4 @@ MonoBehaviour:
   transitionType: 0
   transistionColor: {r: 0, g: 0, b: 0, a: 1}
   timeDelay: 0
-  timeToFade: 0.6
+  timeToFade: 1

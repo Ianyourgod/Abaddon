@@ -4,30 +4,48 @@ using UnityEngine;
 
 public class FirePixieAttack : BaseAttack {
     [SerializeField] GameObject fireball_prefab;
-    [SerializeField] LayerMask playerLayer;
+    [SerializeField] int detectionDistance = 2;
 
     public override bool WillAttack(Collider2D collider, EnemyMovement.Direction direction) {
         // base stuff
+        if (IsFireballThere(direction)) {
+            return false;
+        }
+        Debug.Log("fireball not there");
+
         if (collider != null && collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
             return true;
         }
 
         // now check if the player is at most 1 unit away
-        return IsPlayerThere(direction);
+        return IsPlayerThere();
     }
 
-    private bool IsPlayerThere(EnemyMovement.Direction direction) {
+    private bool IsFireballThere(EnemyMovement.Direction direction) {
+        Vector3 dir = transform.up;
+
         switch (direction) {
             case EnemyMovement.Direction.Up:
-                return Physics2D.Raycast(transform.position, transform.up, 2f, playerLayer).collider != null;
+                dir = transform.up;
+                break;
             case EnemyMovement.Direction.Down:
-                return Physics2D.Raycast(transform.position, -transform.up, 2f, playerLayer).collider != null;
+                dir = -transform.up;
+                break;
             case EnemyMovement.Direction.Left:
-                return Physics2D.Raycast(transform.position, -transform.right, 2f, playerLayer).collider != null;
+                dir = -transform.right;
+                break;
             case EnemyMovement.Direction.Right:
-                return Physics2D.Raycast(transform.position, transform.right, 2f, playerLayer).collider != null;
+                dir = transform.right;
+                break;
         }
-        return false;
+
+        Collider2D collider = Physics2D.Raycast(transform.position, dir, 1f, LayerMask.NameToLayer("Fireball")).collider;
+        print(collider);
+        return collider != null;
+    }
+
+    private bool IsPlayerThere() {
+        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
     public override void Attack(EnemyMovement.Direction direction) {

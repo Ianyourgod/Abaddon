@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour {
+    // used for non-enemy things where having stuff in order doesnt really matter
+    public delegate void TickAction();
+    public static event TickAction OnTick;
+
     public static Controller main;
 
     public enum Direction {
@@ -88,6 +92,7 @@ public class Controller : MonoBehaviour {
             return;
 
         done_with_tick = false;
+        OnTick?.Invoke();
 
         // get the direction we are moving
         Direction direction =

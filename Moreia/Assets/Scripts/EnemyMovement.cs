@@ -125,18 +125,18 @@ public class EnemyMovement : MonoBehaviour
         Collider2D hit = IsValidMove(direction);
         PlayAnimation(direction, 1);
 
-        if (hit == null && Controller.Attacking == 0) {
+        bool willAttack = attack.WillAttack(hit, direction);
+
+        if (willAttack) {
+            Controller.main.enabled = false;
+            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+            PlayAnimation(direction, 3);
+        } else if (hit == null) {
             Vector2 movement = DirectionToVector(direction);
             transform.Translate(movement.x, movement.y, 0);
             Invoke(nameof(callNextEnemy), 0f);
         } else {
-            if (hit.gameObject.layer == LayerMask.NameToLayer("Player") && Controller.Attacking == 0) {
-                Controller.main.enabled = false;
-                animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-                PlayAnimation(direction, 3);
-            } else {
-                Invoke(nameof(callNextEnemy), 0f);
-            }
+            Invoke(nameof(callNextEnemy), 0f);
         }
     }
 
@@ -312,8 +312,6 @@ public class EnemyMovement : MonoBehaviour
     public void DamageEnemy(uint damage, string targetTag) {
         if (damage >= health) {
             health = 0;
-            // prevent the player from locking up after death
-            Controller.Attacking = 0;
             Destroy(gameObject);
             return;
         }

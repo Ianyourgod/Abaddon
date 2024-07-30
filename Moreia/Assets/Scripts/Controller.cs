@@ -16,14 +16,13 @@ public class Controller : MonoBehaviour {
 
 
     private float lastMovement = 0f;
-    public static uint Attacking = 0;
     private Direction current_player_direction = Direction.Down;
 
     private float original_anchor_position;
     private Inventory inventory;
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
-    public bool done_with_enemies = true;
+    public bool done_with_tick = true;
     public uint health;
     public uint attackDamage;
 
@@ -63,9 +62,12 @@ public class Controller : MonoBehaviour {
 
     void Update() {
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_enemies) {
+        if (!done_with_tick) {
+            return;
+        }
+        if (!done_with_tick) {
             if (current_enemy >= enemies.Length) {
-                done_with_enemies = true;
+                done_with_tick = true;
             } else {
                 return;
             }
@@ -82,44 +84,43 @@ public class Controller : MonoBehaviour {
         if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0))
             return;
 
+        done_with_tick = false;
+
         // get the direction we are moving
         Direction direction =
             horizontal == 0 ?
             (vertical == 1 ? Direction.Up : Direction.Down) :
             (horizontal == 1 ? Direction.Right : Direction.Left);
 
-        if (Attacking != 1) {
-            (bool validMove, Collider2D hit) = IsValidMove(direction);
-            current_enemy = 0;
-            done_with_enemies = false;
-            PlayAnimation(direction, 1);
-            
-            if (Time.time - lastMovement > movementDelay) {
-                if (validMove) {
-                    transform.Translate(horizontal, vertical, 0);
-                    lastMovement = Time.time;
-                    NextEnemy();
-                } else {
-                    // if we hit an enemy, attack it
-                    if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                        Attack(hit, direction);
-                    // if we hit a door, attempt to open it
-                    } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                        // if the door needs a key, check if we have it
-                        bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                        bool hasKey = inventory.CheckIfItemExists(1);
-                        if ((needsKey && hasKey) || !needsKey) {
-                            hit.gameObject.GetComponent<Door>().DoorDestroy();
-                        } else {
-                            Debug.Log("need key");
-                        }
-                        NextEnemy();
-                    // if we hit a portal, travel through it
-                    } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
-                        hit.gameObject.GetComponent<Portal>().PortalTravel();
+        (bool validMove, Collider2D hit) = IsValidMove(direction);
+        current_enemy = 0;
+        PlayAnimation(direction, 1);
+        
+        if (Time.time - lastMovement > movementDelay) {
+            if (validMove) {
+                transform.Translate(horizontal, vertical, 0);
+                lastMovement = Time.time;
+                NextEnemy();
+            } else {
+                // if we hit an enemy, attack it
+                if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                    Attack(hit, direction); // calls next enemy
+                // if we hit a door, attempt to open it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                    // if the door needs a key, check if we have it
+                    bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
+                    bool hasKey = inventory.CheckIfItemExists(1);
+                    if ((needsKey && hasKey) || !needsKey) {
+                        hit.gameObject.GetComponent<Door>().DoorDestroy();
                     } else {
-                        NextEnemy();
+                        Debug.Log("need key");
                     }
+                    NextEnemy();
+                // if we hit a portal, travel through it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
+                    hit.gameObject.GetComponent<Portal>().PortalTravel();
+                } else {
+                    NextEnemy();
                 }
             }
         }
@@ -127,7 +128,7 @@ public class Controller : MonoBehaviour {
 
     public void NextEnemy() {
         if (current_enemy >= enemies.Length) {
-            done_with_enemies = true;
+            done_with_tick = true;
             return;
         }
         current_enemy++;
@@ -140,7 +141,6 @@ public class Controller : MonoBehaviour {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
         StartCoroutine(ExecuteAfterTime(1f, direction, 2));
-        Attacking = 1;
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -286,7 +286,6 @@ public class Controller : MonoBehaviour {
                 break;
             case 2:
                 animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-                Attacking = 0;
                 switch (direction)
                 {
                     case Direction.Up:

@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -68,9 +68,9 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,9 +121,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 12800
-        width: 7840
-        height: 2560
+        y: 549.1667
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: LEVEL1enemattackleft(2)_1
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 12800
-        width: 7840
-        height: 2560
+        x: 291
+        y: 549.1667
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,9 +163,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 10240
-        width: 7840
-        height: 2560
+        y: 440.16666
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: LEVEL1enemattackleft(2)_3
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 10240
-        width: 7840
-        height: 2560
+        x: 291
+        y: 440.16666
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,9 +205,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 7680
-        width: 7840
-        height: 2560
+        y: 331.16666
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: LEVEL1enemattackleft(2)_5
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 7680
-        width: 7840
-        height: 2560
+        x: 291
+        y: 331.16666
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,9 +247,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 5120
-        width: 7840
-        height: 2560
+        y: 222.16666
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,10 +267,10 @@ TextureImporter:
       name: LEVEL1enemattackleft(2)_7
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 5120
-        width: 7840
-        height: 2560
+        x: 291
+        y: 222.16666
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,9 +289,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2560
-        width: 7840
-        height: 2560
+        y: 113.166664
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,10 +309,10 @@ TextureImporter:
       name: LEVEL1enemattackleft(2)_9
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 2560
-        width: 7840
-        height: 2560
+        x: 291
+        y: 113.166664
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -331,9 +331,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 7840
-        height: 2560
+        y: 4.166664
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,10 +351,10 @@ TextureImporter:
       name: LEVEL1enemattackleft(2)_11
       rect:
         serializedVersion: 2
-        x: 7840
-        y: 0
-        width: 7840
-        height: 2560
+        x: 291
+        y: 4.166664
+        width: 291.5
+        height: 109.833336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

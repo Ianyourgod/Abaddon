@@ -123,9 +123,9 @@ public class Controller : MonoBehaviour {
                         Debug.Log("need key");
                     }
                     FinishTick();
-                // if we hit a portal, travel through it
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
-                    hit.gameObject.GetComponent<Portal>().PortalTravel();
+                // if we hit a fountain, heal from it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+                    hit.gameObject.GetComponent<Fountain>().Heal();
                 } else {
                     FinishTick();
                 }

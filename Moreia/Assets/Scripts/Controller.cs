@@ -143,7 +143,6 @@ public class Controller : MonoBehaviour {
         hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, 3);
-        Attacking = 1;
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -281,7 +280,6 @@ public class Controller : MonoBehaviour {
     public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        Attacking = 0;
         switch (direction)
         {
             case PlayerAnimationPlayer.Direction.Up:

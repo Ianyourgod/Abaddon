@@ -118,7 +118,7 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(1);
                     if ((needsKey && hasKey) || !needsKey) {
-                        hit.gameObject.GetComponent<Door>().DoorDestroy();
+                        Destroy(hit.gameObject);
                     } else {
                         Debug.Log("need key");
                     }

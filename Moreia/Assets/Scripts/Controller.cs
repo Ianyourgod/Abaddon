@@ -126,6 +126,7 @@ public class Controller : MonoBehaviour {
                 // if we hit a fountain, heal from it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
                     hit.gameObject.GetComponent<Fountain>().Heal();
+                    FinishTick();
                 } else {
                     FinishTick();
                 }

@@ -41,15 +41,15 @@ public class Controller : MonoBehaviour {
     // stats
     [Header("Base Stats")]
     [Tooltip("Constitution (maximum health)")]
-    [SerializeField] public int constitution = 10;
+    [SerializeField] public int constitution = 9;
     [Tooltip("Dexterity (dodge chance)")]
-    [SerializeField] public int dexterity = 8;
+    [SerializeField] public int dexterity = 9;
     [Tooltip("Strength (attack damage)")]
-    [SerializeField] public int strength = 8;
+    [SerializeField] public int strength = 9;
     [Tooltip("Wisdom (ability damage)")]
-    [SerializeField] public int wisdom = 8;
+    [SerializeField] public int wisdom = 9;
     [Tooltip("High end of range to add")]
-    [SerializeField] public int maximum_stat_roll = 7;
+    [SerializeField] public int maximum_stat_roll = 6;
 
     void Awake() {
         main = this;
@@ -286,6 +286,21 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
     }
 
+    public (int, int) PlayerHealthInfo()
+    {
+        return (health, max_health);
+    }
+
+    // returns overflow health
+    public int HealPlayer(int heal)
+    {
+        int overflowHealth = (health + heal) - max_health;
+        health += heal;
+        health = Math.Clamp(health, 0, max_health);
+        ChangeHealthBar();
+        return overflowHealth;
+    }
+
     public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
@@ -315,15 +330,11 @@ public class Controller : MonoBehaviour {
         {
             // minor health potion, restores 5 hp
             case 4:
-                health += 5;
+                HealPlayer(5);
                 break;
             default:
                 break;
         }
-
-        health = Math.Clamp(health, 0, max_health);
-
-        ChangeHealthBar();
     }
 
     // first int is stat, second int is modifier

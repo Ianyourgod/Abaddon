@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -68,9 +68,9 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,9 +121,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6144
-        width: 2048
-        height: 2048
+        y: 307.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_1
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 6144
-        width: 2048
-        height: 2048
+        x: 102
+        y: 307.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_2
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 6144
-        width: 2048
-        height: 2048
+        x: 204
+        y: 307.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,9 +184,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 4096
-        width: 2048
-        height: 2048
+        y: 205.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_4
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 4096
-        width: 2048
-        height: 2048
+        x: 102
+        y: 205.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_5
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 4096
-        width: 2048
-        height: 2048
+        x: 204
+        y: 205.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,9 +247,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2048
-        width: 2048
-        height: 2048
+        y: 103.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,10 +267,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_7
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 2048
-        width: 2048
-        height: 2048
+        x: 102
+        y: 103.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,10 +288,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_8
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 2048
-        width: 2048
-        height: 2048
+        x: 204
+        y: 103.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,9 +310,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 2048
-        height: 2048
+        y: 1.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -330,10 +330,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_10
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 0
-        width: 2048
-        height: 2048
+        x: 102
+        y: 1.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,10 +351,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_11
       rect:
         serializedVersion: 2
-        x: 4096
-        y: 0
-        width: 2048
-        height: 2048
+        x: 204
+        y: 1.5
+        width: 102.333336
+        height: 102.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

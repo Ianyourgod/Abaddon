@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6462628818639776133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6462628820561290989}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 20.48, y: 20.48}
+  m_Size: {x: 1.0233333, y: 1.025}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -193,6 +193,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   fireball_prefab: {fileID: 4476263217152093388, guid: 1ac43963423b598348a6f270b1b753f2, type: 3}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0

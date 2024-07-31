@@ -9876,10 +9876,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 691258172}
     - target: {fileID: 363174881920157338, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
-      propertyPath: statValues.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 363174881920157338, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: equipSlots.Array.data[0]
       value: 
       objectReference: {fileID: 2099203081}

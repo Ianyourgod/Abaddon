@@ -37,6 +37,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
+    [SerializeField] GameObject dodgePrefab;
 
     // stats
     [Header("Base Stats")]
@@ -61,6 +62,7 @@ public class Controller : MonoBehaviour {
         dexterity += rnd.Next(1, maximum_stat_roll);
         strength += rnd.Next(1, maximum_stat_roll);
         wisdom += rnd.Next(1, maximum_stat_roll);
+        dexterity = 99;
 
         health = constitution * 2; // current health
         max_health = health;
@@ -110,7 +112,7 @@ public class Controller : MonoBehaviour {
                 lastMovement = Time.time;
                 FinishTick();
             } else {
-                print($"layer number: {LayerMask.NameToLayer("breakable")}");
+                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -282,6 +284,7 @@ public class Controller : MonoBehaviour {
             PlayAnimation(current_player_direction, 2);
         } else {
             Debug.Log("dodged");
+            Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }
 

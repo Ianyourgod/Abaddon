@@ -59,6 +59,7 @@ MonoBehaviour:
   movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
+  dodgePrefab: {fileID: 5900669096794722327, guid: 4273a4722184aed4ca44be5b8fbac06f, type: 3}
   constitution: 10
   dexterity: 8
   strength: 8
@@ -123,6 +124,7 @@ MonoBehaviour:
   inventoryKey: 9
   inventoryObject: {fileID: 0}
   equipmentObject: {fileID: 0}
+  statObject: {fileID: 0}
   craftObject: {fileID: 0}
   shadow: {fileID: 0}
   hotbarParent: {fileID: 0}
@@ -149,6 +151,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   equipSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  statValues:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

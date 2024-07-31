@@ -209,6 +209,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6980783896419146674, guid: a9fe85e15f1a2f22f91004c2e0aaaa8d, type: 3}
+      propertyPath: NeedsKey
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980783896419146674, guid: a9fe85e15f1a2f22f91004c2e0aaaa8d, type: 3}
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1897976033}
@@ -8058,11 +8062,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6148610868119937922, guid: b46503ee362c87c49bc8d6143a8f0427, type: 3}
       propertyPath: ItemID
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6148610868119937922, guid: b46503ee362c87c49bc8d6143a8f0427, type: 3}
       propertyPath: maxStackSize
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6148610868119937923, guid: b46503ee362c87c49bc8d6143a8f0427, type: 3}
       propertyPath: m_Name

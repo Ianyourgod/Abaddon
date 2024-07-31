@@ -111,7 +111,6 @@ public class Controller : MonoBehaviour {
                 lastMovement = Time.time;
                 FinishTick();
             } else {
-                print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -129,7 +128,7 @@ public class Controller : MonoBehaviour {
                     FinishTick();
                 // if we hit a fountain, heal from it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
-                    hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
+                    hit.gameObject.GetComponent<Breakable>()?.TakeHit(strength);
                     FinishTick();
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
                     hit.gameObject.GetComponent<Fountain>().Heal();
@@ -266,7 +265,7 @@ public class Controller : MonoBehaviour {
 
     }
 
-    private void ChangeHealthBar() {
+    public void ChangeHealthBar() {
         float new_bar_width = (health / (float) (constitution * 2)) * 194;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);

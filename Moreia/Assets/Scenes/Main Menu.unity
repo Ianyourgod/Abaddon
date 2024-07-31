@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 99855959}
   - component: {fileID: 99855958}
   - component: {fileID: 99855962}
+  - component: {fileID: 99855963}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -244,6 +245,20 @@ MonoBehaviour:
   transistionScriptableObject: {fileID: 11400000, guid: 04359389d16cf4c02a42ba37afda5d5a, type: 2}
   panel: {fileID: 884197818}
   StartPlayScene: Level 0
+--- !u!114 &99855963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99855956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02123739edaf046d895e178f658b172b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transistionScriptableObject: {fileID: 11400000, guid: 04359389d16cf4c02a42ba37afda5d5a, type: 2}
+  panel: {fileID: 884197818}
 --- !u!1 &124146083
 GameObject:
   m_ObjectHideFlags: 0

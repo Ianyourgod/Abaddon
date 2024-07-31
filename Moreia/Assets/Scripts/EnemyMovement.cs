@@ -20,9 +20,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
     [SerializeField] Breakable breakableLogic;
-    [SerializeField] SfxPlayer walkingSfxPlayer;
-    [SerializeField] SfxPlayer hurtSfxPlayer;
-    //[SerializeField] SfxPlayer attackSfxPlayer;
 
     [Header("Attributes")]
     [SerializeField] int detectionDistance = 1;
@@ -140,7 +137,6 @@ public class EnemyMovement : MonoBehaviour
             Vector2 movement = DirectionToVector(direction);
             transform.Translate(movement.x, movement.y, 0);
             Invoke(nameof(callNextEnemy), 0f);
-            walkingSfxPlayer.PlaySfx();
         } else {
             Invoke(nameof(callNextEnemy), 0f);
         }
@@ -322,7 +318,6 @@ public class EnemyMovement : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        hurtSfxPlayer.PlaySfx();
         PlayAnimation(direction, 2);
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         health -= damage;

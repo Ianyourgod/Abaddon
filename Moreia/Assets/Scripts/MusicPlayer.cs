@@ -15,11 +15,11 @@ public class MusicPlayer : MonoBehaviour
     {
         if (playOnStart)
         {
-            AudioManager.main.PlaySong(songNumber);
+            MusicManager.main.PlaySong(songNumber);
         }
         if (playOnCollision)
         {
-            player = AudioManager.main.player;
+            player = MusicManager.main.player;
         }
     }
 
@@ -31,7 +31,7 @@ public class MusicPlayer : MonoBehaviour
 
             if (touching && !activated)
             {
-                AudioManager.main.PlaySong(songNumber);
+                MusicManager.main.PlaySong(songNumber);
                 activated = true;
             }
         }

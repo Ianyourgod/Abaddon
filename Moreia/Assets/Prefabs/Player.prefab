@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 6429215519232914106}
   - component: {fileID: 4638862481907037744}
   - component: {fileID: 363174881920157338}
-  - component: {fileID: 7802092671747207967}
-  - component: {fileID: 3781925752690995860}
-  - component: {fileID: 9064979895739298336}
+  - component: {fileID: 2991965300041508016}
+  - component: {fileID: 8748202448866356543}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -56,9 +55,6 @@ MonoBehaviour:
   health: 20
   max_health: 0
   attackDamage: 3
-  walkingSfxPlayer: {fileID: 7802092671747207967}
-  hurtSfxPlayer: {fileID: 3781925752690995860}
-  attackSfxPlayer: {fileID: 9064979895739298336}
   collideLayers:
     serializedVersion: 2
     m_Bits: 15680
@@ -66,6 +62,7 @@ MonoBehaviour:
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
   dodgePrefab: {fileID: 5900669096794722327, guid: 4273a4722184aed4ca44be5b8fbac06f, type: 3}
+  lockPrefab: {fileID: 0}
   respawnPoint: {fileID: 0}
   constitution: 10
   dexterity: 8
@@ -169,7 +166,7 @@ MonoBehaviour:
   - {fileID: 0}
   emptySlots: []
   readyToAdd: 1
---- !u!114 &7802092671747207967
+--- !u!114 &2991965300041508016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,62 +175,107 @@ MonoBehaviour:
   m_GameObject: {fileID: 7842820053425721020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 94aa9124d2898e843aa1869118a4a861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Walking SFX
-  spriteRend: {fileID: 7842820053772704080}
-  sfxList:
-  - {fileID: 8300000, guid: 4597bf7fd8eae0b4aa8caefe89dfd7e1, type: 3}
-  - {fileID: 8300000, guid: 824e1e589949f8c43809d2bf5706a7da, type: 3}
-  - {fileID: 8300000, guid: d8d2019447d03c541a9a99f317ca5f50, type: 3}
-  - {fileID: 8300000, guid: 26ea142bf6830d14d9435c2663c4505e, type: 3}
-  - {fileID: 8300000, guid: 47cc4893b1d571b42a1bc5de5bdfbfa6, type: 3}
-  - {fileID: 8300000, guid: dcb8b80c283a7fc46bb3b8b93d247a55, type: 3}
-  playableOffScreen: 1
-  playFromRandom: 1
-  playLouderAmount: 0
-  playerSound: 1
---- !u!114 &3781925752690995860
-MonoBehaviour:
+  audSource: {fileID: 8748202448866356543}
+  walkingSfx: []
+--- !u!82 &8748202448866356543
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7842820053425721020}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Hurt SFX
-  spriteRend: {fileID: 7842820053772704080}
-  sfxList:
-  - {fileID: 8300000, guid: 66ca707695a2b1943ac23e3f9b24f7b3, type: 3}
-  playableOffScreen: 1
-  playFromRandom: 1
-  playLouderAmount: 0.02
-  playerSound: 1
---- !u!114 &9064979895739298336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7842820053425721020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Attack SFX
-  spriteRend: {fileID: 7842820053772704080}
-  sfxList:
-  - {fileID: 8300000, guid: fc27d688aa3086746bc038bbd8cd753e, type: 3}
-  playableOffScreen: 1
-  playFromRandom: 1
-  playLouderAmount: 0
-  playerSound: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7842820053772704083
 GameObject:
   m_ObjectHideFlags: 0

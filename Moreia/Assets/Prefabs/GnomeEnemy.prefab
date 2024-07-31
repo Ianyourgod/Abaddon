@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   attackSfxPlayer: {fileID: 1098399701227747025}
+  playOnPlayerHurt: 1
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Walking SFX
+  sfxName: Walk
   spriteRend: {fileID: 6462628818639776139}
   sfxList:
   - {fileID: 8300000, guid: 41476d82e3c0e8545aca1013d1c27fa4, type: 3}
@@ -278,9 +279,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b09f9e29eb6ec1c49a73dcf08659cfc6, type: 3}
   - {fileID: 8300000, guid: 4db6591c6fd1fcb49a3e9d959c2d223e, type: 3}
   - {fileID: 8300000, guid: db7ffc64e66500945aebe8685e449e09, type: 3}
-  randomSoundFromList: 1
   playableOffScreen: 0
+  playFromRandom: 1
   playLouderAmount: 0
+  playerSound: 0
 --- !u!114 &1782037722071791366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,13 +295,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Hurt SFX
+  sfxName: Hurt
   spriteRend: {fileID: 6462628818639776139}
   sfxList:
   - {fileID: 8300000, guid: 9b67dccd3ed94f440b05d8b60cd97e2f, type: 3}
-  randomSoundFromList: 0
   playableOffScreen: 0
+  playFromRandom: 0
   playLouderAmount: 0
+  playerSound: 0
 --- !u!114 &1098399701227747025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,10 +315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Attack SFX
+  sfxName: Attack
   spriteRend: {fileID: 6462628818639776139}
   sfxList:
   - {fileID: 8300000, guid: cd28fc8a7c7cd6d408fc1d489edf17a2, type: 3}
-  randomSoundFromList: 0
   playableOffScreen: 0
+  playFromRandom: 0
   playLouderAmount: 0
+  playerSound: 0

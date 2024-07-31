@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
 	public GameObject inventoryObject;
 	[Tooltip("Assign your equipment object inside here.")]
 	public GameObject equipmentObject;
+	[Tooltip("Stat object.")]
+	public GameObject statObject;
 	[Tooltip("You need to reference you crafting-tab object.")]
 	public GameObject craftObject;
 	[Tooltip("If you are going to use shadow (empty image that darkens everything but the inventory) add it here.")]
@@ -48,6 +50,8 @@ public class Inventory : MonoBehaviour
 	public Slot[] slots;
 	[Tooltip("Drag all of your equipment slots in here. NOTE: They HAVE to be in ascending order or else the items will not go to the first empty slot but in a random one!")]
 	public Slot[] equipSlots;
+	[Tooltip("no tooltip for you")]
+	public StatInfoUpdater[] statValues;
 
 	[HideInInspector]
 	public List<Slot> emptySlots;
@@ -74,6 +78,7 @@ public class Inventory : MonoBehaviour
 		inventoryObject.SetActive(true);
 		inventoryObject.SetActive(false);
 		equipmentObject.SetActive(false);
+		statObject.SetActive(false);
 		craftObject.SetActive(false);
 		//Cursor.visible = false;
 		//Cursor.lockState = CursorLockMode.Locked;
@@ -86,6 +91,7 @@ public class Inventory : MonoBehaviour
 		{
 			inventoryObject.SetActive(true);
 			equipmentObject.SetActive(true);
+			statObject.SetActive(true);
 			craftObject.SetActive(true);
 			//Cursor.visible = true;
 			//Cursor.lockState = CursorLockMode.None;
@@ -96,6 +102,7 @@ public class Inventory : MonoBehaviour
 		{
 			inventoryObject.SetActive(false);
 			equipmentObject.SetActive(false);
+			statObject.SetActive(false);
 			craftObject.SetActive(false);
 			//Cursor.visible = false;
 			//Cursor.lockState = CursorLockMode.Locked;

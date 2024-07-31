@@ -110,6 +110,7 @@ public class Controller : MonoBehaviour {
                 lastMovement = Time.time;
                 FinishTick();
             } else {
+                print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -126,10 +127,14 @@ public class Controller : MonoBehaviour {
                     }
                     FinishTick();
                 // if we hit a fountain, heal from it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
+                    hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
+                    FinishTick();
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
                     hit.gameObject.GetComponent<Fountain>().Heal();
                     FinishTick();
-                } else {
+                }
+                else {
                     FinishTick();
                 }
             }

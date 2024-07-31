@@ -51,8 +51,13 @@ public class Controller : MonoBehaviour {
     [Tooltip("High end of range to add")]
     [SerializeField] public int maximum_stat_roll = 6;
 
+    private SfxPlayer sfxPlayer;
+
     void Awake() {
         main = this;
+
+        sfxPlayer = GetComponent<SfxPlayer>();
+
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
 
@@ -83,7 +88,7 @@ public class Controller : MonoBehaviour {
     }
 
     void Move()
-    {
+    { 
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = GetAxis();
@@ -107,6 +112,7 @@ public class Controller : MonoBehaviour {
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
                 transform.Translate(horizontal, vertical, 0);
+                sfxPlayer.PlaySfx();
                 lastMovement = Time.time;
                 FinishTick();
             } else {

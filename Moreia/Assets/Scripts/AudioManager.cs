@@ -8,7 +8,6 @@ public class AudioManager : MonoBehaviour
 
     [Header("References")]
     public AudioClip[] songs;
-    public AudioClip[] sfxSource;
     [SerializeField] AudioSource musicAudSource;
     [SerializeField] AudioSource sfxAudSource;
     public GameObject player;
@@ -54,8 +53,8 @@ public class AudioManager : MonoBehaviour
         musicAudSource.Play();
     }
 
-    public void PlaySFX(int sfx)
+    public void PlaySFX(AudioClip sfxSound)
     {
-        sfxAudSource.PlayOneShot(sfxSource[sfx], volume);
+        sfxAudSource.PlayOneShot(sfxSound, volume);
     }
 }

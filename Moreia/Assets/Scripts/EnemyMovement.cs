@@ -20,6 +20,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
     [SerializeField] Breakable breakableLogic;
+    [SerializeField] GameObject textFadePrefab;
 
     [Header("Attributes")]
     [SerializeField] int detectionDistance = 1;
@@ -329,6 +330,8 @@ public class EnemyMovement : MonoBehaviour
         PlayAnimation(direction, 2);
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         health -= damage;
+        GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
     }
 
     // this is called by the animation

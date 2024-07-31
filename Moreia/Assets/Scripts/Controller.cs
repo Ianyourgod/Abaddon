@@ -39,6 +39,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] RectTransform healthBar;
     [SerializeField] GameObject dodgePrefab;
     [SerializeField] GameObject lockPrefab;
+    [SerializeField] GameObject textFadePrefab;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -287,9 +288,13 @@ public class Controller : MonoBehaviour {
         {
             health -= Convert.ToInt32(damage);
             PlayAnimation(current_player_direction, 2);
+            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
         } else {
             Debug.Log("dodged");
-            Instantiate(dodgePrefab, transform.position, Quaternion.identity);
+            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged");
+            // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }
 

@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class SfxPlayer : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] SpriteRenderer spriteRend;
+
     [Header("Attributes")]
     public AudioClip[] sfxList;
     [SerializeField] bool randomSoundFromList = true;
+    public bool playableOffScreen = false;
 
     private int randomGenerator;
 
     public void PlaySfx()
     {
-        if (randomSoundFromList)
+        if (playableOffScreen || (!playableOffScreen && spriteRend.isVisible))
         {
-            randomGenerator = Random.Range(0, sfxList.Length);
+            if (randomSoundFromList)
+            {
+                randomGenerator = Random.Range(0, sfxList.Length);
 
-            AudioManager.main.PlaySFX(sfxList[randomGenerator]);
-        }
-        else
-        {
-            AudioManager.main.PlaySFX(sfxList[0]);
+                AudioManager.main.PlaySFX(sfxList[randomGenerator]);
+            }
+            else
+            {
+                AudioManager.main.PlaySFX(sfxList[0]);
+            }
         }
     }
 }

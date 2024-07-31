@@ -19,7 +19,6 @@ public class TransitionOutOfHandler : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Starting");
         Color start = transistionScriptableObject.transistionColor;
         Color end = new Color(start.r, start.g, start.b, 0);
         float t = timeElapsed / transistionScriptableObject.timeToFade;

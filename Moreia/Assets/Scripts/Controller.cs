@@ -102,6 +102,8 @@ public class Controller : MonoBehaviour {
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
         PlayAnimation(direction, 1);
+
+        const int KeyID = 1;
         
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
@@ -116,9 +118,10 @@ public class Controller : MonoBehaviour {
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                     // if the door needs a key, check if we have it
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                    bool hasKey = inventory.CheckIfItemExists(1);
+                    bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
                         Destroy(hit.gameObject);
+                        inventory.RemoveByID(KeyID);
                     } else {
                         Debug.Log("need key");
                     }

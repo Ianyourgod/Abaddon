@@ -24,8 +24,9 @@ public class Door : MonoBehaviour
             Debug.Log("Top and bottom doors do not exist");
         }
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        if (NeedsKey) {
-            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}Locked");
+
+        if (direction == Direction.Up) {
+            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/DoorUp");
         } else {
             spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}{Controller.main.rnd.Next(1, 4)}");
         }

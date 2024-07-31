@@ -38,6 +38,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
     [SerializeField] GameObject dodgePrefab;
+    [SerializeField] GameObject lockPrefab;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -133,6 +134,7 @@ public class Controller : MonoBehaviour {
                         inventory.RemoveByID(KeyID);
                     } else {
                         Debug.Log("need key");
+                        Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();
                 // if we hit a fountain, heal from it

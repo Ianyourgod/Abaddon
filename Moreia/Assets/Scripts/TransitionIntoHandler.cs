@@ -42,6 +42,7 @@ public class TransitionIntoHandler : MonoBehaviour
     }
 
     public void SwitchSceneToMainMenu() {
+        panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, 0);
         StartPlayScene = "Main Menu";
         SwitchScene();
     }

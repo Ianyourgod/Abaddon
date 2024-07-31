@@ -20,9 +20,6 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (direction == Direction.Up || direction == Direction.Down) {
-            Debug.Log("Top and bottom doors do not exist");
-        }
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
 
         if (direction == Direction.Up) {

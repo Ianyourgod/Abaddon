@@ -32,7 +32,7 @@ public class TransitionIntoHandler : MonoBehaviour
     }
 
     public void SwitchSceneToTutorial() {
-        StartPlayScene = "Level 0";
+        StartPlayScene = "Real Level";
         SwitchScene();
     }
 

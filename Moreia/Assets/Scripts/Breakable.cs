@@ -11,6 +11,7 @@ public class Breakable : MonoBehaviour
 
     public void TakeHit(float damage) {
         print("being hit");
+        print("this can be deleted");
         health -= damage;
         if (health <= 0) {
             if (Random.value < dropChance) {

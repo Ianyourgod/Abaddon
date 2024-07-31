@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  done_with_enemies: 1
+  done_with_tick: 1
   health: 20
   max_health: 0
   attackDamage: 3
@@ -133,9 +133,6 @@ MonoBehaviour:
   throwForceForward: 0
   playerMovement: {fileID: 7842820053425721011}
   slots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

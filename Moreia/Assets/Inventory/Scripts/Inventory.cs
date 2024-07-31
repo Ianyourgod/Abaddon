@@ -204,7 +204,7 @@ public class Inventory : MonoBehaviour
 	public void AddItem(Item itemToBeAdded, Item startingItem = null)
 	{
 		if (readyToAdd)
-		{ 
+		{
 			int amountInStack = itemToBeAdded.amountInStack;
 			List<Item> stackableItems = new List<Item>();
 			List<Slot> empty = new List<Slot>();

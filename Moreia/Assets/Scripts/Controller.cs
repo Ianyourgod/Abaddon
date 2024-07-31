@@ -342,21 +342,6 @@ public class Controller : MonoBehaviour {
         FinishTick();
     }
 
-    // id 4 is minor potion
-    public void ConsumeHealthPotion(int id)
-    {
-        inventory.RemoveItemAmount(id, 1);
-        switch (id)
-        {
-            // minor health potion, restores 5 hp
-            case 4:
-                HealPlayer(5);
-                break;
-            default:
-                break;
-        }
-    }
-
     // first int is stat, second int is modifier
     // stat 1 is constitution
     // stat 2 is dexterity

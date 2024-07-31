@@ -20,11 +20,14 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (direction == Direction.Up || direction == Direction.Down) {
+            Debug.Log("Top and bottom doors do not exist");
+        }
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         if (NeedsKey) {
-            string locked = (NeedsKey ? "Locked" : "");
-
-            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}{locked}");
+            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}Locked");
+        } else {
+            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}{Controller.main.rnd.Next(1, 4)}");
         }
     }
 

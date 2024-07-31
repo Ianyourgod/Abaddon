@@ -8719,7 +8719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1972284236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9907,6 +9907,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1292781414}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: lockPrefab
+      value: 
+      objectReference: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: textFadePrefab
+      value: 
+      objectReference: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
     - target: {fileID: 7842820053425721020, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_Name
       value: Player

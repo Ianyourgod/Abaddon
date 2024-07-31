@@ -66,6 +66,8 @@ MonoBehaviour:
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
   dodgePrefab: {fileID: 5900669096794722327, guid: 4273a4722184aed4ca44be5b8fbac06f, type: 3}
+  lockPrefab: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
+  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
   respawnPoint: {fileID: 0}
   constitution: 10
   dexterity: 8

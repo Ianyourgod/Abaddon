@@ -580,7 +580,7 @@ RectTransform:
   - {fileID: 2968466368982234744}
   - {fileID: 7960256517973579580}
   - {fileID: 5384614044581424009}
-  - {fileID: 835088573040732116}
+  - {fileID: 3681487043647718525}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1325,7 +1325,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8687865404560118803, guid: c7c92d28fa60a0d42b9a97e321e44704, type: 3}
   m_PrefabInstance: {fileID: 4788656102545332720}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5657800861531179219
+--- !u!1001 &8504233966712187770
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1422,8 +1422,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 338ddb59471679144b50e1967e7e84d6, type: 3}
---- !u!224 &835088573040732116 stripped
+--- !u!224 &3681487043647718525 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4977145308445388551, guid: 338ddb59471679144b50e1967e7e84d6, type: 3}
-  m_PrefabInstance: {fileID: 5657800861531179219}
+  m_PrefabInstance: {fileID: 8504233966712187770}
   m_PrefabAsset: {fileID: 0}

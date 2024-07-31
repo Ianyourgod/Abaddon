@@ -24,12 +24,10 @@ public class TransitionOutOfHandler : MonoBehaviour
         Color end = new Color(start.r, start.g, start.b, 0);
         float t = timeElapsed / transistionScriptableObject.timeToFade;
         panel.color = Color.Lerp(start, end, t);
-        print("frame");
         
         if (panel.color.a <= 0.05f) {
             panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, 0);
             Destroy(this);
-            print("done");
         }
         timeElapsed += Time.deltaTime;
     }

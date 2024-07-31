@@ -114,13 +114,20 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public bool CheckIfItemExists(int id)
-    {
-		if (GetItemAmount(id) > 0) {
-			return true;
-        } else {
-			return false;
-        }
+	public bool CheckIfItemExists(int id) {
+		// more efficient !!!!!!
+		foreach (Slot slot in slots)
+		{
+			if (slot.slotsItem)
+			{
+				Item z = slot.slotsItem;
+				if (z.ItemID == id)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
     }
 
 	public int GetItemAmount(int id)
@@ -169,6 +176,21 @@ public class Inventory : MonoBehaviour
 			}
 			// not using a hotbar
 			// hotbarParent.SelectItem();
+		}
+	}
+
+	public void RemoveByID(int id)
+	{
+		foreach (Slot i in slots)
+		{
+			if (i.slotsItem)
+			{
+				Item z = i.slotsItem;
+				if (z.ItemID == id)
+				{
+					Destroy(z.gameObject);
+				}
+			}
 		}
 	}
 

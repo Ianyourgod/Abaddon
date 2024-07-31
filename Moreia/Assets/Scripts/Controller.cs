@@ -41,15 +41,15 @@ public class Controller : MonoBehaviour {
     // stats
     [Header("Base Stats")]
     [Tooltip("Constitution (maximum health)")]
-    [SerializeField] public int constitution = 10;
+    [SerializeField] public int constitution = 9;
     [Tooltip("Dexterity (dodge chance)")]
-    [SerializeField] public int dexterity = 8;
+    [SerializeField] public int dexterity = 9;
     [Tooltip("Strength (attack damage)")]
-    [SerializeField] public int strength = 8;
+    [SerializeField] public int strength = 9;
     [Tooltip("Wisdom (ability damage)")]
-    [SerializeField] public int wisdom = 8;
+    [SerializeField] public int wisdom = 9;
     [Tooltip("High end of range to add")]
-    [SerializeField] public int maximum_stat_roll = 7;
+    [SerializeField] public int maximum_stat_roll = 6;
 
     void Awake() {
         main = this;
@@ -101,6 +101,8 @@ public class Controller : MonoBehaviour {
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
         PlayAnimation(direction, 1);
+
+        const int KeyID = 1;
         
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
@@ -115,16 +117,18 @@ public class Controller : MonoBehaviour {
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                     // if the door needs a key, check if we have it
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                    bool hasKey = inventory.CheckIfItemExists(1);
+                    bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
-                        hit.gameObject.GetComponent<Door>().DoorDestroy();
+                        Destroy(hit.gameObject);
+                        inventory.RemoveByID(KeyID);
                     } else {
                         Debug.Log("need key");
                     }
                     FinishTick();
-                // if we hit a portal, travel through it
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("portal")) {
-                    hit.gameObject.GetComponent<Portal>().PortalTravel();
+                // if we hit a fountain, heal from it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+                    hit.gameObject.GetComponent<Fountain>().Heal();
+                    FinishTick();
                 } else {
                     FinishTick();
                 }
@@ -285,6 +289,21 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
     }
 
+    public (int, int) PlayerHealthInfo()
+    {
+        return (health, max_health);
+    }
+
+    // returns overflow health
+    public int HealPlayer(int heal)
+    {
+        int overflowHealth = (health + heal) - max_health;
+        health += heal;
+        health = Math.Clamp(health, 0, max_health);
+        ChangeHealthBar();
+        return overflowHealth;
+    }
+
     public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
@@ -314,15 +333,11 @@ public class Controller : MonoBehaviour {
         {
             // minor health potion, restores 5 hp
             case 4:
-                health += 5;
+                HealPlayer(5);
                 break;
             default:
                 break;
         }
-
-        health = Math.Clamp(health, 0, max_health);
-
-        ChangeHealthBar();
     }
 
     // first int is stat, second int is modifier

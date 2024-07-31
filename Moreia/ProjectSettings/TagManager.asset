@@ -9,7 +9,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Fireball
   - Water
   - UI
   - Enemy
@@ -18,7 +18,7 @@ TagManager:
   - floor
   - walls
   - door
-  - portal
+  - fountain
   - floorTrap
   - 
   - 

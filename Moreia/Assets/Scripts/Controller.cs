@@ -64,6 +64,7 @@ public class Controller : MonoBehaviour {
         wisdom += rnd.Next(1, maximum_stat_roll);
 
         health = constitution * 2; // current health
+        ChangeHealthBar();
         max_health = health;
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
@@ -267,7 +268,7 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 194;
+        float new_bar_width = (health / (float) (constitution * 2)) * 200;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }

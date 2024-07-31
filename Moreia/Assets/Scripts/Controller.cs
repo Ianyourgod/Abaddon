@@ -68,7 +68,6 @@ public class Controller : MonoBehaviour {
         dexterity += rnd.Next(1, maximum_stat_roll);
         strength += rnd.Next(1, maximum_stat_roll);
         wisdom += rnd.Next(1, maximum_stat_roll);
-        dexterity = 99;
 
         health = constitution * 2; // current health
         ChangeHealthBar();

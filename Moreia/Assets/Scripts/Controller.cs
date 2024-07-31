@@ -37,6 +37,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
+    [SerializeField] Transform respawnPoint;
 
     // stats
     [Header("Base Stats")]
@@ -63,6 +64,7 @@ public class Controller : MonoBehaviour {
         wisdom += rnd.Next(1, maximum_stat_roll);
 
         health = constitution * 2; // current health
+        ChangeHealthBar();
         max_health = health;
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
@@ -266,16 +268,12 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 194;
+        float new_bar_width = (health / (float) (constitution * 2)) * 200;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
-        if (damage >= health) {
-            health = 0;
-        }
-
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
@@ -287,10 +285,15 @@ public class Controller : MonoBehaviour {
 
         if (health <= 0) {
             ChangeHealthBar();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            // todo: death animation
+            Respawn();
         }
 
+        ChangeHealthBar();
+    }
+
+    void Respawn() {
+        health = max_health;
+        transform.position = respawnPoint.position;
         ChangeHealthBar();
     }
 

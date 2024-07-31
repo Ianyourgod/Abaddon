@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6429215519232914106}
   - component: {fileID: 4638862481907037744}
   - component: {fileID: 363174881920157338}
+  - component: {fileID: 7802092671747207967}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -123,6 +124,7 @@ MonoBehaviour:
   inventoryKey: 9
   inventoryObject: {fileID: 0}
   equipmentObject: {fileID: 0}
+  statObject: {fileID: 0}
   craftObject: {fileID: 0}
   shadow: {fileID: 0}
   hotbarParent: {fileID: 0}
@@ -153,8 +155,29 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  statValues: []
   emptySlots: []
   readyToAdd: 1
+--- !u!114 &7802092671747207967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053425721020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxList:
+  - {fileID: 8300000, guid: 4597bf7fd8eae0b4aa8caefe89dfd7e1, type: 3}
+  - {fileID: 8300000, guid: 824e1e589949f8c43809d2bf5706a7da, type: 3}
+  - {fileID: 8300000, guid: d8d2019447d03c541a9a99f317ca5f50, type: 3}
+  - {fileID: 8300000, guid: 26ea142bf6830d14d9435c2663c4505e, type: 3}
+  - {fileID: 8300000, guid: 47cc4893b1d571b42a1bc5de5bdfbfa6, type: 3}
+  - {fileID: 8300000, guid: dcb8b80c283a7fc46bb3b8b93d247a55, type: 3}
+  randomSoundFromList: 1
 --- !u!1 &7842820053772704083
 GameObject:
   m_ObjectHideFlags: 0

@@ -179,6 +179,21 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
+	public void RemoveByID(int id)
+	{
+		foreach (Slot i in slots)
+		{
+			if (i.slotsItem)
+			{
+				Item z = i.slotsItem;
+				if (z.ItemID == id)
+				{
+					Destroy(z.gameObject);
+				}
+			}
+		}
+	}
+
 	public void AddItem(Item itemToBeAdded, Item startingItem = null)
 	{
 		if (readyToAdd)

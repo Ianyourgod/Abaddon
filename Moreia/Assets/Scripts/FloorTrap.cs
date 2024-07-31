@@ -20,6 +20,6 @@ public class FloorTrap : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Controller.main.DamagePlayer(damage);
+        Controller.main.DamagePlayer(damage, false);
     }
 }

@@ -30,4 +30,19 @@ public class TransitionIntoHandler : MonoBehaviour
         panel.gameObject.SetActive(true);
         panel.enabled = true;
     }
+
+    public void SwitchSceneToTutorial() {
+        StartPlayScene = "Level 0";
+        SwitchScene();
+    }
+
+    public void SwitchSceneToCredits() {
+        StartPlayScene = "Credits";
+        SwitchScene();
+    }
+
+    public void SwitchSceneToMainMenu() {
+        StartPlayScene = "Main Menu";
+        SwitchScene();
+    }
 }

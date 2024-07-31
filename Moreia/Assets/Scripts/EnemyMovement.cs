@@ -35,6 +35,13 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 StartPosition;
 
+    private SfxPlayer sfxPlayer;
+
+    void Awake()
+    {
+        sfxPlayer = GetComponent<SfxPlayer>();
+    }
+
     private void Start() {
         StartPosition = transform.position;
         int gridSize = (int) (detectionDistance * 2 + 1);
@@ -137,6 +144,7 @@ public class EnemyMovement : MonoBehaviour
             Vector2 movement = DirectionToVector(direction);
             transform.Translate(movement.x, movement.y, 0);
             Invoke(nameof(callNextEnemy), 0f);
+            sfxPlayer.PlaySfx();
         } else {
             Invoke(nameof(callNextEnemy), 0f);
         }

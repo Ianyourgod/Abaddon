@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Real Level.unity
     guid: 62160863522ac484da1a2642c2558e5c
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 8f4d52532241447dea6e77b408ea9b7e
   m_configObjects: {}

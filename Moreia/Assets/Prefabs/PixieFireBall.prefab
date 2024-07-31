@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc297a724c353562b362c373ef0be7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastingTime: 2
-  damage: 8
+  lastingTime: 5
+  damage: 4
 --- !u!1 &5730128751536002639
 GameObject:
   m_ObjectHideFlags: 0

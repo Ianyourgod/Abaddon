@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 1471304386553776880}
   - component: {fileID: 1471304386553776887}
   - component: {fileID: 1471304386553776886}
+  - component: {fileID: 2787976778950358699}
+  - component: {fileID: 5502815498794951487}
+  - component: {fileID: 7261568983464489241}
   m_Layer: 11
   m_Name: Door Left
   m_TagString: Untagged
@@ -49,6 +52,9 @@ MonoBehaviour:
   NeedsKey: 0
   direction: 2
   inventory: {fileID: 0}
+  lockedDoorSfx: {fileID: 2787976778950358699}
+  unlockedDoorSfx: {fileID: 5502815498794951487}
+  unlockLockedDoorSfx: {fileID: 7261568983464489241}
 --- !u!61 &1471304386553776886
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -75,6 +81,66 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2787976778950358699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471304386553776881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Locked Door SFX
+  spriteRend: {fileID: 1471304387205920296}
+  sfxList:
+  - {fileID: 8300000, guid: 5985d21ad83c6c14b93ea4fa12ba5337, type: 3}
+  playableOffScreen: 0
+  playFromRandom: 0
+  playLouderAmount: 0
+  playerSound: 0
+--- !u!114 &5502815498794951487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471304386553776881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Unlocked Door SFX
+  spriteRend: {fileID: 1471304387205920296}
+  sfxList:
+  - {fileID: 8300000, guid: 24e7bb6a61be5a540aca938c36fd6e75, type: 3}
+  playableOffScreen: 0
+  playFromRandom: 0
+  playLouderAmount: 0
+  playerSound: 0
+--- !u!114 &7261568983464489241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471304386553776881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Unlock Locked Door SFX
+  spriteRend: {fileID: 1471304387205920296}
+  sfxList:
+  - {fileID: 8300000, guid: dae89e5c41a9cd04f8d0cfb24d5d7d55, type: 3}
+  playableOffScreen: 0
+  playFromRandom: 0
+  playLouderAmount: 0
+  playerSound: 0
 --- !u!1 &1471304387205920298
 GameObject:
   m_ObjectHideFlags: 0

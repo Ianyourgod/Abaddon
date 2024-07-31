@@ -9,7 +9,8 @@ public class AudioManager : MonoBehaviour
     [Header("References")]
     public AudioClip[] songs;
     [SerializeField] AudioSource musicAudSource;
-    [SerializeField] AudioSource sfxAudSource;
+    [SerializeField] AudioSource sfxAudSource1;
+    [SerializeField] AudioSource sfxAudSource2;
     public GameObject player;
 
     [Header("Attributes")]
@@ -53,8 +54,13 @@ public class AudioManager : MonoBehaviour
         musicAudSource.Play();
     }
 
-    public void PlaySFX(AudioClip sfxSound)
+    public void PlayPlayerSFX(AudioClip sfxSound, float addVolume = 0)
     {
-        sfxAudSource.PlayOneShot(sfxSound, volume);
+        sfxAudSource1.PlayOneShot(sfxSound, volume + addVolume);
+    }
+
+    public void PlayOtherSFX(AudioClip sfxSound, float addVolume = 0)
+    {
+        sfxAudSource2.PlayOneShot(sfxSound, volume + addVolume);
     }
 }

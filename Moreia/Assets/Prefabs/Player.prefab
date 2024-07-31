@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4638862481907037744}
   - component: {fileID: 363174881920157338}
   - component: {fileID: 7802092671747207967}
+  - component: {fileID: 3781925752690995860}
+  - component: {fileID: 9064979895739298336}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -54,14 +56,17 @@ MonoBehaviour:
   health: 20
   max_health: 0
   attackDamage: 3
+  walkingSfxPlayer: {fileID: 7802092671747207967}
+  hurtSfxPlayer: {fileID: 3781925752690995860}
+  attackSfxPlayer: {fileID: 9064979895739298336}
   collideLayers:
     serializedVersion: 2
     m_Bits: 15680
   movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
-  respawnPoint: {fileID: 0}
   dodgePrefab: {fileID: 5900669096794722327, guid: 4273a4722184aed4ca44be5b8fbac06f, type: 3}
+  respawnPoint: {fileID: 0}
   constitution: 10
   dexterity: 8
   strength: 8
@@ -176,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Walking SFX
   spriteRend: {fileID: 7842820053772704080}
   sfxList:
   - {fileID: 8300000, guid: 4597bf7fd8eae0b4aa8caefe89dfd7e1, type: 3}
@@ -184,8 +190,50 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 26ea142bf6830d14d9435c2663c4505e, type: 3}
   - {fileID: 8300000, guid: 47cc4893b1d571b42a1bc5de5bdfbfa6, type: 3}
   - {fileID: 8300000, guid: dcb8b80c283a7fc46bb3b8b93d247a55, type: 3}
-  randomSoundFromList: 1
   playableOffScreen: 1
+  playFromRandom: 1
+  playLouderAmount: 0
+  playerSound: 1
+--- !u!114 &3781925752690995860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053425721020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Hurt SFX
+  spriteRend: {fileID: 7842820053772704080}
+  sfxList:
+  - {fileID: 8300000, guid: 66ca707695a2b1943ac23e3f9b24f7b3, type: 3}
+  playableOffScreen: 1
+  playFromRandom: 1
+  playLouderAmount: 0.02
+  playerSound: 1
+--- !u!114 &9064979895739298336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053425721020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Attack SFX
+  spriteRend: {fileID: 7842820053772704080}
+  sfxList:
+  - {fileID: 8300000, guid: fc27d688aa3086746bc038bbd8cd753e, type: 3}
+  playableOffScreen: 1
+  playFromRandom: 1
+  playLouderAmount: 0
+  playerSound: 1
 --- !u!1 &7842820053772704083
 GameObject:
   m_ObjectHideFlags: 0

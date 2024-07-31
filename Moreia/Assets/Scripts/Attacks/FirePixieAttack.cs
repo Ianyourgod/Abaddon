@@ -48,6 +48,7 @@ public class FirePixieAttack : BaseAttack {
 
     public override void Attack(EnemyMovement.Direction direction) {
         Vector3 new_position = transform.position;
+        attackSfxPlayer.PlaySfx();
 
         switch (direction) {
             case EnemyMovement.Direction.Up:

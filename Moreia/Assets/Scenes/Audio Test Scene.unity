@@ -209,6 +209,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6980783896419146674, guid: a9fe85e15f1a2f22f91004c2e0aaaa8d, type: 3}
+      propertyPath: NeedsKey
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980783896419146674, guid: a9fe85e15f1a2f22f91004c2e0aaaa8d, type: 3}
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1897976033}
@@ -7624,7 +7628,7 @@ Transform:
   - {fileID: 675965936}
   - {fileID: 1735505777}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &907643774 stripped
 GameObject:
@@ -10443,7 +10447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7659419828651813427, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7659419828651813427, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_LocalPosition.x

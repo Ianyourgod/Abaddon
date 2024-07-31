@@ -14,6 +14,9 @@ public class Door : MonoBehaviour
     [SerializeField] public bool NeedsKey;
     [SerializeField] Direction direction = Direction.Left;
     [SerializeField] Inventory inventory;
+    [SerializeField] public SfxPlayer lockedDoorSfx;
+    [SerializeField] public SfxPlayer unlockedDoorSfx;
+    [SerializeField] public SfxPlayer unlockLockedDoorSfx;
 
     private SpriteRenderer spriteRenderer;
 

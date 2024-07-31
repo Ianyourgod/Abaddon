@@ -87,7 +87,6 @@ public class Controller : MonoBehaviour {
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = GetAxis();
-
         if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0))
             return;
 
@@ -102,6 +101,8 @@ public class Controller : MonoBehaviour {
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
         PlayAnimation(direction, 1);
+
+        const int KeyID = 1;
         
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
@@ -109,6 +110,7 @@ public class Controller : MonoBehaviour {
                 lastMovement = Time.time;
                 FinishTick();
             } else {
+                print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -116,18 +118,23 @@ public class Controller : MonoBehaviour {
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                     // if the door needs a key, check if we have it
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                    bool hasKey = inventory.CheckIfItemExists(1);
+                    bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
                         Destroy(hit.gameObject);
+                        inventory.RemoveByID(KeyID);
                     } else {
                         Debug.Log("need key");
                     }
                     FinishTick();
                 // if we hit a fountain, heal from it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
+                    hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
+                    FinishTick();
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
                     hit.gameObject.GetComponent<Fountain>().Heal();
                     FinishTick();
-                } else {
+                }
+                else {
                     FinishTick();
                 }
             }

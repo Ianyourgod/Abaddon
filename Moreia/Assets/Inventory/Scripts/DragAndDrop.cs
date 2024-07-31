@@ -448,7 +448,11 @@ public class DragAndDrop : MonoBehaviour
 
 	public void DoubleClick(Item clickedItem)
 	{
-		Controller.main.ConsumeHealthPotion(clickedItem.ItemID);
+		print("clicking");
+		if (clickedItem.TryGetComponent(out Potion potion)) {
+			print("clicking");
+			potion.Consume();
+		}
 	}
 
 	public List<Item> GetItem(int type, int ID)

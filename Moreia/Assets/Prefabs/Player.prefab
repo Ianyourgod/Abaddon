@@ -61,6 +61,7 @@ MonoBehaviour:
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
   respawnPoint: {fileID: 0}
+  dodgePrefab: {fileID: 5900669096794722327, guid: 4273a4722184aed4ca44be5b8fbac06f, type: 3}
   constitution: 10
   dexterity: 8
   strength: 8
@@ -156,7 +157,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  statValues: []
+  statValues:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   emptySlots: []
   readyToAdd: 1
 --- !u!114 &7802092671747207967

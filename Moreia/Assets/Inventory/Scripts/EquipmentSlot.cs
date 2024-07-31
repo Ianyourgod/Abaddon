@@ -61,6 +61,8 @@ public class EquipmentSlot : MonoBehaviour
 					slotModifier.strength,
 					slotModifier.wisdom
 				};
+				Controller.main.max_health = Controller.main.constitution * 2;
+				Controller.main.HealPlayer(0);
 			}
 			for (int i = 0; i < possibleEqips.Length; i++)
 			{
@@ -94,6 +96,8 @@ public class EquipmentSlot : MonoBehaviour
 		Controller.main.strength -= savedStats[2];
 		Controller.main.wisdom -= savedStats[3];
 		savedStats = new int[] { 0, 0, 0, 0 };
+		Controller.main.max_health = Controller.main.constitution * 2;
+		Controller.main.HealPlayer(0);
 		foreach (EqippableItem eqippableItem in possibleEqips)
 		{
 			if (eqippableItem.ItemID == searchID)

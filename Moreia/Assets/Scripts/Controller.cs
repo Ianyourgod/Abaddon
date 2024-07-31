@@ -87,7 +87,6 @@ public class Controller : MonoBehaviour {
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = GetAxis();
-
         if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0))
             return;
 

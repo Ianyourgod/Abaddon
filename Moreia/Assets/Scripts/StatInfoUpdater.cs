@@ -9,7 +9,8 @@ public class StatInfoUpdater : MonoBehaviour
         Wisdom,
         Strength,
         Dexterity,
-        Constitution
+        Constitution,
+        Health
     }
 
     [SerializeField] private TMP_Text text;
@@ -17,21 +18,7 @@ public class StatInfoUpdater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        switch (stat)
-        {
-            case Stat.Wisdom:
-                text.text = $"{Controller.main.wisdom}";
-                break;
-            case Stat.Strength:
-                text.text = $"{Controller.main.strength}";
-                break;
-            case Stat.Dexterity:
-                text.text = $"{Controller.main.dexterity}";
-                break;
-            case Stat.Constitution:
-                text.text = $"{Controller.main.constitution}";
-                break;
-        }
+
     }
 
     // Update is called once per frame
@@ -50,6 +37,9 @@ public class StatInfoUpdater : MonoBehaviour
                 break;
             case Stat.Constitution:
                 text.text = $"{Controller.main.constitution}";
+                break;
+            case Stat.Health:
+                text.text = $"{Controller.main.health}";
                 break;
         }
     }

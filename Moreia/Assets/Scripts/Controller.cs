@@ -32,11 +32,18 @@ public class Controller : MonoBehaviour {
 
     public System.Random rnd = new System.Random();
 
+    [Header("References")]
+    [SerializeField] SfxPlayer walkingSfxPlayer;
+    [SerializeField] SfxPlayer hurtSfxPlayer;
+    [SerializeField] SfxPlayer attackSfxPlayer;
+
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
+    [SerializeField] GameObject dodgePrefab;
+    [SerializeField] GameObject lockPrefab;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -52,12 +59,8 @@ public class Controller : MonoBehaviour {
     [Tooltip("High end of range to add")]
     [SerializeField] public int maximum_stat_roll = 6;
 
-    private SfxPlayer sfxPlayer;
-
     void Awake() {
         main = this;
-
-        sfxPlayer = GetComponent<SfxPlayer>();
 
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
@@ -114,11 +117,11 @@ public class Controller : MonoBehaviour {
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
                 transform.Translate(horizontal, vertical, 0);
-                sfxPlayer.PlaySfx();
+                walkingSfxPlayer.PlaySfx();
                 lastMovement = Time.time;
                 FinishTick();
             } else {
-                print($"layer number: {LayerMask.NameToLayer("breakable")}");
+                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -128,10 +131,21 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
+                        if (needsKey)
+                        {
+                            hit.gameObject.GetComponent<Door>().unlockLockedDoorSfx.PlaySfx();
+                        }
+                        else
+                        {
+                            hit.gameObject.GetComponent<Door>().unlockedDoorSfx.PlaySfx();
+                        }
+
                         Destroy(hit.gameObject);
                         inventory.RemoveByID(KeyID);
                     } else {
+                        hit.gameObject.GetComponent<Door>().lockedDoorSfx.PlaySfx();
                         Debug.Log("need key");
+                        Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();
                 // if we hit a fountain, heal from it
@@ -167,6 +181,7 @@ public class Controller : MonoBehaviour {
     {
         hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        attackSfxPlayer.PlaySfx();
         PlayAnimation(direction, 3);
     }
 
@@ -284,8 +299,10 @@ public class Controller : MonoBehaviour {
         {
             health -= Convert.ToInt32(damage);
             PlayAnimation(current_player_direction, 2);
+            hurtSfxPlayer.PlaySfx();
         } else {
             Debug.Log("dodged");
+            Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }
 
@@ -337,21 +354,6 @@ public class Controller : MonoBehaviour {
                 break;
         }
         FinishTick();
-    }
-
-    // id 4 is minor potion
-    public void ConsumeHealthPotion(int id)
-    {
-        inventory.RemoveItemAmount(id, 1);
-        switch (id)
-        {
-            // minor health potion, restores 5 hp
-            case 4:
-                HealPlayer(5);
-                break;
-            default:
-                break;
-        }
     }
 
     // first int is stat, second int is modifier

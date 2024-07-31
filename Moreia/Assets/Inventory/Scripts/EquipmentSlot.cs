@@ -28,6 +28,7 @@ public class EquipmentSlot : MonoBehaviour
 	[HideInInspector]
 	public int currentEquippedItemID;
 	int searchID;
+	private int[] savedStats = new int[4];
 
 	private void Update()
 	{
@@ -45,7 +46,24 @@ public class EquipmentSlot : MonoBehaviour
 		EqippableItem assigned = null;
 		if (GetComponent<Slot>().slotsItem)
 		{
-			searchID = GetComponent<Slot>().slotsItem.ItemID;
+			var item = GetComponent<Slot>().slotsItem;
+			searchID = item.ItemID;
+			if (item.TryGetComponent(out StatModifier slotModifier)) {
+				print("has stats");
+				
+				Controller.main.dexterity += slotModifier.dexterity;
+				Controller.main.constitution += slotModifier.constitution;
+				Controller.main.strength += slotModifier.strength;
+				Controller.main.wisdom += slotModifier.wisdom;
+				savedStats = new int[] {
+					slotModifier.dexterity,
+					slotModifier.constitution,
+					slotModifier.strength,
+					slotModifier.wisdom
+				};
+				Controller.main.max_health = Controller.main.constitution * 2;
+				Controller.main.HealPlayer(0);
+			}
 			for (int i = 0; i < possibleEqips.Length; i++)
 			{
 				if (possibleEqips[i].ItemID == searchID)
@@ -61,18 +79,30 @@ public class EquipmentSlot : MonoBehaviour
 				return;
 			}
 		}
+		print(curItem.gameObject.name);
 	}
 
 	public void Unequip()
 	{
+		
 		equipped = false;
 		Controller.main.EquipItem(currentEquippedItemID, true);
 		currentEquippedItemID = -1;
-		foreach (EqippableItem item in possibleEqips)
+		var item = GetComponent<Slot>().slotsItem;
+		print("item");
+
+		Controller.main.dexterity -= savedStats[0];
+		Controller.main.constitution -= savedStats[1];
+		Controller.main.strength -= savedStats[2];
+		Controller.main.wisdom -= savedStats[3];
+		savedStats = new int[] { 0, 0, 0, 0 };
+		Controller.main.max_health = Controller.main.constitution * 2;
+		Controller.main.HealPlayer(0);
+		foreach (EqippableItem eqippableItem in possibleEqips)
 		{
-			if (item.ItemID == searchID)
+			if (eqippableItem.ItemID == searchID)
 			{
-				item.gameObject.SetActive(false);
+				eqippableItem.gameObject.SetActive(false);
 				curItem = GetComponent<Slot>().slotsItem;
 			}
 		}

@@ -14,18 +14,19 @@ public class Door : MonoBehaviour
     [SerializeField] public bool NeedsKey;
     [SerializeField] Direction direction = Direction.Left;
     [SerializeField] Inventory inventory;
+    [SerializeField] public SfxPlayer lockedDoorSfx;
+    [SerializeField] public SfxPlayer unlockedDoorSfx;
+    [SerializeField] public SfxPlayer unlockLockedDoorSfx;
 
     private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (direction == Direction.Up || direction == Direction.Down) {
-            Debug.Log("Top and bottom doors do not exist");
-        }
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        if (NeedsKey) {
-            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}Locked");
+
+        if (direction == Direction.Up) {
+            spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/DoorUp");
         } else {
             spriteRenderer.sprite = Resources.Load<Sprite>($"tilemaps/wall_tilemap/real_wall_tilemap/Door{direction.ToString()}{Controller.main.rnd.Next(1, 4)}");
         }

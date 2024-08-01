@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 9061713491536200826}
   - component: {fileID: 9061713491536200825}
   - component: {fileID: 9061713491536200824}
-  - component: {fileID: 6976481854003959631}
   - component: {fileID: 5879908784850399777}
+  - component: {fileID: 2341081840004254690}
   m_Layer: 0
   m_Name: majorpotion
   m_TagString: Untagged
@@ -156,28 +156,6 @@ MonoBehaviour:
   startSize: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   player: {fileID: 0}
---- !u!114 &6976481854003959631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061713491536200831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65d85c380ecfae4bb65da277a9a34c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audSource: {fileID: 0}
-  playableOffScreen: 0
-  pickupItemSfx:
-  - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
-  randomPickupSound: 0
-  addedPickupVolume: 0
-  useItemSfx:
-  - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
-  randomUseSound: 0
-  addedUseVolume: 0
 --- !u!82 &5879908784850399777
 AudioSource:
   m_ObjectHideFlags: 0
@@ -274,3 +252,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2341081840004254690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061713491536200831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49083ce10f5d4c48aa4073370aa6f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audSource: {fileID: 0}
+  playableOffScreen: 0
+  pickupItemSfx:
+  - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
+  randomPickupSound: 0
+  addedPickupVolume: 0
+  usable: 1

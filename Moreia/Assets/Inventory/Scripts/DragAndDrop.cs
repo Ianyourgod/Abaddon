@@ -469,7 +469,7 @@ public class DragAndDrop : MonoBehaviour
 		print("clicking");
 		if (clickedItem.TryGetComponent(out Potion potion)) {
 			print("clicking");
-			potion.Consume();
+			potion.Consume(sfxPlayer);
 		}
 	}
 

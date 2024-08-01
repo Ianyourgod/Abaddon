@@ -17,7 +17,7 @@ public class UsableSfx : ItemSfx
 
     void Start()
     {
-        audSource = Controller.main.GetComponent<AudioSource>();
+        //audSource = Controller.main.GetComponent<AudioSource>();
     }
 
     public void PlayUseSound()

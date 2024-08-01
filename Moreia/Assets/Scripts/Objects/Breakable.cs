@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ItemDropper))]
+[RequireComponent(typeof(BreakableSfx))]
 
 public class Breakable : MonoBehaviour
 {

@@ -40,7 +40,7 @@ public class Controller : MonoBehaviour {
     public delegate void OnDie();
     public OnDie onDie;
 
-    private PlayerSfx sfxPlayer;
+    [HideInInspector] public PlayerSfx sfxPlayer;
 
     public GameObject textFadePrefab;
     public GameObject lockPrefab;
@@ -160,11 +160,20 @@ public class Controller : MonoBehaviour {
                         Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();
-                // if we hit a fountain, heal from it
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
+                }
+                // if we hit a breakable, destroy it
+                else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
+                    hit.GetComponent<BreakableSfx>().PlayBreakSound();
                     hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
                     FinishTick();
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+                }
+                // if we hit a fountain, heal from it
+                else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+                    if (health < max_health)
+                    {
+                        hit.GetComponent<FountainSfx>().PlayFountainSound();
+                    }
+
                     hit.gameObject.GetComponent<Fountain>().Heal();
                     FinishTick();
                 }
@@ -324,7 +333,7 @@ public class Controller : MonoBehaviour {
             damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
         } else {
             Debug.Log("dodged");
-            //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect
+            sfxPlayer.PlayDodgeSound();
             GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
             damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged");
             // Instantiate(dodgePrefab, transform.position, Quaternion.identity);

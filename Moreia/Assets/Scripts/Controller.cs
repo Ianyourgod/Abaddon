@@ -36,6 +36,9 @@ public class Controller : MonoBehaviour {
 
     public System.Random rnd = new System.Random();
 
+    public delegate void OnDie();
+    public OnDie onDie;
+
     private PlayerSfx sfxPlayer;
 
     [Header("Misc")]
@@ -66,7 +69,11 @@ public class Controller : MonoBehaviour {
 
         sfxPlayer = GetComponent<PlayerSfx>();
 
-        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        if (healthBar == null) {
+            healthBar = new GameObject().AddComponent<RectTransform>();
+        }else {
+            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        }
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
@@ -317,7 +324,7 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
 
         if (health <= 0) {
-            Respawn();
+            onDie();
         }
     }
 

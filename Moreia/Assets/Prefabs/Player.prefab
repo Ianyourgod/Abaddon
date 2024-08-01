@@ -55,10 +55,11 @@ MonoBehaviour:
   attackDamage: 3
   collideLayers:
     serializedVersion: 2
-    m_Bits: 15680
+    m_Bits: 81216
   movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
+  respawnPoint: {fileID: 0}
   constitution: 10
   dexterity: 8
   strength: 8
@@ -123,6 +124,7 @@ MonoBehaviour:
   inventoryKey: 9
   inventoryObject: {fileID: 0}
   equipmentObject: {fileID: 0}
+  statObject: {fileID: 0}
   craftObject: {fileID: 0}
   shadow: {fileID: 0}
   hotbarParent: {fileID: 0}
@@ -153,6 +155,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  statValues: []
   emptySlots: []
   readyToAdd: 1
 --- !u!1 &7842820053772704083

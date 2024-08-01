@@ -52,9 +52,18 @@ public class Controller : MonoBehaviour {
     [Tooltip("High end of range to add")]
     [SerializeField] public int maximum_stat_roll = 6;
 
+    public delegate void OnDie();
+
+    [HideInInspector] public OnDie onDie;
+
     void Awake() {
         main = this;
-        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        if (healthBar) {
+            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        }
+        else {
+            healthBar = new GameObject().AddComponent<RectTransform>();
+        }
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
@@ -112,7 +121,6 @@ public class Controller : MonoBehaviour {
                 lastMovement = Time.time;
                 FinishTick();
             } else {
-                print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -285,13 +293,14 @@ public class Controller : MonoBehaviour {
 
         if (health <= 0) {
             ChangeHealthBar();
-            Respawn();
+            onDie();
         }
 
         ChangeHealthBar();
     }
 
-    void Respawn() {
+    public void Respawn() {
+        print("working");
         health = max_health;
         transform.position = respawnPoint.position;
         ChangeHealthBar();

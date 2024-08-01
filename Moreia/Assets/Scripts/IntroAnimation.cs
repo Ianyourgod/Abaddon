@@ -18,7 +18,6 @@ public class IntroAnimation : MonoBehaviour
     private void Update()
     {
         darkener.color = new Color(darkener.color.r, darkener.color.g, darkener.color.b, Mathf.Lerp(darkener.color.a, 0, fadeSpeed * Time.deltaTime));
-        Debug.Log(name);
         if (darkener.color.a <= 0.1f) {
             Destroy(this, 0.1f);
         }

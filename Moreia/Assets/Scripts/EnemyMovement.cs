@@ -25,7 +25,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
     [SerializeField] Breakable breakableLogic;
-    [SerializeField] GameObject textFadePrefab;
     [SerializeField] SfxPlayer walkingSfxPlayer;
     [SerializeField] SfxPlayer hurtSfxPlayer;
 
@@ -45,8 +44,12 @@ public class EnemyMovement : MonoBehaviour
     
     private EnemySfx sfxPlayer;
 
+    public GameObject textFadePrefab;
+
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
+
+        textFadePrefab = (UnityEngine.Object)Resources.Load($"Prefabs/TextFadeCreator");
     }
 
     private void Start() {

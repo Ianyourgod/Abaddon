@@ -305,7 +305,6 @@ public class Controller : MonoBehaviour {
             PlayAnimation(current_player_direction, 2);
             GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
             damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
-            hurtSfxPlayer.PlaySfx();
         } else {
             Debug.Log("dodged");
             //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect

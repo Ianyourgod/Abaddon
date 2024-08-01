@@ -15,6 +15,7 @@ public class Controller : MonoBehaviour {
 
     public static Controller main;
 
+    //needed for a git pr
     public enum Direction {
         Up,
         Down,
@@ -35,6 +36,9 @@ public class Controller : MonoBehaviour {
     public int attackDamage;
 
     public System.Random rnd = new System.Random();
+
+    public delegate void OnDie();
+    public OnDie onDie;
 
     private PlayerSfx sfxPlayer;
 
@@ -66,7 +70,11 @@ public class Controller : MonoBehaviour {
 
         sfxPlayer = GetComponent<PlayerSfx>();
 
-        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        if (healthBar == null) {
+            healthBar = new GameObject().AddComponent<RectTransform>();
+        }else {
+            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        }
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
@@ -143,7 +151,6 @@ public class Controller : MonoBehaviour {
                         }
                         else
                         {
-                            Debug.Log("Unlocked");
                             hit.GetComponent<DoorSfx>().PlayUnlockedSound();
                         }
 
@@ -296,7 +303,7 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 194;
+        float new_bar_width = (health / (float) (constitution * 2)) * 200;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }
@@ -322,11 +329,11 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
 
         if (health <= 0) {
-            Respawn();
+            onDie();
         }
     }
 
-    void Respawn() {
+    public void Respawn() {
         health = max_health;
         transform.position = respawnPoint.position;
         ChangeHealthBar();

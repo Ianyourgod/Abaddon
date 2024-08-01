@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
 
 	private void Update()
 	{
-		if (MenuHandler.instance.isPaused) return;
+		if (MenuHandler.instance && MenuHandler.instance.isPaused) return;
 		if (Input.GetKeyDown(inventoryKey) && inventoryObject.activeInHierarchy == false)
 		{
 			inventoryObject.SetActive(true);

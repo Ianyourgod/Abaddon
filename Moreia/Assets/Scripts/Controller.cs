@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(PlayerSfx))]
+[RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(BoxCollider2D))]
+
 public class Controller : MonoBehaviour {
     // used for non-enemy things where having stuff in order doesnt really matter
     public delegate void TickAction();
@@ -32,6 +36,8 @@ public class Controller : MonoBehaviour {
 
     public System.Random rnd = new System.Random();
 
+    private PlayerSfx sfxPlayer;
+
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
@@ -56,6 +62,8 @@ public class Controller : MonoBehaviour {
 
     void Awake() {
         main = this;
+
+        sfxPlayer = GetComponent<PlayerSfx>();
 
         original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
@@ -112,6 +120,7 @@ public class Controller : MonoBehaviour {
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
                 transform.Translate(horizontal, vertical, 0);
+                sfxPlayer.PlayWalkSound();
                 lastMovement = Time.time;
                 FinishTick();
             } else {
@@ -125,9 +134,17 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
+                        if (needsKey){
+                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
+                        }else{
+                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
+                        }
+
                         Destroy(hit.gameObject);
                         inventory.RemoveByID(KeyID);
                     } else {
+                        hit.GetComponent<Door>().sfxPlayer.PlayLockedSound();
+
                         Debug.Log("need key");
                         Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
@@ -165,6 +182,7 @@ public class Controller : MonoBehaviour {
     {
         hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        sfxPlayer.PlayAttackSound();
         PlayAnimation(direction, 3);
     }
 
@@ -272,7 +290,7 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 200;
+        float new_bar_width = (health / (float) (constitution * 2)) * 194;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }
@@ -281,9 +299,11 @@ public class Controller : MonoBehaviour {
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
+            sfxPlayer.PlayHurtSound();
             PlayAnimation(current_player_direction, 2);
         } else {
             Debug.Log("dodged");
+            //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect
             Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }

@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
 
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Pathfinding2D))]
+[RequireComponent(typeof(EnemySfx))]
+
 public class EnemyMovement : MonoBehaviour
 {
     public enum Direction {
@@ -20,6 +24,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
     [SerializeField] Breakable breakableLogic;
+    EnemySfx sfxPlayer;
 
     [Header("Attributes")]
     [SerializeField] int detectionDistance = 1;
@@ -34,6 +39,10 @@ public class EnemyMovement : MonoBehaviour
     private bool directionChange = false;
 
     private Vector3 StartPosition;
+
+    private void Awake(){
+        sfxPlayer = GetComponent<EnemySfx>();
+    }
 
     private void Start() {
         StartPosition = transform.position;
@@ -135,6 +144,7 @@ public class EnemyMovement : MonoBehaviour
             PlayAnimation(direction, 3);
         } else if (hit == null) {
             Vector2 movement = DirectionToVector(direction);
+            sfxPlayer.PlayWalkSound();
             transform.Translate(movement.x, movement.y, 0);
             Invoke(nameof(callNextEnemy), 0f);
         } else {
@@ -320,6 +330,7 @@ public class EnemyMovement : MonoBehaviour
         }
         PlayAnimation(direction, 2);
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
+        sfxPlayer.PlayHurtSound();
         health -= damage;
     }
 

@@ -63,6 +63,8 @@ public class FirePixieAttack : BaseAttack {
                 new_position.x += 1.0f;
                 break;
         }
+        sfxPlayer.PlayAttackSound();
+        
         Instantiate(fireball_prefab, new_position, Quaternion.identity);
     }
 }

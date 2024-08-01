@@ -133,9 +133,8 @@ GameObject:
   - component: {fileID: 6613495682198188706}
   - component: {fileID: 8905533853578730615}
   - component: {fileID: 3237090208551826293}
-  - component: {fileID: 6495923448556855106}
-  - component: {fileID: 795928847634056006}
-  - component: {fileID: -4518108520735529407}
+  - component: {fileID: 6916633805291936402}
+  - component: {fileID: 1515428442440993816}
   m_Layer: 6
   m_Name: FirePixieEnemy
   m_TagString: Untagged
@@ -179,8 +178,6 @@ MonoBehaviour:
   animation_prefix: Fire_Pixie
   attack: {fileID: 2309056572890118907}
   breakableLogic: {fileID: 0}
-  walkingSfxPlayer: {fileID: 6495923448556855106}
-  hurtSfxPlayer: {fileID: 795928847634056006}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
@@ -198,8 +195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  attackSfxPlayer: {fileID: -4518108520735529407}
-  playOnPlayerHurt: 0
   fireball_prefab: {fileID: 4476263217152093388, guid: 1ac43963423b598348a6f270b1b753f2, type: 3}
   detectionDistance: 2
 --- !u!61 &6613495682198188706
@@ -259,10 +254,10 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 64
-  worldBottomLeft: {x: -4.5, y: -4.5, z: 0}
+  worldBottomLeft: {x: -2, y: -1, z: 0}
   gridSizeX: 9
   gridSizeY: 9
---- !u!114 &6495923448556855106
+--- !u!114 &6916633805291936402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,59 +266,122 @@ MonoBehaviour:
   m_GameObject: {fileID: 6462628820561290991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe2149a5a23ee524b95b199faeff37de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Walking SFX
-  spriteRend: {fileID: 6462628818639776139}
-  sfxList:
+  audSource: {fileID: 1515428442440993816}
+  playableOffScreen: 0
+  walkingSfx:
   - {fileID: 8300000, guid: 736839a41d6d9fa478f5d1d6177fd8f8, type: 3}
   - {fileID: 8300000, guid: b1000ab60eba0644ea31f66f836599df, type: 3}
   - {fileID: 8300000, guid: d1ca5bc5e87b0384fbe5cdba493c4259, type: 3}
   - {fileID: 8300000, guid: c12e4583f716dda43aff00ed815b662b, type: 3}
   - {fileID: 8300000, guid: 266849dc9ac384541b4aaf5b35939ff1, type: 3}
   - {fileID: 8300000, guid: 11c416be94d6203479c0ce82232edc3f, type: 3}
-  playableOffScreen: 0
-  playFromRandom: 1
-  playLouderAmount: 0
-  playerSound: 0
---- !u!114 &795928847634056006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6462628820561290991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Hurt SFX
-  spriteRend: {fileID: 6462628818639776139}
-  sfxList:
+  randomWalkingSound: 1
+  hurtSfx:
   - {fileID: 8300000, guid: 8b9df10ec83991547acfe13b6bdb9451, type: 3}
-  playableOffScreen: 0
-  playFromRandom: 0
-  playLouderAmount: 0
-  playerSound: 0
---- !u!114 &-4518108520735529407
-MonoBehaviour:
+  randomHurtSound: 0
+  attackSfx:
+  - {fileID: 8300000, guid: 8da4e6ba26d0ed04e9218d322a2b4c3a, type: 3}
+  randomAttackSound: 0
+  addedWalkVolume: 0
+  addedHurtVolume: 0
+  addedAttackVolume: 0
+  playAttackOnDamagePlayer: 0
+--- !u!82 &1515428442440993816
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6462628820561290991}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d464b10ef6c1c24db87a67736e9fd8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Attack SFX
-  spriteRend: {fileID: 6462628818639776139}
-  sfxList:
-  - {fileID: 8300000, guid: 8da4e6ba26d0ed04e9218d322a2b4c3a, type: 3}
-  playableOffScreen: 0
-  playFromRandom: 0
-  playLouderAmount: 0
-  playerSound: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -5,6 +5,12 @@ using UnityEngine;
 public class BaseAttack : MonoBehaviour {
     [SerializeField] public uint damage = 1;
 
+    [HideInInspector] public EnemySfx sfxPlayer;
+
+    private void Awake(){
+        sfxPlayer = GetComponent<EnemySfx>();
+    }
+
     public virtual bool WillAttack(Collider2D collider, EnemyMovement.Direction direction) {
         // we just check if the collider is the player, and if it is, we return true - direction is for if children of this need it
         if (collider == null) return false;
@@ -13,6 +19,9 @@ public class BaseAttack : MonoBehaviour {
     }
 
     public virtual void Attack(EnemyMovement.Direction direction) {
+        if (sfxPlayer.playAttackOnDamagePlayer){
+            sfxPlayer.PlayAttackSound();
+        }
         Controller.main.DamagePlayer(damage);
     }
 }

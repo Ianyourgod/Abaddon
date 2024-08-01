@@ -142,7 +142,7 @@ public class Controller : MonoBehaviour {
                 //print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                    Attack(hit, direction); // calls next enemy
+                    Attack(hit, direction, true); // calls next enemy
                 // if we hit a door, attempt to open it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                     // if the door needs a key, check if we have it
@@ -165,7 +165,7 @@ public class Controller : MonoBehaviour {
                 // if we hit a fountain, heal from it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
                     hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
-                    FinishTick();
+                    Attack(hit, direction, false);
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
                     hit.gameObject.GetComponent<Fountain>().Heal();
                     FinishTick();
@@ -199,10 +199,13 @@ public class Controller : MonoBehaviour {
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    private void Attack(Collider2D hit, Direction direction)
+    // real is whether or not to try to actually hit, set to false to just play the animation
+    private void Attack(Collider2D hit, Direction direction, bool real)
     {
-        hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
-        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        if (real) {
+            hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
+            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        }
         sfxPlayer.PlayAttackSound();
         PlayAnimation(direction, 3);
     }

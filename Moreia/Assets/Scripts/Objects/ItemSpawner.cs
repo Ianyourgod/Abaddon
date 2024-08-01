@@ -31,42 +31,79 @@ public class ItemSpawner : MonoBehaviour
         switch (table)
         {
             case TableTypes.Gnome:
-                if (random <= 20) {
+                if (random <= 15)
+                {
                     drop = "minorpotion";
-                } else if (random <= 36) {
-                    drop = "1helmet";
-                } else if (random <= 48) {
-                    drop = "1pants";
-                } else if (random <= 58) {
-                    drop = "1chest";
-                } else if (random <= 66) {
+                }
+                else if (random <= 27)
+                {
+                    drop = "0helmet";
+                }
+                else if (random <= 39)
+                {
+                    drop = "0pants";
+                }
+                else if (random <= 49)
+                {
                     drop = "majorpotion";
-                } else {
+                }
+                else if (random <= 58)
+                {
+                    drop = "0chest";
+                }
+                else if (random <= 64)
+                {
+                    drop = "1helmet";
+                }
+                else if (random <= 70)
+                {
+                    drop = "1pants";
+                }
+                else if (random <= 75)
+                {
+                    drop = "1chest";
+                }
+                else
+                {
                     Destroy(gameObject);
                     return;
                 }
                 break;
             case TableTypes.Pixie:
-                if (random <= 50) {
+                if (random <= 50)
+                {
                     drop = "minorpotion";
-                } else if (random <= 80) {
+                }
+                else if (random <= 80)
+                {
                     drop = "majorpotion";
-                } else {
+                }
+                else
+                {
                     Destroy(gameObject);
                     return;
                 }
                 break;
             case TableTypes.Barrel:
             case TableTypes.Vase:
-                if (random <= 26) {
+                if (random <= 26)
+                {
                     drop = "minorpotion";
-                } else if (random <= 46) {
+                }
+                else if (random <= 46)
+                {
                     drop = "majorpotion";
-                } else if (random <= 60) {
+                }
+                else if (random <= 60)
+                {
                     drop = "0sword";
-                } else if (random <= 66) {
+                }
+                else if (random <= 66)
+                {
                     drop = "1sword";
-                } else {
+                }
+                else
+                {
                     Destroy(gameObject);
                     return;
                 }
@@ -75,12 +112,14 @@ public class ItemSpawner : MonoBehaviour
                 drop = "minorpotion";
                 break;
         }
+        print(random);
         print(drop);
-        Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
+        Instantiate((UnityEngine.Object)Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
-    public void SpawnPath(string path) {
+    public void SpawnPath(string path)
+    {
         Instantiate((UnityEngine.Object)Resources.Load(path), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

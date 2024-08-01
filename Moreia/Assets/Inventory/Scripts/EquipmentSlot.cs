@@ -42,6 +42,23 @@ public class EquipmentSlot : MonoBehaviour
 		currentEquippedItemID = GetComponent<Slot>().slotsItem.ItemID;
 		equipped = true;
 		//EqippableItem assigned = null;
+		switch (GetComponent<Slot>().slotsItem.GetComponent<Item>().equipmentType)
+		{
+			case "Sword":
+				GetComponent<Slot>().slotsItem.GetComponent<SpriteRenderer>().sortingOrder = 5;
+				break;
+			case "Head":
+				GetComponent<Slot>().slotsItem.GetComponent<SpriteRenderer>().sortingOrder = 4;
+				break;
+			case "Chest":
+				GetComponent<Slot>().slotsItem.GetComponent<SpriteRenderer>().sortingOrder = 3;
+				break;
+			case "Legs":
+				GetComponent<Slot>().slotsItem.GetComponent<SpriteRenderer>().sortingOrder = 2;
+				break;
+			default:
+				break;
+		}
 		if (GetComponent<Slot>().slotsItem)
 		{
 			var item = GetComponent<Slot>().slotsItem;
@@ -79,9 +96,9 @@ public class EquipmentSlot : MonoBehaviour
 
 	public void Unequip()
 	{
-		
 		equipped = false;
 		var item = GetComponent<Slot>().slotsItem;
+		GetComponent<Slot>().slotsItem.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
 		Controller.main.dexterity -= savedStats[0];
 		Controller.main.constitution -= savedStats[1];

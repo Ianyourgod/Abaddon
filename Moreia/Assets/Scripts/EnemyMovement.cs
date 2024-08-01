@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Pathfinding2D))]
 [RequireComponent(typeof(EnemySfx))]
+[RequireComponent(typeof(ItemDropper))]
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -329,6 +330,7 @@ public class EnemyMovement : MonoBehaviour
         if (damage >= health) {
             breakableLogic?.TakeHit(999);
             health = 0;
+            GetComponent<ItemDropper>().Die();
             Destroy(gameObject);
             return;
         }

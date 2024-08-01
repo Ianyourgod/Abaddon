@@ -14,7 +14,7 @@ public class ItemSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,15 +25,17 @@ public class ItemSpawner : MonoBehaviour
 
     public int SpawnRandom(TableTypes table)
     {
+        int dropID;
+        int random = Controller.main.rnd.Next(1, 101);
         switch (table)
         {
             case TableTypes.Goblin:
-                print("yippee");
-                Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{Controller.main.rnd.Next(2, 6)}"), transform.position, Quaternion.identity);
+                switch (Controller.main.rnd.Next())
                 break;
             default:
                 break;
         }
+        Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{dropID}"), transform.position, Quaternion.identity);
         Destroy(gameObject);
         return 1;
     }

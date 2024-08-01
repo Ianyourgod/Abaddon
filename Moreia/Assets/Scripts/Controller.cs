@@ -59,7 +59,7 @@ public class Controller : MonoBehaviour {
     [Tooltip("Wisdom (ability damage)")]
     [SerializeField] public int wisdom = 9;
     [Tooltip("High end of range to add")]
-    [SerializeField] public int maximum_stat_roll = 6;
+    [SerializeField] public int maximum_stat_roll = 7;
 
     void Awake() {
         main = this;
@@ -138,7 +138,7 @@ public class Controller : MonoBehaviour {
                     if ((needsKey && hasKey) || !needsKey) {
                         if (needsKey){
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
-                        }else{
+                        } else {
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
                         }
 

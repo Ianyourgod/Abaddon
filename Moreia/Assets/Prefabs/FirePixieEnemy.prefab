@@ -178,6 +178,9 @@ MonoBehaviour:
   animation_prefix: Fire_Pixie
   attack: {fileID: 2309056572890118907}
   breakableLogic: {fileID: 0}
+  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
+  walkingSfxPlayer: {fileID: 0}
+  hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
@@ -195,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  sfxPlayer: {fileID: 0}
   fireball_prefab: {fileID: 4476263217152093388, guid: 1ac43963423b598348a6f270b1b753f2, type: 3}
   detectionDistance: 2
 --- !u!61 &6613495682198188706

@@ -154,8 +154,6 @@ public class Controller : MonoBehaviour {
                         Destroy(hit.gameObject);
                     } else {
                         hit.GetComponent<Door>().sfxPlayer.PlayLockedSound();
-
-                        Debug.Log("need key");
                         Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();

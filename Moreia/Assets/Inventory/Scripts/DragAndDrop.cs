@@ -175,20 +175,21 @@ public class DragAndDrop : MonoBehaviour
 			{
 				if (curSlot && curSlot.GetComponent<Slot>().slotsItem)
 				{
-					if (!GetComponent<EquipmentSlot>())
-                    {
-						sfxPlayer.PlayPlaceSound();
-					}
-                    else
-                    {
-						sfxPlayer.PlayEquipSound();
-                    }
 					Destroy(curSlot.GetComponent<Slot>().clone);
 					curSlotsItem = curSlot.GetComponent<Slot>().slotsItem;
 
 					GameObject newObj = GetObjectUnderMouse(true);
 					if (newObj && newObj != curSlot)
 					{
+						if (!newObj.GetComponent<EquipmentSlot>())
+						{
+							sfxPlayer.PlayPlaceSound();
+						}
+						else
+						{
+							sfxPlayer.PlayEquipSound();
+						}
+
 						if (newObj.GetComponent<EquipmentSlot>() && newObj.GetComponent<EquipmentSlot>().equipmentType != curSlotsItem.equipmentType)
 						{
 							return;

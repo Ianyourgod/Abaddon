@@ -48,7 +48,6 @@ public class FirePixieAttack : BaseAttack {
 
     public override void Attack(EnemyMovement.Direction direction) {
         Vector3 new_position = transform.position;
-        attackSfxPlayer.PlaySfx();
 
         switch (direction) {
             case EnemyMovement.Direction.Up:
@@ -64,6 +63,8 @@ public class FirePixieAttack : BaseAttack {
                 new_position.x += 1.0f;
                 break;
         }
+        sfxPlayer.PlayAttackSound();
+        
         Instantiate(fireball_prefab, new_position, Quaternion.identity);
     }
 }

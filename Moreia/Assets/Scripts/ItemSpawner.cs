@@ -28,6 +28,7 @@ public class ItemSpawner : MonoBehaviour
     public void SpawnRandom(TableTypes table)
     {
         int random = Controller.main.rnd.Next(1, 101);
+        print(random);
         switch (table)
         {
             case TableTypes.Gnome:
@@ -43,6 +44,7 @@ public class ItemSpawner : MonoBehaviour
                     drop = "majorpotion";
                 } else {
                     Destroy(gameObject);
+                    return;
                 }
                 break;
             case TableTypes.Pixie:
@@ -52,6 +54,7 @@ public class ItemSpawner : MonoBehaviour
                     drop = "majorpotion";
                 } else {
                     Destroy(gameObject);
+                    return;
                 }
                 break;
             case TableTypes.Barrel:
@@ -66,6 +69,7 @@ public class ItemSpawner : MonoBehaviour
                     drop = "1sword";
                 } else {
                     Destroy(gameObject);
+                    return;
                 }
                 break;
             default:

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Breakable : MonoBehaviour
 {
-    [SerializeField] float dropChance = 0.5f;
     [SerializeField] float health = 1;
 
     public void TakeHit(float damage) {

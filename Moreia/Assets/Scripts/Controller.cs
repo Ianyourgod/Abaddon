@@ -42,14 +42,14 @@ public class Controller : MonoBehaviour {
 
     private PlayerSfx sfxPlayer;
 
+    public GameObject textFadePrefab;
+    public GameObject lockPrefab;
+
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
-    [SerializeField] GameObject dodgePrefab;
-    [SerializeField] GameObject lockPrefab;
-    [SerializeField] GameObject textFadePrefab;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -86,6 +86,9 @@ public class Controller : MonoBehaviour {
         health = constitution * 2; // current health
         max_health = health;
         ChangeHealthBar();
+
+        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
+        lockPrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/AnimatedLock");
     }
 
     void Update() {

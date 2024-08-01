@@ -44,7 +44,7 @@ public class ItemSpawner : MonoBehaviour
                 } else if (random <= 66) {
                     drop = "majorpotion";
                 } else {
-                    return;
+                    Destroy(gameObject);
                 }
                 break;
             default:

@@ -9,7 +9,7 @@ public class ItemSpawner : MonoBehaviour
         Gnome,
         Pixie,
         Barrel,
-        Pot
+        Vase
     }
 
     string drop;
@@ -31,9 +31,7 @@ public class ItemSpawner : MonoBehaviour
         switch (table)
         {
             case TableTypes.Gnome:
-            case TableTypes.Pixie:
-                if (random <= 20)
-                {
+                if (random <= 20) {
                     drop = "minorpotion";
                 } else if (random <= 36) {
                     drop = "1helmet";
@@ -43,6 +41,29 @@ public class ItemSpawner : MonoBehaviour
                     drop = "1chest";
                 } else if (random <= 66) {
                     drop = "majorpotion";
+                } else {
+                    Destroy(gameObject);
+                }
+                break;
+            case TableTypes.Pixie:
+                if (random <= 50) {
+                    drop = "minorpotion";
+                } else if (random <= 80) {
+                    drop = "majorpotion";
+                } else {
+                    Destroy(gameObject);
+                }
+                break;
+            case TableTypes.Barrel:
+            case TableTypes.Vase:
+                if (random <= 26) {
+                    drop = "minorpotion";
+                } else if (random <= 46) {
+                    drop = "majorpotion";
+                } else if (random <= 60) {
+                    drop = "0sword";
+                } else if (random <= 66) {
+                    drop = "1sword";
                 } else {
                     Destroy(gameObject);
                 }

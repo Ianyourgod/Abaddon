@@ -11,6 +11,9 @@ public class Fireball : MonoBehaviour
 
     void Awake() {
         Controller.OnTick += CustomUpdate;
+        if (transform.position == Controller.main.transform.position) {
+            Controller.main.DamagePlayer(damage, false);
+        }
     }
 
     void OnDestroy() {

@@ -36,7 +36,6 @@ public class SfxPlayer : MonoBehaviour
 
         if (playableOffScreen || transform.GetChild(0).GetComponent<SpriteRenderer>().isVisible)
         {
-            Debug.Log(soundFx);
             audSource.PlayOneShot(soundFx, AudioManager.main.sfxVolume + addedSound);
         }
     }

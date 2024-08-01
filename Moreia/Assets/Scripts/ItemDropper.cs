@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemDropper : MonoBehaviour
 {
-    [SerializeField] ItemSpawner.TableTypes dropTable = ItemSpawner.TableTypes.Goblin;
+    [SerializeField] ItemSpawner.TableTypes dropTable = ItemSpawner.TableTypes.Gnome;
 
     // Start is called before the first frame update
     void Start()

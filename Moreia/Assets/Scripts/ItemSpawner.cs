@@ -6,11 +6,13 @@ public class ItemSpawner : MonoBehaviour
 {
     public enum TableTypes
     {
-        Goblin,
+        Gnome,
         Pixie,
         Barrel,
         Pot
     }
+
+    string drop;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +27,29 @@ public class ItemSpawner : MonoBehaviour
 
     public int SpawnRandom(TableTypes table)
     {
-        int dropID;
         int random = Controller.main.rnd.Next(1, 101);
         switch (table)
         {
-            case TableTypes.Goblin:
-                switch (Controller.main.rnd.Next())
+            case TableTypes.Gnome:
+            case TableTypes.Pixie:
+                if (random <= 20)
+                {
+                    drop = "minorpotion";
+                } else if (random <= 36) {
+                    drop = "1helmet";
+                } else if (random <= 48) {
+                    drop = "1pants";
+                } else if (random <= 58) {
+                    drop = "1chest";
+                } else if (random <= 66) {
+                    drop = "majorpotion";
+                }
                 break;
             default:
+                drop = "minorpotion";
                 break;
         }
-        Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{dropID}"), transform.position, Quaternion.identity);
+        Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
         Destroy(gameObject);
         return 1;
     }

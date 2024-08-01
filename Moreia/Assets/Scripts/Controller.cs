@@ -87,8 +87,8 @@ public class Controller : MonoBehaviour {
         max_health = health;
         ChangeHealthBar();
 
-        textFadePrefab = (UnityEngine.Object)Resources.Load($"Prefabs/TextFadeCreator");
-        lockPrefab = (UnityEngine.Object)Resources.Load($"Prefabs/AnimatedLock");
+        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
+        lockPrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/AnimatedLock");
     }
 
     void Update() {

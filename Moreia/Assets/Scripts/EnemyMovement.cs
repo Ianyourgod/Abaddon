@@ -49,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
 
-        textFadePrefab = (UnityEngine.Object)Resources.Load($"Prefabs/TextFadeCreator");
+        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
     }
 
     private void Start() {

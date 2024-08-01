@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SfxPlayer : MonoBehaviour
 {
-    [SerializeField] string name;
+    [SerializeField] string player_name;
 
     [Header("References")]
     [SerializeField] SpriteRenderer spriteRend;

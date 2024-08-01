@@ -33,11 +33,12 @@ public class Grid2D : MonoBehaviour
         }
         Vector3 new_position = worldPosition + new Vector3(0.5f, -0.5f, 0);
         if (new_position == transform.position) return false;
-        if (!CheckLayers(new_position)) return true;
+        Debug.Log(new_position);
+        if (ObjectIsThere(new_position)) return true;
         return false;
     }
 
-    private bool CheckLayers(Vector3 position)
+    private bool ObjectIsThere(Vector3 position)
     {
         return Physics2D.OverlapCircle(position, 0.1f, collideLayers) != null;
     }

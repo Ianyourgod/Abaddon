@@ -6,20 +6,13 @@ public class FloorTrap : MonoBehaviour
 {
     [SerializeField] uint damage = 2;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Awake() {
+        Controller.OnTick += CustomUpdate;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        Controller.main.DamagePlayer(damage, false);
+    void CustomUpdate() {
+        if (transform.position == Controller.main.transform.position) {
+            Controller.main.DamagePlayer(damage, false);
+        }
     }
 }

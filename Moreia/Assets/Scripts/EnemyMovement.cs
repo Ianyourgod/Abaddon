@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Pathfinding2D))]
 [RequireComponent(typeof(EnemySfx))]
+[RequireComponent(typeof(ItemDropper))]
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
     [SerializeField] Breakable breakableLogic;
-    [SerializeField] GameObject textFadePrefab;
     [SerializeField] SfxPlayer walkingSfxPlayer;
     [SerializeField] SfxPlayer hurtSfxPlayer;
 
@@ -44,8 +44,12 @@ public class EnemyMovement : MonoBehaviour
     
     private EnemySfx sfxPlayer;
 
+    public GameObject textFadePrefab;
+
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
+
+        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
     }
 
     private void Start() {
@@ -331,7 +335,7 @@ public class EnemyMovement : MonoBehaviour
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
-            Destroy(gameObject);
+            GetComponent<ItemDropper>().Die();
             return;
         }
         PlayAnimation(direction, 2);

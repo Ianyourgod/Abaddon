@@ -41,7 +41,7 @@ public class EquipmentSlot : MonoBehaviour
 	{
 		currentEquippedItemID = GetComponent<Slot>().slotsItem.ItemID;
 		equipped = true;
-		EqippableItem assigned = null;
+		//EqippableItem assigned = null;
 		if (GetComponent<Slot>().slotsItem)
 		{
 			var item = GetComponent<Slot>().slotsItem;

@@ -24,11 +24,16 @@ public class DoorSfx : SfxPlayer
 
     [Header("DoorSfx Attributes")]
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your locked door sound effects")]
-    [SerializeField] float addedLockedVolume = 0;
+    [SerializeField] float addedLockedVolume = 0f;
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your unlocked door sound effects")]
-    [SerializeField] float addedUnlockedVolume = 0;
+    [SerializeField] float addedUnlockedVolume = 0f;
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your unlocking door sound effects")]
-    [SerializeField] float addedUnlockLockedVolume = 0;
+    [SerializeField] float addedUnlockLockedVolume = 0f;
+
+    void Start()
+    {
+        audSource = Controller.main.GetComponent<AudioSource>();
+    }
 
     public void PlayLockedSound(){
         if (randomLockedSound){

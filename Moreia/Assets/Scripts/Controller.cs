@@ -135,16 +135,21 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
-                        if (needsKey){
-                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
-                        }else{
-                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
+                        inventory.RemoveByID(KeyID);
+
+                        if (needsKey)
+                        {
+                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
+                        }
+                        else
+                        {
+                            Debug.Log("Unlocked");
+                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
                         }
 
                         Destroy(hit.gameObject);
-                        inventory.RemoveByID(KeyID);
                     } else {
-                        hit.GetComponent<Door>().sfxPlayer.PlayLockedSound();
+                        hit.GetComponent<DoorSfx>().PlayLockedSound();
 
                         Debug.Log("need key");
                         Instantiate(lockPrefab, transform.position, Quaternion.identity);
@@ -305,7 +310,6 @@ public class Controller : MonoBehaviour {
             PlayAnimation(current_player_direction, 2);
             GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
             damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
-            hurtSfxPlayer.PlaySfx();
         } else {
             Debug.Log("dodged");
             //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect

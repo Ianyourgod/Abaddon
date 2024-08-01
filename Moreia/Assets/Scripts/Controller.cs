@@ -45,6 +45,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] RectTransform healthBar;
     [SerializeField] GameObject dodgePrefab;
     [SerializeField] GameObject lockPrefab;
+    [SerializeField] GameObject textFadePrefab;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -75,8 +76,8 @@ public class Controller : MonoBehaviour {
         wisdom += rnd.Next(1, maximum_stat_roll);
 
         health = constitution * 2; // current health
-        ChangeHealthBar();
         max_health = health;
+        ChangeHealthBar();
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
 
@@ -296,24 +297,29 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
+        Debug.Log("what the fuck");
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
             sfxPlayer.PlayHurtSound();
             PlayAnimation(current_player_direction, 2);
+            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
+            hurtSfxPlayer.PlaySfx();
         } else {
             Debug.Log("dodged");
             //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect
-            Instantiate(dodgePrefab, transform.position, Quaternion.identity);
+            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged");
+            // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }
 
+        ChangeHealthBar();
+
         if (health <= 0) {
-            ChangeHealthBar();
             Respawn();
         }
-
-        ChangeHealthBar();
     }
 
     void Respawn() {

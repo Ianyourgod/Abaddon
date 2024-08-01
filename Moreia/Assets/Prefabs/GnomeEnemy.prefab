@@ -178,6 +178,9 @@ MonoBehaviour:
   animation_prefix: Goblin
   attack: {fileID: 2067440025226379969}
   breakableLogic: {fileID: 0}
+  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
+  walkingSfxPlayer: {fileID: 4470399607693797870}
+  hurtSfxPlayer: {fileID: 1782037722071791366}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075

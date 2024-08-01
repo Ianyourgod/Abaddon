@@ -24,7 +24,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
     [SerializeField] Breakable breakableLogic;
-    EnemySfx sfxPlayer;
+    [SerializeField] GameObject textFadePrefab;
+    [SerializeField] SfxPlayer walkingSfxPlayer;
+    [SerializeField] SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
     [SerializeField] int detectionDistance = 1;
@@ -39,6 +41,8 @@ public class EnemyMovement : MonoBehaviour
     private bool directionChange = false;
 
     private Vector3 StartPosition;
+    
+    private EnemySfx sfxPlayer;
 
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
@@ -332,6 +336,8 @@ public class EnemyMovement : MonoBehaviour
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         sfxPlayer.PlayHurtSound();
         health -= damage;
+        GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
     }
 
     // this is called by the animation

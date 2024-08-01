@@ -135,9 +135,9 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
-                        if (needsKey){
+                        if (needsKey) {
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
-                        }else{
+                        } else {
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
                         }
 

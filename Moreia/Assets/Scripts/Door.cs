@@ -6,15 +6,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    enum Direction {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
     [SerializeField] public bool NeedsKey;
-    [SerializeField] Direction direction = Direction.Left;
     [SerializeField] Inventory inventory;
     [HideInInspector] public DoorSfx sfxPlayer;
 

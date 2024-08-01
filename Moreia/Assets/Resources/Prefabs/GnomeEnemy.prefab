@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable: 0
+  forceDropPath: 
 --- !u!114 &2067440025226379969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 0
-  worldBottomLeft: {x: -39, y: 71, z: 0}
+  worldBottomLeft: {x: -4, y: -4, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588
@@ -301,9 +302,15 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: cd28fc8a7c7cd6d408fc1d489edf17a2, type: 3}
   randomAttackSound: 0
+  deathSfx:
+  - {fileID: 8300000, guid: 9a30404f9d3a20a4da50bffcd9f305ed, type: 3}
+  - {fileID: 8300000, guid: ecd0ed764eaf7e54ab4bd7ef41627d4d, type: 3}
+  - {fileID: 8300000, guid: a3e09c5f0cb35714fbf0888e82057647, type: 3}
+  randomDeathSound: 0
   addedWalkVolume: 0
   addedHurtVolume: 0
   addedAttackVolume: 0.02
+  addedDeathVolume: 0
   playAttackOnDamagePlayer: 1
 --- !u!82 &1790465982330262463
 AudioSource:

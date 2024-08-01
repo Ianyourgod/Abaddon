@@ -42,7 +42,9 @@ public class Controller : MonoBehaviour {
 
     private PlayerSfx sfxPlayer;
 
+    [HideInInspector]
     public GameObject textFadePrefab;
+    [HideInInspector]
     public GameObject lockPrefab;
 
     [Header("Misc")]

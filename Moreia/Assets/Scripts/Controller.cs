@@ -72,7 +72,7 @@ public class Controller : MonoBehaviour {
 
         if (healthBar == null) {
             healthBar = new GameObject().AddComponent<RectTransform>();
-        }else {
+        } else {
             original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         }
         inventory = FindObjectOfType<Inventory>();
@@ -145,17 +145,15 @@ public class Controller : MonoBehaviour {
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
                         if (needsKey) {
+                            inventory.RemoveByID(KeyID);
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
                         } else {
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
                         }
 
                         Destroy(hit.gameObject);
-                        inventory.RemoveByID(KeyID);
                     } else {
                         hit.GetComponent<Door>().sfxPlayer.PlayLockedSound();
-
-                        Debug.Log("need key");
                         Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();

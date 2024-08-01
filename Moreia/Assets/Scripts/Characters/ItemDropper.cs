@@ -27,6 +27,5 @@ public class ItemDropper : MonoBehaviour
         } else {
             spawner.GetComponent<ItemSpawner>().SpawnRandom(dropTable);
         }
-        Destroy(gameObject);
     }
 }

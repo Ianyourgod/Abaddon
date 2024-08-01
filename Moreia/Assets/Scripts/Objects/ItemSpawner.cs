@@ -75,7 +75,6 @@ public class ItemSpawner : MonoBehaviour
                 drop = "minorpotion";
                 break;
         }
-        print(drop);
         Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

@@ -255,6 +255,11 @@ public class EnemyMovement : MonoBehaviour
     // 1 is idle, 2 is hurt, 3 is attack
     private void PlayAnimation(Direction direction, uint action)
     {
+        if (action == 4) {
+            animator.Play($"{animation_prefix}_animation_death");
+            return;
+        }
+
         switch (direction)
         {
             case Direction.Up:
@@ -336,6 +341,8 @@ public class EnemyMovement : MonoBehaviour
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Die();
+            // run death animation
+            PlayAnimation(direction, 4);
             return;
         }
         PlayAnimation(direction, 2);

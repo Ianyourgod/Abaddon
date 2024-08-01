@@ -150,8 +150,6 @@ public class SaveAndLoad : MonoBehaviour
 
 		string json = CustomJSON.ToJson(itemsToLoad);
 		File.WriteAllText(Application.persistentDataPath + transform.name, json);
-
-		print("Resetting...");
 	}
 }
 

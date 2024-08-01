@@ -8,7 +8,6 @@ public class Potion : MonoBehaviour
 
 
     public void Consume() {
-        print("healing for " + healAmount);
         GetComponent<UsableSfx>().PlayUseSound();
         Controller.main.HealPlayer(healAmount);
     }

@@ -58,7 +58,7 @@ MonoBehaviour:
   sfxPlayer: {fileID: 3451757296950720634}
   collideLayers:
     serializedVersion: 2
-    m_Bits: 15680
+    m_Bits: 81216
   movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}

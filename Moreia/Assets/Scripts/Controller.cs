@@ -15,6 +15,7 @@ public class Controller : MonoBehaviour {
 
     public static Controller main;
 
+    //needed for a git pr
     public enum Direction {
         Up,
         Down,
@@ -35,6 +36,9 @@ public class Controller : MonoBehaviour {
     public int attackDamage;
 
     public System.Random rnd = new System.Random();
+
+    public delegate void OnDie();
+    public OnDie onDie;
 
     private PlayerSfx sfxPlayer;
 
@@ -66,7 +70,11 @@ public class Controller : MonoBehaviour {
 
         sfxPlayer = GetComponent<PlayerSfx>();
 
-        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        if (healthBar == null) {
+            healthBar = new GameObject().AddComponent<RectTransform>();
+        }else {
+            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
+        }
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
@@ -317,11 +325,11 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
 
         if (health <= 0) {
-            Respawn();
+            onDie();
         }
     }
 
-    void Respawn() {
+    public void Respawn() {
         health = max_health;
         transform.position = respawnPoint.position;
         ChangeHealthBar();

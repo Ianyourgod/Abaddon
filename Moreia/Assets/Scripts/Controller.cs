@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(PlayerSfx))]
+[RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(BoxCollider2D))]
+
 public class Controller : MonoBehaviour {
     // used for non-enemy things where having stuff in order doesnt really matter
     public delegate void TickAction();
@@ -32,11 +36,16 @@ public class Controller : MonoBehaviour {
 
     public System.Random rnd = new System.Random();
 
+    private PlayerSfx sfxPlayer;
+
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
     [SerializeField] RectTransform healthBar;
+    [SerializeField] GameObject dodgePrefab;
+    [SerializeField] GameObject lockPrefab;
+    [SerializeField] GameObject textFadePrefab;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -52,18 +61,12 @@ public class Controller : MonoBehaviour {
     [Tooltip("High end of range to add")]
     [SerializeField] public int maximum_stat_roll = 6;
 
-    public delegate void OnDie();
-
-    [HideInInspector] public OnDie onDie;
-
     void Awake() {
         main = this;
-        if (healthBar) {
-            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
-        }
-        else {
-            healthBar = new GameObject().AddComponent<RectTransform>();
-        }
+
+        sfxPlayer = GetComponent<PlayerSfx>();
+
+        original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
@@ -73,8 +76,8 @@ public class Controller : MonoBehaviour {
         wisdom += rnd.Next(1, maximum_stat_roll);
 
         health = constitution * 2; // current health
-        ChangeHealthBar();
         max_health = health;
+        ChangeHealthBar();
         attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
 
@@ -94,7 +97,7 @@ public class Controller : MonoBehaviour {
     }
 
     void Move()
-    {
+    { 
         sbyte horizontal, vertical;
 
         (horizontal, vertical) = GetAxis();
@@ -118,9 +121,11 @@ public class Controller : MonoBehaviour {
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
                 transform.Translate(horizontal, vertical, 0);
+                sfxPlayer.PlayWalkSound();
                 lastMovement = Time.time;
                 FinishTick();
             } else {
+                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction); // calls next enemy
@@ -130,10 +135,19 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
+                        if (needsKey){
+                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
+                        }else{
+                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
+                        }
+
                         Destroy(hit.gameObject);
                         inventory.RemoveByID(KeyID);
                     } else {
+                        hit.GetComponent<Door>().sfxPlayer.PlayLockedSound();
+
                         Debug.Log("need key");
+                        Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();
                 // if we hit a fountain, heal from it
@@ -169,6 +183,7 @@ public class Controller : MonoBehaviour {
     {
         hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        sfxPlayer.PlayAttackSound();
         PlayAnimation(direction, 3);
     }
 
@@ -276,31 +291,37 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 200;
+        float new_bar_width = (health / (float) (constitution * 2)) * 194;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
+        Debug.Log("what the fuck");
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
+            sfxPlayer.PlayHurtSound();
             PlayAnimation(current_player_direction, 2);
+            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
         } else {
             Debug.Log("dodged");
+            //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect
+            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged");
+            // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }
 
-        if (health <= 0) {
-            ChangeHealthBar();
-            onDie();
-        }
-
         ChangeHealthBar();
+
+        if (health <= 0) {
+            Respawn();
+        }
     }
 
-    public void Respawn() {
-        print("working");
+    void Respawn() {
         health = max_health;
         transform.position = respawnPoint.position;
         ChangeHealthBar();

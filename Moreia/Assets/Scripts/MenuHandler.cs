@@ -12,6 +12,8 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] List<GameObject> visibleObjects;
     [SerializeField] List<GameObject> pausedObjects;
     [SerializeField] List<Behaviour> pausedComponents;
+    [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] TransitionIntoHandler transitionIntoHandler;
 
     public bool isPaused {get; private set;} = false;
 
@@ -41,11 +43,13 @@ public class MenuHandler : MonoBehaviour
     void Pause() {
         Time.timeScale = 0f;
         SetAllListsTo(true);
+        pauseMenu.Pause();
     }
 
     void Unpause() {
         Time.timeScale = 1f;
         SetAllListsTo(false);
+        pauseMenu.Unpause();
     }
 
     void SetAllListsTo(bool input) {
@@ -61,5 +65,10 @@ public class MenuHandler : MonoBehaviour
         foreach (GameObject g in pausedObjects) {
             g.SetActive(!input);
         }
+    }
+
+    public void Quit() {
+        Unpause();
+        transitionIntoHandler.SwitchSceneToMainMenu();
     }
 }

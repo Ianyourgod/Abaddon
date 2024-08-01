@@ -334,7 +334,6 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
 
         if (health <= 0) {
-            sfxPlayer.PlayDeathSound();
             onDie();
         }
     }

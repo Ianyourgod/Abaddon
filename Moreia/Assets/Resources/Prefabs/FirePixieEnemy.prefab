@@ -303,15 +303,9 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: 8da4e6ba26d0ed04e9218d322a2b4c3a, type: 3}
   randomAttackSound: 0
-  deathSfx:
-  - {fileID: 8300000, guid: 4fba59a67bdcdf34b91eed0f18b274e4, type: 3}
-  - {fileID: 8300000, guid: 1f3e64d7aa2258042a5f4bab156bbbb0, type: 3}
-  - {fileID: 8300000, guid: eeeb45f8297e46744a4dca8b19096a2c, type: 3}
-  randomDeathSound: 1
   addedWalkVolume: 0
   addedHurtVolume: 0
   addedAttackVolume: 0
-  addedDeathVolume: 0
   playAttackOnDamagePlayer: 0
 --- !u!82 &1515428442440993816
 AudioSource:

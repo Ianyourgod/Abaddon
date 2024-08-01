@@ -40,17 +40,13 @@ public class EquipmentSlot : MonoBehaviour
 	public void Equip()
 	{
 		currentEquippedItemID = GetComponent<Slot>().slotsItem.ItemID;
-		Debug.Log("Equip");
 		equipped = true;
-		Controller.main.EquipItem(currentEquippedItemID, false);
 		EqippableItem assigned = null;
 		if (GetComponent<Slot>().slotsItem)
 		{
 			var item = GetComponent<Slot>().slotsItem;
 			searchID = item.ItemID;
-			if (item.TryGetComponent(out StatModifier slotModifier)) {
-				print("has stats");
-				
+			if (item.TryGetComponent(out StatModifier slotModifier)) {				
 				Controller.main.dexterity += slotModifier.dexterity;
 				Controller.main.constitution += slotModifier.constitution;
 				Controller.main.strength += slotModifier.strength;
@@ -61,23 +57,22 @@ public class EquipmentSlot : MonoBehaviour
 					slotModifier.strength,
 					slotModifier.wisdom
 				};
-				Controller.main.max_health = Controller.main.constitution * 2;
-				Controller.main.HealPlayer(0);
+				Controller.main.UpdateStats();
 			}
-			for (int i = 0; i < possibleEqips.Length; i++)
-			{
-				if (possibleEqips[i].ItemID == searchID)
-				{
-					assigned = possibleEqips[i];
-					curItem = GetComponent<Slot>().slotsItem;
-					possibleEqips[i].gameObject.SetActive(true);
-				}
-			}
-			if (assigned == null || !assigned.gameObject.activeSelf)
-			{
-				Debug.LogError("The piece of equipment you are currently trying to equip wasn't found inside the \"Possible Eqips\" array!");
-				return;
-			}
+			//for (int i = 0; i < possibleEqips.Length; i++)
+			//{
+				//if (possibleEqips[i].ItemID == searchID)
+				//{
+				//	assigned = possibleEqips[i];
+				//	curItem = GetComponent<Slot>().slotsItem;
+				//	possibleEqips[i].gameObject.SetActive(true);
+				//}
+			//}
+			//if (assigned == null || !assigned.gameObject.activeSelf)
+			//{
+			//	Debug.LogError("The piece of equipment you are currently trying to equip wasn't found inside the \"Possible Eqips\" array!");
+			//	return;
+			//}
 		}
 		print(curItem.gameObject.name);
 	}
@@ -86,18 +81,14 @@ public class EquipmentSlot : MonoBehaviour
 	{
 		
 		equipped = false;
-		Controller.main.EquipItem(currentEquippedItemID, true);
-		currentEquippedItemID = -1;
 		var item = GetComponent<Slot>().slotsItem;
-		print("item");
 
 		Controller.main.dexterity -= savedStats[0];
 		Controller.main.constitution -= savedStats[1];
 		Controller.main.strength -= savedStats[2];
 		Controller.main.wisdom -= savedStats[3];
 		savedStats = new int[] { 0, 0, 0, 0 };
-		Controller.main.max_health = Controller.main.constitution * 2;
-		Controller.main.HealPlayer(0);
+		Controller.main.UpdateStats();
 		foreach (EqippableItem eqippableItem in possibleEqips)
 		{
 			if (eqippableItem.ItemID == searchID)

@@ -178,4 +178,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2161739693777232112}
-  HealthStored: 50
+  HealthStored: 15

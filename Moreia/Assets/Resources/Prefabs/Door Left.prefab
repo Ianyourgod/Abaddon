@@ -96,7 +96,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5985d21ad83c6c14b93ea4fa12ba5337, type: 3}
   randomLockedSound: 0
   unlockedSfx:
-  - {fileID: 8300000, guid: 24e7bb6a61be5a540aca938c36fd6e75, type: 3}
+  - {fileID: 8300000, guid: 5862cd55dd5853b44a02e117c65c1e6d, type: 3}
   randomUnlockedSound: 0
   unlockLockedSfx:
   - {fileID: 8300000, guid: dae89e5c41a9cd04f8d0cfb24d5d7d55, type: 3}
@@ -115,7 +115,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

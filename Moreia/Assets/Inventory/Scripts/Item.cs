@@ -12,6 +12,7 @@ using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
+
 public class Item : MonoBehaviour
 {
     [Header("Equipment")]
@@ -40,6 +41,13 @@ public class Item : MonoBehaviour
     public Quaternion startRotation;
     [HideInInspector]
     public Inventory player;
+
+    ItemSfx sfxPlayer;
+
+    void Awake()
+    {
+        sfxPlayer = GetComponent<ItemSfx>();
+    }
 
     private void Start()
     {
@@ -91,6 +99,8 @@ public class Item : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 int possibleAmount = 0;
+
+                sfxPlayer.PlayPickupSound();
 
                 foreach (Slot slot in player.slots)
                 {

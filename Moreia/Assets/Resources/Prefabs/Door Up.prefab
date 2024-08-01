@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2355098126172793056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 3.25, y: 3.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2355098126803883066}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.96, y: 0.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -132,8 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098b39a2b7f1292458a144c95d17c122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NeedsKey: 0
-  direction: 0
+  NeedsKey: 1
   inventory: {fileID: 0}
   sfxPlayer: {fileID: 0}
 --- !u!61 &2355098126803883068

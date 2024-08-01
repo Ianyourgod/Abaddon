@@ -143,9 +143,9 @@ public class Controller : MonoBehaviour {
                     bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
                     bool hasKey = inventory.CheckIfItemExists(KeyID);
                     if ((needsKey && hasKey) || !needsKey) {
-                        if (needsKey){
+                        if (needsKey) {
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
-                        }else{
+                        } else {
                             hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
                         }
 
@@ -299,7 +299,7 @@ public class Controller : MonoBehaviour {
     }
 
     private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 194;
+        float new_bar_width = (health / (float) (constitution * 2)) * 200;
         healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
         healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
     }

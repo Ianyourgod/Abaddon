@@ -30,6 +30,11 @@ public class DoorSfx : SfxPlayer
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your unlocking door sound effects")]
     [SerializeField] float addedUnlockLockedVolume = 0;
 
+    void Start()
+    {
+        audSource = Controller.main.GetComponent<AudioSource>();
+    }
+
     public void PlayLockedSound(){
         if (randomLockedSound){
             PlayRandomSound(lockedDoorSfx, addedLockedVolume);

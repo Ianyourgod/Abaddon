@@ -149,14 +149,14 @@ public class Controller : MonoBehaviour {
                     if ((needsKey && hasKey) || !needsKey) {
                         if (needsKey) {
                             inventory.RemoveByID(KeyID);
-                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockLockedSound();
+                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
                         } else {
-                            hit.GetComponent<Door>().sfxPlayer.PlayUnlockedSound();
+                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
                         }
 
                         Destroy(hit.gameObject);
                     } else {
-                        hit.GetComponent<Door>().sfxPlayer.PlayLockedSound();
+                        hit.GetComponent<DoorSfx>().PlayLockedSound();
                         Instantiate(lockPrefab, transform.position, Quaternion.identity);
                     }
                     FinishTick();

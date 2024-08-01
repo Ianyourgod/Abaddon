@@ -22,6 +22,11 @@ public class CharacterSfx : SfxPlayer
     [Tooltip("Whether the action will play a random sound effect from the list or not")]
     [SerializeField] bool randomAttackSound = false;
 
+    [Tooltip("Include all death sound effects for this character")]
+    [SerializeField] AudioClip[] deathSfx;
+    [Tooltip("Whether the action will play a random sound effect from the list or not")]
+    [SerializeField] bool randomDeathSound = false;
+
     [Header("CharacterSfx Attributes")]
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your walk sound effects")]
     [SerializeField] float addedWalkVolume = 0;
@@ -29,6 +34,8 @@ public class CharacterSfx : SfxPlayer
     [SerializeField] float addedHurtVolume = 0;
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your attack sound effects")]
     [SerializeField] float addedAttackVolume = 0;
+    [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your death sound effects")]
+    [SerializeField] float addedDeathVolume = 0;
 
     public void PlayWalkSound(){
         if (randomWalkingSound){
@@ -55,5 +62,16 @@ public class CharacterSfx : SfxPlayer
         }
 
         PlaySfx(attackSfx[0], addedAttackVolume);
+    }
+
+    public void PlayDeathSound()
+    {
+        if (randomDeathSound)
+        {
+            PlayRandomSound(deathSfx, addedDeathVolume);
+            return;
+        }
+
+        PlaySfx(deathSfx[0], addedDeathVolume);
     }
 }

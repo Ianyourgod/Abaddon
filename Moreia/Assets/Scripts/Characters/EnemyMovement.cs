@@ -333,6 +333,8 @@ public class EnemyMovement : MonoBehaviour
         if (damage >= health) {
             breakableLogic?.TakeHit(999);
             health = 0;
+            sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
+            sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Die();
             return;
         }

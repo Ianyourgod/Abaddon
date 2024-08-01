@@ -58,6 +58,14 @@ public class Inventory : MonoBehaviour
 	[HideInInspector]
 	public bool readyToAdd = true;
 
+	private UISfx invSfxPlayer;
+
+	private void Awake()
+    {
+		invSfxPlayer = inventoryObject.transform.parent.GetComponent<UISfx>();
+
+	}
+
 	private void Start()
 	{
 		for (int i = 0; i < slots.Length; i++)
@@ -89,6 +97,8 @@ public class Inventory : MonoBehaviour
 		if (MenuHandler.instance && MenuHandler.instance.isPaused) return;
 		if (Input.GetKeyDown(inventoryKey) && inventoryObject.activeInHierarchy == false)
 		{
+			invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
+
 			inventoryObject.SetActive(true);
 			equipmentObject.SetActive(true);
 			statObject.SetActive(true);
@@ -100,6 +110,8 @@ public class Inventory : MonoBehaviour
 		}
 		else if (Input.GetKeyDown(inventoryKey) || (Input.GetKeyDown(KeyCode.Escape)) && inventoryObject.activeInHierarchy == true)
 		{
+			invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
+
 			inventoryObject.SetActive(false);
 			equipmentObject.SetActive(false);
 			statObject.SetActive(false);

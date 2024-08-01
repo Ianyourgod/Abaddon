@@ -6,6 +6,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager main;
 
+    [Header("References")]
+    public AudioSource deathSfxPlayer;
+
     [Header("Attributes")]
     public float musicVolume = 0.02f;
     public float sfxVolume = 0.02f;

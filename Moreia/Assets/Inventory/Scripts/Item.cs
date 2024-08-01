@@ -12,7 +12,6 @@ using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(ItemSfx))]
 
 public class Item : MonoBehaviour
 {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3da8e5302000cb14c83f122d08473006
+guid: aad914915e2de33418fd4a9fd5196f88
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -132,10 +132,10 @@ TextureImporter:
       name: explosion_0
       rect:
         serializedVersion: 2
-        x: 320
-        y: 640
-        width: 320
-        height: 320
+        x: 288
+        y: 864
+        width: 288
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbd33af2fa31bb545a31a7a9bd334ca9
-      internalID: -1866558588
+      spriteID: 3a5f124410ba68841ac26012f9945a80
+      internalID: 1718342140
       vertices: []
       indices: 
       edges: []
@@ -153,10 +153,10 @@ TextureImporter:
       name: explosion_1
       rect:
         serializedVersion: 2
-        x: 640
-        y: 640
-        width: 320
-        height: 320
+        x: 576
+        y: 864
+        width: 288
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +164,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abb9d1baf825f484697874ce4687cf8b
-      internalID: -846436505
+      spriteID: adcf6836b54472742a430ebc8d885d17
+      internalID: 1161739763
       vertices: []
       indices: 
       edges: []
@@ -175,9 +175,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 320
-        width: 320
-        height: 320
+        y: 576
+        width: 288
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d1be32933d325f46bdbe631593383ec
-      internalID: 1718658787
+      spriteID: bd15ee9b902bda3479786505185fee94
+      internalID: -1662157964
       vertices: []
       indices: 
       edges: []
@@ -195,10 +195,10 @@ TextureImporter:
       name: explosion_3
       rect:
         serializedVersion: 2
-        x: 320
-        y: 320
-        width: 320
-        height: 320
+        x: 288
+        y: 576
+        width: 288
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,8 +206,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 686f8771648a30b48923e31dcfd428f4
-      internalID: 477083468
+      spriteID: 38dd3e471f231d64abe7ec140c4ef599
+      internalID: -1760541996
       vertices: []
       indices: 
       edges: []
@@ -216,10 +216,10 @@ TextureImporter:
       name: explosion_4
       rect:
         serializedVersion: 2
-        x: 640
-        y: 320
-        width: 320
-        height: 320
+        x: 576
+        y: 576
+        width: 288
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,8 +227,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65638089f9463b441be2558d7e12483a
-      internalID: 1839288107
+      spriteID: 5bfdcf377565b714e888b1578c2ba6b0
+      internalID: -275083160
       vertices: []
       indices: 
       edges: []
@@ -238,9 +238,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 320
-        height: 320
+        y: 288
+        width: 288
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,8 +248,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb611f2cb810f574e8357161d5384d10
-      internalID: -1705106113
+      spriteID: 420c2c668cb7f8d45a6ba87031a76a92
+      internalID: -355496282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_6
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288
+        width: 288
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f59ab5cc47dcb54f99adf14b62114f0
+      internalID: 548944988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_7
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 288
+        width: 288
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bb6be1a99dcfa3429968033e3c7ff21
+      internalID: 1400324076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 288
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a66222a396ad8db449c5dd7ba4be42b3
+      internalID: -945685995
       vertices: []
       indices: 
       edges: []
@@ -265,12 +328,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      explosion_2: 1718658787
-      explosion_0: -1866558588
-      explosion_5: -1705106113
-      explosion_1: -846436505
-      explosion_4: 1839288107
-      explosion_3: 477083468
+      explosion_2: -1662157964
+      explosion_0: 1718342140
+      explosion_5: -355496282
+      explosion_1: 1161739763
+      explosion_4: -275083160
+      explosion_6: 548944988
+      explosion_3: -1760541996
+      explosion_7: 1400324076
+      explosion_8: -945685995
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

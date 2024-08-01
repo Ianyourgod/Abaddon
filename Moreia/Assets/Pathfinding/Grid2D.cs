@@ -33,13 +33,13 @@ public class Grid2D : MonoBehaviour
         }
         Vector3 new_position = worldPosition + new Vector3(0.5f, -0.5f, 0);
         if (new_position == transform.position) return false;
-        if (SendRaycast(new_position) != null) return true;
+        if (ObjectIsThere(new_position)) return true;
         return false;
     }
 
-    private Collider2D SendRaycast(Vector3 position)
+    private bool ObjectIsThere(Vector3 position)
     {
-        return Physics2D.Raycast(position, transform.up, 0.1f, collideLayers).collider;
+        return Physics2D.OverlapCircle(position, 0.1f, collideLayers) != null;
     }
 
     public void CreateGrid()

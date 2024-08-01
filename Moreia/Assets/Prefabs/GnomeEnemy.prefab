@@ -179,8 +179,8 @@ MonoBehaviour:
   attack: {fileID: 2067440025226379969}
   breakableLogic: {fileID: 0}
   textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
-  walkingSfxPlayer: {fileID: 4470399607693797870}
-  hurtSfxPlayer: {fileID: 1782037722071791366}
+  walkingSfxPlayer: {fileID: 0}
+  hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+  sfxPlayer: {fileID: 0}
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -284,9 +285,15 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: cd28fc8a7c7cd6d408fc1d489edf17a2, type: 3}
   randomAttackSound: 0
+  deathSfx:
+  - {fileID: 8300000, guid: 9a30404f9d3a20a4da50bffcd9f305ed, type: 3}
+  - {fileID: 8300000, guid: ecd0ed764eaf7e54ab4bd7ef41627d4d, type: 3}
+  - {fileID: 8300000, guid: a3e09c5f0cb35714fbf0888e82057647, type: 3}
+  randomDeathSound: 1
   addedWalkVolume: 0
-  addedHurtVolume: 0
+  addedHurtVolume: 0.01
   addedAttackVolume: 0.02
+  addedDeathVolume: 0
   playAttackOnDamagePlayer: 1
 --- !u!82 &1790465982330262463
 AudioSource:

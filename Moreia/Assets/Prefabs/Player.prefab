@@ -55,7 +55,6 @@ MonoBehaviour:
   health: 20
   max_health: 0
   attackDamage: 3
-  sfxPlayer: {fileID: 3451757296950720634}
   collideLayers:
     serializedVersion: 2
     m_Bits: 81216
@@ -181,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audSource: {fileID: 8748202448866356543}
+  playableOffScreen: 0
   walkingSfx:
   - {fileID: 8300000, guid: 4597bf7fd8eae0b4aa8caefe89dfd7e1, type: 3}
   - {fileID: 8300000, guid: 824e1e589949f8c43809d2bf5706a7da, type: 3}
@@ -195,8 +195,19 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: fc27d688aa3086746bc038bbd8cd753e, type: 3}
   randomAttackSound: 0
+  deathSfx:
+  - {fileID: 8300000, guid: d62f7945f53298c47b9d6a0fbe3aec40, type: 3}
+  - {fileID: 8300000, guid: 91ee6b1582396834cacaf355e119af3e, type: 3}
+  - {fileID: 8300000, guid: d4729a2210b774e4a9f7a271aee5fef5, type: 3}
+  - {fileID: 8300000, guid: b78711dc41e2a9d4cb36f23a73110af1, type: 3}
+  randomDeathSound: 1
+  addedWalkVolume: 0
+  addedHurtVolume: 0
+  addedAttackVolume: 0.01
+  addedDeathVolume: 0
   dodgeSfx: []
   randomDodgeSound: 0
+  addedDodgeVolume: 0
 --- !u!82 &8748202448866356543
 AudioSource:
   m_ObjectHideFlags: 0

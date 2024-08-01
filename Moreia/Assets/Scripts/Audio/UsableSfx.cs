@@ -15,7 +15,7 @@ public class UsableSfx : ItemSfx
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your use item sound effects")]
     [SerializeField] float addedUseVolume = 0f;
 
-    void Awake()
+    void Start()
     {
         audSource = Controller.main.GetComponent<AudioSource>();
     }

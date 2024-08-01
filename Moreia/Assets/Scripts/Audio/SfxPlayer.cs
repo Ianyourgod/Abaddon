@@ -11,6 +11,7 @@ public class SfxPlayer : MonoBehaviour
     [Header("SfxPlayer References")]
     [Tooltip("The audio source on the object that will play the sound effects")]
     [HideInInspector] public AudioSource audSource;
+
     private SpriteRenderer sprRend;
 
     [Header("SfxPlayer Attributes")]
@@ -22,19 +23,25 @@ public class SfxPlayer : MonoBehaviour
     void Awake(){
         audSource = GetComponent<AudioSource>();
 
-        for (int i = 0; i < transform.childCount; i++)
+        if (GetComponent<SpriteRenderer>()) {
+            sprRend = GetComponent<SpriteRenderer>();
+        }
+        else
         {
-            if (transform.GetChild(i).GetComponent<SpriteRenderer>())
+            for (int i = 0; i < transform.childCount; i++)
             {
-                sprRend = transform.GetChild(i).GetComponent<SpriteRenderer>();
-                break;
+                if (transform.GetChild(i).GetComponent<SpriteRenderer>())
+                {
+                    sprRend = transform.GetChild(i).GetComponent<SpriteRenderer>();
+                    break;
+                }
             }
         }
     }
 
     public void PlaySfx(AudioClip soundFx, float addedSound = 0f){
 
-        if (playableOffScreen || transform.GetChild(0).GetComponent<SpriteRenderer>().isVisible)
+        if (playableOffScreen || sprRend.isVisible)
         {
             if (AudioManager.main.sfxVolume == 0) addedSound = 0;
 

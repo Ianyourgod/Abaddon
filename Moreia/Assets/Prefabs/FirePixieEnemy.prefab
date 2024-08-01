@@ -178,6 +178,9 @@ MonoBehaviour:
   animation_prefix: Fire_Pixie
   attack: {fileID: 2309056572890118907}
   breakableLogic: {fileID: 0}
+  textFadePrefab: {fileID: 0}
+  walkingSfxPlayer: {fileID: 0}
+  hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
@@ -195,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  sfxPlayer: {fileID: 0}
   fireball_prefab: {fileID: 4476263217152093388, guid: 1ac43963423b598348a6f270b1b753f2, type: 3}
   detectionDistance: 2
 --- !u!61 &6613495682198188706
@@ -254,7 +258,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 64
-  worldBottomLeft: {x: -2, y: -1, z: 0}
+  worldBottomLeft: {x: -4.5, y: -4.5, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &6916633805291936402
@@ -285,9 +289,15 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: 8da4e6ba26d0ed04e9218d322a2b4c3a, type: 3}
   randomAttackSound: 0
+  deathSfx:
+  - {fileID: 8300000, guid: 4fba59a67bdcdf34b91eed0f18b274e4, type: 3}
+  - {fileID: 8300000, guid: 1f3e64d7aa2258042a5f4bab156bbbb0, type: 3}
+  - {fileID: 8300000, guid: eeeb45f8297e46744a4dca8b19096a2c, type: 3}
+  randomDeathSound: 1
   addedWalkVolume: 0
   addedHurtVolume: 0
   addedAttackVolume: 0
+  addedDeathVolume: 0
   playAttackOnDamagePlayer: 0
 --- !u!82 &1515428442440993816
 AudioSource:

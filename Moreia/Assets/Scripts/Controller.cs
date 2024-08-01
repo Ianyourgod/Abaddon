@@ -309,7 +309,6 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
-        Debug.Log("what the fuck");
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
@@ -329,6 +328,7 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
 
         if (health <= 0) {
+            sfxPlayer.PlayDeathSound();
             onDie();
         }
     }

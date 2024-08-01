@@ -17,7 +17,7 @@ using System.Linq;
 [RequireComponent(typeof(StandaloneInputModule))]
 [RequireComponent(typeof(EventSystem))]
 [RequireComponent(typeof(CanvasScaler))]
-[RequireComponent(typeof(InventorySfx))]
+[RequireComponent(typeof(UISfx))]
 
 public class DragAndDrop : MonoBehaviour
 {
@@ -49,7 +49,7 @@ public class DragAndDrop : MonoBehaviour
 	public float timer;
 	bool started;
 
-	InventorySfx sfxPlayer;
+	UISfx sfxPlayer;
 
 	[HideInInspector]
 	public List<Item> itemAmountsDescending, itemAmountsAscending, positiveItems;
@@ -66,7 +66,7 @@ public class DragAndDrop : MonoBehaviour
 
 	void Awake()
     {
-		sfxPlayer = GetComponent<InventorySfx>();
+		sfxPlayer = GetComponent<UISfx>();
     }
 
 	private void Start()
@@ -155,8 +155,8 @@ public class DragAndDrop : MonoBehaviour
 								DoubleClick(objectsItem);
 								return;
 							}
-							sfxPlayer.PlayPickupSound();
 							last_click = Time.time;
+							sfxPlayer.PlayPickupSound();
 						}
 					}
 				}
@@ -175,7 +175,14 @@ public class DragAndDrop : MonoBehaviour
 			{
 				if (curSlot && curSlot.GetComponent<Slot>().slotsItem)
 				{
-					sfxPlayer.PlayPlaceSound();
+					if (!GetComponent<EquipmentSlot>())
+                    {
+						sfxPlayer.PlayPlaceSound();
+					}
+                    else
+                    {
+						sfxPlayer.PlayEquipSound();
+                    }
 					Destroy(curSlot.GetComponent<Slot>().clone);
 					curSlotsItem = curSlot.GetComponent<Slot>().slotsItem;
 

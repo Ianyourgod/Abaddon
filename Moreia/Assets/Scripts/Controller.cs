@@ -329,7 +329,7 @@ public class Controller : MonoBehaviour {
         }
     }
 
-    void Respawn() {
+    public void Respawn() {
         health = max_health;
         transform.position = respawnPoint.position;
         ChangeHealthBar();

@@ -29,6 +29,7 @@ public class FadeInDeathScreen : MonoBehaviour
             float t = (Time.time - startTimeOfFadeIn) / timeToFadeIn;
             deathScreenImage.color = new Color(1, 1, 1, t);
             restartButtonImage.color = new Color(1, 1, 1, t);
+            Controller.main.enabled = false;
             if (t >= 1) {
                 startTimeOfFadeIn = 0;
             }
@@ -41,12 +42,14 @@ public class FadeInDeathScreen : MonoBehaviour
             if (t <= 0) {
                 startTimeOfFadeOut = 0;
                 deathScreenaParent.gameObject.SetActive(false);
+                Controller.main.enabled = true;
             }
         }
     }
     
     public void OnDie() {
         startTimeOfFadeIn = Time.time;
+        Controller.main.enabled = false;
     }
 
     public void FadeOut() {

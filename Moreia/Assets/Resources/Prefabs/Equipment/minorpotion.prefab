@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentType: Small Potion
   amountInStack: 1
-  maxStackSize: 1
+  maxStackSize: 15
   ItemID: 11
   itemSprite: {fileID: 21300000, guid: 3284b85de1b7d418aa04c2a14d87ceda, type: 3}
   useOutline: 0

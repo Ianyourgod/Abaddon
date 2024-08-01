@@ -469,6 +469,7 @@ public class DragAndDrop : MonoBehaviour
 		if (clickedItem.TryGetComponent(out Potion potion)) {
 			print("clicking");
 			potion.Consume();
+			inv.RemoveItemAmount(clickedItem.ItemID, 1);
 		}
 	}
 

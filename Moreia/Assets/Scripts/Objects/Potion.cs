@@ -11,6 +11,5 @@ public class Potion : MonoBehaviour
         print("healing for " + healAmount);
         GetComponent<UsableSfx>().PlayUseSound();
         Controller.main.HealPlayer(healAmount);
-        Destroy(gameObject);
     }
 }

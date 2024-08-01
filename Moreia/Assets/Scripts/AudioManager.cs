@@ -6,33 +6,23 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager main;
 
-    [Header("References")]
-    public AudioClip[] songs;
-    [SerializeField] AudioSource musicAudSource;
-    [SerializeField] AudioSource sfxAudSource1;
-    [SerializeField] AudioSource sfxAudSource2;
-    public GameObject player;
-
     [Header("Attributes")]
-    [SerializeField] float volume = 0.05f;
+    public float musicVolume = 0.02f;
+    public float sfxVolume = 0.02f;
     [SerializeField] float maxVolume = 1f;
     [SerializeField] KeyCode increaseKey;
     [SerializeField] KeyCode decreaseKey;
 
-    private void Awake()
-    {
-        main = this;
+    void Awake(){
+        main =  this;
     }
 
-    private void Update()
-    {
-        musicAudSource.volume = volume;
-
-        if (Input.GetKeyDown(increaseKey) && (volume + 0.01f) <= maxVolume)
+    void Update(){
+        if (Input.GetKeyDown(increaseKey) && (musicVolume + 0.01f) <= maxVolume)
         {
             IncreaseVolume(0.01f);
         }
-        if (Input.GetKeyDown(decreaseKey) && (volume - 0.01f) >= 0f)
+        if (Input.GetKeyDown(decreaseKey) && (musicVolume - 0.01f) >= 0f)
         {
             DecreaseVolume(0.01f);
         }
@@ -40,27 +30,13 @@ public class AudioManager : MonoBehaviour
 
     public void IncreaseVolume(float amount)
     {
-        volume += amount;
+        musicVolume += amount;
+        sfxVolume += amount;
     }
 
     public void DecreaseVolume(float amount)
     {
-        volume -= amount;
-    }
-
-    public void PlaySong(int song)
-    {
-        musicAudSource.clip = songs[song];
-        musicAudSource.Play();
-    }
-
-    public void PlayPlayerSFX(AudioClip sfxSound, float addVolume = 0)
-    {
-        sfxAudSource1.PlayOneShot(sfxSound, volume + addVolume);
-    }
-
-    public void PlayOtherSFX(AudioClip sfxSound, float addVolume = 0)
-    {
-        sfxAudSource2.PlayOneShot(sfxSound, volume + addVolume);
+        musicVolume -= amount;
+        sfxVolume -= amount;
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Grid2D))]
+
 public class Pathfinding2D : MonoBehaviour
 {
     [SerializeField] public Grid2D grid;

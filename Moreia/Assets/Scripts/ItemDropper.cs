@@ -22,5 +22,6 @@ public class ItemDropper : MonoBehaviour
     {
         GameObject spawner = Instantiate((UnityEngine.GameObject)Resources.Load($"Prefabs/ItemDropSpawner"), transform.position, Quaternion.identity);
         spawner.GetComponent<ItemSpawner>().SpawnRandom(dropTable);
+        Destroy(gameObject);
     }
 }

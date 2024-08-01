@@ -334,7 +334,6 @@ public class EnemyMovement : MonoBehaviour
             breakableLogic?.TakeHit(999);
             health = 0;
             GetComponent<ItemDropper>().Die();
-            Destroy(gameObject);
             return;
         }
         PlayAnimation(direction, 2);

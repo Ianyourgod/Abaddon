@@ -25,7 +25,7 @@ public class ItemSpawner : MonoBehaviour
 
     }
 
-    public int SpawnRandom(TableTypes table)
+    public void SpawnRandom(TableTypes table)
     {
         int random = Controller.main.rnd.Next(1, 101);
         switch (table)
@@ -43,6 +43,8 @@ public class ItemSpawner : MonoBehaviour
                     drop = "1chest";
                 } else if (random <= 66) {
                     drop = "majorpotion";
+                } else {
+                    return;
                 }
                 break;
             default:
@@ -52,6 +54,5 @@ public class ItemSpawner : MonoBehaviour
         print(drop);
         Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
         Destroy(gameObject);
-        return 1;
     }
 }

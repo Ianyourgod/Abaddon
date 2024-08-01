@@ -63,7 +63,7 @@ public class Controller : MonoBehaviour {
     [Tooltip("Wisdom (ability damage)")]
     [SerializeField] public int wisdom = 9;
     [Tooltip("High end of range to add")]
-    [SerializeField] public int maximum_stat_roll = 6;
+    [SerializeField] public int maximum_stat_roll = 7;
 
     void Awake() {
         main = this;
@@ -86,10 +86,11 @@ public class Controller : MonoBehaviour {
         health = constitution * 2; // current health
         max_health = health;
         ChangeHealthBar();
-        attackDamage = 2 + ((strength - 10) / 2); // attack damage 
     }
 
     void Update() {
+        UpdateStats();
+
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick) {
             return;
@@ -171,6 +172,14 @@ public class Controller : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void UpdateStats()
+    {
+        max_health = constitution * 2;
+        attackDamage = 2 + ((strength - 10) / 2); // attack damage
+        HealPlayer(0);
+        ChangeHealthBar();
     }
 
     void FinishTick() {
@@ -305,7 +314,6 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
-        Debug.Log("what the fuck");
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
@@ -369,59 +377,5 @@ public class Controller : MonoBehaviour {
                 break;
         }
         FinishTick();
-    }
-
-    // first int is stat, second int is modifier
-    // stat 1 is constitution
-    // stat 2 is dexterity
-    // stat 3 is strength
-    // stat 4 is wisdom
-    public (int, int) ReturnItemStatModifier(int id)
-    {
-        int stat;
-        int modifier;
-        switch (id)
-        {
-            case 2:
-                stat = 2;
-                modifier = 1;
-                break;
-            case 3:
-                stat = 1;
-                modifier = 1;
-                break;
-            default:
-                return (0, 0);
-        }
-        return (stat, modifier);
-    }
-
-    // bool is true to unequip and false to equip
-    public void EquipItem(int id, bool unequip)
-    {
-        int negative = 1;
-        if (unequip) { negative = -1; }
-        (int, int) stat_tuple = ReturnItemStatModifier(id);
-        switch (stat_tuple.Item1)
-        {
-            case 1:
-                Console.WriteLine("{0} added to constitution", stat_tuple.Item2);
-                constitution += stat_tuple.Item2 * negative;
-                break;
-            case 2:
-                Console.WriteLine("{0} added to dexterity", stat_tuple.Item2);
-                dexterity += stat_tuple.Item2 * negative;
-                break;
-            case 3:
-                Console.WriteLine("{0} added to strength", stat_tuple.Item2);
-                strength += stat_tuple.Item2 * negative;
-                break;
-            case 4:
-                Console.WriteLine("{0} added to wisdom", stat_tuple.Item2);
-                wisdom += stat_tuple.Item2 * negative;
-                break;
-            default:
-                break;
-        }
     }
 }

@@ -14,4 +14,8 @@ public class DetectAnimationEvent : MonoBehaviour
     public void AttackEnd(int direction) {
         enemyMovement.AttackEnd((EnemyMovement.Direction)direction);
     }
+
+    public void Die() {
+        Destroy(enemyMovement.gameObject);
+    }
 }

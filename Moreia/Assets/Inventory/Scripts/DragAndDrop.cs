@@ -259,7 +259,6 @@ public class DragAndDrop : MonoBehaviour
 					followMouseImage.color = new Color(255, 255, 255);
 					if (curSlot.transform.childCount > 1) followMouseImage.sprite = curSlot.transform.GetChild(1).GetComponent<Item>().itemSprite;
 					if (curSlot && curSlotsItem && curSlotsItem.amountInStack > 1) curSlot.GetComponent<Slot>().beingSplitted = true;
-					print("dada");
 					if (curSlot) curSlot.GetComponent<Slot>().beingDragged = false;
 				}
 			}
@@ -465,9 +464,7 @@ public class DragAndDrop : MonoBehaviour
 
 	public void DoubleClick(Item clickedItem)
 	{
-		print("clicking");
 		if (clickedItem.TryGetComponent(out Potion potion)) {
-			print("clicking");
 			potion.Consume();
 			inv.RemoveItemAmount(clickedItem.ItemID, 1);
 		}

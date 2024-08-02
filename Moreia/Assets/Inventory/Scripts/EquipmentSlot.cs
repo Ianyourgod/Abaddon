@@ -91,7 +91,6 @@ public class EquipmentSlot : MonoBehaviour
 			//	return;
 			//}
 		}
-		print(curItem.gameObject.name);
 	}
 
 	public void Unequip()

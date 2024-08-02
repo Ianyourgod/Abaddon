@@ -353,6 +353,12 @@ public class EnemyMovement : MonoBehaviour
         damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
     }
 
+    public void Die()
+    {
+        Invoke(nameof(callNextEnemy), 0f);
+        Destroy(gameObject);
+    }
+
     // this is called by the animation
     public void AttackTiming(Direction direction) {
         attack.Attack(direction);

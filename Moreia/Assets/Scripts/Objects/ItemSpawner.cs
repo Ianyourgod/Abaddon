@@ -112,6 +112,7 @@ public class ItemSpawner : MonoBehaviour
                 drop = "minorpotion";
                 break;
         }
+        print(table);
         print(random);
         print(drop);
         Instantiate((UnityEngine.Object)Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);

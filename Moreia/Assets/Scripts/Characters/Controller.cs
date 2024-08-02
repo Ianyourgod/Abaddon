@@ -246,7 +246,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_back_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(0, 0.5f, 0);
                         animator.Play("Player_animation_back_level_0_attack");
                         break;
                 }
@@ -260,7 +259,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_front_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(0, -0.5f, 0);
                         animator.Play("Player_animation_front_level_0_attack");
                         break;
                 }
@@ -274,7 +272,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_left_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(-0.5f, 0, 0);
                         animator.Play("Player_animation_left_level_0_attack");
                         break;
                 }
@@ -288,7 +285,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_right_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(0.5f, 0, 0);
                         animator.Play("Player_animation_right_level_0_attack");
                         break;
                 }
@@ -367,21 +363,6 @@ public class Controller : MonoBehaviour {
     public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        switch (direction)
-        {
-            case PlayerAnimationPlayer.Direction.Up:
-                transform.Translate(0, -0.5f, 0);
-                break;
-            case PlayerAnimationPlayer.Direction.Down:
-                transform.Translate(0, 0.5f, 0);
-                break;
-            case PlayerAnimationPlayer.Direction.Left:
-                transform.Translate(0.5f, 0, 0);
-                break;
-            case PlayerAnimationPlayer.Direction.Right:
-                transform.Translate(-0.5f, 0, 0);
-                break;
-        }
         FinishTick();
     }
 }

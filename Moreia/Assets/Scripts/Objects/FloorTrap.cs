@@ -11,7 +11,7 @@ public class FloorTrap : MonoBehaviour
     }
 
     void CustomUpdate() {
-        if (!this) Destroy(gameObject);
+        if (!this) return;
         if (transform.position == Controller.main.transform.position) {
             Controller.main.DamagePlayer(damage, false);
         }

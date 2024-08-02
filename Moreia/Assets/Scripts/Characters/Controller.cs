@@ -330,11 +330,11 @@ public class Controller : MonoBehaviour {
             health -= Convert.ToInt32(damage);
             sfxPlayer.PlayHurtSound();
             PlayAnimation(current_player_direction, 2);
-            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.black, 0.4f);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
         } else {
             Debug.Log("dodged");
             sfxPlayer.PlayDodgeSound();
-            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.black, 0.4f);
+            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.white, 0.4f);
             // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }

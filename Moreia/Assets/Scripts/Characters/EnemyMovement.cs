@@ -351,7 +351,7 @@ public class EnemyMovement : MonoBehaviour
         sfxPlayer.PlayHurtSound();
         health -= damage;
         GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Controller.main.rnd.Next(1, 5) / 10, Controller.main.rnd.Next(1, 5) / 10, 0), Quaternion.identity);
-        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.black, 0.4f);
+        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
     }
 
     public void Die()

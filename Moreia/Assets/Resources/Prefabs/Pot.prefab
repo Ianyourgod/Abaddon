@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3b6e16e2ee345f190e0e3e5fa90044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   health: 0
 --- !u!61 &2844499466063138201
 BoxCollider2D:
@@ -141,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable: 3
+  forceDropPath: 
 --- !u!82 &964688453007807293
 AudioSource:
   m_ObjectHideFlags: 0
@@ -252,8 +254,8 @@ MonoBehaviour:
   audSource: {fileID: 0}
   playableOffScreen: 0
   breakSfx:
-  - {fileID: 8300000, guid: ac01e8a65ab18974483e687053db7c13, type: 3}
-  - {fileID: 8300000, guid: 374860007005d8b4086eed65bec568e3, type: 3}
-  - {fileID: 8300000, guid: 2d98a64cbc8607f418497a108006861d, type: 3}
+  - {fileID: 8300000, guid: 87c25f4ebc419494fa4ab1e28e939cf6, type: 3}
+  - {fileID: 8300000, guid: bc8c2e3648103614db01ce3e0bc03be7, type: 3}
+  - {fileID: 8300000, guid: 7ff01b4177a73474eb035a47e8613910, type: 3}
   randomBreakSound: 1
   addedBreakVolume: 0

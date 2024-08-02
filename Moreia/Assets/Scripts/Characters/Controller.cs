@@ -334,7 +334,6 @@ public class Controller : MonoBehaviour {
         } else {
             Debug.Log("dodged");
             sfxPlayer.PlayDodgeSound();
-            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
             damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.black, 0.4f);
             // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation

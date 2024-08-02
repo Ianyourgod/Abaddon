@@ -898,12 +898,11 @@ MonoBehaviour:
   randomEquipSound: 0
   useItemSfx:
   - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
-  randomUseSound: 0
   addedPickupVolume: 0.01
   addedPlaceVolume: 0.02
   addedOpenVolume: 0.01
   addedCloseVolume: 0.01
-  addedEquipVolume: 0
+  addedEquipVolume: 0.02
   addedUseVolume: 0
 --- !u!1 &5436681991958551930
 GameObject:

@@ -133,9 +133,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 307.5
-        width: 102.333336
-        height: 102.5
+        y: 1920
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_1
       rect:
         serializedVersion: 2
-        x: 102
-        y: 307.5
-        width: 102.333336
-        height: 102.5
+        x: 640
+        y: 1920
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_2
       rect:
         serializedVersion: 2
-        x: 204
-        y: 307.5
-        width: 102.333336
-        height: 102.5
+        x: 1280
+        y: 1920
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,9 +196,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 205.5
-        width: 102.333336
-        height: 102.5
+        y: 1280
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_4
       rect:
         serializedVersion: 2
-        x: 102
-        y: 205.5
-        width: 102.333336
-        height: 102.5
+        x: 640
+        y: 1280
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_5
       rect:
         serializedVersion: 2
-        x: 204
-        y: 205.5
-        width: 102.333336
-        height: 102.5
+        x: 1280
+        y: 1280
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,9 +259,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 103.5
-        width: 102.333336
-        height: 102.5
+        y: 640
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,10 +279,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_7
       rect:
         serializedVersion: 2
-        x: 102
-        y: 103.5
-        width: 102.333336
-        height: 102.5
+        x: 640
+        y: 640
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_8
       rect:
         serializedVersion: 2
-        x: 204
-        y: 103.5
-        width: 102.333336
-        height: 102.5
+        x: 1280
+        y: 640
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -322,9 +322,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1.5
-        width: 102.333336
-        height: 102.5
+        y: 0
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +342,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_10
       rect:
         serializedVersion: 2
-        x: 102
-        y: 1.5
-        width: 102.333336
-        height: 102.5
+        x: 640
+        y: 0
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,10 +363,10 @@ TextureImporter:
       name: LEVEL1enemyattackback_11
       rect:
         serializedVersion: 2
-        x: 204
-        y: 1.5
-        width: 102.333336
-        height: 102.5
+        x: 1280
+        y: 0
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

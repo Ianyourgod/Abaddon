@@ -133,9 +133,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 409.3333
-        width: 102.4
-        height: 204.66667
+        y: 1920
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_1
       rect:
         serializedVersion: 2
-        x: 102
-        y: 409.3333
-        width: 102.4
-        height: 204.66667
+        x: 640
+        y: 1920
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_2
       rect:
         serializedVersion: 2
-        x: 204
-        y: 409.3333
-        width: 102.4
-        height: 204.66667
+        x: 1280
+        y: 1920
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,10 +195,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_3
       rect:
         serializedVersion: 2
-        x: 306
-        y: 409.3333
-        width: 102.4
-        height: 204.66667
+        x: 1920
+        y: 1920
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_4
       rect:
         serializedVersion: 2
-        x: 408
-        y: 409.3333
-        width: 102.4
-        height: 204.66667
+        x: 2560
+        y: 1920
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 205.33333
-        width: 102.4
-        height: 204.66667
+        x: 3200
+        y: 1920
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,10 +258,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_6
       rect:
         serializedVersion: 2
-        x: 102
-        y: 205.33333
-        width: 102.4
-        height: 204.66667
+        x: 0
+        y: 0
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,10 +279,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_7
       rect:
         serializedVersion: 2
-        x: 204
-        y: 205.33333
-        width: 102.4
-        height: 204.66667
+        x: 640
+        y: 0
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_8
       rect:
         serializedVersion: 2
-        x: 306
-        y: 205.33333
-        width: 102.4
-        height: 204.66667
+        x: 1280
+        y: 0
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,10 +321,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_9
       rect:
         serializedVersion: 2
-        x: 408
-        y: 205.33333
-        width: 102.4
-        height: 204.66667
+        x: 1920
+        y: 0
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +342,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1.3333282
-        width: 102.4
-        height: 204.66667
+        x: 2560
+        y: 0
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,10 +363,10 @@ TextureImporter:
       name: LEVEL1enemyattackforward_11
       rect:
         serializedVersion: 2
-        x: 102
-        y: 1.3333282
-        width: 102.4
-        height: 204.66667
+        x: 3200
+        y: 0
+        width: 640
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,7 +391,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LEVEL1enemyattackforward_6: 586996606
+      LEVEL1enemyattackforward_9: 225255907
       LEVEL1enemyattackforward_10: 813145323
       LEVEL1enemyattackforward_8: 450302520
       LEVEL1enemyattackforward_3: -923614679
@@ -402,7 +402,7 @@ TextureImporter:
       LEVEL1enemyattackforward_4: 584561479
       LEVEL1enemyattackforward_11: -307685694
       LEVEL1enemyattackforward_0: -1924671037
-      LEVEL1enemyattackforward_9: 225255907
+      LEVEL1enemyattackforward_6: 586996606
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

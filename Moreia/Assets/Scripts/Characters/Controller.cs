@@ -42,7 +42,9 @@ public class Controller : MonoBehaviour {
 
     private PlayerSfx sfxPlayer;
 
+    [HideInInspector]
     public GameObject textFadePrefab;
+    [HideInInspector]
     public GameObject lockPrefab;
 
     [Header("Misc")]
@@ -140,7 +142,7 @@ public class Controller : MonoBehaviour {
                 //print($"layer number: {LayerMask.NameToLayer("breakable")}");
                 // if we hit an enemy, attack it
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                    Attack(hit, direction); // calls next enemy
+                    Attack(hit, direction, true); // calls next enemy
                 // if we hit a door, attempt to open it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
                     // if the door needs a key, check if we have it
@@ -163,7 +165,7 @@ public class Controller : MonoBehaviour {
                 // if we hit a fountain, heal from it
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
                     hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
-                    FinishTick();
+                    Attack(hit, direction, false);
                 } else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
                     hit.gameObject.GetComponent<Fountain>().Heal();
                     FinishTick();
@@ -197,10 +199,13 @@ public class Controller : MonoBehaviour {
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    private void Attack(Collider2D hit, Direction direction)
+    // real is whether or not to try to actually hit, set to false to just play the animation
+    private void Attack(Collider2D hit, Direction direction, bool real)
     {
-        hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
-        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        if (real) {
+            hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
+            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        }
         sfxPlayer.PlayAttackSound();
         PlayAnimation(direction, 3);
     }
@@ -241,7 +246,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_back_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(0, 0.5f, 0);
                         animator.Play("Player_animation_back_level_0_attack");
                         break;
                 }
@@ -255,7 +259,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_front_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(0, -0.5f, 0);
                         animator.Play("Player_animation_front_level_0_attack");
                         break;
                 }
@@ -269,7 +272,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_left_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(-0.5f, 0, 0);
                         animator.Play("Player_animation_left_level_0_attack");
                         break;
                 }
@@ -283,7 +285,6 @@ public class Controller : MonoBehaviour {
                         animator.Play("Player_animation_right_level_0_hurt");
                         break;
                     case 3:
-                        transform.Translate(0.5f, 0, 0);
                         animator.Play("Player_animation_right_level_0_attack");
                         break;
                 }
@@ -315,18 +316,17 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
+        GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(rnd.Next(1, 5) / 10, rnd.Next(1, 5) / 10, 0), Quaternion.identity);
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
             sfxPlayer.PlayHurtSound();
             PlayAnimation(current_player_direction, 2);
-            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
-            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
+            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.black, 0.4f);
         } else {
             Debug.Log("dodged");
             //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect
-            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
-            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged");
+            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.black, 0.4f);
             // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }
@@ -362,21 +362,6 @@ public class Controller : MonoBehaviour {
     public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        switch (direction)
-        {
-            case PlayerAnimationPlayer.Direction.Up:
-                transform.Translate(0, -0.5f, 0);
-                break;
-            case PlayerAnimationPlayer.Direction.Down:
-                transform.Translate(0, 0.5f, 0);
-                break;
-            case PlayerAnimationPlayer.Direction.Left:
-                transform.Translate(0.5f, 0, 0);
-                break;
-            case PlayerAnimationPlayer.Direction.Right:
-                transform.Translate(-0.5f, 0, 0);
-                break;
-        }
         FinishTick();
     }
 }

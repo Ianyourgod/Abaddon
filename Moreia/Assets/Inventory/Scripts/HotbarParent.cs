@@ -9,7 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 public class HotbarParent : MonoBehaviour
 {
@@ -247,6 +247,7 @@ public class HotbarParent : MonoBehaviour
 
     }
 
+    /*
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
     {
@@ -265,4 +266,5 @@ public class HotbarParent : MonoBehaviour
             GUI.enabled = true;
         }
     }
+    */
 }

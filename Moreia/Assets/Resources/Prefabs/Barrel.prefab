@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2844499466063138183}
   - component: {fileID: 2844499466063138182}
   - component: {fileID: 2844499466063138201}
+  - component: {fileID: 2285804620536235841}
   m_Layer: 16
   m_Name: Barrel
   m_TagString: Untagged
@@ -98,9 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3b6e16e2ee345f190e0e3e5fa90044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedItem: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
-  afterBroken: {fileID: 2844499466063138181, guid: 4f490b7a7297d4e90a1350960c16abf8, type: 3}
-  dropChance: 1
+  type: 1
   health: 0
 --- !u!61 &2844499466063138201
 BoxCollider2D:
@@ -128,3 +127,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2285804620536235841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844499466063138181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTable: 0
+  forceDropPath: 

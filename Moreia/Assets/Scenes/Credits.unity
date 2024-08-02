@@ -277,7 +277,7 @@ MonoBehaviour:
   pressSfx:
   - {fileID: 8300000, guid: 12d084a4ca7a84142ac1a5f919da06b7, type: 3}
   randomPressSound: 0
-  addedPressVolume: 0
+  addedPressVolume: 0.07
 --- !u!82 &99855965
 AudioSource:
   m_ObjectHideFlags: 0

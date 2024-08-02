@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098b39a2b7f1292458a144c95d17c122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NeedsKey: 1
+  NeedsKey: 0
   inventory: {fileID: 0}
   sfxPlayer: {fileID: 0}
 --- !u!61 &2355098126803883068

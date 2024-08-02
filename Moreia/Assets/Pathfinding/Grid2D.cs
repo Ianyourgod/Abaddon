@@ -31,7 +31,8 @@ public class Grid2D : MonoBehaviour
             if (tilemap.HasTile(cellPosition))
                 return true;
         }
-        Vector3 new_position = worldPosition + new Vector3(0.5f, -0.5f, 0);
+        Vector3 new_position = worldPosition + new Vector3(.5f, .5f, 0);
+        Debug.Log($"{worldPosition} -> {new_position}");
         if (new_position == transform.position) return false;
         if (ObjectIsThere(new_position)) return true;
         return false;

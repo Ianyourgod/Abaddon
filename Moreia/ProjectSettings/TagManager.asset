@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - first_enemy
+  - AudioManager
+  - StopMusic
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5175779184006085023}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: AudioManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aa470a1d7f71ed946a737ca4f2b7dd1b, type: 3}
   - {fileID: 8300000, guid: c1e777e76314788419635e50c02ff45a, type: 3}
   - {fileID: 8300000, guid: 8e70abeea46702949b062349fa2b29ea, type: 3}
+  musicAudSource: {fileID: 7659419828651813425}
   player: {fileID: 0}
 --- !u!114 &8767317562532271969
 MonoBehaviour:
@@ -65,6 +66,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathSfxPlayer: {fileID: 5175779184006085023}
+  scenesWhereMusicStops:
+  - Real Level
   musicVolume: 0.02
   sfxVolume: 0.02
   maxVolume: 0.5

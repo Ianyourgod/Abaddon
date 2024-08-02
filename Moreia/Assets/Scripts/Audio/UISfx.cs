@@ -37,8 +37,6 @@ public class UISfx : SfxPlayer
 
     [Tooltip("Include all use item sound effects for this item")]
     [SerializeField] AudioClip[] useItemSfx;
-    [Tooltip("Whether the action will play a random sound effect from the list or not")]
-    [SerializeField] bool randomUseSound = false;
     [Space]
 
     [Header("UISfx Attributes")]

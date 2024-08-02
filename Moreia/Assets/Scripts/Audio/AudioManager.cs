@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -16,8 +17,20 @@ public class AudioManager : MonoBehaviour
     [SerializeField] KeyCode increaseKey;
     [SerializeField] KeyCode decreaseKey;
 
+    [HideInInspector] public MusicManager musicManager;
+
     void Awake(){
         main =  this;
+        musicManager = GetComponent<MusicManager>();
+
+        //GameObject[] objs = GameObject.FindGameObjectsWithTag("AudioManager");
+
+        //if (objs.Length > 1)
+        //{
+            //Destroy(this.gameObject);
+        //}
+
+        //DontDestroyOnLoad(this);
     }
 
     void Update(){
@@ -41,5 +54,10 @@ public class AudioManager : MonoBehaviour
     {
         musicVolume -= amount;
         sfxVolume -= amount;
+    }
+
+    public void StopTheMusic()
+    {
+        musicManager.musicAudSource.Stop();
     }
 }

@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using Unity.VisualScripting;
+//using UnityEditor;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Pathfinding2D))]
@@ -323,6 +322,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    /*
     private void OnDrawGizmosSelected() {
         pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
@@ -333,6 +333,7 @@ public class EnemyMovement : MonoBehaviour
         // draw a square around the player
         Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
     }
+    */
 
     public void DamageEnemy(uint damage, string targetTag) {
         if (damage >= health) {
@@ -349,8 +350,8 @@ public class EnemyMovement : MonoBehaviour
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         sfxPlayer.PlayHurtSound();
         health -= damage;
-        GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
-        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
+        GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Controller.main.rnd.Next(1, 5) / 10, Controller.main.rnd.Next(1, 5) / 10, 0), Quaternion.identity);
+        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.black, 0.4f);
     }
 
     public void Die()

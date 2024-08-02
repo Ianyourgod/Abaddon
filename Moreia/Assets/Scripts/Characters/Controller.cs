@@ -316,18 +316,17 @@ public class Controller : MonoBehaviour {
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
+        GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(rnd.Next(1, 5) / 10, rnd.Next(1, 5) / 10, 0), Quaternion.identity);
         if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
         {
             health -= Convert.ToInt32(damage);
             sfxPlayer.PlayHurtSound();
             PlayAnimation(current_player_direction, 2);
-            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
-            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString());
+            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.black, 0.4f);
         } else {
             Debug.Log("dodged");
             //sfxPlayer.PlayDodgeSound(); once we have a dodge sound effect
-            GameObject damageAmount = Instantiate(textFadePrefab, transform.position, Quaternion.identity);
-            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged");
+            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.black, 0.4f);
             // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
             // todo: dodge animation
         }

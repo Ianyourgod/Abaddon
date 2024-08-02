@@ -9,7 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
@@ -345,6 +345,7 @@ public class Slot : MonoBehaviour
 
 	}
 
+	/*
 	[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 	public class ReadOnlyDrawer : PropertyDrawer
 	{
@@ -363,4 +364,5 @@ public class Slot : MonoBehaviour
 			GUI.enabled = true;
 		}
 	}
+	*/
 }

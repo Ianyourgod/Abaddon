@@ -32,7 +32,6 @@ public class Grid2D : MonoBehaviour
                 return true;
         }
         Vector3 new_position = worldPosition + new Vector3(.5f, .5f, 0);
-        Debug.Log($"{worldPosition} -> {new_position}");
         if (new_position == transform.position) return false;
         if (ObjectIsThere(new_position)) return true;
         return false;

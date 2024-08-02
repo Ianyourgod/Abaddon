@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9061713491536200825}
   - component: {fileID: 9061713491536200824}
   - component: {fileID: 8444585494693830666}
-  - component: {fileID: 6098116000542158772}
+  - component: {fileID: -2513266356810522662}
   m_Layer: 0
   m_Name: minorpotion
   m_TagString: Untagged
@@ -252,7 +252,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6098116000542158772
+--- !u!114 &-2513266356810522662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9061713491536200831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65d85c380ecfae4bb65da277a9a34c7, type: 3}
+  m_Script: {fileID: 11500000, guid: c49083ce10f5d4c48aa4073370aa6f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audSource: {fileID: 0}
@@ -270,7 +270,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
   randomPickupSound: 0
   addedPickupVolume: 0
-  useItemSfx:
-  - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
-  randomUseSound: 0
-  addedUseVolume: 0
+  usable: 1

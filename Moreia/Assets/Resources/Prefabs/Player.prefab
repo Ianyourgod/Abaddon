@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8748202448866356543}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,15 +55,15 @@ MonoBehaviour:
   health: 20
   max_health: 0
   attackDamage: 3
+  sfxPlayer: {fileID: 0}
+  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
+  lockPrefab: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
   collideLayers:
     serializedVersion: 2
     m_Bits: 81216
   movementDelay: 0
   animator: {fileID: 7842820053772704081}
   healthBar: {fileID: 0}
-  dodgePrefab: {fileID: 5900669096794722327, guid: 4273a4722184aed4ca44be5b8fbac06f, type: 3}
-  lockPrefab: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
-  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
   respawnPoint: {fileID: 0}
   constitution: 10
   dexterity: 8
@@ -205,9 +205,12 @@ MonoBehaviour:
   addedHurtVolume: 0
   addedAttackVolume: 0.01
   addedDeathVolume: 0
-  dodgeSfx: []
-  randomDodgeSound: 0
-  addedDodgeVolume: 0
+  dodgeSfx:
+  - {fileID: 8300000, guid: 03b3722f125bf9f489c1127c103fcba1, type: 3}
+  - {fileID: 8300000, guid: 8774ca42c6f01f941aa2bd26ca125b55, type: 3}
+  - {fileID: 8300000, guid: 8ba7850cef52ee9439455cf8f9e617c7, type: 3}
+  randomDodgeSound: 1
+  addedDodgeVolume: 0.04
 --- !u!82 &8748202448866356543
 AudioSource:
   m_ObjectHideFlags: 0

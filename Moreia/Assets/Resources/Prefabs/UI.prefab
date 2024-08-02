@@ -896,11 +896,14 @@ MonoBehaviour:
   equipSfx:
   - {fileID: 8300000, guid: 12b14e5c4da0904498c81bfe3a3c0890, type: 3}
   randomEquipSound: 0
+  useItemSfx:
+  - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
   addedPickupVolume: 0.01
   addedPlaceVolume: 0.02
   addedOpenVolume: 0.01
   addedCloseVolume: 0.01
-  addedEquipVolume: 0
+  addedEquipVolume: 0.02
+  addedUseVolume: 0
 --- !u!1 &5436681991958551930
 GameObject:
   m_ObjectHideFlags: 0

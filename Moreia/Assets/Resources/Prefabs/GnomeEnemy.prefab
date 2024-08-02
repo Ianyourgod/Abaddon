@@ -308,8 +308,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3e09c5f0cb35714fbf0888e82057647, type: 3}
   randomDeathSound: 0
   addedWalkVolume: 0
-  addedHurtVolume: 0
-  addedAttackVolume: 0.02
+  addedHurtVolume: 0.01
+  addedAttackVolume: 0.01
   addedDeathVolume: 0
   playAttackOnDamagePlayer: 1
 --- !u!82 &1790465982330262463

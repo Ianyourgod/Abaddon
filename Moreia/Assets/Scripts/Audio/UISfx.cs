@@ -35,6 +35,10 @@ public class UISfx : SfxPlayer
     [SerializeField] bool randomEquipSound = false;
     [Space]
 
+    [Tooltip("Include all use item sound effects for this item")]
+    [SerializeField] AudioClip[] useItemSfx;
+    [Space]
+
     [Header("UISfx Attributes")]
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your pickup item sound effects")]
     [SerializeField] float addedPickupVolume = 0f;
@@ -50,6 +54,9 @@ public class UISfx : SfxPlayer
 
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your close inventory sound effects")]
     [SerializeField] float addedEquipVolume = 0f;
+
+    [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your use item sound effects")]
+    [SerializeField] float addedUseVolume = 0f;
 
     public void PlayPickupSound()
     {
@@ -104,5 +111,10 @@ public class UISfx : SfxPlayer
         }
 
         PlaySfx(equipSfx[0], addedEquipVolume);
+    }
+
+    public void PlayUseSound(int soundNumber)
+    {
+        PlaySfx(useItemSfx[soundNumber], addedUseVolume);
     }
 }

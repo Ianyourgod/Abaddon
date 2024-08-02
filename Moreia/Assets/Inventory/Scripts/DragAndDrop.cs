@@ -175,20 +175,21 @@ public class DragAndDrop : MonoBehaviour
 			{
 				if (curSlot && curSlot.GetComponent<Slot>().slotsItem)
 				{
-					if (!GetComponent<EquipmentSlot>())
-                    {
-						sfxPlayer.PlayPlaceSound();
-					}
-                    else
-                    {
-						sfxPlayer.PlayEquipSound();
-                    }
 					Destroy(curSlot.GetComponent<Slot>().clone);
 					curSlotsItem = curSlot.GetComponent<Slot>().slotsItem;
 
 					GameObject newObj = GetObjectUnderMouse(true);
 					if (newObj && newObj != curSlot)
 					{
+						if (!newObj.GetComponent<EquipmentSlot>())
+						{
+							sfxPlayer.PlayPlaceSound();
+						}
+						else
+						{
+							sfxPlayer.PlayEquipSound();
+						}
+
 						if (newObj.GetComponent<EquipmentSlot>() && newObj.GetComponent<EquipmentSlot>().equipmentType != curSlotsItem.equipmentType)
 						{
 							return;
@@ -465,7 +466,7 @@ public class DragAndDrop : MonoBehaviour
 	public void DoubleClick(Item clickedItem)
 	{
 		if (clickedItem.TryGetComponent(out Potion potion)) {
-			potion.Consume();
+			potion.Consume(sfxPlayer);
 			inv.RemoveItemAmount(clickedItem.ItemID, 1);
 		}
 	}

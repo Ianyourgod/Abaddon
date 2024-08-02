@@ -14,6 +14,8 @@ public class ItemSfx : SfxPlayer
     [Header("ItemSfx Attributes")]
     [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your pickup item sound effects")]
     [SerializeField] float addedPickupVolume = 0f;
+    [Tooltip("Determines whether the item is a useable item")]
+    public bool usable = false;
 
     void Start()
     {

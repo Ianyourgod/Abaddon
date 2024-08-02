@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(FountainSfx))]
+
 public class Fountain : MonoBehaviour
 {
     [SerializeField] Animator animator;

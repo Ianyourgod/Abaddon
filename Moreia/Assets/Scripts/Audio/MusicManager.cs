@@ -8,13 +8,22 @@ public class MusicManager : MonoBehaviour
 
     [Header("References")]
     public AudioClip[] songs;
-    AudioSource musicAudSource;
-    public GameObject player;
+    public AudioSource musicAudSource;
+    [HideInInspector] public GameObject player;
 
     private void Awake()
     {
         main = this;
         musicAudSource = GetComponent<AudioSource>();
+
+        try
+        {
+            player = GameObject.FindGameObjectsWithTag("Player")[0];
+        }
+        catch
+        {
+            player = null;
+        }
     }
 
     private void Update()
@@ -24,6 +33,7 @@ public class MusicManager : MonoBehaviour
 
     public void PlaySong(int song)
     {
+        Debug.Log("plays song");
         musicAudSource.clip = songs[song];
         musicAudSource.Play();
     }

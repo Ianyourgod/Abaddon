@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3b6e16e2ee345f190e0e3e5fa90044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   health: 0
 --- !u!61 &2844499466063138201
 BoxCollider2D:
@@ -257,3 +258,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 132eba691c81721408a4c6c0573cc6cb, type: 3}
   randomBreakSound: 1
   addedBreakVolume: 0
+  forceDropPath: 

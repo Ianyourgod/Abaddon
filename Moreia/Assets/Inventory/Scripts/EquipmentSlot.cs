@@ -78,7 +78,6 @@ public class EquipmentSlot : MonoBehaviour
 
 	public void Unequip()
 	{
-		
 		equipped = false;
 		var item = GetComponent<Slot>().slotsItem;
 

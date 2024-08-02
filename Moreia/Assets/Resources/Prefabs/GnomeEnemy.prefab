@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideLayers:
     serializedVersion: 2
-    m_Bits: 3520
+    m_Bits: 11712
   animator: {fileID: 18587455}
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Goblin
@@ -270,7 +270,7 @@ MonoBehaviour:
   - {fileID: 0}
   collideLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   worldBottomLeft: {x: -4, y: -4, z: 0}
   gridSizeX: 9
   gridSizeY: 9

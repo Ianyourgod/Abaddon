@@ -26,8 +26,9 @@ public class RealTextFadeUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!textObject) return;
         transform.position = new Vector3(transform.position.x, Mathf.Lerp(minimum, maximum, t), 0);
-        GetComponent<TMP_Text>().color = new Color(GetComponent<TMP_Text>().color.r, GetComponent<TMP_Text>().color.g, GetComponent<TMP_Text>().color.b, Mathf.Lerp(1f, 0f, t));
+        textObject.color = new Color(textObject.color.r, textObject.color.g, textObject.color.b, Mathf.Lerp(1f, 0f, t));
 
         t += 0.5f * Time.deltaTime;
         if (t > timeLimit)
@@ -36,7 +37,21 @@ public class RealTextFadeUp : MonoBehaviour
         }
     }
 
-    public void SetText(string set_text) {
+    void SetColor(Color color)
+    {
+        textObject.color = color;
+    }
+
+    void SetBorderColor(Color color, float width)
+    {
+        textObject.outlineWidth = width;
+        textObject.outlineColor = color;
+    }
+
+    public void SetText(string set_text, Color color, Color borderColor, float borderWidth)
+    {
+        SetColor(color);
+        SetBorderColor(borderColor, borderWidth);
         textObject.text = set_text;
     }
 }

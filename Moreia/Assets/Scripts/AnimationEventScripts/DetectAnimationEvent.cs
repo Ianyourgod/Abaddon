@@ -16,6 +16,6 @@ public class DetectAnimationEvent : MonoBehaviour
     }
 
     public void Die() {
-        Destroy(enemyMovement.gameObject);
+        enemyMovement.Die();
     }
 }

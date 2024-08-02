@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideLayers:
     serializedVersion: 2
-    m_Bits: 3520
+    m_Bits: 11712
   animator: {fileID: 7236194330999352524}
   pathfinding: {fileID: 8905533853578730615}
   animation_prefix: Fire_Pixie

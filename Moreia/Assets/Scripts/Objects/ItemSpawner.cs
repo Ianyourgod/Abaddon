@@ -28,7 +28,6 @@ public class ItemSpawner : MonoBehaviour
     public void SpawnRandom(TableTypes table)
     {
         int random = Controller.main.rnd.Next(1, 101);
-        print(random);
         switch (table)
         {
             case TableTypes.Gnome:
@@ -76,8 +75,12 @@ public class ItemSpawner : MonoBehaviour
                 drop = "minorpotion";
                 break;
         }
-        print(drop);
         Instantiate((UnityEngine.Object) Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
+
+    public void SpawnPath(string path) {
+        Instantiate((UnityEngine.Object)Resources.Load(path), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

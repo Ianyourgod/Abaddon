@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemDropper : MonoBehaviour
 {
     [SerializeField] ItemSpawner.TableTypes dropTable = ItemSpawner.TableTypes.Gnome;
+    [SerializeField] string forceDropPath = "";
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +21,11 @@ public class ItemDropper : MonoBehaviour
 
     public void Die()
     {
-        GameObject spawner = Instantiate((UnityEngine.GameObject)Resources.Load($"Prefabs/ItemDropSpawner"), transform.position, Quaternion.identity);
-        spawner.GetComponent<ItemSpawner>().SpawnRandom(dropTable);
-        Destroy(gameObject);
+        GameObject spawner = Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/ItemDropSpawner"), transform.position, Quaternion.identity);
+        if (forceDropPath != "") {
+            spawner.GetComponent<ItemSpawner>().SpawnPath(forceDropPath);
+        } else {
+            spawner.GetComponent<ItemSpawner>().SpawnRandom(dropTable);
+        }
     }
 }

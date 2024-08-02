@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable: 0
+  forceDropPath: 
 --- !u!114 &2067440025226379969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 0
-  worldBottomLeft: {x: -39, y: 71, z: 0}
+  worldBottomLeft: {x: -4, y: -4, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588

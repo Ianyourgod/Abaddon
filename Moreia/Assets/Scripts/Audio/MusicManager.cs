@@ -33,7 +33,6 @@ public class MusicManager : MonoBehaviour
 
     public void PlaySong(int song)
     {
-        Debug.Log("plays song");
         musicAudSource.clip = songs[song];
         musicAudSource.Play();
     }

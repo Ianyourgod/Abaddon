@@ -190,7 +190,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private Collider2D IsValidMove(Vector2 direction) {
-        return Physics2D.Raycast(transform.position + new Vector3(0.51f, 0), direction, 0.4f, collideLayers).collider;
+        return Physics2D.OverlapCircle(transform.position+new Vector3(direction.x, direction.y, 0), 0.1f, collideLayers);
     }
 
     string DirectionToString(Vector2 direction) {

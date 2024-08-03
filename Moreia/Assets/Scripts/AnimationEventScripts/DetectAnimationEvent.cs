@@ -6,13 +6,34 @@ public class DetectAnimationEvent : MonoBehaviour
 {
     [SerializeField] EnemyMovement enemyMovement;
 
-    // this is called by the animation event
-    public void AttackTiming(int direction) {
-        enemyMovement.AttackTiming((EnemyMovement.Direction)direction);
+    public enum Direction {
+        Up,
+        Down,
+        Left,
+        Right
     }
 
-    public void AttackEnd(int direction) {
-        enemyMovement.AttackEnd((EnemyMovement.Direction)direction);
+    private Vector2 GetDirectionVector(Direction direction) {
+        switch (direction) {
+            case Direction.Up:
+                return Vector2.up;
+            case Direction.Down:
+                return Vector2.down;
+            case Direction.Left:
+                return Vector2.left;
+            case Direction.Right:
+                return Vector2.right;
+            default:
+                return Vector2.zero;
+        }
+    }
+
+    public void AttackTiming(Direction direction) {
+        enemyMovement.AttackTiming(GetDirectionVector((direction)));
+    }
+
+    public void AttackEnd(Direction direction) {
+        enemyMovement.AttackEnd(GetDirectionVector((direction)));
     }
 
     public void Die() {

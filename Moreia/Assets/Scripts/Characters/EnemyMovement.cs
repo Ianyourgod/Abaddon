@@ -10,12 +10,6 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public enum Direction {
-        Up,
-        Down,
-        Left,
-        Right
-    }
 
     [Header("References")]
     [SerializeField] LayerMask collideLayers;
@@ -33,11 +27,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float enemyDecisionDelay;
 
     public uint health = 10;
-    private Direction direction = Direction.Down;
+    private Vector2 direction = Vector2.zero;
 
     private Vector2 movementTarget;
     private bool followingPlayer = false;
-    private bool directionChange = false;
 
     private Vector3 StartPosition;
     
@@ -75,16 +68,12 @@ public class EnemyMovement : MonoBehaviour
         if (inDetectionRange && inFollowRange) {
             Invoke(nameof(MoveToPlayer), enemyDecisionDelay);
         } else if (!inFollowRange && !atHome) {
-            (sbyte horizontal, sbyte vertical) = ToHome();
+            Vector2 direction = ToHome();
             
-            if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0)) {
+            if (direction == Vector2.zero) {
                 Invoke(nameof(callNextEnemy), 0f);
                 return;
             }
-            direction =
-                horizontal == 0 ?
-                (vertical == 1 ? Direction.Up : Direction.Down) :
-                (horizontal == 1 ? Direction.Right : Direction.Left);
 
             Move(direction);
         } else {
@@ -97,8 +86,6 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void MoveToPlayer() {
-        sbyte horizontal, vertical;
-
         if (CheckPlayerIsInDetectionRange()) {
             followingPlayer = true;
             movementTarget = Controller.main.transform.position;
@@ -108,51 +95,31 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        (horizontal, vertical) = ToPlayer();
+        direction = ToPlayer();
 
-        // the diagonal case *probably* shouldn't happen, but just in case
-        if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0)) {
+        if (direction == Vector2.zero) {
             Invoke(nameof(callNextEnemy), 0f);
             return;
         }
 
         // get the direction we are moving
-        direction =
-            horizontal == 0 ?
-            (vertical == 1 ? Direction.Up : Direction.Down) :
-            (horizontal == 1 ? Direction.Right : Direction.Left);
 
         Move(direction);
     }
 
-    private Vector2 DirectionToVector(Direction direction) {
-        switch (direction) {
-            case Direction.Up:
-                return Vector2.up;
-            case Direction.Down:
-                return Vector2.down;
-            case Direction.Left:
-                return Vector2.left;
-            case Direction.Right:
-                return Vector2.right;
-        }
-        return Vector2.zero;
-    }
-
-    private void Move(Direction direction) {
+    private void Move(Vector2 direction) {
         Collider2D hit = IsValidMove(direction);
-        PlayAnimation(direction, 1);
+        PlayAnimation(direction, "idle");
 
-        bool willAttack = attack.WillAttack(hit, direction);
+        bool will_attack = attack.WillAttack(hit, direction);
 
-        if (willAttack) {
+        if (will_attack) {
             Controller.main.enabled = false;
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-            PlayAnimation(direction, 3);
+            PlayAnimation(direction, "attack");
         } else if (hit == null) {
-            Vector2 movement = DirectionToVector(direction);
             sfxPlayer.PlayWalkSound();
-            transform.Translate(movement.x, movement.y, 0);
+            transform.Translate(direction);
             Invoke(nameof(callNextEnemy), 0f);
         } else {
             Invoke(nameof(callNextEnemy), 0f);
@@ -163,16 +130,16 @@ public class EnemyMovement : MonoBehaviour
         return (value < min) ? min : (value > max) ? max : value;
     }
 
-    private (sbyte, sbyte) ToPlayer() {
+    private Vector2 ToPlayer() {
         List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
 
         if (path == null) {
-            return (0, 0);
+            return Vector2.zero;
         }
 
         // shouldnt happen but just in case
         if (path.Count == 0) {
-            return (0, 0);
+            return Vector2.zero;
         }
 
         // get the relative position of the next node
@@ -184,23 +151,13 @@ public class EnemyMovement : MonoBehaviour
         float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
         float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);
 
-        if (raw_horizontal != 0 && raw_vertical != 0) {
-            if (directionChange) {
-                directionChange = false;
-                raw_horizontal = 0f;
-            } else {
-                directionChange = true;
-                raw_vertical = 0f;
-            }
-        }
+        float horizontal = Mathf.Round(raw_horizontal); // sbyte is int8
+        float vertical = Mathf.Round(raw_vertical); // sbyte is int8
 
-        sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
-        sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
-
-        return (horizontal, vertical);
+        return new Vector2(horizontal, vertical);
     }
 
-    private (sbyte, sbyte) ToHome() {
+    private Vector2 ToHome() {
         pathfinding.grid.gridSizeX = (int) (followDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int) (followDistance * 2 + 1);
         List<Node2D> path = pathfinding.FindPath(transform.position, StartPosition);
@@ -209,7 +166,12 @@ public class EnemyMovement : MonoBehaviour
         pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
 
         if (path == null) {
-            return (0, 0);
+            return Vector2.zero;
+        }
+
+        // shouldnt happen but just in case
+        if (path.Count == 0) {
+            return Vector2.zero;
         }
 
         // get the relative position of the next node
@@ -221,108 +183,51 @@ public class EnemyMovement : MonoBehaviour
         float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
         float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);
 
-        if (raw_horizontal != 0 && raw_vertical != 0) {
-            if (directionChange) {
-                directionChange = false;
-                raw_horizontal = 0f;
-            } else {
-                directionChange = true;
-                raw_vertical = 0f;
-            }
-        }
+        float horizontal = Mathf.Round(raw_horizontal);
+        float vertical = Mathf.Round(raw_vertical);
 
-        sbyte horizontal = (sbyte)Mathf.Round(raw_horizontal); // sbyte is int8
-        sbyte vertical = (sbyte)Mathf.Round(raw_vertical); // sbyte is int8
-
-        return (horizontal, vertical);
+        return new Vector2(horizontal, vertical);
     }
 
-    private Collider2D IsValidMove(Direction direction) {
-        switch (direction) {
-            case Direction.Up:
-                return Physics2D.Raycast(transform.position + new Vector3(0, 0.51f), transform.up, 0.4f, collideLayers).collider;
-            case Direction.Down:
-                return Physics2D.Raycast(transform.position + new Vector3(0, -0.51f), -transform.up, 0.4f, collideLayers).collider;
-            case Direction.Left:
-                return Physics2D.Raycast(transform.position + new Vector3(-0.51f, 0), -transform.right, 0.4f, collideLayers).collider;
-            case Direction.Right:
-                return Physics2D.Raycast(transform.position + new Vector3(0.51f, 0), transform.right, 0.4f, collideLayers).collider;
+    private Collider2D IsValidMove(Vector2 direction) {
+        return Physics2D.Raycast(transform.position + new Vector3(0.51f, 0), direction, 0.4f, collideLayers).collider;
+    }
+
+    string DirectionToString(Vector2 direction) {
+        /*
+        back: (0, 1)
+        front: (0, -1)
+        left: (-1, 0)
+        right: (1, 0)
+        */
+        
+        if (direction == Vector2.up) {
+            return "back";
+        } else if (direction == Vector2.down) {
+            return "front";
+        } else if (direction == Vector2.left) {
+            return "left";
+        } else if (direction == Vector2.right) {
+            return "right";
         }
-        return null;
+        return "front";
     }
 
     // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Direction direction, uint action)
+    private void PlayAnimation(Vector2 direction, string action)
     {
-        if (action == 4) {
+        if (action == "death") {
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
 
-        switch (direction)
-        {
-            case Direction.Up:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_back_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_back_hurt");
-                        break;
-                    case 3:
-                        transform.Translate(0, 0.5f, 0);
-                        animator.Play($"{animation_prefix}_animation_back_attack");
-                        break;
-                }
-                break;
-            case Direction.Down:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_front_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_front_hurt");
-                        break;
-                    case 3:
-                        transform.Translate(0, -0.5f, 0);
-                        animator.Play($"{animation_prefix}_animation_front_attack");
-                        break;
-                }
-                break;
-            case Direction.Left:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_left_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_left_hurt");
-                        break;
-                    case 3:
-                        animator.Play($"{animation_prefix}_animation_left_attack");
-                        break;
-                }
-                break;
-            case Direction.Right:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_right_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_right_hurt");
-                        break;
-                    case 3:
-                        animator.Play($"{animation_prefix}_animation_right_attack");
-                        break;
-                }
-                break;
-        }
+        string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
+
+        animator.Play(animation);
     }
 
     /*
+    sadly disabled because it causes errors when building
     private void OnDrawGizmosSelected() {
         pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
@@ -343,10 +248,11 @@ public class EnemyMovement : MonoBehaviour
             sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Die();
             // run death animation
-            PlayAnimation(direction, 4);
+            PlayAnimation(direction, "death");
             return;
         }
-        PlayAnimation(direction, 2);
+        PlayAnimation(direction, "hurt");
+        // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         sfxPlayer.PlayHurtSound();
         health -= damage;
@@ -361,36 +267,26 @@ public class EnemyMovement : MonoBehaviour
     }
 
     // this is called by the animation
-    public void AttackTiming(Direction direction) {
+    public void AttackTiming(Vector2 direction) {
         attack.Attack(direction);
     }
 
-    public void AttackEnd(Direction direction) {
+    public void AttackEnd(Vector2 direction) {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        PlayAnimation(direction, 1);
-        switch (direction) {
-            case Direction.Up:
-                transform.Translate(0, -0.5f, 0);
-                break;
-            case Direction.Down:
-                transform.Translate(0, 0.5f, 0);
-                break;
-            default:
-                break;
-        }
+        PlayAnimation(direction, "idle");
         Invoke(nameof(callNextEnemy), 0f);
     }
 
     // intent 1 is hurt
-    IEnumerator ExecuteAfterTime(float time, Direction direction, uint intent)
+    IEnumerator ExecuteAfterTime(float time, Vector2 direction, uint intent)
     {
         yield return new WaitForSeconds(time);
 
         switch (intent)
         {
             case 1:
-                PlayAnimation(direction, 1);
+                PlayAnimation(direction, "idle");
                 break;
             default:
                 break;

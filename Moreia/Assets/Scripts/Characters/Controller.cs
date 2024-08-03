@@ -15,16 +15,8 @@ public class Controller : MonoBehaviour {
 
     public static Controller main;
 
-    //needed for a git pr
-    public enum Direction {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
     private float lastMovement = 0f;
-    private Direction current_player_direction = Direction.Down;
+    private Vector2 current_player_direction = new Vector2(0, -1);
 
     private float original_anchor_position;
     private Inventory inventory;
@@ -112,19 +104,13 @@ public class Controller : MonoBehaviour {
 
     void Move()
     { 
-        sbyte horizontal, vertical;
-
-        (horizontal, vertical) = GetAxis();
-        if ((horizontal != 0 && vertical != 0) || (horizontal == 0 && vertical == 0))
+        Vector2 direction = GetAxis();
+        // if we are not moving, do nothing. if we are going diagonally, do nothing
+        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) {
             return;
+        }
 
         done_with_tick = false;
-
-        // get the direction we are moving
-        Direction direction =
-            horizontal == 0 ?
-            (vertical == 1 ? Direction.Up : Direction.Down) :
-            (horizontal == 1 ? Direction.Right : Direction.Left);
 
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
@@ -134,7 +120,7 @@ public class Controller : MonoBehaviour {
         
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
-                transform.Translate(horizontal, vertical, 0);
+                transform.Translate(direction);
                 sfxPlayer.PlayWalkSound();
                 lastMovement = Time.time;
                 FinishTick();
@@ -208,7 +194,7 @@ public class Controller : MonoBehaviour {
     }
 
     // real is whether or not to try to actually hit, set to false to just play the animation
-    private void Attack(Collider2D hit, Direction direction, bool real)
+    private void Attack(Collider2D hit, Vector2 direction, bool real)
     {
         if (real) {
             hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
@@ -218,64 +204,58 @@ public class Controller : MonoBehaviour {
         PlayAnimation(direction, "attack");
     }
 
-    sbyte BoolToSbyte(bool value) {
-        return (sbyte) (value ? 1 : 0);
-    }
+    Vector2 GetAxis() {
+        Func<bool, int> BoolToInt = boolValue => boolValue ? 1 : 0;
 
-    (sbyte, sbyte) GetAxis() {
         // todo: allow people to rebind movement keys
-        sbyte up = BoolToSbyte(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
-        sbyte down = BoolToSbyte(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow));
-        sbyte left = BoolToSbyte(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow));
-        sbyte right = BoolToSbyte(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow));
+        int up = BoolToInt(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
+        int down = BoolToInt(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow));
+        int left = BoolToInt(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow));
+        int right = BoolToInt(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow));
 
-        sbyte horizontal = (sbyte) (right - left); // sbyte is int8
-        sbyte vertical = (sbyte) (up - down); // sbyte is int8
+        float horizontal = (float) (right - left);
+        float vertical = (float) (up - down);
 
-        return (horizontal, vertical);
+        return new Vector2(horizontal, vertical);
     }
 
     // (if it hit something, what it hit)
-    (bool, Collider2D) IsValidMove(Direction direction) {
+    (bool, Collider2D) IsValidMove(Vector2 direction) {
         current_player_direction = direction;
         Collider2D hit = SendRaycast(direction);
         return (hit == null, hit);
     }
 
-    string DirectionToString(Direction direction) {
-        switch (direction) {
-            case Direction.Up:
-                return "back";
-            case Direction.Down:
-                return "front";
-            case Direction.Left:
-                return "left";
-            case Direction.Right:
-                return "right";
+    string DirectionToString(Vector2 direction) {
+        /*
+        front: 0, -1
+        back: 0, 1
+        left: -1, 0
+        right: 1, 0
+        */
+
+        if (direction == new Vector2(0, -1)) {
+            return "front";
+        } else if (direction == new Vector2(0, 1)) {
+            return "back";
+        } else if (direction == new Vector2(-1, 0)) {
+            return "left";
+        } else if (direction == new Vector2(1, 0)) {
+            return "right";
+        } else {
+            return "front";
         }
-        return "forward";
     }
 
     // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Direction direction, string action) {
+    private void PlayAnimation(Vector2 direction, string action) {
         string animation = $"Player_animation_{DirectionToString(direction)}_level_0_{action}";
         animator.Play(animation);
     }
 
-    private Collider2D SendRaycast(Direction direction)
+    private Collider2D SendRaycast(Vector2 direction)
     {
-        switch (direction)
-        {
-            case Direction.Up:
-                return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
-            case Direction.Down:
-                return Physics2D.Raycast(transform.position, -transform.up, 1f, collideLayers).collider;
-            case Direction.Left:
-                return Physics2D.Raycast(transform.position, -transform.right, 1f, collideLayers).collider;
-            case Direction.Right:
-                return Physics2D.Raycast(transform.position, transform.right, 1f, collideLayers).collider;
-        }
-        return Physics2D.Raycast(transform.position, transform.up, 1f, collideLayers).collider;
+        return Physics2D.Raycast(transform.position, direction, 1f, collideLayers).collider;
 
     }
 

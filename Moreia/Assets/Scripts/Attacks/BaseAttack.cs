@@ -11,14 +11,14 @@ public class BaseAttack : MonoBehaviour {
         sfxPlayer = GetComponent<EnemySfx>();
     }
 
-    public virtual bool WillAttack(Collider2D collider, EnemyMovement.Direction direction) {
+    public virtual bool WillAttack(Collider2D collider, Vector2 direction) {
         // we just check if the collider is the player, and if it is, we return true - direction is for if children of this need it
         if (collider == null) return false;
         
         return collider.gameObject.layer == LayerMask.NameToLayer("Player");
     }
 
-    public virtual void Attack(EnemyMovement.Direction direction) {
+    public virtual void Attack(Vector2 direction) {
         if (sfxPlayer.playAttackOnDamagePlayer){
             sfxPlayer.PlayAttackSound();
         }

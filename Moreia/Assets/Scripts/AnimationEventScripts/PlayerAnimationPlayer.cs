@@ -45,8 +45,8 @@ public class PlayerAnimationPlayer : MonoBehaviour
         }
     }
 
-    public void AttackAnimationFinishHandler(Direction direction)
+    public void AttackAnimationFinishHandler()
     {
-        Controller.main.AttackAnimationFinishHandler(direction);
+        Controller.main.AttackAnimationFinishHandler();
     }
 }

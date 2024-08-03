@@ -328,7 +328,7 @@ public class Controller : MonoBehaviour {
         return overflowHealth;
     }
 
-    public void AttackAnimationFinishHandler(PlayerAnimationPlayer.Direction direction)
+    public void AttackAnimationFinishHandler()
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();

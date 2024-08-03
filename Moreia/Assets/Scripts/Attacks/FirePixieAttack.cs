@@ -38,7 +38,8 @@ public class FirePixieAttack : BaseAttack {
                 break;
         }
 
-        Collider2D collider = Physics2D.Raycast(transform.position, dir, 1f, LayerMask.GetMask("Fireball")).collider;
+        Collider2D collider = Physics2D.OverlapCircle(transform.position + dir, 0.1f, LayerMask.GetMask("Fireball"));
+
         return collider != null;
     }
 
@@ -51,10 +52,10 @@ public class FirePixieAttack : BaseAttack {
 
         switch (direction) {
             case EnemyMovement.Direction.Up:
-                new_position.y += 0.5f;
+                new_position.y += 1.0f;
                 break;
             case EnemyMovement.Direction.Down:
-                new_position.y -= 0.5f;
+                new_position.y -= 1.0f;
                 break;
             case EnemyMovement.Direction.Left:
                 new_position.x -= 1.0f;

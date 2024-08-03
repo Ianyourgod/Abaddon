@@ -128,7 +128,7 @@ public class Controller : MonoBehaviour {
 
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
-        PlayAnimation(direction, 1);
+        PlayAnimation(direction, "idle");
 
         const int KeyID = 1;
         
@@ -215,7 +215,7 @@ public class Controller : MonoBehaviour {
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         }
         sfxPlayer.PlayAttackSound();
-        PlayAnimation(direction, 3);
+        PlayAnimation(direction, "attack");
     }
 
     sbyte BoolToSbyte(bool value) {
@@ -242,62 +242,24 @@ public class Controller : MonoBehaviour {
         return (hit == null, hit);
     }
 
-    // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Direction direction, uint action) {
+    string DirectionToString(Direction direction) {
         switch (direction) {
             case Direction.Up:
-                switch (action) {
-                    case 1:
-                        animator.Play("Player_animation_back_level_0_idle");
-                        break;
-                    case 2:
-                        animator.Play("Player_animation_back_level_0_hurt");
-                        break;
-                    case 3:
-                        animator.Play("Player_animation_back_level_0_attack");
-                        break;
-                }
-                break;  
+                return "back";
             case Direction.Down:
-                switch (action) {
-                    case 1:
-                        animator.Play("Player_animation_front_level_0_idle");
-                        break;
-                    case 2:
-                        animator.Play("Player_animation_front_level_0_hurt");
-                        break;
-                    case 3:
-                        animator.Play("Player_animation_front_level_0_attack");
-                        break;
-                }
-                break;
+                return "front";
             case Direction.Left:
-                switch (action) {
-                    case 1:
-                        animator.Play("Player_animation_left_level_0_idle");
-                        break;
-                    case 2:
-                        animator.Play("Player_animation_left_level_0_hurt");
-                        break;
-                    case 3:
-                        animator.Play("Player_animation_left_level_0_attack");
-                        break;
-                }
-                break;
+                return "left";
             case Direction.Right:
-                switch (action) {
-                    case 1:
-                        animator.Play("Player_animation_right_level_0_idle");
-                        break;
-                    case 2:
-                        animator.Play("Player_animation_right_level_0_hurt");
-                        break;
-                    case 3:
-                        animator.Play("Player_animation_right_level_0_attack");
-                        break;
-                }
-                break;
+                return "right";
         }
+        return "forward";
+    }
+
+    // 1 is idle, 2 is hurt, 3 is attack
+    private void PlayAnimation(Direction direction, string action) {
+        string animation = $"Player_animation_{DirectionToString(direction)}_level_0_{action}";
+        animator.Play(animation);
     }
 
     private Collider2D SendRaycast(Direction direction)
@@ -329,10 +291,9 @@ public class Controller : MonoBehaviour {
         {
             health -= Convert.ToInt32(damage);
             sfxPlayer.PlayHurtSound();
-            PlayAnimation(current_player_direction, 2);
+            PlayAnimation(current_player_direction, "hurt");
             damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
         } else {
-            Debug.Log("dodged");
             sfxPlayer.PlayDodgeSound();
             damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.white, 0.4f);
             // Instantiate(dodgePrefab, transform.position, Quaternion.identity);

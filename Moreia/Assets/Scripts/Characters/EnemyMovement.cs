@@ -141,14 +141,14 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move(Direction direction) {
         Collider2D hit = IsValidMove(direction);
-        PlayAnimation(direction, 1);
+        PlayAnimation(direction, "idle");
 
         bool willAttack = attack.WillAttack(hit, direction);
 
         if (willAttack) {
             Controller.main.enabled = false;
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-            PlayAnimation(direction, 3);
+            PlayAnimation(direction, "attack");
         } else if (hit == null) {
             Vector2 movement = DirectionToVector(direction);
             sfxPlayer.PlayWalkSound();
@@ -251,78 +251,35 @@ public class EnemyMovement : MonoBehaviour
         return null;
     }
 
+    string DirectionToString(Direction direction) {
+        switch (direction) {
+            case Direction.Up:
+                return "back";
+            case Direction.Down:
+                return "front";
+            case Direction.Left:
+                return "left";
+            case Direction.Right:
+                return "right";
+        }
+        return "forward";
+    }
+
     // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Direction direction, uint action)
+    private void PlayAnimation(Direction direction, string action)
     {
-        if (action == 4) {
+        string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
+
+        if (action == "death") {
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
 
-        switch (direction)
-        {
-            case Direction.Up:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_back_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_back_hurt");
-                        break;
-                    case 3:
-                        transform.Translate(0, 0.5f, 0);
-                        animator.Play($"{animation_prefix}_animation_back_attack");
-                        break;
-                }
-                break;
-            case Direction.Down:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_front_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_front_hurt");
-                        break;
-                    case 3:
-                        transform.Translate(0, -0.5f, 0);
-                        animator.Play($"{animation_prefix}_animation_front_attack");
-                        break;
-                }
-                break;
-            case Direction.Left:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_left_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_left_hurt");
-                        break;
-                    case 3:
-                        animator.Play($"{animation_prefix}_animation_left_attack");
-                        break;
-                }
-                break;
-            case Direction.Right:
-                switch (action)
-                {
-                    case 1:
-                        animator.Play($"{animation_prefix}_animation_right_idle");
-                        break;
-                    case 2:
-                        animator.Play($"{animation_prefix}_animation_right_hurt");
-                        break;
-                    case 3:
-                        animator.Play($"{animation_prefix}_animation_right_attack");
-                        break;
-                }
-                break;
-        }
+        animator.Play(animation);
     }
 
     /*
+    sadly disabled because it causes errors when building
     private void OnDrawGizmosSelected() {
         pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
@@ -343,10 +300,11 @@ public class EnemyMovement : MonoBehaviour
             sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Die();
             // run death animation
-            PlayAnimation(direction, 4);
+            PlayAnimation(direction, "death");
             return;
         }
-        PlayAnimation(direction, 2);
+        PlayAnimation(direction, "hurt");
+        // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         sfxPlayer.PlayHurtSound();
         health -= damage;
@@ -368,13 +326,11 @@ public class EnemyMovement : MonoBehaviour
     public void AttackEnd(Direction direction) {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        PlayAnimation(direction, 1);
+        PlayAnimation(direction, "idle");
         switch (direction) {
             case Direction.Up:
-                transform.Translate(0, -0.5f, 0);
                 break;
             case Direction.Down:
-                transform.Translate(0, 0.5f, 0);
                 break;
             default:
                 break;
@@ -390,7 +346,7 @@ public class EnemyMovement : MonoBehaviour
         switch (intent)
         {
             case 1:
-                PlayAnimation(direction, 1);
+                PlayAnimation(direction, "idle");
                 break;
             default:
                 break;

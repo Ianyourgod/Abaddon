@@ -18,13 +18,13 @@ TagManager:
   - Player
   - 
   - floor
-  - walls
+  - Immovable
   - door
   - fountain
   - floorTrap
   - 
   - 
-  - breakable
+  - interactable
   - 
   - 
   - 

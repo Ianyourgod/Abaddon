@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(PlayerSfx))]
 [RequireComponent(typeof(Inventory))]
@@ -38,6 +39,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] GameObject textFadePrefab;
 
     [Header("Misc")]
+    [SerializeField] Tilemap[] ObstacleMaps;
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
@@ -117,6 +119,12 @@ public class Controller : MonoBehaviour {
 
         lastMovement = Time.time;
 
+        // you hit a wall
+        if (!validMove && hit == null) {
+            FinishTick();
+            return;
+        }
+
         if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
@@ -190,11 +198,23 @@ public class Controller : MonoBehaviour {
 
         return new Vector2(horizontal, vertical);
     }
+    
+    public Vector3 V2_2_V3(Vector2 vec) {
+        return new Vector3(vec.x, vec.y, 0);
+    }
 
     // (if it hit something, what it hit)
     (bool, Collider2D) IsValidMove(Vector2 direction) {
         current_player_direction = direction;
-        Collider2D hit = SendRaycast(direction);
+        Vector3 world_position = transform.position + V2_2_V3(direction);
+
+        foreach (Tilemap tilemap in ObstacleMaps)
+        {
+            Vector3Int cell_position = tilemap.WorldToCell(world_position);
+            if (tilemap.HasTile(cell_position))
+                return (false, null);
+        }
+        Collider2D hit = Physics2D.OverlapCircle(world_position, 0.1f, collideLayers);
         return (hit == null, hit);
     }
 
@@ -223,12 +243,6 @@ public class Controller : MonoBehaviour {
     private void PlayAnimation(Vector2 direction, string action) {
         string animation = $"Player_animation_{DirectionToString(direction)}_level_0_{action}";
         animator.Play(animation);
-    }
-
-    private Collider2D SendRaycast(Vector2 direction)
-    {
-        return Physics2D.Raycast(transform.position, direction, 1f, collideLayers).collider;
-
     }
 
     private void ChangeHealthBar() {

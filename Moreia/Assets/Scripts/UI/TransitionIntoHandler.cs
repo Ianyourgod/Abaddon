@@ -46,4 +46,8 @@ public class TransitionIntoHandler : MonoBehaviour
         StartPlayScene = "Main Menu";
         SwitchScene();
     }
+
+    public void ExitGame() {
+        Application.Quit();
+    }
 }

@@ -39,7 +39,6 @@ public class Controller : MonoBehaviour {
     [SerializeField] GameObject textFadePrefab;
 
     [Header("Misc")]
-    [SerializeField] Tilemap[] ObstacleMaps;
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
@@ -199,22 +198,17 @@ public class Controller : MonoBehaviour {
         return new Vector2(horizontal, vertical);
     }
     
-    public Vector3 V2_2_V3(Vector2 vec) {
-        return new Vector3(vec.x, vec.y, 0);
+    public Vector2 V3_2_V2(Vector3 vec) {
+        return new Vector2(vec.x, vec.y);
     }
 
     // (if it hit something, what it hit)
     (bool, Collider2D) IsValidMove(Vector2 direction) {
         current_player_direction = direction;
-        Vector3 world_position = transform.position + V2_2_V3(direction);
+        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
 
-        foreach (Tilemap tilemap in ObstacleMaps)
-        {
-            Vector3Int cell_position = tilemap.WorldToCell(world_position);
-            if (tilemap.HasTile(cell_position))
-                return (false, null);
-        }
-        Collider2D hit = Physics2D.OverlapCircle(world_position, 0.1f, collideLayers);
+        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
+
         return (hit == null, hit);
     }
 

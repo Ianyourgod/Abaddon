@@ -35,10 +35,7 @@ public class Controller : MonoBehaviour {
 
     [HideInInspector] public PlayerSfx sfxPlayer;
 
-    [HideInInspector]
-    public GameObject textFadePrefab;
-    [HideInInspector]
-    [SerializeField] GameObject lockPrefab;
+    [SerializeField] GameObject textFadePrefab;
 
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
@@ -81,8 +78,6 @@ public class Controller : MonoBehaviour {
         health = constitution * 2; // current health
         max_health = health;
         ChangeHealthBar();
-
-        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
     }
 
     void Update() {
@@ -116,35 +111,35 @@ public class Controller : MonoBehaviour {
         current_enemy = 0;
         PlayAnimation(direction, "idle");
         
-        if (Time.time - lastMovement > movementDelay) {
-            if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
-                transform.Translate(direction);
-                sfxPlayer.PlayWalkSound();
-                lastMovement = Time.time;
-                FinishTick();
-            } else {
-                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
-                // if we hit an enemy, attack it
-                if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                    Attack(hit, direction, true); // calls next enemy
-                // if we hit a door, attempt to open it
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
-                    hit.GetComponent<Interactable>().Interact(attackDamage);
-                    FinishTick();
-                }
-                // if we hit a fountain, heal from it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-                    if (health < max_health)
-                    {
-                        hit.GetComponent<FountainSfx>().PlayFountainSound();
-                    }
-                    hit.gameObject.GetComponent<Fountain>().Heal();
-                    FinishTick();
-                }
-                else {
-                    FinishTick();
-                }
+        if (Time.time - lastMovement <= movementDelay) {
+            return;
+        }
+
+        lastMovement = Time.time;
+
+        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+            transform.Translate(direction);
+            sfxPlayer.PlayWalkSound();
+            FinishTick();
+        // if we hit an enemy, attack it
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+            Attack(hit, direction, true); // calls next enemy
+        // if we hit a door, attempt to open it
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
+            hit.GetComponent<Interactable>().Interact(attackDamage);
+            FinishTick();
+        }
+        // if we hit a fountain, heal from it
+        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+            if (health < max_health)
+            {
+                hit.GetComponent<FountainSfx>().PlayFountainSound();
             }
+            hit.gameObject.GetComponent<Fountain>().Heal();
+            FinishTick();
+        }
+        else {
+            FinishTick();
         }
     }
 

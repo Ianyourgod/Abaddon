@@ -35,12 +35,10 @@ public class EnemyMovement : MonoBehaviour
     
     private EnemySfx sfxPlayer;
 
-    public GameObject textFadePrefab;
+    [SerializeField] GameObject textFadePrefab;
 
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
-
-        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
     }
 
     private void Start() {

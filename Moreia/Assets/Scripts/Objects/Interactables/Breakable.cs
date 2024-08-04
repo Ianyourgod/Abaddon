@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ItemDropper))]
 [RequireComponent(typeof(BreakableSfx))]
 
-public class Breakable : MonoBehaviour
+public class Breakable : Interactable
 {
     public enum BreakableType
     {
@@ -15,9 +15,15 @@ public class Breakable : MonoBehaviour
 
     [SerializeField] BreakableType type = BreakableType.Pot;
     [SerializeField] float health = 1;
+    BreakableSfx sfxPlayer;
 
-    public void TakeHit(float damage)
+    public void Start() {
+        sfxPlayer = GetComponent<BreakableSfx>();
+    }
+
+    public override void Interact(float damage)
     {
+        sfxPlayer.PlayBreakSound();
         health -= damage;
         if (health <= 0)
         {

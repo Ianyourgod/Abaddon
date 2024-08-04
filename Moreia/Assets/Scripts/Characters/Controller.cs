@@ -19,7 +19,8 @@ public class Controller : MonoBehaviour {
     private Vector2 current_player_direction = new Vector2(0, -1);
 
     private float original_anchor_position;
-    private Inventory inventory;
+    [HideInInspector]
+    public Inventory inventory;
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_tick = true;
@@ -37,7 +38,7 @@ public class Controller : MonoBehaviour {
     [HideInInspector]
     public GameObject textFadePrefab;
     [HideInInspector]
-    public GameObject lockPrefab;
+    [SerializeField] GameObject lockPrefab;
 
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
@@ -69,7 +70,7 @@ public class Controller : MonoBehaviour {
         } else {
             original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         }
-        inventory = FindObjectOfType<Inventory>();
+        inventory = GetComponent<Inventory>();
 
         // stat randomization
         constitution += rnd.Next(1, maximum_stat_roll);
@@ -82,7 +83,6 @@ public class Controller : MonoBehaviour {
         ChangeHealthBar();
 
         textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
-        lockPrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/AnimatedLock");
     }
 
     void Update() {
@@ -115,8 +115,6 @@ public class Controller : MonoBehaviour {
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
         PlayAnimation(direction, "idle");
-
-        const int KeyID = 1;
         
         if (Time.time - lastMovement > movementDelay) {
             if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
@@ -130,30 +128,9 @@ public class Controller : MonoBehaviour {
                 if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     Attack(hit, direction, true); // calls next enemy
                 // if we hit a door, attempt to open it
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                    // if the door needs a key, check if we have it
-                    bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                    bool hasKey = inventory.CheckIfItemExists(KeyID);
-                    if ((needsKey && hasKey) || !needsKey) {
-                        if (needsKey) {
-                            inventory.RemoveByID(KeyID);
-                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
-                        } else {
-                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
-                        }
-
-                        Destroy(hit.gameObject);
-                    } else {
-                        hit.GetComponent<DoorSfx>().PlayLockedSound();
-                        Instantiate(lockPrefab, transform.position, Quaternion.identity);
-                    }
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
+                    hit.GetComponent<Interactable>().Interact(attackDamage);
                     FinishTick();
-                }
-                // if we hit a breakable, destroy it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
-                    hit.GetComponent<BreakableSfx>().PlayBreakSound();
-                    hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
-                    Attack(hit, direction, false);
                 }
                 // if we hit a fountain, heal from it
                 else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {

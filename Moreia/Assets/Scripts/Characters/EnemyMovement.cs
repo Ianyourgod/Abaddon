@@ -17,7 +17,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] Pathfinding2D pathfinding;
     [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] BaseAttack attack;
-    [SerializeField] Breakable breakableLogic;
     [SerializeField] SfxPlayer walkingSfxPlayer;
     [SerializeField] SfxPlayer hurtSfxPlayer;
 
@@ -36,12 +35,10 @@ public class EnemyMovement : MonoBehaviour
     
     private EnemySfx sfxPlayer;
 
-    public GameObject textFadePrefab;
+    [SerializeField] GameObject textFadePrefab;
 
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
-
-        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
     }
 
     private void Start() {
@@ -242,7 +239,6 @@ public class EnemyMovement : MonoBehaviour
 
     public void DamageEnemy(uint damage, string targetTag) {
         if (damage >= health) {
-            breakableLogic?.TakeHit(999);
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();

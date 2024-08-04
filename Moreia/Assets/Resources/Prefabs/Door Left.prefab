@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1471304386553776886}
   - component: {fileID: 6300894327041951603}
   - component: {fileID: 1012845310925873939}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: Door Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,13 +45,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1471304386553776881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 098b39a2b7f1292458a144c95d17c122, type: 3}
+  m_Script: {fileID: 11500000, guid: 148f7dcd1f8a8669da0427500a49c46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NeedsKey: 0
-  direction: 2
-  inventory: {fileID: 0}
-  sfxPlayer: {fileID: 0}
+  lockPrefab: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
 --- !u!61 &1471304386553776886
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -210,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1471304387205920297}
   - component: {fileID: 1471304387205920296}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: Door Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

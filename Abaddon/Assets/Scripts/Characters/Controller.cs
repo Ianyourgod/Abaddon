@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(PlayerSfx))]
 [RequireComponent(typeof(Inventory))]
@@ -20,7 +21,8 @@ public class Controller : MonoBehaviour {
     private Vector2 current_player_direction = new Vector2(0, -1);
 
     private float original_anchor_position;
-    private Inventory inventory;
+    [HideInInspector]
+    public Inventory inventory;
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_tick = true;
@@ -48,10 +50,7 @@ public class Controller : MonoBehaviour {
 
     [HideInInspector] public PlayerSfx sfxPlayer;
 
-    [HideInInspector]
-    public GameObject textFadePrefab;
-    [HideInInspector]
-    public GameObject lockPrefab;
+    [SerializeField] GameObject textFadePrefab;
 
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
@@ -165,32 +164,37 @@ public class Controller : MonoBehaviour {
                             hit.GetComponent<DoorSfx>().PlayUnlockedSound();
                         }
 
-                        Destroy(hit.gameObject);
-                    } else {
-                        hit.GetComponent<DoorSfx>().PlayLockedSound();
-                        Instantiate(lockPrefab, transform.position, Quaternion.identity);
-                    }
-                    FinishTick();
-                }
-                // if we hit a breakable, destroy it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
-                    hit.GetComponent<BreakableSfx>().PlayBreakSound();
-                    hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
-                    Attack(hit, direction, false);
-                }
-                // if we hit a fountain, heal from it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-                    if (health < max_health)
-                    {
-                        hit.GetComponent<FountainSfx>().PlayFountainSound();
-                    }
-                    hit.gameObject.GetComponent<Fountain>().Heal();
-                    FinishTick();
-                }
-                else {
-                    FinishTick();
-                }
+        lastMovement = Time.time;
+
+        // you hit a wall
+        if (!validMove && hit == null) {
+            FinishTick();
+            return;
+        }
+
+        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+            transform.Translate(direction);
+            sfxPlayer.PlayWalkSound();
+            FinishTick();
+        // if we hit an enemy, attack it
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+            Attack(hit, direction, true); // calls next enemy
+        // if we hit a door, attempt to open it
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
+            hit.GetComponent<Interactable>().Interact(attackDamage);
+            FinishTick();
+        }
+        // if we hit a fountain, heal from it
+        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+            if (health < max_health)
+            {
+                hit.GetComponent<FountainSfx>().PlayFountainSound();
             }
+            hit.gameObject.GetComponent<Fountain>().Heal();
+            FinishTick();
+        }
+        else {
+            FinishTick();
         }
     }
 
@@ -239,6 +243,10 @@ public class Controller : MonoBehaviour {
         float vertical = (float) (up - down);
 
         return new Vector2(horizontal, vertical);
+    }
+    
+    public Vector2 V3_2_V2(Vector3 vec) {
+        return new Vector2(vec.x, vec.y);
     }
 
     // (if it hit something, what it hit)

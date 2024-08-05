@@ -27,7 +27,7 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnRandom(TableTypes table)
     {
-        int random = Controller.main.rnd.Next(1, 101);
+        int random = Random.Range(1, 101);
         switch (table)
         {
             case TableTypes.Gnome:

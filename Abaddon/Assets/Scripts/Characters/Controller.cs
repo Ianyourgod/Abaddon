@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(PlayerSfx))]
 [RequireComponent(typeof(Inventory))]
@@ -19,7 +20,8 @@ public class Controller : MonoBehaviour {
     private Vector2 current_player_direction = new Vector2(0, -1);
 
     private float original_anchor_position;
-    private Inventory inventory;
+    [HideInInspector]
+    public Inventory inventory;
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_tick = true;
@@ -34,10 +36,7 @@ public class Controller : MonoBehaviour {
 
     [HideInInspector] public PlayerSfx sfxPlayer;
 
-    [HideInInspector]
-    public GameObject textFadePrefab;
-    [HideInInspector]
-    public GameObject lockPrefab;
+    [SerializeField] GameObject textFadePrefab;
 
     [Header("Misc")]
     [SerializeField] LayerMask collideLayers;
@@ -69,7 +68,7 @@ public class Controller : MonoBehaviour {
         } else {
             original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
         }
-        inventory = FindObjectOfType<Inventory>();
+        inventory = GetComponent<Inventory>();
 
         // stat randomization
         constitution += rnd.Next(1, maximum_stat_roll);
@@ -80,9 +79,6 @@ public class Controller : MonoBehaviour {
         health = constitution * 2; // current health
         max_health = health;
         ChangeHealthBar();
-
-        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
-        lockPrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/AnimatedLock");
     }
 
     void Update() {
@@ -115,59 +111,42 @@ public class Controller : MonoBehaviour {
         (bool validMove, Collider2D hit) = IsValidMove(direction);
         current_enemy = 0;
         PlayAnimation(direction, "idle");
-
-        const int KeyID = 1;
         
-        if (Time.time - lastMovement > movementDelay) {
-            if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
-                transform.Translate(direction);
-                sfxPlayer.PlayWalkSound();
-                lastMovement = Time.time;
-                FinishTick();
-            } else {
-                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
-                // if we hit an enemy, attack it
-                if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                    Attack(hit, direction, true); // calls next enemy
-                // if we hit a door, attempt to open it
-                } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                    // if the door needs a key, check if we have it
-                    bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                    bool hasKey = inventory.CheckIfItemExists(KeyID);
-                    if ((needsKey && hasKey) || !needsKey) {
-                        if (needsKey) {
-                            inventory.RemoveByID(KeyID);
-                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
-                        } else {
-                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
-                        }
+        if (Time.time - lastMovement <= movementDelay) {
+            return;
+        }
 
-                        Destroy(hit.gameObject);
-                    } else {
-                        hit.GetComponent<DoorSfx>().PlayLockedSound();
-                        Instantiate(lockPrefab, transform.position, Quaternion.identity);
-                    }
-                    FinishTick();
-                }
-                // if we hit a breakable, destroy it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("breakable")) {
-                    hit.GetComponent<BreakableSfx>().PlayBreakSound();
-                    hit.gameObject.GetComponent<Breakable>().TakeHit(strength);
-                    Attack(hit, direction, false);
-                }
-                // if we hit a fountain, heal from it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-                    if (health < max_health)
-                    {
-                        hit.GetComponent<FountainSfx>().PlayFountainSound();
-                    }
-                    hit.gameObject.GetComponent<Fountain>().Heal();
-                    FinishTick();
-                }
-                else {
-                    FinishTick();
-                }
+        lastMovement = Time.time;
+
+        // you hit a wall
+        if (!validMove && hit == null) {
+            FinishTick();
+            return;
+        }
+
+        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+            transform.Translate(direction);
+            sfxPlayer.PlayWalkSound();
+            FinishTick();
+        // if we hit an enemy, attack it
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+            Attack(hit, direction, true); // calls next enemy
+        // if we hit a door, attempt to open it
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
+            hit.GetComponent<Interactable>().Interact(attackDamage);
+            FinishTick();
+        }
+        // if we hit a fountain, heal from it
+        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+            if (health < max_health)
+            {
+                hit.GetComponent<FountainSfx>().PlayFountainSound();
             }
+            hit.gameObject.GetComponent<Fountain>().Heal();
+            FinishTick();
+        }
+        else {
+            FinishTick();
         }
     }
 
@@ -218,11 +197,18 @@ public class Controller : MonoBehaviour {
 
         return new Vector2(horizontal, vertical);
     }
+    
+    public Vector2 V3_2_V2(Vector3 vec) {
+        return new Vector2(vec.x, vec.y);
+    }
 
     // (if it hit something, what it hit)
     (bool, Collider2D) IsValidMove(Vector2 direction) {
         current_player_direction = direction;
-        Collider2D hit = SendRaycast(direction);
+        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
+
+        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
+
         return (hit == null, hit);
     }
 
@@ -251,12 +237,6 @@ public class Controller : MonoBehaviour {
     private void PlayAnimation(Vector2 direction, string action) {
         string animation = $"Player_animation_{DirectionToString(direction)}_level_0_{action}";
         animator.Play(animation);
-    }
-
-    private Collider2D SendRaycast(Vector2 direction)
-    {
-        return Physics2D.Raycast(transform.position, direction, 1f, collideLayers).collider;
-
     }
 
     private void ChangeHealthBar() {

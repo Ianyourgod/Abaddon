@@ -98,11 +98,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2844499466063138181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3b6e16e2ee345f190e0e3e5fa90044, type: 3}
+  m_Script: {fileID: 11500000, guid: a11867d949e110242a366902ab9c085f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  health: 0
+  health: 1
 --- !u!61 &2844499466063138201
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable: 0
+  forceDropPath: 
 --- !u!82 &964688453007807293
 AudioSource:
   m_ObjectHideFlags: 0
@@ -258,4 +259,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 132eba691c81721408a4c6c0573cc6cb, type: 3}
   randomBreakSound: 1
   addedBreakVolume: 0
-  forceDropPath: 

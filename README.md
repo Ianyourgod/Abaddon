@@ -1,7 +1,7 @@
 
-# Moreia
+# Abaddon
 
-Moreia is an Action-Adventure game exploring the theme of the 5 stages of grief through an 80s inspired fantasy game.
+Abaddon is an Action-Adventure game exploring the theme of the 5 stages of grief through an 80s inspired fantasy game.
 
 
 ## Contributing

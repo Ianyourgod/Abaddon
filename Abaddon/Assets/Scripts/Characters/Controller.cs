@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
@@ -25,7 +26,20 @@ public class Controller : MonoBehaviour {
     public EnemyMovement[] enemies;
     private int current_enemy = 0;
     public bool done_with_tick = true;
-    public int health;
+    private int _health;
+    public int health {
+        get {
+            return _health;
+        }
+        private set {
+            _health = value;
+            _health = Math.Clamp(_health, 0, max_health);
+            if (healthBarVisual) healthBarVisual.value = health;
+            if (_health <= 0) {
+                onDie?.Invoke();
+            }
+        }
+    }
     public int max_health;
     public int attackDamage;
 
@@ -42,7 +56,7 @@ public class Controller : MonoBehaviour {
     [SerializeField] LayerMask collideLayers;
     [SerializeField] float movementDelay = 0.1f;
     [SerializeField] Animator animator;
-    [SerializeField] RectTransform healthBar;
+    [SerializeField] Slider healthBarVisual;
     [SerializeField] Transform respawnPoint;
 
     // stats
@@ -62,13 +76,7 @@ public class Controller : MonoBehaviour {
         main = this;
 
         sfxPlayer = GetComponent<PlayerSfx>();
-
-        if (healthBar == null) {
-            healthBar = new GameObject().AddComponent<RectTransform>();
-        } else {
-            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
-        }
-        inventory = GetComponent<Inventory>();
+        inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
         constitution += rnd.Next(1, maximum_stat_roll);
@@ -76,9 +84,20 @@ public class Controller : MonoBehaviour {
         strength += rnd.Next(1, maximum_stat_roll);
         wisdom += rnd.Next(1, maximum_stat_roll);
 
-        health = constitution * 2; // current health
-        max_health = health;
-        ChangeHealthBar();
+        max_health = constitution * 2;
+        health = max_health;
+
+        textFadePrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/TextFadeCreator");
+        lockPrefab = (UnityEngine.GameObject)Resources.Load($"Prefabs/AnimatedLock");
+
+        if (healthBarVisual) {
+            healthBarVisual.maxValue = max_health;
+            healthBarVisual.minValue = 0;
+        }
+
+        if (respawnPoint == null) {
+            // respawnPoint = Instantiate(transform, transform.position, Quaternion.identity);
+        }
     }
 
     void Update() {
@@ -96,25 +115,54 @@ public class Controller : MonoBehaviour {
             }
         }
         Move();
+
+        if (Input.GetKeyDown(KeyCode.Equals)) {
+            print("healing");
+            health += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Minus)) {
+            DamagePlayer(1, false);
+        }
     }
 
     void Move()
     { 
         Vector2 direction = GetAxis();
-        // if we are not moving, do nothing. if we are going diagonally, do nothing
-        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) {
-            return;
-        }
+
+        // If not moving in exactly one direction, do nothing
+        if (direction.magnitude != 1) return;
 
         done_with_tick = false;
 
-        (bool validMove, Collider2D hit) = IsValidMove(direction);
+        Collider2D hit = IsValidMove(direction);
         current_enemy = 0;
-        PlayAnimation(direction, "idle");
+        PlayAnimation("idle");
+
+        const int KeyID = 1;
         
-        if (Time.time - lastMovement <= movementDelay) {
-            return;
-        }
+        if (Time.time - lastMovement > movementDelay) {
+            if (hit != null || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+                transform.Translate(direction);
+                sfxPlayer.PlayWalkSound();
+                lastMovement = Time.time;
+                FinishTick();
+            } else {
+                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
+                // if we hit an enemy, attack it
+                if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                    Attack(hit, direction, true); // calls next enemy
+                // if we hit a door, attempt to open it
+                } else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                    // if the door needs a key, check if we have it
+                    bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
+                    bool hasKey = inventory.CheckIfItemExists(KeyID);
+                    if ((needsKey && hasKey) || !needsKey) {
+                        if (needsKey) {
+                            inventory.RemoveByID(KeyID);
+                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
+                        } else {
+                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
+                        }
 
         lastMovement = Time.time;
 
@@ -155,7 +203,6 @@ public class Controller : MonoBehaviour {
         max_health = constitution * 2;
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
-        ChangeHealthBar();
     }
 
     void FinishTick() {
@@ -180,7 +227,7 @@ public class Controller : MonoBehaviour {
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         }
         sfxPlayer.PlayAttackSound();
-        PlayAnimation(direction, "attack");
+        PlayAnimation("attack", direction);
     }
 
     Vector2 GetAxis() {
@@ -203,88 +250,68 @@ public class Controller : MonoBehaviour {
     }
 
     // (if it hit something, what it hit)
-    (bool, Collider2D) IsValidMove(Vector2 direction) {
+    Collider2D IsValidMove(Vector2 direction) {
         current_player_direction = direction;
-        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
-
-        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
-
-        return (hit == null, hit);
+        Collider2D hit = SendRaycast(direction);
+        return hit;
     }
 
-    string DirectionToString(Vector2 direction) {
-        /*
-        front: 0, -1
-        back: 0, 1
-        left: -1, 0
-        right: 1, 0
-        */
-
-        if (direction == new Vector2(0, -1)) {
+    string DirectionToAnimationLabel(Vector2 direction) {
+        if (direction == Vector2.down) {
             return "front";
-        } else if (direction == new Vector2(0, 1)) {
+        } else if (direction == Vector2.up) {
             return "back";
-        } else if (direction == new Vector2(-1, 0)) {
+        } else if (direction == Vector2.left) {
             return "left";
-        } else if (direction == new Vector2(1, 0)) {
+        } else if (direction == Vector2.right) {
             return "right";
-        } else {
-            return "front";
         }
+
+        throw new Exception("Invalid direction");
     }
 
-    // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Vector2 direction, string action) {
-        string animation = $"Player_animation_{DirectionToString(direction)}_level_0_{action}";
+    private void PlayAnimation(string action, Vector2? facingDirection = null) {
+        if (facingDirection == null) facingDirection = current_player_direction;
+        string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
     }
 
-    private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 200;
-        healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
-        healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
+    private Collider2D SendRaycast(Vector2 direction)
+    {
+        return Physics2D.Raycast(transform.position, direction, 1f, collideLayers).collider;
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
-        GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(rnd.Next(1, 5) / 10, rnd.Next(1, 5) / 10, 0), Quaternion.identity);
-        if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
-        {
-            health -= Convert.ToInt32(damage);
-            sfxPlayer.PlayHurtSound();
-            PlayAnimation(current_player_direction, "hurt");
-            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
-        } else {
+        if (dodgeable && DodgedAttack()) {
             sfxPlayer.PlayDodgeSound();
-            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.white, 0.4f);
-            // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
-            // todo: dodge animation
+            Helpers.singleton.SpawnHurtText("dodged", transform.position);
         }
+        else {
+            health -= (int)damage;
+            sfxPlayer.PlayHurtSound();
+            PlayAnimation("hurt");
+            Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+        } 
+    }
 
-        ChangeHealthBar();
+    bool DodgedAttack() {
+        return rnd.Next(0, 1) < DexterityToPercent();
+    }
 
-        if (health <= 0) {
-            onDie();
-        }
+    float DexterityToPercent() {
+        return dexterity / 20f;
     }
 
     public void Respawn() {
         health = max_health;
         transform.position = respawnPoint.position;
-        ChangeHealthBar();
-    }
-
-    public (int, int) PlayerHealthInfo()
-    {
-        return (health, max_health);
     }
 
     // returns overflow health
     public int HealPlayer(int heal)
     {
-        int overflowHealth = (health + heal) - max_health;
+        int overflowHealth = health + heal - max_health;
         health += heal;
-        health = Math.Clamp(health, 0, max_health);
-        ChangeHealthBar();
         return overflowHealth;
     }
 

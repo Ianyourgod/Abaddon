@@ -128,55 +128,32 @@ public class Controller : MonoBehaviour {
 
     void Move() {
         Vector2 direction = GetAxis();
-
-        // If not moving in exactly one direction, do nothing
-        if (direction.magnitude != 1) return;
+        // if we are not moving, do nothing. if we are going diagonally, do nothing
+        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) {
+            return;
+        }
 
         done_with_tick = false;
+        current_player_direction = direction;
+        Collider2D hit = SendRaycast(direction);
+        bool validMove = hit == null;
 
-        Collider2D hit = IsValidMove(direction);
         current_enemy = 0;
-        PlayAnimation("idle");
+        PlayAnimation("idle", direction);
         
-        if (Time.time - lastMovement > movementDelay) {
-            if (hit.gameObject != null || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
-                transform.Translate(direction);
-                sfxPlayer.PlayWalkSound();
-                lastMovement = Time.time;
-                FinishTick();
-            } else {
-                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
-                // if we hit an enemy, attack it
-                if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-                    Attack(hit, direction, true); // calls next enemy
-                } 
-                // if we hit a door, attempt to open it
-                else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
-                    // if the door needs a key, check if we have it
-                    bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
-                    bool hasKey = inventory.CheckIfItemExists(KeyID);
-                    if ((needsKey && hasKey) || !needsKey) {
-                        if (needsKey) {
-                            inventory.RemoveByID(KeyID);
-                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
-                        } 
-                        else {
-                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
-                        }
-                    }
-                }
-            }
+        if (Time.time - lastMovement <= movementDelay) {
+            return;
         }
 
         lastMovement = Time.time;
 
         // you hit a wall
-        if (hit == null) {
+        if (!validMove && hit == null) {
             FinishTick();
             return;
         }
 
-        if (hit == null || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             FinishTick();
@@ -190,9 +167,8 @@ public class Controller : MonoBehaviour {
         }
         // if we hit a fountain, heal from it
         else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-            if (health < max_health) {
+            if (health < max_health)
                 hit.GetComponent<FountainSfx>().PlayFountainSound();
-            }
             hit.gameObject.GetComponent<Fountain>().Heal();
             FinishTick();
         }
@@ -253,9 +229,11 @@ public class Controller : MonoBehaviour {
     }
 
     // (if it hit something, what it hit)
-    Collider2D IsValidMove(Vector2 direction) {
-        current_player_direction = direction;
-        Collider2D hit = SendRaycast(direction);
+    Collider2D SendRaycast(Vector2 direction) {
+        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
+
+        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
+
         return hit;
     }
 
@@ -277,11 +255,6 @@ public class Controller : MonoBehaviour {
         if (facingDirection == null) facingDirection = current_player_direction;
         string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
-    }
-
-    private Collider2D SendRaycast(Vector2 direction)
-    {
-        return Physics2D.Raycast(transform.position, direction, 1f, collideLayers).collider;
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {

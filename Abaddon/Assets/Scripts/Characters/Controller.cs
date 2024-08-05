@@ -2,83 +2,104 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(PlayerSfx))]
-[RequireComponent(typeof(Inventory))]
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
 
 public class Controller : MonoBehaviour {
-    // used for non-enemy things where having stuff in order doesnt really matter
-    public delegate void TickAction();
-    public static event TickAction OnTick;
+    #region Variables
+        public static Controller main;
+        
+        #region Stats
+            [Header("Base Stats")]
+            [SerializeField, Tooltip("Constitution (maximum health)")] public int constitution = 9;
+            
+            [SerializeField, Tooltip("Dexterity (dodge chance)")] public int dexterity = 9;
+            
+            [SerializeField, Tooltip("Strength (attack damage)")] public int strength = 9;
+            [HideInInspector] public int attackDamage;
 
-    public static Controller main;
+            [SerializeField, Tooltip("Wisdom (ability damage)")] public int wisdom = 9;
+            
+            [SerializeField, Tooltip("High end of range to add")] public int maximum_stat_roll = 7;
+            [Space]
+        #endregion
 
-    private float lastMovement = 0f;
-    private Vector2 current_player_direction = new Vector2(0, -1);
+        #region Health
+            [Header("Health")]
+            [SerializeField] Slider healthBarVisual;
+            [SerializeField] Transform respawnPoint;
+            [Space]
+            [HideInInspector] public Action onDie;
+            [HideInInspector] public int max_health;
+            public int health
+            {
+                get => _health;
+                private set {
+                    _health = value;
+                    _health = Math.Clamp(_health, 0, max_health);
+                    if (healthBarVisual) healthBarVisual.value = health;
+                    if (_health <= 0) {
+                        onDie?.Invoke();
+                    }
+                }
+            }    
+            int _health;
+        #endregion
 
-    private float original_anchor_position;
-    [HideInInspector]
-    public Inventory inventory;
-    public EnemyMovement[] enemies;
-    private int current_enemy = 0;
-    public bool done_with_tick = true;
-    public int health;
-    public int max_health;
-    public int attackDamage;
+        #region Movement
+            [Header("Movement")]
+            [SerializeField] LayerMask collideLayers;
+            [SerializeField] float movementDelay = 0.1f;
+            [Space]
+            Vector2 current_player_direction = new Vector2(0, -1);
+            float lastMovement = 0f;
+        #endregion
 
-    public System.Random rnd = new System.Random();
+        #region Player Update System 
+            [HideInInspector] public static Action OnTick;
+            [HideInInspector] public EnemyMovement[] enemies;
+            [HideInInspector] public bool done_with_tick = true;
+            int current_enemy = 0;
+        #endregion
 
-    public delegate void OnDie();
-    public OnDie onDie;
-
-    [HideInInspector] public PlayerSfx sfxPlayer;
-
-    [SerializeField] GameObject textFadePrefab;
-
-    [Header("Misc")]
-    [SerializeField] LayerMask collideLayers;
-    [SerializeField] float movementDelay = 0.1f;
-    [SerializeField] Animator animator;
-    [SerializeField] RectTransform healthBar;
-    [SerializeField] Transform respawnPoint;
-
-    // stats
-    [Header("Base Stats")]
-    [Tooltip("Constitution (maximum health)")]
-    [SerializeField] public int constitution = 9;
-    [Tooltip("Dexterity (dodge chance)")]
-    [SerializeField] public int dexterity = 9;
-    [Tooltip("Strength (attack damage)")]
-    [SerializeField] public int strength = 9;
-    [Tooltip("Wisdom (ability damage)")]
-    [SerializeField] public int wisdom = 9;
-    [Tooltip("High end of range to add")]
-    [SerializeField] public int maximum_stat_roll = 7;
+        #region Other 
+            [Header("Other")]
+            [SerializeField] Animator animator;
+            [HideInInspector] public PlayerSfx sfxPlayer;
+            [HideInInspector] public Inventory inventory;
+        #endregion
+        
+        #region Constants 
+            const int KeyID = 1;
+        #endregion
+    #endregion
 
     void Awake() {
         main = this;
 
         sfxPlayer = GetComponent<PlayerSfx>();
-
-        if (healthBar == null) {
-            healthBar = new GameObject().AddComponent<RectTransform>();
-        } else {
-            original_anchor_position = healthBar.anchoredPosition.x - healthBar.sizeDelta.x / 2;
-        }
-        inventory = GetComponent<Inventory>();
+        inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
-        constitution += rnd.Next(1, maximum_stat_roll);
-        dexterity += rnd.Next(1, maximum_stat_roll);
-        strength += rnd.Next(1, maximum_stat_roll);
-        wisdom += rnd.Next(1, maximum_stat_roll);
+        constitution += UnityEngine.Random.Range(1, maximum_stat_roll);
+        dexterity += UnityEngine.Random.Range(1, maximum_stat_roll);
+        strength += UnityEngine.Random.Range(1, maximum_stat_roll);
+        wisdom += UnityEngine.Random.Range(1, maximum_stat_roll);
 
-        health = constitution * 2; // current health
-        max_health = health;
-        ChangeHealthBar();
+        max_health = constitution * 2;
+        health = max_health;
+
+        if (healthBarVisual) {
+            healthBarVisual.maxValue = max_health;
+            healthBarVisual.minValue = 0;
+        }
+
+        if (respawnPoint == null) {
+            respawnPoint = Instantiate(transform, transform.position, Quaternion.identity);
+        }
     }
 
     void Update() {
@@ -96,35 +117,66 @@ public class Controller : MonoBehaviour {
             }
         }
         Move();
+
+        if (Input.GetKeyDown(KeyCode.Equals)) {
+            health += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Minus)) {
+            DamagePlayer(1, false);
+        }
     }
 
-    void Move()
-    { 
+    void Move() {
         Vector2 direction = GetAxis();
-        // if we are not moving, do nothing. if we are going diagonally, do nothing
-        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) {
-            return;
-        }
+
+        // If not moving in exactly one direction, do nothing
+        if (direction.magnitude != 1) return;
 
         done_with_tick = false;
 
-        (bool validMove, Collider2D hit) = IsValidMove(direction);
+        Collider2D hit = IsValidMove(direction);
         current_enemy = 0;
-        PlayAnimation(direction, "idle");
+        PlayAnimation("idle");
         
-        if (Time.time - lastMovement <= movementDelay) {
-            return;
+        if (Time.time - lastMovement > movementDelay) {
+            if (hit.gameObject != null || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+                transform.Translate(direction);
+                sfxPlayer.PlayWalkSound();
+                lastMovement = Time.time;
+                FinishTick();
+            } else {
+                //print($"layer number: {LayerMask.NameToLayer("breakable")}");
+                // if we hit an enemy, attack it
+                if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                    Attack(hit, direction, true); // calls next enemy
+                } 
+                // if we hit a door, attempt to open it
+                else if (hit.gameObject.layer == LayerMask.NameToLayer("door")) {
+                    // if the door needs a key, check if we have it
+                    bool needsKey = hit.gameObject.GetComponent<Door>().NeedsKey;
+                    bool hasKey = inventory.CheckIfItemExists(KeyID);
+                    if ((needsKey && hasKey) || !needsKey) {
+                        if (needsKey) {
+                            inventory.RemoveByID(KeyID);
+                            hit.GetComponent<DoorSfx>().PlayUnlockLockedSound();
+                        } 
+                        else {
+                            hit.GetComponent<DoorSfx>().PlayUnlockedSound();
+                        }
+                    }
+                }
+            }
         }
 
         lastMovement = Time.time;
 
         // you hit a wall
-        if (!validMove && hit == null) {
+        if (hit == null) {
             FinishTick();
             return;
         }
 
-        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+        if (hit == null || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             FinishTick();
@@ -138,8 +190,7 @@ public class Controller : MonoBehaviour {
         }
         // if we hit a fountain, heal from it
         else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-            if (health < max_health)
-            {
+            if (health < max_health) {
                 hit.GetComponent<FountainSfx>().PlayFountainSound();
             }
             hit.gameObject.GetComponent<Fountain>().Heal();
@@ -155,7 +206,6 @@ public class Controller : MonoBehaviour {
         max_health = constitution * 2;
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
-        ChangeHealthBar();
     }
 
     void FinishTick() {
@@ -180,7 +230,7 @@ public class Controller : MonoBehaviour {
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         }
         sfxPlayer.PlayAttackSound();
-        PlayAnimation(direction, "attack");
+        PlayAnimation("attack", direction);
     }
 
     Vector2 GetAxis() {
@@ -203,88 +253,68 @@ public class Controller : MonoBehaviour {
     }
 
     // (if it hit something, what it hit)
-    (bool, Collider2D) IsValidMove(Vector2 direction) {
+    Collider2D IsValidMove(Vector2 direction) {
         current_player_direction = direction;
-        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
-
-        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
-
-        return (hit == null, hit);
+        Collider2D hit = SendRaycast(direction);
+        return hit;
     }
 
-    string DirectionToString(Vector2 direction) {
-        /*
-        front: 0, -1
-        back: 0, 1
-        left: -1, 0
-        right: 1, 0
-        */
-
-        if (direction == new Vector2(0, -1)) {
+    string DirectionToAnimationLabel(Vector2 direction) {
+        if (direction == Vector2.down) {
             return "front";
-        } else if (direction == new Vector2(0, 1)) {
+        } else if (direction == Vector2.up) {
             return "back";
-        } else if (direction == new Vector2(-1, 0)) {
+        } else if (direction == Vector2.left) {
             return "left";
-        } else if (direction == new Vector2(1, 0)) {
+        } else if (direction == Vector2.right) {
             return "right";
-        } else {
-            return "front";
         }
+
+        throw new Exception("Invalid direction");
     }
 
-    // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Vector2 direction, string action) {
-        string animation = $"Player_animation_{DirectionToString(direction)}_level_0_{action}";
+    private void PlayAnimation(string action, Vector2? facingDirection = null) {
+        if (facingDirection == null) facingDirection = current_player_direction;
+        string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
     }
 
-    private void ChangeHealthBar() {
-        float new_bar_width = (health / (float) (constitution * 2)) * 200;
-        healthBar.sizeDelta = new Vector2(new_bar_width, healthBar.sizeDelta.y);
-        healthBar.anchoredPosition = new Vector2(healthBar.sizeDelta.x / 2 + original_anchor_position, healthBar.anchoredPosition.y);
+    private Collider2D SendRaycast(Vector2 direction)
+    {
+        return Physics2D.Raycast(transform.position, direction, 1f, collideLayers).collider;
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
-        GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(rnd.Next(1, 5) / 10, rnd.Next(1, 5) / 10, 0), Quaternion.identity);
-        if ((rnd.Next(10, 25) > dexterity && dodgeable) || !dodgeable)
-        {
-            health -= Convert.ToInt32(damage);
-            sfxPlayer.PlayHurtSound();
-            PlayAnimation(current_player_direction, "hurt");
-            damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
-        } else {
+        if (dodgeable && DodgedAttack()) {
             sfxPlayer.PlayDodgeSound();
-            damageAmount.GetComponent<RealTextFadeUp>().SetText("dodged", Color.red, Color.white, 0.4f);
-            // Instantiate(dodgePrefab, transform.position, Quaternion.identity);
-            // todo: dodge animation
+            Helpers.singleton.SpawnHurtText("dodged", transform.position);
         }
+        else {
+            health -= (int)damage;
+            sfxPlayer.PlayHurtSound();
+            PlayAnimation("hurt");
+            Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+        } 
+    }
 
-        ChangeHealthBar();
+    bool DodgedAttack() {
+        return UnityEngine.Random.value < DexterityToPercent();
+    }
 
-        if (health <= 0) {
-            onDie();
-        }
+    float DexterityToPercent() {
+        return dexterity / 20f;
     }
 
     public void Respawn() {
         health = max_health;
         transform.position = respawnPoint.position;
-        ChangeHealthBar();
-    }
-
-    public (int, int) PlayerHealthInfo()
-    {
-        return (health, max_health);
     }
 
     // returns overflow health
     public int HealPlayer(int heal)
     {
-        int overflowHealth = (health + heal) - max_health;
+        int overflowHealth = health + heal - max_health;
         health += heal;
-        health = Math.Clamp(health, 0, max_health);
-        ChangeHealthBar();
         return overflowHealth;
     }
 

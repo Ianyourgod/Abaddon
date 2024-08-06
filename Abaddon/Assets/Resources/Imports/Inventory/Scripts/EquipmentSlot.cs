@@ -47,17 +47,12 @@ public class EquipmentSlot : MonoBehaviour
 			var item = GetComponent<Slot>().slotsItem;
 			searchID = item.ItemID;
 			if (item.TryGetComponent(out StatModifier slotModifier)) {				
-				Controller.main.dexterity += slotModifier.dexterity;
-				Controller.main.constitution += slotModifier.constitution;
-				Controller.main.strength += slotModifier.strength;
-				Controller.main.wisdom += slotModifier.wisdom;
-				savedStats = new int[] {
-					slotModifier.dexterity,
-					slotModifier.constitution,
-					slotModifier.strength,
+				savedStats = Controller.main.stats.AddToStats(
+					slotModifier.constitution, 
+					slotModifier.dexterity, 
+					slotModifier.strength, 
 					slotModifier.wisdom
-				};
-				Controller.main.UpdateStats();
+				);
 			}
 			//for (int i = 0; i < possibleEqips.Length; i++)
 			//{
@@ -81,12 +76,13 @@ public class EquipmentSlot : MonoBehaviour
 		equipped = false;
 		var item = GetComponent<Slot>().slotsItem;
 
-		Controller.main.dexterity -= savedStats[0];
-		Controller.main.constitution -= savedStats[1];
-		Controller.main.strength -= savedStats[2];
-		Controller.main.wisdom -= savedStats[3];
+		Controller.main.stats.SubtractFromStats(
+			savedStats[0], 
+			savedStats[1], 
+			savedStats[2], 
+			savedStats[3]
+		);
 		savedStats = new int[] { 0, 0, 0, 0 };
-		Controller.main.UpdateStats();
 		foreach (EqippableItem eqippableItem in possibleEqips)
 		{
 			if (eqippableItem.ItemID == searchID)

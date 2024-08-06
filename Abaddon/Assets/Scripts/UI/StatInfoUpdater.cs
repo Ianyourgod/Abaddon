@@ -5,7 +5,7 @@ using TMPro;
 
 public class StatInfoUpdater : MonoBehaviour
 {
-    private enum Stat {
+    private enum FollowType {
         Wisdom,
         Strength,
         Dexterity,
@@ -14,33 +14,31 @@ public class StatInfoUpdater : MonoBehaviour
     }
 
     [SerializeField] private TMP_Text text;
-    [SerializeField] private Stat stat;
-    // Start is called before the first frame update
+    [SerializeField] private FollowType stat;
+    
     void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         switch (stat)
         {
-            case Stat.Wisdom:
-                text.text = $"{Controller.main.wisdom}";
+            case FollowType.Wisdom:
+                Controller.main.stats.onChangeWisdom += UpdateText;
                 break;
-            case Stat.Strength:
-                text.text = $"{Controller.main.strength}";
+            case FollowType.Strength:
+                Controller.main.stats.onChangeStrength += UpdateText;
                 break;
-            case Stat.Dexterity:
-                text.text = $"{Controller.main.dexterity}";
+            case FollowType.Dexterity:
+                Controller.main.stats.onChangeDexterity += UpdateText;
                 break;
-            case Stat.Constitution:
-                text.text = $"{Controller.main.constitution}";
+            case FollowType.Constitution:
+                Controller.main.stats.onChangeConstitution += UpdateText;
                 break;
-            case Stat.Health:
-                text.text = $"{Controller.main.health}";
+            case FollowType.Health:
+                Controller.main.onHealthChanged += UpdateText;
                 break;
         }
+    }
+
+    void UpdateText(int value) {
+        text.text = $"{value}";
     }
 }

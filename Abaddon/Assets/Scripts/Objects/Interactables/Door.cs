@@ -20,7 +20,7 @@ public class Door : Interactable
     public override void Interact(float damage) {
         const int key_ID = 1;
 
-        bool hasKey = Controller.main.inventory.CheckIfItemExists(key_ID);
+        bool hasKey = Controller.main.inventory && Controller.main.inventory.CheckIfItemExists(key_ID);
         if ((NeedsKey && hasKey) || !NeedsKey) {
             if (NeedsKey) {
                 Controller.main.inventory.RemoveByID(key_ID);

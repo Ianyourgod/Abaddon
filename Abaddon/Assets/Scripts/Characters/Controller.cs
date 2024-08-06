@@ -6,24 +6,25 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
 
 public class Controller : MonoBehaviour {
+
+    public Stats stats = new Stats();
+
     #region Variables
         public static Controller main;
         
         #region Stats
             [Header("Base Stats")]
-            [SerializeField, Tooltip("Constitution (maximum health)")] public int constitution = 9;
+            [SerializeField, Tooltip("Constitution (maximum health)")] private int constitution = 9;
             
-            [SerializeField, Tooltip("Dexterity (dodge chance)")] public int dexterity = 9;
+            [SerializeField, Tooltip("Dexterity (dodge chance)")] private int dexterity = 9;
             
-            [SerializeField, Tooltip("Strength (attack damage)")] public int strength = 9;
-            [HideInInspector] public int attackDamage;
+            [SerializeField, Tooltip("Strength (attack damage)")] private int strength = 9;
 
-            [SerializeField, Tooltip("Wisdom (ability damage)")] public int wisdom = 9;
+            [SerializeField, Tooltip("Wisdom (ability damage)")] private int wisdom = 9;
             
-            [SerializeField, Tooltip("High end of range to add")] public int maximum_stat_roll = 7;
+            [SerializeField, Tooltip("High end of range to add")] private int statVariance = 7;
             [Space]
         #endregion
 
@@ -31,21 +32,23 @@ public class Controller : MonoBehaviour {
             [Header("Health")]
             [SerializeField] Slider healthBarVisual;
             [SerializeField] Transform respawnPoint;
+            Vector3 respawnPointPosition;
             [Space]
             [HideInInspector] public Action onDie;
-            [HideInInspector] public int max_health;
             public int health
             {
                 get => _health;
                 private set {
                     _health = value;
-                    _health = Math.Clamp(_health, 0, max_health);
+                    _health = Math.Clamp(_health, 0, stats.GetMaxHealth());
                     if (healthBarVisual) healthBarVisual.value = health;
                     if (_health <= 0) {
                         onDie?.Invoke();
                     }
+                    onHealthChanged?.Invoke(_health);
                 }
-            }    
+            }
+            public Action<int> onHealthChanged;
             int _health;
         #endregion
 
@@ -84,50 +87,55 @@ public class Controller : MonoBehaviour {
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
-        constitution += UnityEngine.Random.Range(1, maximum_stat_roll);
-        dexterity += UnityEngine.Random.Range(1, maximum_stat_roll);
-        strength += UnityEngine.Random.Range(1, maximum_stat_roll);
-        wisdom += UnityEngine.Random.Range(1, maximum_stat_roll);
-
-        max_health = constitution * 2;
-        health = max_health;
+        stats = new Stats(constitution, dexterity, strength, wisdom, statVariance);
 
         if (healthBarVisual) {
-            healthBarVisual.maxValue = max_health;
-            healthBarVisual.minValue = 0;
+            healthBarVisual.maxValue = stats.GetMaxHealth();
+            stats.onChangeConstitution += (_) => healthBarVisual.maxValue = stats.GetMaxHealth();
+            stats.onChangeConstitution += (_) => health = stats.GetMaxHealth();
         }
+        
+        constitution += UnityEngine.Random.Range(1, statVariance);
+        dexterity += UnityEngine.Random.Range(1, statVariance);
+        strength += UnityEngine.Random.Range(1, statVariance);
+        wisdom += UnityEngine.Random.Range(1, statVariance);
 
-        if (respawnPoint == null) {
-            respawnPoint = Instantiate(transform, transform.position, Quaternion.identity);
-        }
+        health = stats.GetMaxHealth();
+
+        if (respawnPoint == null) respawnPointPosition = transform.position;
+        else respawnPointPosition = respawnPoint.position;
     }
 
     void Update() {
-        UpdateStats();
+        if (!IsDoneWithTickCycle()) return;
 
-        enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick) {
-            return;
-        }
-        if (!done_with_tick) {
-            if (current_enemy >= enemies.Length) {
-                done_with_tick = true;
-            } else {
-                return;
-            }
-        }
         Move();
 
-        if (Input.GetKeyDown(KeyCode.Equals)) {
-            health += 1;
+        BugTesting();
+    }
+
+    bool IsDoneWithTickCycle() {
+        enemies = FindObjectsOfType<EnemyMovement>();
+        if (!done_with_tick) {
+            if (current_enemy >= enemies.Length) done_with_tick = true;
+            
+            else return false;
         }
-        if (Input.GetKeyDown(KeyCode.Minus)) {
-            DamagePlayer(1, false);
-        }
+
+        return true;
+    }
+
+    void BugTesting() {
+        if (Input.GetKeyDown(KeyCode.Equals)) health += 1;
+        if (Input.GetKeyDown(KeyCode.Minus)) DamagePlayer(1, false);
+        
+        if (Input.GetKeyDown(KeyCode.Comma)) stats.constitution += 1;
+        if (Input.GetKeyDown(KeyCode.Period)) stats.constitution -= 1;
     }
 
     void Move() {
-        Vector2 direction = GetAxis();
+        Vector2 direction = GetCardinalInputs();
+
         // if we are not moving, do nothing. if we are going diagonally, do nothing
         if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) {
             return;
@@ -135,7 +143,7 @@ public class Controller : MonoBehaviour {
 
         done_with_tick = false;
         current_player_direction = direction;
-        Collider2D hit = SendRaycast(direction);
+        Collider2D hit = GetMovingToTile(direction);
         bool validMove = hit == null;
 
         current_enemy = 0;
@@ -155,19 +163,21 @@ public class Controller : MonoBehaviour {
 
         if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
             transform.Translate(direction);
-            sfxPlayer.PlayWalkSound();
+            sfxPlayer?.PlayWalkSound();
             FinishTick();
+        } 
         // if we hit an enemy, attack it
-        } else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+        else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
             Attack(hit, direction, true); // calls next enemy
+        } 
         // if we hit a door, attempt to open it
-        } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
-            hit.GetComponent<Interactable>().Interact(attackDamage);
+        else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
+            hit.GetComponent<Interactable>().Interact(stats.GetAttackDamage());
             FinishTick();
         }
         // if we hit a fountain, heal from it
         else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-            if (health < max_health)
+            if (health < stats.GetMaxHealth())
                 hit.GetComponent<FountainSfx>().PlayFountainSound();
             hit.gameObject.GetComponent<Fountain>().Heal();
             FinishTick();
@@ -175,13 +185,6 @@ public class Controller : MonoBehaviour {
         else {
             FinishTick();
         }
-    }
-
-    public void UpdateStats()
-    {
-        max_health = constitution * 2;
-        attackDamage = 2 + ((strength - 10) / 2); // attack damage
-        HealPlayer(0);
     }
 
     void FinishTick() {
@@ -202,39 +205,21 @@ public class Controller : MonoBehaviour {
     private void Attack(Collider2D hit, Vector2 direction, bool real)
     {
         if (real) {
-            hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
+            hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(stats.GetAttackDamage()), hit.gameObject.tag);
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         }
-        sfxPlayer.PlayAttackSound();
+        sfxPlayer?.PlayAttackSound();
         PlayAnimation("attack", direction);
     }
 
-    Vector2 GetAxis() {
-        Func<bool, int> BoolToInt = boolValue => boolValue ? 1 : 0;
-
-        // todo: allow people to rebind movement keys
-        int up = BoolToInt(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
-        int down = BoolToInt(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow));
-        int left = BoolToInt(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow));
-        int right = BoolToInt(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow));
-
-        float horizontal = (float) (right - left);
-        float vertical = (float) (up - down);
-
-        return new Vector2(horizontal, vertical);
-    }
-    
-    public Vector2 V3_2_V2(Vector3 vec) {
-        return new Vector2(vec.x, vec.y);
+    Vector2 GetCardinalInputs() {
+        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     // (if it hit something, what it hit)
-    Collider2D SendRaycast(Vector2 direction) {
-        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
-
-        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
-
-        return hit;
+    Collider2D GetMovingToTile(Vector2 direction) {
+        Vector2 centerOfBox = (Vector2)transform.position + direction;
+        return Physics2D.OverlapBox(centerOfBox, new Vector3(0.9f, 0.9f, 0), 0, collideLayers);
     }
 
     string DirectionToAnimationLabel(Vector2 direction) {
@@ -259,19 +244,25 @@ public class Controller : MonoBehaviour {
 
     public void DamagePlayer(uint damage, bool dodgeable = true) {
         if (dodgeable && DodgedAttack()) {
-            sfxPlayer.PlayDodgeSound();
+            sfxPlayer?.PlayDodgeSound();
             Helpers.singleton.SpawnHurtText("dodged", transform.position);
         }
         else {
             health -= (int)damage;
-            sfxPlayer.PlayHurtSound();
+            sfxPlayer?.PlayHurtSound();
             PlayAnimation("hurt");
-            Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+            Helpers.singleton?.SpawnHurtText(damage.ToString(), transform.position);
         } 
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube((Vector2)transform.position + current_player_direction, new Vector3(0.9f, 0.9f, 0));   
+    }
+
     bool DodgedAttack() {
-        return UnityEngine.Random.value < DexterityToPercent();
+        return UnityEngine.Random.value < stats.DexterityToPercent();
     }
 
     float DexterityToPercent() {
@@ -279,14 +270,14 @@ public class Controller : MonoBehaviour {
     }
 
     public void Respawn() {
-        health = max_health;
-        transform.position = respawnPoint.position;
+        health = stats.GetMaxHealth();
+        transform.position = respawnPointPosition;
     }
 
     // returns overflow health
     public int HealPlayer(int heal)
     {
-        int overflowHealth = health + heal - max_health;
+        int overflowHealth = health + heal - stats.GetMaxHealth();
         health += heal;
         return overflowHealth;
     }
@@ -295,5 +286,13 @@ public class Controller : MonoBehaviour {
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();
+    }
+
+    public int GetMaxHealth() {
+        return constitution * 2;
+    }
+
+    int GetAttackDamage() {
+        return 2 + ((strength - 10) / 2);
     }
 }

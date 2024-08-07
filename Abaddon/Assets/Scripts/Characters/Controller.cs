@@ -5,9 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour, Damageable, Attackable {
     #region Variables
         public static Controller main;
         
@@ -61,10 +62,9 @@ public class Controller : MonoBehaviour {
         #endregion
 
         #region Player Update System 
-            [HideInInspector] public static Action OnTick;
-            [HideInInspector] public EnemyMovement[] enemies;
-            [HideInInspector] public bool done_with_tick = true;
-            int current_enemy = 0;
+            [HideInInspector] public static Action OnPlayerTick;
+            [HideInInspector] public List<EnemyMovement> enemies;
+            int current_enemy = -1;
         #endregion
 
         #region Other 
@@ -79,9 +79,6 @@ public class Controller : MonoBehaviour {
         #endregion
     #endregion
 
-    [SerializeField] Animator gnome;
-
-    #region Life cycle functions
     void Awake() {
         main = this;
 
@@ -115,115 +112,84 @@ public class Controller : MonoBehaviour {
 
         BugTesting();
     }
-    #endregion
 
     bool IsDoneWithTickCycle() {
-        enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick) {
-            if (current_enemy >= enemies.Length) done_with_tick = true;
-            
-            else return false;
-        }
-
-        return true;
+        return current_enemy == -1;
     }
 
     void BugTesting() {
         if (Input.GetKeyDown(KeyCode.Equals)) health += 1;
-        if (Input.GetKeyDown(KeyCode.Minus)) DamagePlayer(1, false);
+        if (Input.GetKeyDown(KeyCode.Minus)) Hurt(1, false);
         
         if (Input.GetKeyDown(KeyCode.Comma)) stats.constitution += 1;
         if (Input.GetKeyDown(KeyCode.Period)) stats.constitution -= 1;
-
-        if (Input.GetKeyDown(KeyCode.T)) gnome.Play("Goblin_animation_back_attack");
     }
 
     void Move() {
         Vector2 direction = GetCardinalInputs();
 
         // if we are not moving, do nothing. if we are going diagonally, do nothing
-        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) {
-            return;
-        }
+        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) return;
 
-        done_with_tick = false;
         current_player_direction = direction;
-        Collider2D hit = GetMovingToTile(direction);
-        bool validMove = hit == null;
 
-        current_enemy = 0;
         PlayAnimation("idle", direction);
         
-        if (Time.time - lastMovement <= movementDelay) {
-            return;
-        }
-
+        if (Time.time - lastMovement <= movementDelay) return;
         lastMovement = Time.time;
 
-        // you hit a wall
-        if (!validMove && hit == null) {
-            FinishTick();
-            return;
-        }
 
-        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap")) {
+        GameObject[] hits = GetAllTilesInFront(direction);
+        if (hits.Length == 0) {
             transform.Translate(direction);
             sfxPlayer?.PlayWalkSound();
-            FinishTick();
-        } 
-        // if we hit an enemy, attack it
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-            Attack(hit, direction, true); // calls next enemy
-        } 
-        // if we hit a door, attempt to open it
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
-            hit.GetComponent<Interactable>().Interact(stats.GetAttackDamage());
-            FinishTick();
         }
-        // if we hit a fountain, heal from it
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-            if (health < stats.GetMaxHealth())
-                hit.GetComponent<FountainSfx>().PlayFountainSound();
-            hit.gameObject.GetComponent<Fountain>().Heal();
-            FinishTick();
+        foreach (GameObject hit in hits) {
+            print("hit name: " + hit.name);
+            if (hit.TryGetComponent(out Interactable interactable)) {
+                interactable.Interact();
+            }
+            if (hit.TryGetComponent(out Damageable enemy)) {
+                Attack(enemy);
+            }
         }
-        else {
-            FinishTick();
-        }
+
+        StartPlayerTick();
     }
 
-    void FinishTick() {
-        OnTick?.Invoke();
+    void StartPlayerTick() {
+        OnPlayerTick?.Invoke();
+        current_enemy = 0;
         NextEnemy();
     }
 
     public void NextEnemy() {
-        if (current_enemy >= enemies.Length) {
-            done_with_tick = true;
+        if (IsDoneWithTickCycle()) return;
+
+        current_enemy += 1;
+        if (current_enemy >= enemies.Count) {
+            current_enemy = -1;
             return;
         }
-        enemies[current_enemy++].MakeDecision();
+        
+        enemies[current_enemy].MakeDecision();
     }
 
-    // real is whether or not to try to actually hit, set to false to just play the animation
-    private void Attack(Collider2D hit, Vector2 direction, bool real)
+    public void Attack(Damageable enemy)
     {
-        if (real) {
-            hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(stats.GetAttackDamage()), hit.gameObject.tag);
-            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-        }
+        enemy.Hurt((uint) stats.GetAttackDamage(), false);
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         sfxPlayer?.PlayAttackSound();
-        PlayAnimation("attack", direction);
+        PlayAnimation("attack", current_player_direction);
     }
 
     Vector2 GetCardinalInputs() {
         return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
-    // (if it hit something, what it hit)
-    Collider2D GetMovingToTile(Vector2 direction) {
+    GameObject[] GetAllTilesInFront(Vector2 direction) {
         Vector2 centerOfBox = (Vector2)transform.position + direction;
-        return Physics2D.OverlapBox(centerOfBox, new Vector3(0.9f, 0.9f, 0), 0, collideLayers);
+        return Physics2D.OverlapBoxAll(centerOfBox, new Vector3(0.9f, 0.9f, 0), 0, collideLayers).Select(hit => hit.gameObject).ToArray();
     }
 
     string DirectionToAnimationLabel(Vector2 direction) {
@@ -246,7 +212,7 @@ public class Controller : MonoBehaviour {
         animator.Play(animation);
     }
 
-    public void DamagePlayer(uint damage, bool dodgeable = true) {
+    public void Hurt(uint damage, bool dodgeable = true) {
         if (dodgeable && DodgedAttack()) {
             sfxPlayer?.PlayDodgeSound();
             Helpers.singleton.SpawnHurtText("dodged", transform.position);
@@ -259,18 +225,8 @@ public class Controller : MonoBehaviour {
         } 
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((Vector2)transform.position + current_player_direction, new Vector3(0.9f, 0.9f, 0));   
-    }
-
     bool DodgedAttack() {
         return UnityEngine.Random.value < stats.DexterityToPercent();
-    }
-
-    float DexterityToPercent() {
-        return dexterity / 20f;
     }
 
     public void Respawn() {
@@ -289,6 +245,6 @@ public class Controller : MonoBehaviour {
     public void AttackAnimationFinishHandler()
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        FinishTick();
+        StartPlayerTick();
     }
 }

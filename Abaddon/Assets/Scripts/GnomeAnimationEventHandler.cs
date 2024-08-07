@@ -1,56 +1,49 @@
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using UnityEngine.Events;
+using System.Linq;
 
 public class GnomeAnimationEventHandler : AnimationEventHandler
 {
-    public Action onAttackEnd = () => print("attack end");
-    public Action onAttackStart = () => print("attack start");
-    public Action onIdleStart = () => print("idle start");
-    public Action onIdleEnd = () => print("idle end");
+    public Action onAttackEnd, onAttackStart;
+    private string[] attackAnimations = new string[] {
+        "Goblin_animation_back_attack",
+        "Goblin_animation_front_attack",
+        "Goblin_animation_left_attack",
+        "Goblin_animation_right_attack"
+    };
 
-    public Action onWalkStart = () => print("walk start");
-    public Action onWalkEnd = () => print("walk end");
+    public Action onWalkStart, onWalkEnd;
+    private string[] walkAnimations = new string[] {
+        "Goblin_animation_left_walk",
+        "Goblin_animation_back_walk",
+        "Goblin_animation_front_walk",
+        "Goblin_animation_right_walk"
+    };
 
-    new private void Awake()
-    {
-        endActions.Add(new EventKeyAndAction { 
-            key = "Goblin_animation_back_attack", 
-            action = onAttackEnd 
-        });
+    public Action onIdleStart, onIdleEnd;
+    private string[] idleAnimations = new string[] {
+        "Goblin_animation_back_idle",
+        "Goblin_animation_front_idle",
+        "Goblin_animation_left_idle",
+        "Goblin_animation_right_idle"
+    };
 
-        endOfActions = new Dictionary<string, Action> {
-            {"Goblin_animation_back_attack", onAttackEnd},
-            {"Goblin_animation_back_idle", onIdleEnd},
-            {"Goblin_animation_back_walk", onWalkEnd},
-            {"Goblin_animation_front_attack", onAttackEnd},
-            {"Goblin_animation_front_idle", onIdleEnd},
-            {"Goblin_animation_front_walk", onWalkEnd},
-            {"Goblin_animation_left_attack", onAttackEnd},
-            {"Goblin_animation_left_idle", onIdleEnd},
-            {"Goblin_animation_left_walk", onWalkEnd},
-            {"Goblin_animation_right_attack", onAttackEnd},
-            {"Goblin_animation_right_idle", onIdleEnd},
-            {"Goblin_animation_right_walk", onWalkEnd}
-        };
+    public override string[] GetAnimationNames() {
+        return attackAnimations.Concat(walkAnimations).Concat(idleAnimations).ToArray();
+    }
 
-        startOfActions = new Dictionary<string, Action> {
-            {"Goblin_animation_back_attack", onAttackStart},
-            {"Goblin_animation_back_idle", onIdleStart},
-            {"Goblin_animation_back_walk", onWalkStart},
-            {"Goblin_animation_front_attack", onAttackStart},
-            {"Goblin_animation_front_idle", onIdleStart},
-            {"Goblin_animation_front_walk", onWalkStart},
-            {"Goblin_animation_left_attack", onAttackStart},
-            {"Goblin_animation_left_idle", onIdleStart},
-            {"Goblin_animation_left_walk", onWalkStart},
-            {"Goblin_animation_right_attack", onAttackStart},
-            {"Goblin_animation_right_idle", onIdleStart},
-            {"Goblin_animation_right_walk", onWalkStart}
-        };
+    public override Action GetStartActions(string animationName) {
+        if (animationName.IsInList(attackAnimations)) return onAttackStart;
+        if (animationName.IsInList(walkAnimations)) return onWalkStart;
+        if (animationName.IsInList(idleAnimations)) return onIdleStart;
+        
+        return null;
+    }
 
-        base.Awake();
+    public override Action GetEndActions(string animationName) {
+        if (animationName.IsInList(attackAnimations)) return onAttackEnd;
+        if (animationName.IsInList(walkAnimations)) return onWalkEnd;
+        if (animationName.IsInList(idleAnimations)) return onIdleEnd;
+        
+        return null;
     }
 }

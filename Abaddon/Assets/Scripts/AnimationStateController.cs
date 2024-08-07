@@ -11,7 +11,11 @@ public class AnimationStateController : StateMachineBehaviour
     {
         if (animator.TryGetComponent(out AnimationEventHandler animationEventHandler))
         {
-            animationEventHandler.OnStateEnter(stateInfo.shortNameHash);
+            if (animationEventHandler is GnomeAnimationEventHandler)
+            {
+                ((GnomeAnimationEventHandler)(animationEventHandler)).OnStateEnter(stateInfo.shortNameHash);
+            }
+            else animationEventHandler.OnStateEnter(stateInfo.shortNameHash);
         }
     }
 

@@ -18,10 +18,10 @@ public class BaseAttack : MonoBehaviour {
         return collider.gameObject.layer == LayerMask.NameToLayer("Player");
     }
 
-    public virtual void Attack(Vector2 direction) {
+    public virtual void Attack() {
         if (sfxPlayer.playAttackOnDamagePlayer){
             sfxPlayer.PlayAttackSound();
         }
-        Controller.main.DamagePlayer(damage);
+        Controller.main.Hurt(damage);
     }
 }

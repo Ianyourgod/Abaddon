@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Interactable
+public interface Attackable
 {
-    public void Interact();
+    public void Attack(Damageable target);
 }

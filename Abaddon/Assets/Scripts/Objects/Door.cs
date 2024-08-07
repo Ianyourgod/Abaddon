@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(DoorSfx))]
 
-public class Door : Interactable
+public class Door : MonoBehaviour, Interactable
 {
     [SerializeField] public bool NeedsKey;
     [SerializeField] GameObject lockPrefab;
@@ -17,7 +17,7 @@ public class Door : Interactable
     }
 
     // damage is unused
-    public override void Interact(float damage) {
+    public void Interact() {
         const int key_ID = 1;
 
         bool hasKey = Controller.main.inventory && Controller.main.inventory.CheckIfItemExists(key_ID);

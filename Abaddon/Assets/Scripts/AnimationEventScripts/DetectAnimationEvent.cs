@@ -28,8 +28,8 @@ public class DetectAnimationEvent : MonoBehaviour
         }
     }
 
-    public void AttackTiming(Direction direction) {
-        enemyMovement.AttackTiming(GetDirectionVector((direction)));
+    public void AttackTiming() {
+        enemyMovement.AttackTiming();
     }
 
     public void AttackEnd(Direction direction) {

@@ -28,7 +28,7 @@ public class FirePixieAttack : BaseAttack {
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
-    public override void Attack(Vector2 direction) {
+    public void Attack(Vector2 direction) {
         Vector3 new_position = transform.position;
 
         new_position += new Vector3(direction.x, direction.y, 0);

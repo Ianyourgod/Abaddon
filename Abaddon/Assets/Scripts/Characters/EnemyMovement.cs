@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System.Reflection;
 //using UnityEditor;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -25,6 +27,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
 
+
+    public GnomeAnimationEventHandler gnomeAnimationEventHandler;
+
+
     public uint health = 10;
     private Vector2 direction = Vector2.zero;
 
@@ -38,7 +44,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] GameObject textFadePrefab;
 
     private void Awake(){
-        sfxPlayer = GetComponent<EnemySfx>();
+        sfxPlayer = GetComponent<EnemySfx>(); 
     }
 
     private void Start() {
@@ -46,6 +52,19 @@ public class EnemyMovement : MonoBehaviour
         int gridSize = (int) (detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
+
+        var sprite = transform.GetChild(0);
+        if (sprite != null && sprite.TryGetComponent(out gnomeAnimationEventHandler)) {
+            gnomeAnimationEventHandler.onAttackEnd += AttackEnd;
+            print("added attack end");
+            print(
+                "length: " + gnomeAnimationEventHandler.endActions[0].action.GetInvocationList().Length
+            );
+            string[] names = gnomeAnimationEventHandler.endActions[0].action.GetInvocationList().Select(x => x.Method.Name).ToArray();
+            foreach (string n in names) {
+                print("\t" + n);
+            }
+        }
     }
 
     bool CheckPlayerIsInDetectionRange() {
@@ -68,13 +87,13 @@ public class EnemyMovement : MonoBehaviour
             Vector2 direction = ToHome();
             
             if (direction == Vector2.zero) {
-                Invoke(nameof(callNextEnemy), 0f);
+                callNextEnemy();
                 return;
             }
 
             Move(direction);
         } else {
-            Invoke(nameof(callNextEnemy), 0f);
+            callNextEnemy();
         }
     }
 
@@ -88,14 +107,14 @@ public class EnemyMovement : MonoBehaviour
             movementTarget = Controller.main.transform.position;
         } else if (followingPlayer && !CheckPlayerIsInFollowRange()) {
             followingPlayer = false;
-            Invoke(nameof(callNextEnemy), 0f);
+            callNextEnemy();
             return;
         }
 
         direction = ToPlayer();
 
         if (direction == Vector2.zero) {
-            Invoke(nameof(callNextEnemy), 0f);
+            callNextEnemy();
             return;
         }
 
@@ -117,14 +136,10 @@ public class EnemyMovement : MonoBehaviour
         } else if (hit == null) {
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
-            Invoke(nameof(callNextEnemy), 0f);
+            callNextEnemy();
         } else {
-            Invoke(nameof(callNextEnemy), 0f);
+            callNextEnemy();
         }
-    }
-
-    private static float Clamp(float value, float min, float max) {
-        return (value < min) ? min : (value > max) ? max : value;
     }
 
     private Vector2 ToPlayer() {
@@ -145,8 +160,8 @@ public class EnemyMovement : MonoBehaviour
         nextNode.y -= detectionDistance;
         nextNode.x -= detectionDistance;
 
-        float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
-        float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);
+        float raw_horizontal = Mathf.Clamp(nextNode.x, -1.0f, 1f);
+        float raw_vertical = Mathf.Clamp(nextNode.y, -1.0f, 1f);
 
         float horizontal = Mathf.Round(raw_horizontal); // sbyte is int8
         float vertical = Mathf.Round(raw_vertical); // sbyte is int8
@@ -177,8 +192,8 @@ public class EnemyMovement : MonoBehaviour
         nextNode.y -= followDistance;
         nextNode.x -= followDistance;
 
-        float raw_horizontal = Clamp(nextNode.x, -1.0f, 1f);
-        float raw_vertical = Clamp(nextNode.y, -1.0f, 1f);
+        float raw_horizontal = Mathf.Clamp(nextNode.x, -1.0f, 1f);
+        float raw_vertical = Mathf.Clamp(nextNode.y, -1.0f, 1f);
 
         float horizontal = Mathf.Round(raw_horizontal);
         float vertical = Mathf.Round(raw_vertical);
@@ -208,6 +223,10 @@ public class EnemyMovement : MonoBehaviour
             return "right";
         }
         return "front";
+    }
+
+    public void AttackEnd() {
+        print("working!");
     }
 
     // 1 is idle, 2 is hurt, 3 is attack
@@ -249,7 +268,7 @@ public class EnemyMovement : MonoBehaviour
         }
         PlayAnimation(direction, "hurt");
         // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
-        StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
+        
         sfxPlayer.PlayHurtSound();
         health -= damage;
         GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Random.Range(1, 5) / 10, Random.Range(1, 5) / 10, 0), Quaternion.identity);
@@ -258,7 +277,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void Die()
     {
-        Invoke(nameof(callNextEnemy), 0f);
+        callNextEnemy();
         Destroy(gameObject);
     }
 
@@ -271,21 +290,6 @@ public class EnemyMovement : MonoBehaviour
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");
-        Invoke(nameof(callNextEnemy), 0f);
-    }
-
-    // intent 1 is hurt
-    IEnumerator ExecuteAfterTime(float time, Vector2 direction, uint intent)
-    {
-        yield return new WaitForSeconds(time);
-
-        switch (intent)
-        {
-            case 1:
-                PlayAnimation(direction, "idle");
-                break;
-            default:
-                break;
-        }
+        callNextEnemy();
     }
 }

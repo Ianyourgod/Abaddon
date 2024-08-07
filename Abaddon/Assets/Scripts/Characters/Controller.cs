@@ -8,9 +8,6 @@ using UnityEngine.Tilemaps;
 
 
 public class Controller : MonoBehaviour {
-
-    public Stats stats = new Stats();
-
     #region Variables
         public static Controller main;
         
@@ -26,6 +23,8 @@ public class Controller : MonoBehaviour {
             
             [SerializeField, Tooltip("High end of range to add")] private int statVariance = 7;
             [Space]
+            
+            public Stats stats = new Stats();
         #endregion
 
         #region Health
@@ -80,6 +79,9 @@ public class Controller : MonoBehaviour {
         #endregion
     #endregion
 
+    [SerializeField] Animator gnome;
+
+    #region Life cycle functions
     void Awake() {
         main = this;
 
@@ -113,6 +115,7 @@ public class Controller : MonoBehaviour {
 
         BugTesting();
     }
+    #endregion
 
     bool IsDoneWithTickCycle() {
         enemies = FindObjectsOfType<EnemyMovement>();
@@ -131,6 +134,8 @@ public class Controller : MonoBehaviour {
         
         if (Input.GetKeyDown(KeyCode.Comma)) stats.constitution += 1;
         if (Input.GetKeyDown(KeyCode.Period)) stats.constitution -= 1;
+
+        if (Input.GetKeyDown(KeyCode.T)) gnome.Play("Goblin_animation_back_attack");
     }
 
     void Move() {
@@ -197,8 +202,7 @@ public class Controller : MonoBehaviour {
             done_with_tick = true;
             return;
         }
-        current_enemy++;
-        enemies[current_enemy - 1].MakeDecision();
+        enemies[current_enemy++].MakeDecision();
     }
 
     // real is whether or not to try to actually hit, set to false to just play the animation
@@ -286,13 +290,5 @@ public class Controller : MonoBehaviour {
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();
-    }
-
-    public int GetMaxHealth() {
-        return constitution * 2;
-    }
-
-    int GetAttackDamage() {
-        return 2 + ((strength - 10) / 2);
     }
 }

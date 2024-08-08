@@ -12,6 +12,7 @@ public abstract class AnimationEventHandler : MonoBehaviour
 
     protected void Awake() {
         foreach (string animationName in GetAnimationNames()) {
+            if (hashesToString.ContainsValue(animationName)) continue;
             hashesToString.Add(Animator.StringToHash(animationName), animationName);
         }
     }

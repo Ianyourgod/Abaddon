@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEditor.ProjectWindowCallback;
+using UnityEditor.U2D.Path.GUIFramework;
 //using UnityEditor;7
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -53,6 +54,12 @@ public class EnemyMovement : MonoBehaviour, Damageable
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
+
+        gnomeAnimationEventHandler = GetComponent<GnomeAnimationEventHandler>();
+        if (gnomeAnimationEventHandler != null) {
+            // print("no gnome animation event handler found");
+            gnomeAnimationEventHandler.onAttackEnd += AttackEnd;
+        }
     }
 
     bool PlayerIsInDetectionRange() {
@@ -73,6 +80,9 @@ public class EnemyMovement : MonoBehaviour, Damageable
             MoveToHome();
         }
         
+        if (gameObject.name == "GnomeEnemy") {
+            print("call next enemy");
+        }
         CallNextEnemy();
     }
 
@@ -84,7 +94,6 @@ public class EnemyMovement : MonoBehaviour, Damageable
         direction = ToPlayer();
         if (direction == Vector2.zero) return;
 
-        print("direction: " + direction);
         Move(direction);
     }
 
@@ -96,22 +105,19 @@ public class EnemyMovement : MonoBehaviour, Damageable
     }
     
     private void Move(Vector2 direction) {
-        PlayAnimation(direction, "idle");
+        PlayAnimation("idle", direction);
 
-        Collider2D hit = IsValidMove(direction);
-        if (hit != null && hit.gameObject  != null) {
-            print("object name: " + hit.gameObject.name);
-        }
+        Collider2D[] hits = GetAllTilesInFront(direction);
 
-        if (attack.WillAttack(hit, direction)) {
-            print("trying to attack");
-            Controller.main.enabled = false;
-            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-            PlayAnimation(direction, "attack");
-        } else if (hit == null) {
+        if (hits.Length == 0) {
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
         }
+        else if (attack.WillAttack(hits[0], direction)) {
+            Controller.main.enabled = false;
+            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+            PlayAnimation("attack", direction);
+        } 
     }
 
     private Vector2 ToPlayer() {
@@ -162,8 +168,14 @@ public class EnemyMovement : MonoBehaviour, Damageable
         return new Vector2(horizontal, vertical);
     }
 
-    private Collider2D IsValidMove(Vector2 direction) {
-        return Physics2D.OverlapCircle(transform.position+new Vector3(direction.x, direction.y, 0), 0.1f, collideLayers);
+    Collider2D[] GetAllTilesInFront(Vector2 direction) {
+        Vector2 centerOfBox = (Vector2)transform.position + direction;
+        return Physics2D.OverlapBoxAll(centerOfBox, new Vector3(0.9f, 0.9f, 0), 0, collideLayers);
+    }
+
+    public void OnDrawGizmosSelected() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
     }
 
     string DirectionToString(Vector2 direction) {
@@ -187,17 +199,18 @@ public class EnemyMovement : MonoBehaviour, Damageable
     }
 
     // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(Vector2 direction, string action)
+    private void PlayAnimation(string action, Vector2? direction = null)
     {
+        if (direction == null) direction = this.direction;
         if (action == "death") {
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
 
-        string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
+        string animation = $"{animation_prefix}_animation_{DirectionToString((Vector2)direction)}_{action}";
 
         animator.Play(animation);
-        print("done!");
+        print($"done playing {action} animation");
     }
 
     /*
@@ -221,23 +234,22 @@ public class EnemyMovement : MonoBehaviour, Damageable
             sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Die();
             // run death animation
-            PlayAnimation(direction, "death");
+            PlayAnimation("death", direction);
             return;
         }
-        PlayAnimation(direction, "hurt");
-        // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
+        PlayAnimation("hurt", direction);
         
         sfxPlayer.PlayHurtSound();
         health -= damage;
-        // GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Random.Range(1, 5) / 10, Random.Range(1, 5) / 10, 0), Quaternion.identity);
-        // damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
         Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+        print("getting hurt");
     }
 
     public void Die()
     {
         CallNextEnemy();
         Controller.main.enemies.Remove(this);
+        AttackEnd();
         Destroy(gameObject);
     }
 
@@ -246,9 +258,10 @@ public class EnemyMovement : MonoBehaviour, Damageable
         attack.Attack();
     }
 
-    public void AttackEnd(Vector2 direction) {
+    public void AttackEnd() {
+        print("ENDING ATTACK");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        PlayAnimation(direction, "idle");
+        PlayAnimation("idle");
     }
 }

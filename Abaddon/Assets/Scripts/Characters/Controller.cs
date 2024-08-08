@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using Unity.VisualScripting;
 
 
 public class Controller : MonoBehaviour, Damageable, Attackable {
@@ -106,6 +107,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
     }
 
     void Update() {
+        print("cycling tick: " + IsDoneWithTickCycle());
         if (!IsDoneWithTickCycle()) return;
 
         Move();
@@ -143,9 +145,9 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
         if (hits.Length == 0) {
             transform.Translate(direction);
             sfxPlayer?.PlayWalkSound();
+            print("moved");
         }
         foreach (GameObject hit in hits) {
-            print("hit name: " + hit.name);
             if (hit.TryGetComponent(out Interactable interactable)) {
                 interactable.Interact();
             }
@@ -156,11 +158,20 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
         StartPlayerTick();
     }
+    
+    void QueuePlayerTick() {
+        current_enemy = -2;
+    }
+
+    private void FixedUpdate()
+    {
+        if (current_enemy == -2) StartPlayerTick();
+    }
 
     void StartPlayerTick() {
         OnPlayerTick?.Invoke();
         current_enemy = 0;
-        NextEnemy();
+        Invoke("NextEnemy", 0.3f);
     }
 
     public void NextEnemy() {
@@ -215,6 +226,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
     public void Hurt(uint damage, bool dodgeable = true) {
         if (dodgeable && DodgedAttack()) {
             sfxPlayer?.PlayDodgeSound();
+            PlayAnimation("idle");
             Helpers.singleton.SpawnHurtText("dodged", transform.position);
         }
         else {

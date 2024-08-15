@@ -47,6 +47,9 @@ public class Controller : MonoBehaviour {
                 }
             }    
             int _health;
+
+            private bool god_mode = false;
+            private (bool, bool) god_mode_keys = (false, false);
         #endregion
 
         #region Movement
@@ -105,6 +108,22 @@ public class Controller : MonoBehaviour {
     void Update() {
         UpdateStats();
 
+        bool god_mode_keys_prev = god_mode_keys.Item1;
+        bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
+        god_mode_keys = (god_mode_keys_pressed, god_mode_keys_prev);
+
+        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && god_mode) {
+            print("God mode deactivated");
+            god_mode = false;
+            god_mode_keys = (true, true);
+            // round to nearest tile
+            transform.position = new Vector3(
+                Mathf.Round(transform.position.x - 0.5f) + 0.5f,
+                Mathf.Round(transform.position.y - 0.5f) + 0.5f,
+                transform.position.z
+            );
+        }
+
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick) {
             return;
@@ -116,6 +135,17 @@ public class Controller : MonoBehaviour {
                 return;
             }
         }
+
+        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode) {
+            god_mode = true;
+            print("God mode activated");
+        }
+
+        if (god_mode) {
+            GodModeMove();
+            return;
+        }
+
         Move();
 
         if (Input.GetKeyDown(KeyCode.Equals)) {
@@ -124,6 +154,12 @@ public class Controller : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Minus)) {
             DamagePlayer(1, false);
         }
+    }
+
+    void GodModeMove() {
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        transform.Translate(direction / 5);
     }
 
     void Move() {

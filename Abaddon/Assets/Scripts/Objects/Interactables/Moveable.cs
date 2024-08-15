@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Attackable
+public interface Moveable
 {
-    public void Attack(uint damage);
+    public void Move();
 }

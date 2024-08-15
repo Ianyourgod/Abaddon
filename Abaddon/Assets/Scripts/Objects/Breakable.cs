@@ -31,7 +31,7 @@ public class Breakable : MonoBehaviour, Interactable
                 Instantiate((GameObject)Resources.Load("Prefabs/BarrelBreak"), transform.position, Quaternion.identity);
                 break;
         }
-        GetComponent<ItemDropper>().Die();
+        GetComponent<ItemDropper>().Drop();
         Destroy(gameObject);
     }
 }

@@ -1,56 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using System.Linq;
-using System.Reflection;
 using Unity.VisualScripting;
-using UnityEditor.ProjectWindowCallback;
-using UnityEditor.U2D.Path.GUIFramework;
-//using UnityEditor;7
-
-[RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(Pathfinding2D))]
-[RequireComponent(typeof(EnemySfx))]
-[RequireComponent(typeof(ItemDropper))]
-
-public class EnemyMovement : MonoBehaviour, Damageable
-{
-
-    [Header("References")]
-    [SerializeField] LayerMask collideLayers;
-    [SerializeField] Animator animator;
-    [SerializeField] Pathfinding2D pathfinding;
-    [SerializeField] string animation_prefix = "Goblin";
-    [SerializeField] Attack attack;
-    [SerializeField] SfxPlayer walkingSfxPlayer;
-    [SerializeField] SfxPlayer hurtSfxPlayer;
-
-    [Header("Attributes")]
-    [SerializeField] float detectionDistance = 1;
-    [SerializeField] float followDistance = 3f;
-    [SerializeField] float enemyDecisionDelay;
+using UnityEditor.Tilemaps;
 
 
-    public uint health = 10;
-    private Vector2 direction = Vector2.zero;
+public class GnomeEnemy : Enemy {
+    public override void Move() {
+        // Implement the Move method here.
+    }
 
-    private Vector3 StartPosition;
-    
-    private EnemySfx sfxPlayer;
+    public override void Attack(uint damage) {
+        // Implement the Attack method here.
+    }
 
-    [SerializeField] GameObject textFadePrefab;
+    public override void Attack() {
+        // Implement the Attack method here.
+    }
 
+    public override void Interact() {
+        // Implement the Interact method here.
+    }
 
-    private void Awake(){
+    private void Awake() {
         sfxPlayer = GetComponent<EnemySfx>(); 
     }
 
     private void Start() {
-        // Controller.main.enemies.Add(this);
+        Controller.main.enemies.Add(this);
         StartPosition = transform.position;
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
+        direction = Vector2.right;
     }
 
     bool PlayerIsInDetectionRange() {
@@ -61,41 +48,28 @@ public class EnemyMovement : MonoBehaviour, Damageable
         return Vector2.Distance(Controller.main.transform.position, StartPosition) <= followDistance;
     }
 
-    public void MakeDecision() {
+    public override void MakeDecision() {
+        print("making decision");
         if (PlayerIsInDetectionRange()) {
             if (PlayerIsInFollowRange()) {
-                MoveToPlayer();
-            } 
+                Step(TowardsPlayer());
+            }
+            //else stay where you are
         } 
         else  {
-            MoveToHome();
+            Step(TowardsHome());
         }
         
-        if (gameObject.name == "GnomeEnemy") {
-            print("call next enemy");
-        }
         CallNextEnemy();
     }
 
     private void CallNextEnemy() {
         Controller.main.NextEnemy();
     }
-
-    void MoveToPlayer() {
-        direction = ToPlayer();
-        if (direction == Vector2.zero) return;
-
-        Move(direction);
-    }
-
-    private void MoveToHome() {
-        direction = ToHome();
-        if (direction == Vector2.zero) return;
-
-        Move(direction);
-    }
     
-    private void Move(Vector2 direction) {
+    private void Step(Vector2 direction) {
+        if (direction == Vector2.zero) return;
+
         PlayAnimation("idle", direction);
 
         Collider2D[] hits = GetAllTilesInFront(direction);
@@ -104,14 +78,14 @@ public class EnemyMovement : MonoBehaviour, Damageable
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
         }
-        else if (attack.WouldHit(hits[0], direction)) {
+        else if (currentAttack.WouldHit(hits[0], direction)) {
             Controller.main.enabled = false;
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
             PlayAnimation("attack", direction);
         } 
     }
 
-    private Vector2 ToPlayer() {
+    private Vector2 TowardsPlayer() {
         List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
 
         if (path == null || path.Count == 0) {
@@ -132,7 +106,7 @@ public class EnemyMovement : MonoBehaviour, Damageable
 
         return new Vector2(horizontal, vertical);
     }
-    private Vector2 ToHome() {
+    private Vector2 TowardsHome() {
         pathfinding.grid.gridSizeX = (int) (followDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int) (followDistance * 2 + 1);
         List<Node2D> path = pathfinding.FindPath(transform.position, StartPosition);
@@ -164,19 +138,10 @@ public class EnemyMovement : MonoBehaviour, Damageable
         return Physics2D.OverlapBoxAll(centerOfBox, new Vector3(0.9f, 0.9f, 0), 0, collideLayers);
     }
 
-    public void OnDrawGizmosSelected() {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
-    }
-
     string DirectionToString(Vector2 direction) {
-        /*
-        back: (0, 1)
-        front: (0, -1)
-        left: (-1, 0)
-        right: (1, 0)
-        */
-        
+        direction = direction.normalized;
+
+        print($"direction: {direction}");
         if (direction == Vector2.up) {
             return "back";
         } else if (direction == Vector2.down) {
@@ -186,10 +151,10 @@ public class EnemyMovement : MonoBehaviour, Damageable
         } else if (direction == Vector2.right) {
             return "right";
         }
-        return "front";
+
+        throw new Exception("Invalid direction");
     }
 
-    // 1 is idle, 2 is hurt, 3 is attack
     private void PlayAnimation(string action, Vector2? direction = null)
     {
         if (direction == null) direction = this.direction;
@@ -204,30 +169,10 @@ public class EnemyMovement : MonoBehaviour, Damageable
         print($"done playing {action} animation");
     }
 
-    /*
-    sadly disabled because it causes errors when building
-    private void OnDrawGizmosSelected() {
-        pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.CreateGrid();
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
-        Handles.color = Color.red;
-        // draw a square around the player
-        Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
-    }
-    */
-
-    public void Hurt(uint damage, bool dodgeable = false) {
+    public override void Hurt(uint damage, bool dodgeable = false) {
         if (damage >= health) {
-            health = 0;
-            sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
-            sfxPlayer.PlayDeathSound();
-            GetComponent<ItemDropper>().Drop();
-            // run death animation
-            PlayAnimation("death", direction);
-            print("dying");
-            return;
+            StartDie();
+            return; 
         }
         PlayAnimation("hurt", direction);
         
@@ -237,23 +182,19 @@ public class EnemyMovement : MonoBehaviour, Damageable
         print("getting hurt");
     }
 
-    public void Die()
-    {
+    public void StartDie() {
+        print("dying");
+
+        sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
+        sfxPlayer.PlayDeathSound();
+        itemDropper.Drop();
+        PlayAnimation("death", direction);
+    }
+
+    public override void Die() {
         CallNextEnemy();
-        // Controller.main.enemies.Remove(this);
-        AttackEnd();
+        Controller.main.enemies.Remove(this);
+        // AttackEnd();
         Destroy(gameObject);
-    }
-
-    // this is called by the animation
-    public void AttackTiming() {
-        attack.Hit();
-    }
-
-    public void AttackEnd() {
-        print("ENDING ATTACK");
-        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        Controller.main.enabled = true;
-        PlayAnimation("idle");
     }
 }

@@ -64,7 +64,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
         #region Player Update System 
             [HideInInspector] public static Action OnPlayerTick;
-            [HideInInspector] public List<EnemyMovement> enemies;
+            [HideInInspector] public List<Enemy> enemies;
             int current_enemy = -1;
         #endregion
 
@@ -116,7 +116,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
     }
 
     bool IsDoneWithTickCycle() {
-        return current_enemy == -1;
+        return current_enemy < 0 || current_enemy >= enemies.Count;
     }
 
     void BugTesting() {
@@ -176,16 +176,22 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
     public void NextEnemy() {
         if (IsDoneWithTickCycle()) return;
+        
+        print("calling enemy");
+        enemies[current_enemy++]?.MakeDecision();
 
-        current_enemy += 1;
+        print($"count: {enemies.Count} | current: {current_enemy}");
         if (current_enemy >= enemies.Count) {
             current_enemy = -1;
             return;
         }
-        
-        enemies[current_enemy].MakeDecision();
     }
 
+    public void Attack(uint damage)
+    {
+        throw new NotImplementedException();
+    }
+    
     public void Attack(Damageable enemy)
     {
         enemy.Hurt((uint) stats.GetAttackDamage(), false);

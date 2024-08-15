@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - first_enemy
+  - AudioManager
+  - StopMusic
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Fireball
+  - Water
+  - UI
+  - Enemy
+  - Player
+  - 
+  - floor
+  - Immovable
+  - door
+  - fountain
+  - floorTrap
+  - 
+  - 
+  - interactable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Edge Case 2
+    uniqueID: 4216101561
+    locked: 0
+  - name: Tilemaps
+    uniqueID: 3432360757
+    locked: 0
+  - name: Edge Case
+    uniqueID: 3849355093
+    locked: 0
+  - name: Doors
+    uniqueID: 2328773513
+    locked: 0
+  - name: Characters
+    uniqueID: 1401633483
+    locked: 0
+  - name: AttackerLayer
+    uniqueID: 2462842303
+    locked: 0
+  - name: UI
+    uniqueID: 669816403
+    locked: 0

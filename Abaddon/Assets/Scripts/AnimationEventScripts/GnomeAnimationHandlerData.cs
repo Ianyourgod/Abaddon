@@ -1,8 +1,12 @@
 using System;
 using System.Linq;
+using UnityEngine;
 
-public class GnomeAnimationEventHandler : AnimationEventHandler
+[CreateAssetMenu(fileName = "GnomeAnimationEventHandler", menuName = "AnimationHandler/Gnome")]
+public class GnomeAnimationHandlerData : AnimationHandlerData
 {
+    public override string animation_prefix => "Goblin";
+
     public Action onAttackEnd, onAttackStart;
     private string[] attackAnimations = new string[] {
         "Goblin_animation_back_attack",

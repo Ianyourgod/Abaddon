@@ -107,7 +107,6 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
     }
 
     void Update() {
-        print("cycling tick: " + IsDoneWithTickCycle());
         if (!IsDoneWithTickCycle()) return;
 
         Move();

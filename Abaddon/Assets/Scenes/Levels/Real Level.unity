@@ -5816,7 +5816,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
   m_PrefabInstance: {fileID: 1911750954}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1228720722
+--- !u!114 &1228720727
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5825,11 +5825,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1228720720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df22b7deaff744842a36f6ef0b1fd538, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f409f7df93ca4a4c806f02d8d74193f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAnimation: 
-  animation_prefix: 
+  data: {fileID: 11400000, guid: c288560bd871f834db0d48ebc3285c7b, type: 2}
 --- !u!4 &1238524486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1471304386553776880, guid: 5b3cc8237062fccef96122b057418ff0, type: 3}
@@ -24204,25 +24203,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6382604692729912246, guid: db65c775020d93e44bb22c24a2a91e4f, type: 3}
   m_PrefabInstance: {fileID: 1401041044}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1402777100 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-  m_PrefabInstance: {fileID: 783521620}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1402777105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1402777100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df22b7deaff744842a36f6ef0b1fd538, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAnimation: 
-  animation_prefix: 
 --- !u!1001 &1406482864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24932,20 +24912,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
   m_PrefabInstance: {fileID: 783521620}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1521716992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521716983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df22b7deaff744842a36f6ef0b1fd538, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAnimation: 
-  animation_prefix: 
 --- !u!95 &1521716993
 Animator:
   serializedVersion: 5
@@ -47574,7 +47540,7 @@ PrefabInstance:
     - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: animationEventHandler
       value: 
-      objectReference: {fileID: 1228720722}
+      objectReference: {fileID: 1228720727}
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (16)

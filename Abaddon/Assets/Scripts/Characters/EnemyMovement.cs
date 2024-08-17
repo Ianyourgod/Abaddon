@@ -20,7 +20,6 @@ public class EnemyMovement : MonoBehaviour, Damageable
     [SerializeField] LayerMask collideLayers;
     [SerializeField] Animator animator;
     [SerializeField] Pathfinding2D pathfinding;
-    [SerializeField] string animation_prefix = "Goblin";
     [SerializeField] Attack attack;
     [SerializeField] SfxPlayer walkingSfxPlayer;
     [SerializeField] SfxPlayer hurtSfxPlayer;
@@ -29,7 +28,7 @@ public class EnemyMovement : MonoBehaviour, Damageable
     [SerializeField] float detectionDistance = 1;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
-    [SerializeField] GnomeAnimationEventHandler animationEventHandler;
+    [SerializeField] AnimationEventHandler animationEventHandler;
 
     public uint health = 10;
     private Vector2 facingDirection = Vector2.down;
@@ -40,7 +39,7 @@ public class EnemyMovement : MonoBehaviour, Damageable
 
 
     private void Awake(){
-        sfxPlayer = GetComponent<EnemySfx>(); 
+        sfxPlayer = GetComponent<EnemySfx>();
     }
 
     private void Start() {
@@ -49,8 +48,17 @@ public class EnemyMovement : MonoBehaviour, Damageable
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
-        animationEventHandler.onAttackEnd += AttackEnd;
-        animationEventHandler.onHurtEnd += HurtEnd;
+        ((GnomeAnimationHandlerData)animationEventHandler.data).onAttackEnd += AttackEnd;
+        ((GnomeAnimationHandlerData)animationEventHandler.data).onHurtEnd += HurtEnd;
+        // animationEventHandler.QueueAnimation(
+        //     new AnimationEventHandler.QueuedAnimation(
+        //         animation: "idle", 
+        //         priority: 0, 
+        //         shouldInterupt: false, 
+        //         shouldLoop: true
+        //     ), 
+        //     facingDirection
+        // );
     }
 
     bool PlayerIsInDetectionRange() {
@@ -97,7 +105,12 @@ public class EnemyMovement : MonoBehaviour, Damageable
     
     private void Move(Vector2 direction) {
         facingDirection = direction;
-        animationEventHandler.QueueAnimation("idle", direction);
+        // animationEventHandler.QueueAnimation(new AnimationEventHandler.QueuedAnimation(
+        //         animation: "idle", 
+        //         priority: 0, 
+        //         shouldInterupt: false, 
+        //         shouldLoop: true
+        //     ), direction);
 
         Collider2D[] hits = GetAllTilesInFront(direction);
 
@@ -108,7 +121,12 @@ public class EnemyMovement : MonoBehaviour, Damageable
         else if (attack.WouldHit(hits[0], direction)) {
             Controller.main.enabled = false;
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-            animationEventHandler.QueueAnimation("attack", direction);
+            animationEventHandler.QueueAnimation(new AnimationEventHandler.Animation(
+                animation: "attack", 
+                priority: 1, 
+                shouldInterupt: true, 
+                shouldLoop: false
+            ), direction);
         } 
     }
 
@@ -191,11 +209,21 @@ public class EnemyMovement : MonoBehaviour, Damageable
             sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Drop();
             // run death animation
-            animationEventHandler.QueueAnimation("death", facingDirection);
+            animationEventHandler.QueueAnimation(new AnimationEventHandler.Animation(
+                animation: "death", 
+                priority: 2, 
+                shouldInterupt: true, 
+                shouldLoop: false
+            ), facingDirection);
             print("dying");
             return;
         }
-        animationEventHandler.QueueAnimation("hurt", facingDirection);
+        animationEventHandler.QueueAnimation(new AnimationEventHandler.Animation(
+            animation: "hurt", 
+            priority: 1, 
+            shouldInterupt: true, 
+            shouldLoop: false
+        ), facingDirection);
         
         sfxPlayer.PlayHurtSound();
         health -= damage;
@@ -219,13 +247,23 @@ public class EnemyMovement : MonoBehaviour, Damageable
         print("ENDING ATTACK");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        animationEventHandler.QueueAnimation("idle", facingDirection);
+        // animationEventHandler.QueueAnimation(new AnimationEventHandler.QueuedAnimation(
+        //     animation: "idle", 
+        //     priority: 0, 
+        //     shouldInterupt: false, 
+        //     shouldLoop: true
+        // ), facingDirection);
     }
 
     public void HurtEnd() {
         print("ENDING Hurt Animation");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        animationEventHandler.QueueAnimation("idle", facingDirection);
+        // animationEventHandler.QueueAnimation(new AnimationEventHandler.QueuedAnimation(
+        //     animation: "idle", 
+        //     priority: 0, 
+        //     shouldInterupt: false, 
+        //     shouldLoop: true
+        // ), facingDirection);
     }
 }

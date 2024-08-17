@@ -438,6 +438,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &53155089 stripped
@@ -515,6 +519,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (30)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -750,6 +758,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &75104550 stripped
@@ -884,6 +896,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -1302,6 +1318,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -2052,6 +2072,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirePixieEnemy (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
 --- !u!1001 &316377707
@@ -2187,6 +2211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &332916361 stripped
@@ -2264,6 +2292,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -3001,6 +3033,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &484427309 stripped
@@ -3197,6 +3233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &534709950 stripped
@@ -3336,6 +3376,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -3614,6 +3658,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -3934,6 +3982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &715850491 stripped
@@ -4012,6 +4064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &719806332 stripped
@@ -4089,6 +4145,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -4181,6 +4241,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
       propertyPath: m_Name
       value: FirePixieEnemy (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
@@ -4432,6 +4496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &771910224 stripped
@@ -4524,7 +4592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -4712,6 +4780,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
       propertyPath: m_Name
       value: FirePixieEnemy (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
@@ -5200,6 +5272,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -5735,6 +5811,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6382604692729912246, guid: db65c775020d93e44bb22c24a2a91e4f, type: 3}
   m_PrefabInstance: {fileID: 1226389503}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1228720720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+  m_PrefabInstance: {fileID: 1911750954}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1228720722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228720720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df22b7deaff744842a36f6ef0b1fd538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAnimation: 
+  animation_prefix: 
 --- !u!4 &1238524486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1471304386553776880, guid: 5b3cc8237062fccef96122b057418ff0, type: 3}
@@ -5810,6 +5905,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -6152,7 +6251,7 @@ TilemapRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 8
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.13999999, y: 0.13999999, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -24019,6 +24118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &1373990010 stripped
@@ -24118,6 +24221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df22b7deaff744842a36f6ef0b1fd538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAnimation: 
+  animation_prefix: 
 --- !u!1001 &1406482864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24188,6 +24293,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -24835,6 +24944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df22b7deaff744842a36f6ef0b1fd538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAnimation: 
+  animation_prefix: 
 --- !u!95 &1521716993
 Animator:
   serializedVersion: 5
@@ -25094,6 +25205,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -25528,7 +25643,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.13999999, y: 0.13999999, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -46868,6 +46983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &1828692602 stripped
@@ -47396,6 +47515,18 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[1]
       value: 
       objectReference: {fileID: 1302471205}
+    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -47440,6 +47571,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: animationEventHandler
+      value: 
+      objectReference: {fileID: 1228720722}
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (16)
@@ -47771,6 +47906,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &1960508481 stripped
@@ -48024,6 +48163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GnomeEnemy (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
 --- !u!4 &2035754921 stripped
@@ -48172,6 +48315,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
       propertyPath: m_Name
       value: FirePixieEnemy (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
@@ -48374,6 +48521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirePixieEnemy (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622fdcb85a81e4a45a0c1d9188983b6b, type: 3}
 --- !u!1 &2094862233
@@ -48557,6 +48708,10 @@ PrefabInstance:
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}

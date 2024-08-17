@@ -36,4 +36,18 @@ public static class StaticHelpers {
         }
         return false;
     }
+
+    public static string DirectionToString(this Vector2 direction) {        
+        if (direction == Vector2.up) {
+            return "back";
+        } else if (direction == Vector2.down) {
+            return "front";
+        } else if (direction == Vector2.left) {
+            return "left";
+        } else if (direction == Vector2.right) {
+            return "right";
+        }
+        
+        throw new Exception("Invalid direction");
+    }
 }

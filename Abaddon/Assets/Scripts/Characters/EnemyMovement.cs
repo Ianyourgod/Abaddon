@@ -29,16 +29,14 @@ public class EnemyMovement : MonoBehaviour, Damageable
     [SerializeField] float detectionDistance = 1;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
-
+    [SerializeField] GnomeAnimationEventHandler animationEventHandler;
 
     public uint health = 10;
-    private Vector2 direction = Vector2.zero;
+    private Vector2 facingDirection = Vector2.down;
 
     private Vector3 StartPosition;
     
     private EnemySfx sfxPlayer;
-
-    [SerializeField] GameObject textFadePrefab;
 
 
     private void Awake(){
@@ -51,6 +49,8 @@ public class EnemyMovement : MonoBehaviour, Damageable
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
+        animationEventHandler.onAttackEnd += AttackEnd;
+        animationEventHandler.onHurtEnd += HurtEnd;
     }
 
     bool PlayerIsInDetectionRange() {
@@ -82,21 +82,22 @@ public class EnemyMovement : MonoBehaviour, Damageable
     }
 
     void MoveToPlayer() {
-        direction = ToPlayer();
-        if (direction == Vector2.zero) return;
+        var movingDirection = ToPlayer();
+        if (movingDirection == Vector2.zero) return;
 
-        Move(direction);
+        Move(movingDirection);
     }
 
     private void MoveToHome() {
-        direction = ToHome();
-        if (direction == Vector2.zero) return;
+        var movingDirection = ToHome();
+        if (movingDirection == Vector2.zero) return;
 
-        Move(direction);
+        Move(movingDirection);
     }
     
     private void Move(Vector2 direction) {
-        PlayAnimation("idle", direction);
+        facingDirection = direction;
+        animationEventHandler.QueueAnimation("idle", direction);
 
         Collider2D[] hits = GetAllTilesInFront(direction);
 
@@ -107,7 +108,7 @@ public class EnemyMovement : MonoBehaviour, Damageable
         else if (attack.WouldHit(hits[0], direction)) {
             Controller.main.enabled = false;
             animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-            PlayAnimation("attack", direction);
+            animationEventHandler.QueueAnimation("attack", direction);
         } 
     }
 
@@ -169,41 +170,6 @@ public class EnemyMovement : MonoBehaviour, Damageable
         Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
     }
 
-    string DirectionToString(Vector2 direction) {
-        /*
-        back: (0, 1)
-        front: (0, -1)
-        left: (-1, 0)
-        right: (1, 0)
-        */
-        
-        if (direction == Vector2.up) {
-            return "back";
-        } else if (direction == Vector2.down) {
-            return "front";
-        } else if (direction == Vector2.left) {
-            return "left";
-        } else if (direction == Vector2.right) {
-            return "right";
-        }
-        return "front";
-    }
-
-    // 1 is idle, 2 is hurt, 3 is attack
-    private void PlayAnimation(string action, Vector2? direction = null)
-    {
-        if (direction == null) direction = this.direction;
-        if (action == "death") {
-            animator.Play($"{animation_prefix}_animation_death");
-            return;
-        }
-
-        string animation = $"{animation_prefix}_animation_{DirectionToString((Vector2)direction)}_{action}";
-
-        animator.Play(animation);
-        print($"done playing {action} animation");
-    }
-
     /*
     sadly disabled because it causes errors when building
     private void OnDrawGizmosSelected() {
@@ -225,11 +191,11 @@ public class EnemyMovement : MonoBehaviour, Damageable
             sfxPlayer.PlayDeathSound();
             GetComponent<ItemDropper>().Drop();
             // run death animation
-            PlayAnimation("death", direction);
+            animationEventHandler.QueueAnimation("death", facingDirection);
             print("dying");
             return;
         }
-        PlayAnimation("hurt", direction);
+        animationEventHandler.QueueAnimation("hurt", facingDirection);
         
         sfxPlayer.PlayHurtSound();
         health -= damage;
@@ -240,7 +206,6 @@ public class EnemyMovement : MonoBehaviour, Damageable
     public void Die()
     {
         CallNextEnemy();
-        // Controller.main.enemies.Remove(this);
         AttackEnd();
         Destroy(gameObject);
     }
@@ -254,6 +219,13 @@ public class EnemyMovement : MonoBehaviour, Damageable
         print("ENDING ATTACK");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        PlayAnimation("idle");
+        animationEventHandler.QueueAnimation("idle", facingDirection);
+    }
+
+    public void HurtEnd() {
+        print("ENDING Hurt Animation");
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+        Controller.main.enabled = true;
+        animationEventHandler.QueueAnimation("idle", facingDirection);
     }
 }

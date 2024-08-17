@@ -27,14 +27,28 @@ public class GnomeAnimationEventHandler : AnimationEventHandler
         "Goblin_animation_right_idle"
     };
 
+    public Action onHurtStart, onHurtEnd;
+    private string[] hurtAnimations = new string[] {
+        "Goblin_animation_back_hurt",
+        "Goblin_animation_front_hurt",
+        "Goblin_animation_left_hurt",
+        "Goblin_animation_right_hurt"
+    };
+
+    
     public override string[] GetAnimationNames() {
-        return attackAnimations.Concat(walkAnimations).Concat(idleAnimations).ToArray();
+        return attackAnimations
+            .Concat(walkAnimations)
+            .Concat(idleAnimations)
+            .Concat(hurtAnimations)
+            .ToArray();
     }
 
     public override Action GetStartActions(string animationName) {
         if (animationName.IsInList(attackAnimations)) return onAttackStart;
         if (animationName.IsInList(walkAnimations)) return onWalkStart;
         if (animationName.IsInList(idleAnimations)) return onIdleStart;
+        if (animationName.IsInList(hurtAnimations)) return onHurtStart;
         
         return null;
     }
@@ -43,7 +57,10 @@ public class GnomeAnimationEventHandler : AnimationEventHandler
         if (animationName.IsInList(attackAnimations)) return onAttackEnd;
         if (animationName.IsInList(walkAnimations)) return onWalkEnd;
         if (animationName.IsInList(idleAnimations)) return onIdleEnd;
+        if (animationName.IsInList(hurtAnimations)) return onHurtEnd;
         
         return null;
     }
+
+
 }

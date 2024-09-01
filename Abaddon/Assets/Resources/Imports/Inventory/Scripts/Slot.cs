@@ -1,8 +1,8 @@
-﻿		///----------------------------\\\				
+﻿		///----------------------------\\\
 		//  Ultimate Inventory Engine   \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
-///-----------------------------------------------\\\	
+///-----------------------------------------------\\\
 
 
 
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEditor;
 using UnityEngine.UI;
+using TMPro;
 
 public class Slot : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class Slot : MonoBehaviour
 	[HideInInspector]
 	Image itemImage;
 	[HideInInspector]
-	public Text amountText;
+	public TMP_Text amountText;
 	[HideInInspector]
 	public bool beingDragged, beingSplitted;
 	[HideInInspector]
@@ -50,12 +51,12 @@ public class Slot : MonoBehaviour
 			vLayer.AddComponent<CanvasRenderer>();
 			vLayer.AddComponent<Image>();
 			vText.AddComponent<RectTransform>();
-			vText.AddComponent<Text>();
+			vText.AddComponent<TextMeshProUGUI>();
 
-			amountText = text.GetComponent<Text>();
+			amountText = text.GetComponent<TextMeshProUGUI>();
 			amountText.text = "";
 			#endregion
-		
+
 	}
 
 	private void Update()
@@ -64,30 +65,33 @@ public class Slot : MonoBehaviour
 
 		if (vLayer)
 		{
-			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	// this line
 			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
 			vLayer.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-			vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
+			vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// through this line, probably some weird alignment stuff? nothing changes visibly when modified
+			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// this sets the centerpoint of the "GUI" object in the slot
 			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(-0, vLayer.GetComponent<RectTransform>().offsetMax.y);
 			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(vLayer.GetComponent<RectTransform>().offsetMax.x, -0);
 			itemImage = vLayer.GetComponent<Image>();
+			if (itemImage.sprite != defaultSprite) {	// only changes scale if not equal to default (i.e. if an item is in the slot)
+				vLayer.GetComponent<RectTransform>().localScale = new Vector3(.75f, .75f, 1);	// scales it down
+			}
 		}
 		if (vText && !beingDragged)
 		{
 
-			vText.GetComponent<Text>().alignment = TextAnchor.LowerRight;
-			vText.GetComponent<Text>().fontSize = 35;
+			vText.GetComponent<TMP_Text>().alignment = TextAlignmentOptions.BottomRight;
+			vText.GetComponent<TMP_Text>().fontSize = 20;
 			var font = inv.font;
-			vText.GetComponent<Text>().font = font;
-			vText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+			vText.GetComponent<TMP_Text>().font = font;
+			vText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	// this line
 			vText.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
 			vText.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-			vText.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-			vText.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
-			vText.GetComponent<RectTransform>().offsetMax = new Vector2(-10, vText.GetComponent<RectTransform>().offsetMax.y);
-			vText.GetComponent<RectTransform>().offsetMax = new Vector2(vText.GetComponent<RectTransform>().offsetMax.x, -0);
-		}
+			vText.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// through this line, probably some weird alignment stuff? nothing changes visibly when modified
+			vText.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// not sure what this line actually does
+			vText.GetComponent<RectTransform>().offsetMax = new Vector2(-5, vText.GetComponent<RectTransform>().offsetMax.y); // why is it like this? i have no idea.
+			vText.GetComponent<RectTransform>().offsetMax = new Vector2(vText.GetComponent<RectTransform>().offsetMax.x, -0); // it doesn't seem like there should be a reason for it to be on two lines
+		}																													  // but the inventory engine came like this so whatever
 
 		if (!GetComponent<EquipmentSlot>() && !GetComponent<CraftingSlot>())
 		{
@@ -159,7 +163,7 @@ public class Slot : MonoBehaviour
 						clone.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
 						clone.GetComponent<RectTransform>().offsetMax = new Vector2(-0, clone.GetComponent<RectTransform>().offsetMax.y);
 						clone.GetComponent<RectTransform>().offsetMax = new Vector2(clone.GetComponent<RectTransform>().offsetMax.x, -0);
-						clone.GetComponent<Text>().fontSize = 10 / 11 * amountText.fontSize;
+						clone.GetComponent<TMP_Text>().fontSize = 10 / 11 * amountText.fontSize;
 					}
 					textChecked = true;
 					StartCoroutine(WaitUntil(!beingDragged));
@@ -176,7 +180,7 @@ public class Slot : MonoBehaviour
 					if (Mathf.RoundToInt(slotsItem.amountInStack / 2) > 1)
 					{
 						clone = Instantiate(amountText.gameObject);
-						clone.GetComponent<Text>().text = Mathf.RoundToInt(slotsItem.amountInStack / 2).ToString();
+						clone.GetComponent<TMP_Text>().text = Mathf.RoundToInt(slotsItem.amountInStack / 2).ToString();
 						clone.transform.SetParent(drag.followMouseImage.transform);
 						clone.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
 						clone.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
@@ -185,7 +189,7 @@ public class Slot : MonoBehaviour
 						clone.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
 						clone.GetComponent<RectTransform>().offsetMax = new Vector2(-0, clone.GetComponent<RectTransform>().offsetMax.y);
 						clone.GetComponent<RectTransform>().offsetMax = new Vector2(clone.GetComponent<RectTransform>().offsetMax.x, -0);
-						clone.GetComponent<Text>().fontSize = 10 / 11 * amountText.fontSize;
+						clone.GetComponent<TMP_Text>().fontSize = 10 / 11 * amountText.fontSize;
 					}
 					textChecked = true;
 					return;

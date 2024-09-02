@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirePixieAttack : BaseAttack {
+public class FirePixieAttack : Attack {
     [SerializeField] GameObject fireball_prefab;
     [SerializeField] int detectionDistance = 2;
 
-    public override bool WillAttack(Collider2D collider, Vector2 direction) {
+    public override bool WouldHit(Collider2D collider, Vector2 direction) {
         // base stuff
         if (IsFireballThere(direction)) {
             return false;
@@ -28,7 +28,7 @@ public class FirePixieAttack : BaseAttack {
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
-    public override void Attack(Vector2 direction) {
+    public void Attack(Vector2 direction) {
         Vector3 new_position = transform.position;
 
         new_position += new Vector3(direction.x, direction.y, 0);

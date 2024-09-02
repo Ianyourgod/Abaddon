@@ -37,7 +37,7 @@ public static class StaticHelpers {
         return false;
     }
 
-    public static string DirectionToString(this Vector2 direction) {        
+    public static string ToStringDirection(this Vector2 direction) {        
         if (direction == Vector2.up) {
             return "back";
         } else if (direction == Vector2.down) {
@@ -50,4 +50,8 @@ public static class StaticHelpers {
         
         throw new Exception("Invalid direction");
     }
+
+    // public static AnimationEventHandler.Animation Attack { get => new AnimationEventHandler.Animation("attack", 1, false); }
+    // public static AnimationEventHandler.Animation Hurt { get => new AnimationEventHandler.Animation("hurt", 1, false); }
+    // public static AnimationEventHandler.Animation Die { get => new AnimationEventHandler.Animation("death", 10, false); }
 }

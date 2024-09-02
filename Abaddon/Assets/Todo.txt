@@ -1,4 +1,0 @@
-Need to work on the animation system. Particularly the idea of having a custom code based system that will call a function anytime an animation ends with what the animation was.
-Then use this to control the next animation and when it starts or if to override an animation. This is all so that we can "play" animations in the controller and it will queue them up for the next frame or next end of an animation.
-It will also handle keeping the current animation going if it needs to loop. This will also add animation delegates to the end of animations if other functions need them.
-The class should have as a property a scriptable object with all the delegates, animation names in groups, and other miscellaneous variables that are specific to that character.

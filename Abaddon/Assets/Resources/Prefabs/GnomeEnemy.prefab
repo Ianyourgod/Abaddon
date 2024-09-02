@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6462628818639776139}
   - component: {fileID: 18587455}
   - component: {fileID: 4503870971181943354}
+  - component: {fileID: 1228720727}
   m_Layer: 0
   m_Name: GnomeSprite
   m_TagString: Untagged
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 6462628820561290990}
+--- !u!114 &1228720727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628818639776133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f409f7df93ca4a4c806f02d8d74193f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: c288560bd871f834db0d48ebc3285c7b, type: 2}
 --- !u!1 &6462628820561290991
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,15 +190,14 @@ MonoBehaviour:
     m_Bits: 81344
   animator: {fileID: 18587455}
   pathfinding: {fileID: 3445834741458170001}
-  animation_prefix: Goblin
   attack: {fileID: 2067440025226379969}
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
+  animationEventHandler: {fileID: 1228720727}
   health: 10
-  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
 --- !u!114 &3913921436897795758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,8 +282,8 @@ MonoBehaviour:
   - {fileID: 0}
   collideLayers:
     serializedVersion: 2
-    m_Bits: 8256
-  worldBottomLeft: {x: -4, y: -4, z: 0}
+    m_Bits: 77888
+  worldBottomLeft: {x: 39, y: 56, z: -0.50699997}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588

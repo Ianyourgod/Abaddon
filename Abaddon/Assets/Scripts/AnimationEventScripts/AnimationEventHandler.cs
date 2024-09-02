@@ -1,108 +1,113 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.Events;
 using System.Linq;
-using UnityEngine.Analytics;
-using JetBrains.Annotations;
 
 [RequireComponent(typeof(Animator))]
 public class AnimationEventHandler : MonoBehaviour
 {
     public class Animation {
-        public string animation;
+        public string name { get => (action == null) ? "" : action(); }
+        private Func<string> action;
         public int priority;
-        public bool shouldInterupt;
+        public Animation chainedAnimation;
         public bool shouldLoop;
+        public bool persistUntilPlayed;
 
-        public Animation(string animation, int priority = 0, bool shouldInterupt = false, bool shouldLoop = false) {
-            this.animation = animation;
+        public Animation(Func<string> action, int priority, bool shouldLoop, bool persistUntilPlayed, Animation chainedAnimation = null) {
+            this.action = action;
             this.priority = priority;
-            this.shouldInterupt = shouldInterupt;
             this.shouldLoop = shouldLoop;
+            this.chainedAnimation = chainedAnimation;
+            this.persistUntilPlayed = persistUntilPlayed;
         }
 
-        public static implicit operator string(Animation queuedAnimation) {
-            return queuedAnimation.animation;
+        public Animation(string action, int priority, bool shouldLoop, bool persistUntilPlayed, Animation chainedAnimation = null) {
+            this.action = () => action;
+            this.priority = priority;
+            this.shouldLoop = shouldLoop;
+            this.chainedAnimation = chainedAnimation;
+            this.persistUntilPlayed = persistUntilPlayed;
         }
+
+        public Animation(Animation animation) {
+            priority = animation.priority;
+            shouldLoop = animation.shouldLoop;
+            chainedAnimation = animation.chainedAnimation;
+            UpdateAction(animation.action());
+        }
+
+        public void UpdateAction(string action) { this.action = () => action; }
+        public void UpdateAction(Func<string> action) { this.action = action; }
+
+        public static implicit operator string(Animation queuedAnimation) => queuedAnimation.name;
     }
 
-    protected Animator animator;
-    public static Dictionary<int, string> hashesToString = new Dictionary<int, string>();
-    public Animation currentAnimation; 
     public AnimationHandlerData data;
+    public Animation currentAnimation = null;
+    protected Animator animator;
     private List<Animation> queuedAnimations = new List<Animation>();
-
-    public Animation defaultAnimationAction { get; private set; } = new Animation("Goblin_animation_front_idle", 0, false, true);
+    private bool playingDefaultAnimation = true;
 
     protected void Awake() {
         animator = GetComponent<Animator>();
     }
 
-    public static bool TryHashToString(int hash, out string name)
-    {
-        if (hashesToString.ContainsKey(hash))
-        {
-            name = hashesToString[hash];
-            return true;
-        }
-        name = "Unknown";
-        return false;
-    }
-
     private void PlayAnimation(Animation animation)
     {
-        if (currentAnimation == animation) return;
+        if (currentAnimation != null && currentAnimation.name == animation.name) return;
 
-        print("Playing animation: " + animation + " at time: " + Time.time);
-        currentAnimation = animation;
+        playingDefaultAnimation = animation == data.defaultAnimation;
+        currentAnimation = new Animation(animation);
         data.GetStartActions(animation)?.Invoke();
         animator.Play(animation);
     }
 
-    private void PlayNextAnimation() {
-        print("# queued animations: " + queuedAnimations.Count);
-        foreach (Animation queuedAnimation in queuedAnimations.OrderBy(x => x.priority)) {
-            print("queued animation: " + queuedAnimation);
-            if (queuedAnimation.shouldInterupt || currentAnimation == null) {
-                PlayAnimation(queuedAnimation);
-                queuedAnimations.Clear();
-                return;
+    private bool TryToPlayQueuedAnimation() {
+        if (queuedAnimations.Count > 0) {
+            Animation bestChoice = queuedAnimations.OrderByDescending(x => x.priority).ToList()[0];
+            if (currentAnimation is null || bestChoice.priority > currentAnimation.priority) {
+                queuedAnimations.Remove(bestChoice);
+                PlayAnimation(bestChoice);
             }
         }
-
-        if (currentAnimation == null) {
-            print("playing default animation");
-            PlayAnimation(defaultAnimationAction);
+        int index = 0;
+        while (index < queuedAnimations.Count) {
+            if (!queuedAnimations[index].persistUntilPlayed) queuedAnimations.Remove(queuedAnimations[index]);
+            else index++;
         }
+
+        // foreach (Animation queuedAnimation in queuedAnimations.OrderByDescending(x => x.priority)) {
+        //     if (currentAnimation is null || queuedAnimation.priority > currentAnimation.priority) {
+        //         PlayAnimation(queuedAnimation);
+        //         playingDefaultAnimation = false;
+        //         CleanQueue();
+        //         return true;
+        //     }
+        // }
+        return false;
     }
 
-    public void QueueAnimation(Animation action, Vector2 direction)
-    {
-        if (action == "death") action.animation = $"{data.animation_prefix}_animation_death";
-        else action.animation = $"{data.animation_prefix}_animation_{direction.DirectionToString()}_{action.animation}";
-        
-        queuedAnimations.Add(new Animation(
-            action.animation,
-            action.priority,
-            action.shouldInterupt,
-            action.shouldLoop
-        ));
+    public void QueueAnimation(Animation animation) {
+        queuedAnimations.Add(animation);
+    } 
+
+    private bool DoneWithCurrentAnimation() {
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && currentAnimation != null && !currentAnimation.shouldLoop;
     }
 
     private void Update()
     {
-        var animationInfo = animator.GetCurrentAnimatorStateInfo(0);
-        // print("normalized time: " + animationInfo.normalizedTime);
-        if (animationInfo.normalizedTime >= 1) {
-            if (!currentAnimation.shouldLoop) {
-                print($"done with {currentAnimation.animation} animation at time {Time.time}");
-                data.GetEndActions(currentAnimation)?.Invoke();
-                currentAnimation = null;
-            }
+        if (DoneWithCurrentAnimation()) {
+            data.GetEndActions(currentAnimation)?.Invoke();
+            if (currentAnimation.chainedAnimation != null) PlayAnimation(currentAnimation.chainedAnimation);
+            else currentAnimation = null;
         }
 
-        PlayNextAnimation();
+        TryToPlayQueuedAnimation();
+
+        if (currentAnimation is null || playingDefaultAnimation) {
+            PlayAnimation(data.defaultAnimation);
+        }
     }
 }

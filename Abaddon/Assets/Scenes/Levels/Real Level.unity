@@ -235,9 +235,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1142354212}
     m_Modifications:
+    - target: {fileID: 1505603100342510588, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2285804620536235841, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138182, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -849,6 +865,10 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[1]
       value: 
       objectReference: {fileID: 1302471205}
+    - target: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1590,6 +1610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4244016840743525302, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4244016840743525303, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
       propertyPath: inv
       value: 
@@ -1671,6 +1695,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -2453,11 +2481,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 44.5
+      value: 43.5
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60.5
+      value: 61.5
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2540,6 +2568,10 @@ PrefabInstance:
       value: 81216
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: animationEventHandler
+      value: 
+      objectReference: {fileID: 1131923384}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: ObstacleMaps.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -2550,6 +2582,14 @@ PrefabInstance:
     - target: {fileID: 7842820053425721020, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842820053425721020, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842820053772704083, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8748202448866356543, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_Enabled
@@ -2571,6 +2611,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
       propertyPath: m_RootOrder
@@ -2633,6 +2677,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -2906,6 +2954,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -3185,6 +3237,10 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[1]
       value: 
       objectReference: {fileID: 1302471205}
+    - target: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -3254,6 +3310,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -3403,6 +3463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -3525,6 +3589,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -4937,6 +5005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BgMusicPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 4577299031533860270, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
 --- !u!1001 &903752288
@@ -5295,6 +5367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -5517,6 +5593,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08c35e4caadd8442a2e8d45a22b084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1131923379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7842820053772704083, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+  m_PrefabInstance: {fileID: 337119507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1131923384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131923379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f409f7df93ca4a4c806f02d8d74193f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1142354211
 GameObject:
   m_ObjectHideFlags: 0
@@ -5698,6 +5791,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -5811,24 +5908,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6382604692729912246, guid: db65c775020d93e44bb22c24a2a91e4f, type: 3}
   m_PrefabInstance: {fileID: 1226389503}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1228720720 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-  m_PrefabInstance: {fileID: 1911750954}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1228720727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228720720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f409f7df93ca4a4c806f02d8d74193f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: c288560bd871f834db0d48ebc3285c7b, type: 2}
 --- !u!4 &1238524486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1471304386553776880, guid: 5b3cc8237062fccef96122b057418ff0, type: 3}
@@ -24478,6 +24557,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -24550,6 +24633,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -24736,6 +24823,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -25080,7 +25171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1560166825
 Transform:
   m_ObjectHideFlags: 0
@@ -25304,6 +25395,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -46401,6 +46496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -46525,6 +46624,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -46586,6 +46689,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 8478946d936334ebc9d8e88daf3a3645, type: 3}
       propertyPath: m_RootOrder
@@ -47019,6 +47126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7659419828651813429, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
 --- !u!114 &1840516255 stripped
@@ -47346,6 +47457,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -47402,6 +47517,10 @@ PrefabInstance:
     - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_Name
       value: Pot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844499466063138181, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2844499466063138200, guid: 3220ce205852b45fa871409fe1ce0ef6, type: 3}
       propertyPath: m_RootOrder
@@ -47462,18 +47581,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 2066041832}
     m_Modifications:
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: worldBottomLeft.x
-      value: 39
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: worldBottomLeft.y
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: obstaclemaps.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: obstaclemaps.Array.data[0]
       value: 
       objectReference: {fileID: 1302471205}
@@ -47481,18 +47588,6 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[1]
       value: 
       objectReference: {fileID: 1302471205}
-    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628818639776139, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -47507,7 +47602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 9.493
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -47537,13 +47632,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
-      propertyPath: animationEventHandler
-      value: 
-      objectReference: {fileID: 1228720727}
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
       value: GnomeEnemy (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
@@ -48627,6 +48722,10 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[1]
       value: 
       objectReference: {fileID: 1302471205}
+    - target: {fileID: 6462628818639776133, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_RootOrder
       value: 20

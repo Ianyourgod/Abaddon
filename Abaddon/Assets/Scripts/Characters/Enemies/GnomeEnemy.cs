@@ -32,7 +32,7 @@ public class GnomeEnemy : Enemy {
     }
 
     private void Start() {
-        Controller.main.enemies.Add(this);
+        // Controller.main.enemies.Add(this);
         StartPosition = transform.position;
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
@@ -49,7 +49,6 @@ public class GnomeEnemy : Enemy {
     }
 
     public override void MakeDecision() {
-        print("making decision");
         if (PlayerIsInDetectionRange()) {
             if (PlayerIsInFollowRange()) {
                 Step(TowardsPlayer());
@@ -64,7 +63,7 @@ public class GnomeEnemy : Enemy {
     }
 
     private void CallNextEnemy() {
-        Controller.main.NextEnemy();
+        // Controller.main.NextEnemy();
     }
     
     private void Step(Vector2 direction) {
@@ -193,7 +192,7 @@ public class GnomeEnemy : Enemy {
 
     public override void Die() {
         CallNextEnemy();
-        Controller.main.enemies.Remove(this);
+        // Controller.main.enemies.Remove(this);
         // AttackEnd();
         Destroy(gameObject);
     }

@@ -64,13 +64,14 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
         #region Player Update System 
             [HideInInspector] public static Action OnPlayerTick;
-            [HideInInspector] public List<Enemy> enemies;
+            [HideInInspector] public List<EnemyMovement> enemies;
             int current_enemy = -1;
         #endregion
 
         #region Other 
             [Header("Other")]
             [SerializeField] Animator animator;
+            [SerializeField] AnimationEventHandler animationEventHandler;
             [HideInInspector] public PlayerSfx sfxPlayer;
             [HideInInspector] public Inventory inventory;
         #endregion
@@ -79,6 +80,10 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
             const int KeyID = 1;
         #endregion
     #endregion
+
+    AnimationEventHandler.Animation hurtAnimation;
+    AnimationEventHandler.Animation attackAnimation;
+    AnimationEventHandler.Animation deathAnimation;
 
     void Awake() {
         main = this;
@@ -104,6 +109,54 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
         if (respawnPoint == null) respawnPointPosition = transform.position;
         else respawnPointPosition = respawnPoint.position;
+        InitializeAnimationHandler();
+    }
+
+    void OnAttackEnd() {
+        print("does nothing yet");
+    }
+
+    void OnHurtEnd() {
+        print("does nothing yet");
+    }
+
+    void OnDieEnd() {
+        print("does nothing yet");
+    }
+
+    void InitializeAnimationHandler() {
+        animationEventHandler.data = new PlayerAnimationHandlerData();
+        ((PlayerAnimationHandlerData)animationEventHandler.data).onAttackEnd += OnAttackEnd;
+        ((PlayerAnimationHandlerData)animationEventHandler.data).onHurtEnd += OnHurtEnd;
+        ((PlayerAnimationHandlerData)animationEventHandler.data).onDeathEnd += OnDieEnd;
+        
+        
+        hurtAnimation = new AnimationEventHandler.Animation(
+            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{current_player_direction.ToStringDirection()}_level_0_hurt", 
+            priority: 1, 
+            shouldLoop: false,
+            persistUntilPlayed: false
+        );
+        attackAnimation = new AnimationEventHandler.Animation(
+            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{current_player_direction.ToStringDirection()}_level_0_attack", 
+            priority: 1, 
+            shouldLoop: false,
+            persistUntilPlayed: true
+        );
+
+        deathAnimation = new AnimationEventHandler.Animation(
+            action: () => $"{animationEventHandler.data.animationPrefix}_level_0_animation_death", 
+            priority: 2, 
+            shouldLoop: false,
+            persistUntilPlayed: true
+        );
+
+        animationEventHandler.data.defaultAnimation = new AnimationEventHandler.Animation(
+            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{current_player_direction.ToStringDirection()}_level_0_idle",
+            priority: 0, 
+            shouldLoop: true,
+            persistUntilPlayed: false
+        );
     }
 
     void Update() {
@@ -128,13 +181,12 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
     void Move() {
         Vector2 direction = GetCardinalInputs();
+        print("direction: " + direction);
 
         // if we are not moving, do nothing. if we are going diagonally, do nothing
         if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) return;
 
         current_player_direction = direction;
-
-        PlayAnimation("idle", direction);
         
         if (Time.time - lastMovement <= movementDelay) return;
         lastMovement = Time.time;
@@ -144,7 +196,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
         if (hits.Length == 0) {
             transform.Translate(direction);
             sfxPlayer?.PlayWalkSound();
-            print("moved");
+            Physics2D.SyncTransforms();
         }
         foreach (GameObject hit in hits) {
             if (hit.TryGetComponent(out Interactable interactable)) {
@@ -157,33 +209,21 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
         StartPlayerTick();
     }
-    
-    void QueuePlayerTick() {
-        current_enemy = -2;
-    }
-
-    private void FixedUpdate()
-    {
-        if (current_enemy == -2) StartPlayerTick();
-    }
 
     void StartPlayerTick() {
         OnPlayerTick?.Invoke();
         current_enemy = 0;
-        Invoke("NextEnemy", 0.3f);
+        enemies = FindObjectsOfType<EnemyMovement>().ToList();
+        NextEnemy();
     }
 
     public void NextEnemy() {
         if (IsDoneWithTickCycle()) return;
         
-        print("calling enemy");
         enemies[current_enemy++]?.MakeDecision();
 
-        print($"count: {enemies.Count} | current: {current_enemy}");
-        if (current_enemy >= enemies.Count) {
-            current_enemy = -1;
-            return;
-        }
+        // This is the last enemy
+        if (current_enemy >= enemies.Count) current_enemy = -1; 
     }
 
     public void Attack(uint damage)
@@ -196,7 +236,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
         enemy.Hurt((uint) stats.GetAttackDamage(), false);
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         sfxPlayer?.PlayAttackSound();
-        PlayAnimation("attack", current_player_direction);
+        animationEventHandler.QueueAnimation(attackAnimation);
     }
 
     Vector2 GetCardinalInputs() {
@@ -222,22 +262,15 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
         throw new Exception("Invalid direction");
     }
 
-    private void PlayAnimation(string action, Vector2? facingDirection = null) {
-        if (facingDirection == null) facingDirection = current_player_direction;
-        string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
-        animator.Play(animation);
-    }
-
     public void Hurt(uint damage, bool dodgeable = true) {
         if (dodgeable && DodgedAttack()) {
             sfxPlayer?.PlayDodgeSound();
-            PlayAnimation("idle");
             Helpers.singleton.SpawnHurtText("dodged", transform.position);
         }
         else {
             health -= (int)damage;
             sfxPlayer?.PlayHurtSound();
-            PlayAnimation("hurt");
+            animationEventHandler.QueueAnimation(hurtAnimation);
             Helpers.singleton?.SpawnHurtText(damage.ToString(), transform.position);
         } 
     }
@@ -262,6 +295,5 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
     public void AttackAnimationFinishHandler()
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        StartPlayerTick();
     }
 }

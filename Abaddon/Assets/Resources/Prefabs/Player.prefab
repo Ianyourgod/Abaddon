@@ -50,29 +50,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab0361a34be4ca4f9075ebeba72b887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
-  enemies: []
-  done_with_tick: 1
-  health: 20
-  max_health: 0
+  constitution: 9
+  dexterity: 9
+  strength: 9
   attackDamage: 3
-  sfxPlayer: {fileID: 0}
-  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
-  ObstacleMaps:
-  - {fileID: 0}
-  - {fileID: 0}
+  wisdom: 9
+  maximum_stat_roll: 7
+  healthBarVisual: {fileID: 0}
+  respawnPoint: {fileID: 0}
+  max_health: 0
   collideLayers:
     serializedVersion: 2
     m_Bits: 81216
   movementDelay: 0
+  enemies: []
+  done_with_tick: 1
   animator: {fileID: 7842820053772704081}
-  healthBar: {fileID: 0}
-  respawnPoint: {fileID: 0}
-  constitution: 10
-  dexterity: 8
-  strength: 8
-  wisdom: 8
-  maximum_stat_roll: 7
+  sfxPlayer: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!61 &6429215519232914106
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +131,7 @@ MonoBehaviour:
   craftObject: {fileID: 0}
   shadow: {fileID: 0}
   hotbarParent: {fileID: 0}
-  font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+  font: {fileID: 11400000, guid: ad9c603c0ab49a84397cc29ef638b47e, type: 2}
   throwPosition: {fileID: 0}
   pickupRange: 0
   throwForceUp: 0

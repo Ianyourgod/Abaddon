@@ -28,7 +28,7 @@ public class EnemyMovement : MonoBehaviour, Damageable
     [SerializeField] float detectionDistance = 1;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
-    [SerializeField] AnimationEventHandler animationEventHandler;
+    [SerializeField] BetterAnimator animationEventHandler;
 
     public uint health = 10;
     private Vector2 facingDirection = Vector2.down;
@@ -37,9 +37,9 @@ public class EnemyMovement : MonoBehaviour, Damageable
     
     private EnemySfx sfxPlayer;
 
-    AnimationEventHandler.Animation hurtAnimation = null;
-    AnimationEventHandler.Animation attackAnimation = null;
-    AnimationEventHandler.Animation deathAnimation = null;
+    BetterAnimation hurtAnimation = null;
+    BetterAnimation attackAnimation = null;
+    BetterAnimation deathAnimation = null;
 
 
 
@@ -56,33 +56,31 @@ public class EnemyMovement : MonoBehaviour, Damageable
     }
 
     void InitializeAnimationHandler() {
-        animationEventHandler.data = new GnomeAnimationHandlerData();
-        ((GnomeAnimationHandlerData)animationEventHandler.data).onAttackEnd += ReEnablePlayer;
-        ((GnomeAnimationHandlerData)animationEventHandler.data).onHurtEnd += ReEnablePlayer;
-        ((GnomeAnimationHandlerData)animationEventHandler.data).onDeathEnd += Die;
-        
-        hurtAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{facingDirection.ToStringDirection()}_hurt", 
+        hurtAnimation = new BetterAnimation(
+            action: () => $"Goblin_animation_{facingDirection.ToStringDirection()}_hurt", 
             priority: 1, 
             shouldLoop: false,
-            persistUntilPlayed: false
+            persistUntilPlayed: false,
+            onAnimationStop: ReEnablePlayer
         );
-        attackAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{facingDirection.ToStringDirection()}_attack", 
+        attackAnimation = new BetterAnimation(
+            action: () => $"Goblin_animation_{facingDirection.ToStringDirection()}_attack", 
             priority: 1, 
             shouldLoop: false,
-            persistUntilPlayed: true
+            persistUntilPlayed: true,
+            onAnimationStop: ReEnablePlayer
         );
 
-        deathAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_death", 
+        deathAnimation = new BetterAnimation(
+            action: () => $"Goblin_animation_death", 
             priority: 2, 
             shouldLoop: false,
-            persistUntilPlayed: true
+            persistUntilPlayed: true,
+            onAnimationStop: Die
         );
 
-        animationEventHandler.data.defaultAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{facingDirection.ToStringDirection()}_idle",
+        animationEventHandler.defaultAnimation = new BetterAnimation(
+            action: () => $"Goblin_animation_{facingDirection.ToStringDirection()}_idle",
             priority: 0, 
             shouldLoop: true,
             persistUntilPlayed: false
@@ -143,20 +141,6 @@ public class EnemyMovement : MonoBehaviour, Damageable
             Controller.main.enabled = false;
             animationEventHandler.QueueAnimation(attackAnimation);
         } 
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T)) {
-            animationEventHandler.QueueAnimation(
-                new AnimationEventHandler.Animation(
-                    "Goblin_animation_front_attack", 10, false, false,
-                    new AnimationEventHandler.Animation(
-                        "Goblin_animation_front_hurt", 10, false, false
-                    )
-                )
-            );
-        }
     }
 
     private Vector2 ToPlayer() {

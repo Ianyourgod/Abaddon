@@ -1,37 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[RequireComponent(typeof(ItemDropper))]
-[RequireComponent(typeof(BreakableSfx))]
+using UnityEngine.UIElements;
 
 public class Breakable : MonoBehaviour, Interactable
 {
-    public enum BreakableType {
-        Pot,
-        Barrel
-    }
+    [SerializeField] LootTable lootTable;
+    [SerializeField] BetterAnimator animationEventHandler;
 
-    [SerializeField] BreakableType type;
-    BreakableSfx sfxPlayer;
+    private BreakableSfx sfxPlayer;
 
     public void Start() {
         sfxPlayer = GetComponent<BreakableSfx>();
+        lootTable?.RunTests(1000);
     }
 
     public void Interact()
     {
-        sfxPlayer.PlayBreakSound();
-        switch (type)
-        {
-            case BreakableType.Pot:
-                Instantiate((GameObject)Resources.Load("Prefabs/PotBreak"), transform.position, Quaternion.identity);
-                break;
-            case BreakableType.Barrel:
-                Instantiate((GameObject)Resources.Load("Prefabs/BarrelBreak"), transform.position, Quaternion.identity);
-                break;
-        }
-        GetComponent<ItemDropper>().Drop();
-        Destroy(gameObject);
+        sfxPlayer?.PlayBreakSound();
+        
+        if (lootTable is not null) {
+            Instantiate(lootTable.PickItem(), transform.position, Quaternion.identity);
+        } 
+        animationEventHandler?.QueueAnimation(new BetterAnimation(
+            animation_name: "Explode",
+            priority: 10,
+            shouldLoop: false,
+            persistUntilPlayed: true,
+            onAnimationEnd: () => Destroy(gameObject)
+        ));
     }
 }

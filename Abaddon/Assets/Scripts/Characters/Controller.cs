@@ -71,7 +71,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
         #region Other 
             [Header("Other")]
             [SerializeField] Animator animator;
-            [SerializeField] AnimationEventHandler animationEventHandler;
+            [SerializeField] BetterAnimator animationEventHandler;
             [HideInInspector] public PlayerSfx sfxPlayer;
             [HideInInspector] public Inventory inventory;
         #endregion
@@ -81,9 +81,9 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
         #endregion
     #endregion
 
-    AnimationEventHandler.Animation hurtAnimation;
-    AnimationEventHandler.Animation attackAnimation;
-    AnimationEventHandler.Animation deathAnimation;
+    BetterAnimation hurtAnimation;
+    BetterAnimation attackAnimation;
+    BetterAnimation deathAnimation;
 
     void Awake() {
         main = this;
@@ -125,34 +125,37 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
     }
 
     void InitializeAnimationHandler() {
-        animationEventHandler.data = new PlayerAnimationHandlerData();
-        ((PlayerAnimationHandlerData)animationEventHandler.data).onAttackEnd += OnAttackEnd;
-        ((PlayerAnimationHandlerData)animationEventHandler.data).onHurtEnd += OnHurtEnd;
-        ((PlayerAnimationHandlerData)animationEventHandler.data).onDeathEnd += OnDieEnd;
+        // animationEventHandler.data = new PlayerAnimationHandlerData();
+        // ((PlayerAnimationHandlerData)animationEventHandler.data).onAttackEnd += OnAttackEnd;
+        // ((PlayerAnimationHandlerData)animationEventHandler.data).onHurtEnd += OnHurtEnd;
+        // ((PlayerAnimationHandlerData)animationEventHandler.data).onDeathEnd += OnDieEnd;
         
         
-        hurtAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{current_player_direction.ToStringDirection()}_level_0_hurt", 
+        hurtAnimation = new BetterAnimation(
+            action: () => $"Player_animation_{current_player_direction.ToStringDirection()}_level_0_hurt", 
             priority: 1, 
             shouldLoop: false,
-            persistUntilPlayed: false
+            persistUntilPlayed: false,
+            onAnimationStop: OnHurtEnd
         );
-        attackAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{current_player_direction.ToStringDirection()}_level_0_attack", 
+        attackAnimation = new BetterAnimation(
+            action: () => $"Player_animation_{current_player_direction.ToStringDirection()}_level_0_attack", 
             priority: 1, 
             shouldLoop: false,
-            persistUntilPlayed: true
+            persistUntilPlayed: true,
+            onAnimationStop: OnAttackEnd
         );
 
-        deathAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_level_0_animation_death", 
+        deathAnimation = new BetterAnimation(
+            action: () => $"Player_level_0_animation_death", 
             priority: 2, 
             shouldLoop: false,
-            persistUntilPlayed: true
+            persistUntilPlayed: true,
+            onAnimationStop: OnDieEnd
         );
 
-        animationEventHandler.data.defaultAnimation = new AnimationEventHandler.Animation(
-            action: () => $"{animationEventHandler.data.animationPrefix}_animation_{current_player_direction.ToStringDirection()}_level_0_idle",
+        animationEventHandler.defaultAnimation = new BetterAnimation(
+            action: () => $"Player_animation_{current_player_direction.ToStringDirection()}_level_0_idle",
             priority: 0, 
             shouldLoop: true,
             persistUntilPlayed: false
@@ -181,8 +184,7 @@ public class Controller : MonoBehaviour, Damageable, Attackable {
 
     void Move() {
         Vector2 direction = GetCardinalInputs();
-        print("direction: " + direction);
-
+        
         // if we are not moving, do nothing. if we are going diagonally, do nothing
         if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0)) return;
 

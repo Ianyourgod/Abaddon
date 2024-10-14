@@ -422,6 +422,7 @@ public class DragAndDrop : MonoBehaviour
 		}
 		else
 		{
+			return;
 			if (Input.GetKey(KeyCode.Q) && timer <= 0 && !Input.GetKey(KeyCode.LeftControl) && inv.hotbarParent.equippedObject)
 			{
 				GameObject obj = null;

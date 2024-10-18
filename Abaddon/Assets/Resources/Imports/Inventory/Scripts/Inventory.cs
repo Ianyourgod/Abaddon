@@ -1,14 +1,15 @@
-﻿		///----------------------------\\\				
+﻿		///----------------------------\\\
 		//  Ultimate Inventory Engine   \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
-///-----------------------------------------------\\\	
+///-----------------------------------------------\\\
 
 
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
@@ -31,7 +32,7 @@ public class Inventory : MonoBehaviour
 	[Tooltip("Assign the game object thas is a parent for each of your hotbar slots. NOTE: It has to have the \"HotbarParent\" script attached to it.")]
 	public HotbarParent hotbarParent;
 	[Tooltip("Select a font for the amount displays.")]
-	public Font font;
+	public TMP_FontAsset font;
 
 	[Header("Forces")]
 	[Tooltip("Assign an empty game object it's position will be used as the point from where items will be dropped when thrown out of the inventory.")]

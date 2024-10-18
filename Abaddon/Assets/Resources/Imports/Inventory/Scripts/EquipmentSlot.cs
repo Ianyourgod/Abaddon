@@ -1,8 +1,8 @@
-﻿		///----------------------------\\\				
+﻿		///----------------------------\\\
 		//  Ultimate Inventory Engine   \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
-///-----------------------------------------------\\\	
+///-----------------------------------------------\\\
 
 
 
@@ -46,7 +46,7 @@ public class EquipmentSlot : MonoBehaviour
 		{
 			var item = GetComponent<Slot>().slotsItem;
 			searchID = item.ItemID;
-			if (item.TryGetComponent(out StatModifier slotModifier)) {				
+			if (item.TryGetComponent(out StatModifier slotModifier)) {
 				Controller.main.dexterity += slotModifier.dexterity;
 				Controller.main.constitution += slotModifier.constitution;
 				Controller.main.strength += slotModifier.strength;

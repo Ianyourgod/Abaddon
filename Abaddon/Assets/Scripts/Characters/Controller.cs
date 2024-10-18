@@ -195,7 +195,7 @@ public class Controller : MonoBehaviour {
             FinishTick();
         // if we hit an enemy, attack it
         } else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-            Attack(hit, direction, true); // calls next enemy
+            Attack(hit, direction); // calls next enemy
         // if we hit a door, attempt to open it
         } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
             hit.GetComponent<Interactable>().Interact(attackDamage);
@@ -220,7 +220,7 @@ public class Controller : MonoBehaviour {
         HealPlayer(0);
     }
 
-    void FinishTick() {
+    public void FinishTick() {
         OnTick?.Invoke();
         NextEnemy();
     }
@@ -235,14 +235,16 @@ public class Controller : MonoBehaviour {
     }
 
     // real is whether or not to try to actually hit, set to false to just play the animation
-    private void Attack(Collider2D hit, Vector2 direction, bool real)
+    private void Attack(Collider2D hit, Vector2 direction)
     {
-        if (real) {
-            hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(attackDamage), hit.gameObject.tag);
-            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        // get current attack
+        BaseAbility attack = AbilitySwapper.getAbility(main);
+
+        if (attack.CanUse(hit, direction)) {
+            attack.Attack(hit, direction, animator, sfxPlayer);
+        } else {
+            FinishTick();
         }
-        sfxPlayer.PlayAttackSound();
-        PlayAnimation("attack", direction);
     }
 
     Vector2 GetAxis() {
@@ -287,7 +289,7 @@ public class Controller : MonoBehaviour {
         throw new Exception("Invalid direction");
     }
 
-    private void PlayAnimation(string action, Vector2? facingDirection = null) {
+    public void PlayAnimation(string action, Vector2? facingDirection = null) {
         if (facingDirection == null) facingDirection = current_player_direction;
         string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);

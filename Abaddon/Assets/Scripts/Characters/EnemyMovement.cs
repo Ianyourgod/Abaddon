@@ -224,16 +224,16 @@ public class EnemyMovement : MonoBehaviour
     }
 
     /*
-    sadly disabled because it causes errors when building
+    //sadly disabled because it causes errors when building
     private void OnDrawGizmosSelected() {
-        pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.CreateGrid();
+        //pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
+        //pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
+        //pathfinding.grid.CreateGrid();
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
-        Handles.color = Color.red;
+        //Handles.color = Color.red;
         // draw a square around the player
-        Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
+        //Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
     }
     */
 
@@ -242,6 +242,7 @@ public class EnemyMovement : MonoBehaviour
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
+            //Controller.main.add_exp(1);
             GetComponent<ItemDropper>().Die();
             // run death animation
             PlayAnimation(direction, "death");

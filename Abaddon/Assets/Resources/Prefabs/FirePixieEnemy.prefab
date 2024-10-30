@@ -178,7 +178,6 @@ MonoBehaviour:
   pathfinding: {fileID: 8905533853578730615}
   animation_prefix: Fire_Pixie
   attack: {fileID: 2309056572890118907}
-  breakableLogic: {fileID: 0}
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
@@ -272,7 +271,7 @@ MonoBehaviour:
   - {fileID: 0}
   collideLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 73792
   worldBottomLeft: {x: -4.5, y: -4.5, z: 0}
   gridSizeX: 9
   gridSizeY: 9

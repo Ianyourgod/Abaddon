@@ -22,8 +22,16 @@ public class Controller : MonoBehaviour {
             [HideInInspector] public int attackDamage;
 
             [SerializeField, Tooltip("Wisdom (ability damage)")] public int wisdom = 9;
-            
-            [SerializeField, Tooltip("High end of range to add")] public int maximum_stat_roll = 7;
+
+            [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
+            [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
+
+            private int exp = 0;
+            private int level = 1;
+
+            [SerializeField] Slider expBarVisual;
+            [SerializeField] Slider levelBarVisual;
+
             [Space]
         #endregion
 
@@ -87,10 +95,51 @@ public class Controller : MonoBehaviour {
         inventory = FindObjectOfType<Inventory>();
 
         // stat randomization
-        constitution += UnityEngine.Random.Range(1, maximum_stat_roll);
-        dexterity += UnityEngine.Random.Range(1, maximum_stat_roll);
-        strength += UnityEngine.Random.Range(1, maximum_stat_roll);
-        wisdom += UnityEngine.Random.Range(1, maximum_stat_roll);
+
+        // to do this, we gotta do some annoying ass math
+        /*
+            The Problem: we don't want to user to get shitty stats
+            but we also dont want them to get super op stats.
+            and so we gotta do math.
+
+            this ALSO means, that if some one for example, gets relatively
+            good dexterity, we wanna give them less constitution. Or if
+            they get good constitution, then they should get less strength,
+            etc.
+        */
+
+        int minimum_stat_roll = 1;
+        int maximum_stat_roll = 7;
+
+        int new_strength = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
+        int new_dexterity = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
+        int new_constitution = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
+
+        int total_stats = new_strength+new_dexterity+new_constitution;
+        int max_total = 10;
+        int min_total = 5;
+
+        if (total_stats > max_total) {
+            int excess = total_stats - max_total;
+            new_strength -= excess / 3;
+            new_dexterity -= excess / 3;
+            new_constitution -= excess / 3;
+        } else if (total_stats < min_total) {
+            int deficit = min_total - total_stats;
+            new_strength += deficit / 3;
+            new_dexterity += deficit / 3;
+            new_constitution += deficit / 3;
+        }
+
+        // Ensure no stat goes below the minimum or above the maximum
+        new_strength = Mathf.Clamp(new_strength, minimum_stat_roll, maximum_stat_roll);
+        new_dexterity = Mathf.Clamp(new_dexterity, minimum_stat_roll, maximum_stat_roll);
+        new_constitution = Mathf.Clamp(new_constitution, minimum_stat_roll, maximum_stat_roll);
+        wisdom = Mathf.Clamp(wisdom, minimum_stat_roll, maximum_stat_roll);
+
+        strength += new_strength;
+        dexterity += new_dexterity;
+        constitution += new_constitution;
 
         max_health = constitution * 2;
         health = max_health;
@@ -98,6 +147,18 @@ public class Controller : MonoBehaviour {
         if (healthBarVisual) {
             healthBarVisual.maxValue = max_health;
             healthBarVisual.minValue = 0;
+        }
+
+        if (expBarVisual) {
+            expBarVisual.maxValue = exp_to_next_level(level);
+            expBarVisual.minValue = 0;
+            expBarVisual.value = exp;
+        }
+
+        if (levelBarVisual) {
+            levelBarVisual.maxValue = 10;
+            levelBarVisual.minValue = 0;
+            levelBarVisual.value = level;
         }
 
         if (respawnPoint == null) {
@@ -333,5 +394,32 @@ public class Controller : MonoBehaviour {
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();
+    }
+
+    public void add_exp(int exp) {
+        this.exp += exp;
+
+        int next_level_exp = this.exp - exp_to_next_level(level);
+        if (next_level_exp >= 0) {
+            // TODO: have player choose which stat to increase
+            level++;
+            constitution++;
+            dexterity++;
+            strength++;
+            wisdom++;
+
+            levelBarVisual.value = level;
+            this.exp = next_level_exp;
+            expBarVisual.maxValue = exp_to_next_level(level);
+        }
+
+        expBarVisual.value = this.exp;
+    }
+
+    private static int exp_to_next_level(int level) {
+        const double steepness = .6;
+        const double increase = 1.5;
+        // ceil(steepness * (level ^ increase))
+        return (int) Math.Ceiling(steepness * Math.Pow(level, increase));
     }
 }

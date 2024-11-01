@@ -277,6 +277,9 @@ public class Controller : MonoBehaviour {
     public void UpdateStats()
     {
         max_health = constitution * 2;
+        if (healthBarVisual) {
+            healthBarVisual.maxValue = max_health;
+        }
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
     }

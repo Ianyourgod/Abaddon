@@ -238,19 +238,6 @@ public class Slot : MonoBehaviour
 						thrownItem.transform.SetParent(null);
 
 						thrownItem.GetComponent<Item>().amountInStack = 1;
-
-						var rb = thrownItem.GetComponent<Rigidbody>();
-						rb.isKinematic = false;
-						rb.useGravity = true;
-
-						//AddForce
-						rb.interpolation = RigidbodyInterpolation.Extrapolate;
-						rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-						rb.AddForce(player.transform.forward * player.GetComponent<Inventory>().throwForceForward, ForceMode.Impulse);
-						rb.AddForce(player.transform.up * player.GetComponent<Inventory>().throwForceUp, ForceMode.Impulse);
-
-						float random = Random.Range(-1f, 1f);
-						rb.AddTorque(new Vector3(random, random, random) * 10);
 					}
 					else
 					{
@@ -277,18 +264,6 @@ public class Slot : MonoBehaviour
 					thrownItem.gameObject.SetActive(true);
 					thrownItem.transform.localScale = slotsItem.startSize;
 					thrownItem.GetComponent<Item>().amountInStack = slotsItem.amountInStack;
-
-					Rigidbody rb = thrownItem.GetComponent<Rigidbody>();
-					rb.isKinematic = false;
-					rb.useGravity = true;
-
-					rb.interpolation = RigidbodyInterpolation.Extrapolate;
-					rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-					rb.AddForce(player.transform.forward * player.GetComponent<Inventory>().throwForceForward, ForceMode.Impulse);
-					rb.AddForce(player.transform.up * player.GetComponent<Inventory>().throwForceUp, ForceMode.Impulse);
-					//Add random rotation
-					float random = Random.Range(-3f, 3f);
-					rb.AddTorque(new Vector3(random, random, random) * 10);
 				}
 				else
 				{
@@ -298,7 +273,7 @@ public class Slot : MonoBehaviour
 				slotsItem.amountInStack = 0;
 			}
 		}
-		inv.hotbarParent.SelectItem();
+		//inv.hotbarParent.SelectItem();
 	}
 
 	public List<Item> GetIdenticalItems(int ID)

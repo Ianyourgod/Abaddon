@@ -84,7 +84,6 @@ public class Inventory : MonoBehaviour
 			if (slot) slot.CustomStart();
 		}
 
-		inventoryObject.SetActive(true);
 		inventoryObject.SetActive(false);
 		equipmentObject.SetActive(false);
 		statObject.SetActive(false);

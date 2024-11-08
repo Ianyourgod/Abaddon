@@ -35,28 +35,35 @@ public class Slot : MonoBehaviour
 
 	public void CustomStart()
 	{
-			drag = GameObject.FindObjectOfType<DragAndDrop>();
-			#region Placement
+		drag = GameObject.FindObjectOfType<DragAndDrop>();
 
-			inv = Object.FindObjectOfType<Inventory>();
-			defaultSprite = GetComponent<Image>().sprite;
+		inv = Object.FindObjectOfType<Inventory>();
+		defaultSprite = GetComponent<Image>().sprite;
 
-			var VisualLayer = new GameObject("GUI");
-			VisualLayer.transform.SetParent(gameObject.transform);
-			VisualLayer.AddComponent<RectTransform>();
-			var text = new GameObject("Text");
-			text.transform.SetParent(VisualLayer.transform);
-			vLayer = VisualLayer;
-			vText = text;
-			vLayer.AddComponent<CanvasRenderer>();
-			vLayer.AddComponent<Image>();
-			vText.AddComponent<RectTransform>();
-			vText.AddComponent<TextMeshProUGUI>();
+		var VisualLayer = new GameObject("GUI");
+		VisualLayer.transform.SetParent(gameObject.transform);
+		VisualLayer.AddComponent<RectTransform>();
+		var text = new GameObject("Text");
+		text.transform.SetParent(VisualLayer.transform);
+		vLayer = VisualLayer;
+		vText = text;
+		vLayer.AddComponent<CanvasRenderer>();
+		vLayer.AddComponent<Image>();
+		vText.AddComponent<RectTransform>();
+		vText.AddComponent<TextMeshProUGUI>();
 
-			amountText = text.GetComponent<TextMeshProUGUI>();
-			amountText.text = "";
-			#endregion
+		amountText = text.GetComponent<TextMeshProUGUI>();
+		amountText.text = "";
 
+		// shitty fix. fixes the thing where the inventory will "shift" when first opened
+		for (int i=0;i<10;i++) {
+			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+			vLayer.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+
+			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// this sets the centerpoint of the "GUI" object in the slot.
+			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
+		}
 	}
 
 	private void Update()
@@ -65,16 +72,13 @@ public class Slot : MonoBehaviour
 
 		if (vLayer)
 		{
-			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	// this line
-			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-			vLayer.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-			vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// through this line, probably some weird alignment stuff? nothing changes visibly when modified
-			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// this sets the centerpoint of the "GUI" object in the slot
-			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(-0, vLayer.GetComponent<RectTransform>().offsetMax.y);
-			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(vLayer.GetComponent<RectTransform>().offsetMax.x, -0);
+			
+			// only changes scale if not equal to default (i.e. if an item is in the slot)
 			itemImage = vLayer.GetComponent<Image>();
-			if (itemImage.sprite != defaultSprite) {	// only changes scale if not equal to default (i.e. if an item is in the slot)
+			if (itemImage.sprite != defaultSprite) {
 				vLayer.GetComponent<RectTransform>().localScale = new Vector3(.75f, .75f, 1);	// scales it down
+			} else {
+				vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// scales it back up	
 			}
 		}
 		if (vText && !beingDragged)

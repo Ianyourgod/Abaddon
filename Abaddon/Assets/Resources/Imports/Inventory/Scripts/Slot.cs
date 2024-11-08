@@ -72,7 +72,6 @@ public class Slot : MonoBehaviour
 
 		if (vLayer)
 		{
-			
 			// only changes scale if not equal to default (i.e. if an item is in the slot)
 			itemImage = vLayer.GetComponent<Image>();
 			if (itemImage.sprite != defaultSprite) {

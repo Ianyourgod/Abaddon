@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8748202448866356543}
   - component: {fileID: 3002031079680072061}
   - component: {fileID: 33823228511099800}
+  - component: {fileID: 5589953954207541434}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -57,7 +58,10 @@ MonoBehaviour:
   strength: 9
   attackDamage: 3
   wisdom: 9
+  minimum_stat_roll: 1
   maximum_stat_roll: 7
+  exp: 0
+  expBarVisual: {fileID: 0}
   healthBarVisual: {fileID: 0}
   respawnPoint: {fileID: 0}
   max_health: 0
@@ -131,6 +135,9 @@ MonoBehaviour:
   equipmentObject: {fileID: 0}
   statObject: {fileID: 0}
   craftObject: {fileID: 0}
+  levelUpObject: {fileID: 0}
+  InventoryTabButton: {fileID: 0}
+  LevelUpTabButton: {fileID: 0}
   shadow: {fileID: 0}
   hotbarParent: {fileID: 0}
   font: {fileID: 11400000, guid: ad9c603c0ab49a84397cc29ef638b47e, type: 2}
@@ -167,6 +174,7 @@ MonoBehaviour:
   - {fileID: 0}
   emptySlots: []
   readyToAdd: 1
+  isInventoryOpen: 0
 --- !u!114 &3451757296950720634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +341,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enbaled: 1
+--- !u!114 &5589953954207541434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053425721020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7f7024290ca5f17be1edbfdad70d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7842820053772704083
 GameObject:
   m_ObjectHideFlags: 0

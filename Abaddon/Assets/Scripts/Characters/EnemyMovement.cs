@@ -242,7 +242,8 @@ public class EnemyMovement : MonoBehaviour
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
-            //Controller.main.add_exp(1);
+            // random number between 1 and 3
+            Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().Die();
             // run death animation
             PlayAnimation(direction, "death");

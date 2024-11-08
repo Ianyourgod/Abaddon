@@ -26,11 +26,9 @@ public class Controller : MonoBehaviour {
             [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
             [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
 
-            private int exp = 0;
-            private int level = 1;
+            public int exp = 0;
 
             [SerializeField] Slider expBarVisual;
-            [SerializeField] Slider levelBarVisual;
 
             [Space]
         #endregion
@@ -150,15 +148,9 @@ public class Controller : MonoBehaviour {
         }
 
         if (expBarVisual) {
-            expBarVisual.maxValue = exp_to_next_level(level);
+            expBarVisual.maxValue = 100;
             expBarVisual.minValue = 0;
             expBarVisual.value = exp;
-        }
-
-        if (levelBarVisual) {
-            levelBarVisual.maxValue = 10;
-            levelBarVisual.minValue = 0;
-            levelBarVisual.value = level;
         }
 
         if (respawnPoint == null) {
@@ -401,28 +393,5 @@ public class Controller : MonoBehaviour {
 
     public void add_exp(int exp) {
         this.exp += exp;
-
-        int next_level_exp = this.exp - exp_to_next_level(level);
-        if (next_level_exp >= 0) {
-            // TODO: have player choose which stat to increase
-            level++;
-            constitution++;
-            dexterity++;
-            strength++;
-            wisdom++;
-
-            levelBarVisual.value = level;
-            this.exp = next_level_exp;
-            expBarVisual.maxValue = exp_to_next_level(level);
-        }
-
-        expBarVisual.value = this.exp;
-    }
-
-    private static int exp_to_next_level(int level) {
-        const double steepness = .6;
-        const double increase = 1.5;
-        // ceil(steepness * (level ^ increase))
-        return (int) Math.Ceiling(steepness * Math.Pow(level, increase));
     }
 }

@@ -70,6 +70,7 @@ public class Controller : MonoBehaviour {
             [SerializeField] Animator animator;
             [HideInInspector] public PlayerSfx sfxPlayer;
             [HideInInspector] public Inventory inventory;
+            [SerializeField] public DialogueVisualiser dialogueHandler; //REMOVE THIS AFTER FINISHED TESTING THIS IS NOT FINAL DESIGN
         #endregion
         
         #region Constants 
@@ -104,6 +105,10 @@ public class Controller : MonoBehaviour {
 
     void Update() {
         UpdateStats();
+        if (Input.GetKeyDown(KeyCode.T)) {
+            //testing key pressses
+            dialogueHandler.StartMessage2("this is a test message", 1);
+        }
 
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick) {
@@ -220,8 +225,8 @@ public class Controller : MonoBehaviour {
         int left = BoolToInt(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow));
         int right = BoolToInt(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow));
 
-        float horizontal = (float) (right - left);
-        float vertical = (float) (up - down);
+        float horizontal = right - left;
+        float vertical = up - down;
 
         return new Vector2(horizontal, vertical);
     }

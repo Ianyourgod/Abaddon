@@ -10,6 +10,7 @@ public class Helpers : MonoBehaviour {
     public static Helpers singleton;
 
     [SerializeField] GameObject textFadePrefab;
+    [SerializeField] GameObject darkener;
 
     private void Awake()
     {
@@ -25,5 +26,5 @@ public class Helpers : MonoBehaviour {
         ).GetComponent<RealTextFadeUp>();
         
         damageAmount.SetText(text, Color.red, Color.white, 0.4f);
-    }   
+    }
 }

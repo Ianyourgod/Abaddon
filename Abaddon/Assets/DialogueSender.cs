@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class DialogueSender : MonoBehaviour
 {
-    DialogueVisualiser visualizer;
+    DialogueVisualizer visualizer;
     Button button;
 
     // Start is called before the first frame update
     void Start()
     {
-        visualizer = FindObjectOfType<DialogueVisualiser>();
+        visualizer = FindObjectOfType<DialogueVisualizer>();
     }
 
     public void SendTestingMessage() {

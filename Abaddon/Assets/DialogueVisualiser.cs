@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueVisualiser : MonoBehaviour
+public class DialogueVisualizer : MonoBehaviour
 {
     private float timeLeftToType = 0;
     private float startAmmount = 0;

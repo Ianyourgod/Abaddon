@@ -14,9 +14,9 @@ using TMPro;
 [RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
 {
-	[Header("Buttons")]
-	[Tooltip("Select a button that will open the inventory when pressed.")]
-	public KeyCode inventoryKey;
+	// [Header("Buttons")]
+	// [Tooltip("Select a button that will open the inventory when pressed.")]
+	// public KeyCode inventoryKey;
 
 	[Header("Inventory Settings")]
 	[Tooltip("Put your whole inventory object inside here.")]
@@ -67,6 +67,32 @@ public class Inventory : MonoBehaviour
 
 	}
 
+	public void Open()
+	{
+		invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
+		inventoryObject.SetActive(true);
+		equipmentObject.SetActive(true);
+		statObject.SetActive(true);
+		craftObject.SetActive(true);
+		//Cursor.visible = true;
+		//Cursor.lockState = CursorLockMode.None;
+		playerMovement.enabled = false;
+		if (shadow) shadow.SetActive(true);
+	}
+
+	public void Close()
+	{
+		invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
+		inventoryObject.SetActive(false);
+		equipmentObject.SetActive(false);
+		statObject.SetActive(false);
+		craftObject.SetActive(false);
+		//Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
+		playerMovement.enabled = true;
+		if (shadow) shadow.SetActive(false);
+	}
+
 	private void Start()
 	{
 		for (int i = 0; i < slots.Length; i++)
@@ -96,32 +122,10 @@ public class Inventory : MonoBehaviour
 	private void Update()
 	{
 		if (MenuHandler.instance && MenuHandler.instance.isPaused) return;
-		if (Input.GetKeyDown(inventoryKey) && inventoryObject.activeInHierarchy == false)
-		{
-			invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
-
-			inventoryObject.SetActive(true);
-			equipmentObject.SetActive(true);
-			statObject.SetActive(true);
-			craftObject.SetActive(true);
-			//Cursor.visible = true;
-			//Cursor.lockState = CursorLockMode.None;
-			playerMovement.enabled = false;
-			if (shadow) shadow.SetActive(true);
-		}
-		else if (Input.GetKeyDown(inventoryKey) || (Input.GetKeyDown(KeyCode.Escape)) && inventoryObject.activeInHierarchy == true)
-		{
-			invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
-
-			inventoryObject.SetActive(false);
-			equipmentObject.SetActive(false);
-			statObject.SetActive(false);
-			craftObject.SetActive(false);
-			//Cursor.visible = false;
-			//Cursor.lockState = CursorLockMode.Locked;
-			playerMovement.enabled = true;
-			if (shadow) shadow.SetActive(false);
-		}
+		
+		// Now handled by the UI State Manager
+			// if (Input.GetKeyDown(inventoryKey) && inventoryObject.activeInHierarchy == false) Open();
+			// else if (Input.GetKeyDown(inventoryKey) || Input.GetKeyDown(KeyCode.Escape) && inventoryObject.activeInHierarchy == true) Close();
 
 		foreach (Slot i in slots)
 		{

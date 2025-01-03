@@ -70,7 +70,7 @@ public class Controller : MonoBehaviour {
             [SerializeField] Animator animator;
             [HideInInspector] public PlayerSfx sfxPlayer;
             [HideInInspector] public Inventory inventory;
-            [SerializeField] public DialogueVisualiser dialogueHandler; //REMOVE THIS AFTER FINISHED TESTING THIS IS NOT FINAL DESIGN
+            [SerializeField] public DialogueVisualizer dialogueHandler; //REMOVE THIS AFTER FINISHED TESTING THIS IS NOT FINAL DESIGN
         #endregion
         
         #region Constants 
@@ -103,12 +103,15 @@ public class Controller : MonoBehaviour {
         }
     }
 
-    void Update() {
-        UpdateStats();
-        if (Input.GetKeyDown(KeyCode.T)) {
-            //testing key pressses
-            dialogueHandler.StartMessage2("this is a test message", 1);
+    void Debugging() {
+        if (Input.GetKeyDown(KeyCode.RightBracket)) {
+            UIStateManager.singleton.OpenUIPage(UIState.Death);
         }
+    }
+
+    void Update() {
+        Debugging();
+        UpdateStats();
 
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick) {

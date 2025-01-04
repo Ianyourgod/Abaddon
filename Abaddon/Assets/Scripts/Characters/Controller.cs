@@ -77,6 +77,7 @@ public class Controller : MonoBehaviour {
         #region Other 
             [Header("Other")]
             [SerializeField] Animator animator;
+            [SerializeField] CameraScript mainCamera;
             [HideInInspector] public PlayerSfx sfxPlayer;
             [HideInInspector] public Inventory inventory;
         #endregion
@@ -156,6 +157,10 @@ public class Controller : MonoBehaviour {
         if (respawnPoint == null) {
             respawnPoint = Instantiate(transform, transform.position, Quaternion.identity);
         }
+
+        Vector2 targetPosition = new Vector2(-17.5f, 65.5f);
+
+        mainCamera.PanTo(targetPosition, 0.01f, 2f);
     }
 
     void Update() {
@@ -180,13 +185,6 @@ public class Controller : MonoBehaviour {
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick) {
             return;
-        }
-        if (!done_with_tick) {
-            if (current_enemy >= enemies.Length) {
-                done_with_tick = true;
-            } else {
-                return;
-            }
         }
 
         if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode) {

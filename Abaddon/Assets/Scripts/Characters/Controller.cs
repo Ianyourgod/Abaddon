@@ -251,6 +251,14 @@ public class Controller : MonoBehaviour {
         } else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable")) {
             hit.GetComponent<Interactable>().Interact(attackDamage);
             FinishTick();
+        } else if (hit.gameObject.layer == LayerMask.NameToLayer("gate")) {
+            if (hit.GetComponent<Gate>().open) {
+                // move
+                transform.Translate(direction);
+                sfxPlayer.PlayWalkSound();
+            }
+
+            FinishTick();
         }
         // if we hit a fountain, heal from it
         else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {

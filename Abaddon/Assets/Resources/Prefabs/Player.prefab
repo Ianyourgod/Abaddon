@@ -67,11 +67,12 @@ MonoBehaviour:
   max_health: 0
   collideLayers:
     serializedVersion: 2
-    m_Bits: 81216
+    m_Bits: 212288
   movementDelay: 0
   enemies: []
   done_with_tick: 1
   animator: {fileID: 7842820053772704081}
+  mainCamera: {fileID: 0}
   sfxPlayer: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!61 &6429215519232914106

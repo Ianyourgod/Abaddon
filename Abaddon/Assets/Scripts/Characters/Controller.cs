@@ -324,7 +324,7 @@ public class Controller : MonoBehaviour {
 
     // (if it hit something, what it hit)
     Collider2D SendRaycast(Vector2 direction) {
-        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f);
+        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f  / 2f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
 
         Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
 

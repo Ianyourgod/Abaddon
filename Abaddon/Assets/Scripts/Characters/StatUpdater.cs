@@ -42,4 +42,12 @@ public class StatUpdater : MonoBehaviour {
     public void IncreaseConstitution(int cost) {
         AttemptToBuy(Stat.Constitution, cost, 1);
     }
+
+    public void IncreaseDexterity(int cost) {
+        AttemptToBuy(Stat.Dexterity, cost, 1);
+    }
+
+    public void IncreaseStrength(int cost) {
+        AttemptToBuy(Stat.Strength, cost, 1);
+    } 
 }

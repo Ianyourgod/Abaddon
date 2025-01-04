@@ -39,7 +39,7 @@ public class Grid2D : MonoBehaviour
 
     private bool ObjectIsThere(Vector3 position)
     {
-        return Physics2D.OverlapCircle(position, 0.2f, collideLayers) != null;
+        return Physics2D.OverlapCircle(position, 0.3f, collideLayers) != null;
     }
 
     public void CreateGrid()

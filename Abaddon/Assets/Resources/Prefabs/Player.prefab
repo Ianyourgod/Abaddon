@@ -204,6 +204,9 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: fc27d688aa3086746bc038bbd8cd753e, type: 3}
   randomAttackSound: 0
+  swooshSfx:
+  - {fileID: 8300000, guid: 2ac944c22071d08ebbc663334b5564e1, type: 3}
+  randomSwooshSound: 0
   deathSfx:
   - {fileID: 8300000, guid: d62f7945f53298c47b9d6a0fbe3aec40, type: 3}
   - {fileID: 8300000, guid: 91ee6b1582396834cacaf355e119af3e, type: 3}

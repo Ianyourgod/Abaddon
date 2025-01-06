@@ -160,7 +160,14 @@ public class Controller : MonoBehaviour {
 
         Vector2 targetPosition = new Vector2(-17.5f, 65.5f);
 
-        mainCamera.PanTo(targetPosition, 0.01f, 2f);
+        // disable player movement until the camera has panned
+        done_with_tick = false;
+        StartCoroutine(StartWithPan(0.75f, targetPosition, 5f, 2f));
+    }
+
+    IEnumerator StartWithPan(float wait_time, Vector2 target, float time, float stay) {
+        yield return new WaitForSeconds(wait_time);
+        mainCamera.PanToSmooth(target, time, stay);
     }
 
     void Update() {

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3866857552717066087}
   - component: {fileID: 5247775749085672815}
+  - component: {fileID: 146529197298192779}
   m_Layer: 6
   m_Name: Boss1
   m_TagString: Untagged
@@ -59,6 +60,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &146529197298192779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417398603408128514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1489757d820f5448dedf3cf0cf231d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statuePrefab: {fileID: 4903596350638405677, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
+  inFight: 0
+  stage: 0
 --- !u!1 &4186379011150645085
 GameObject:
   m_ObjectHideFlags: 0

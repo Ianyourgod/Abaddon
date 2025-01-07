@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemySfx))]
 [RequireComponent(typeof(ItemDropper))]
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : DamageTaker
 {
 
     [Header("References")]
@@ -237,7 +237,7 @@ public class EnemyMovement : MonoBehaviour
     }
     */
 
-    public void DamageEnemy(uint damage, string targetTag) {
+    public override void TakeDamage(uint damage) {
         if (damage >= health) {
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source

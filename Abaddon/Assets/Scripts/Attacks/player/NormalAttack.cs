@@ -15,7 +15,7 @@ public class NormalAttack : BaseAbility {
             return;
         }
 
-        hit.gameObject.GetComponent<EnemyMovement>().DamageEnemy(Convert.ToUInt32(Controller.main.attackDamage), hit.gameObject.tag);
+        hit.gameObject.GetComponent<DamageTaker>().TakeDamage(Convert.ToUInt32(Controller.main.attackDamage));
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         sfxPlayer.PlayAttackSound();
         Controller.main.PlayAnimation("attack", direction);

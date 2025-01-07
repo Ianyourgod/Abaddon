@@ -9,11 +9,7 @@ public class uitesting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D)) {
-            uimanager.ToggleDarkenedBackground();
-        }
-
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             uimanager.ToggleUIPage(UIState.Inventory);
         }
         if (Input.GetKeyDown(KeyCode.Escape)) {

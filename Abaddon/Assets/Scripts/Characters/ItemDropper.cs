@@ -21,7 +21,7 @@ public class ItemDropper : MonoBehaviour
 
     public void Die()
     {
-        GameObject spawner = Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/ItemDropSpawner"), transform.position, Quaternion.identity);
+        GameObject spawner = Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/ItemDropSpawner"), transform.position, Quaternion.identity);
         if (forceDropPath != "") {
             spawner.GetComponent<ItemSpawner>().SpawnPath(forceDropPath);
         } else {

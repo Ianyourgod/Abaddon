@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,28 +6,26 @@ using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using ImageComponent = UnityEngine.UI.Image; //To make the Image class be the correct image component and not some weird microsoft stuff
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class DialogueVisualiser : MonoBehaviour
 {
     [Header("References To Important Objects")]
     [SerializeField] private TextMeshProUGUI textbox;
-    [SerializeField] private Image profileImage;
+    [SerializeField] private ImageComponent profileImage;
 
     [Header("Key Binds for Traversing Messages")]
     [SerializeField] private KeyCode nextMessage;
     [SerializeField] private KeyCode previousMessage;
     [SerializeField] private KeyCode skipTyping;
-
+    
     private List<Message> messageQueue = new List<Message>();
     private string currentMessage = "";
     private float timeLeftToType = 0;
     private float startAmmount = 0;
     private int qIndex = 0;
-
-    void Start() {
-        textbox = GetComponent<TextMeshProUGUI>();
-    }
 
     public bool CurrentlyTyping() => timeLeftToType != 0;
     public string CurrentMessage() => currentMessage;
@@ -46,23 +45,32 @@ public class DialogueVisualiser : MonoBehaviour
         }
     }
 
-    public void ChangeImage(Image newImage) {
+    public void ChangeImage(ImageComponent newImage) {
         profileImage = newImage;
     }
 
-    public void WriteMessage(string message, float time, bool usingCPS) {
+    public void WriteMessage(string message, float time, bool usingCPS, Sprite img = null) {
         startAmmount = usingCPS ? message.Length / time : time;
         timeLeftToType = startAmmount;
         currentMessage = message;
+        if (img) profileImage.sprite = img;
     }
 
-    public void WriteMessage(Message msg) => WriteMessage(msg.message, msg.time, msg.usingCPS);
+    public void WriteMessage(Message msg) => WriteMessage(msg.message, msg.time, msg.usingCPS, msg.profileImage);
 
     public void AddToQueue(params Message[] messages) => messageQueue.AddRange(messages);
     public void AddToQueue(float timeForAll, bool usingCharacterTime, params string[] strings) { 
         Message[] messages = new Message[strings.Length];
         for (int i = 0; i < strings.Length; i++) {
             messages[i] = new Message(strings[i], timeForAll, usingCharacterTime);
+        }
+        messageQueue.AddRange(messages);
+    }
+
+    public void AddToQueue(float timeForAll, bool usingCharacterTime, Sprite img, params string[] strings) { 
+        Message[] messages = new Message[strings.Length];
+        for (int i = 0; i < strings.Length; i++) {
+            messages[i] = new Message(strings[i], timeForAll, usingCharacterTime, img);
         }
         messageQueue.AddRange(messages);
     }
@@ -87,16 +95,27 @@ public class DialogueVisualiser : MonoBehaviour
     }
 }
 
+[Serializable]
 public struct Message {
+    public Sprite profileImage;
     public string message;
     public float time;
 
     //Whether the message should use time as a measure of characters per second or how long the whole message should take
     public bool usingCPS;
 
+    public Message(string message, float time, bool usingCPS, Sprite profileImage) {
+        this.time = time;
+        this.message = message;
+        this.usingCPS = usingCPS;
+        this.profileImage = profileImage;
+    }
+
+    //THIS IS GOING TO BE DEPRECATED SOON
     public Message(string message, float time, bool usingCPS) {
         this.time = time;
         this.message = message;
         this.usingCPS = usingCPS;
+        profileImage = null;
     }
 }

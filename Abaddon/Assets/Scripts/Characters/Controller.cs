@@ -70,7 +70,7 @@ public class Controller : MonoBehaviour {
             [SerializeField] Animator animator;
             [HideInInspector] public PlayerSfx sfxPlayer;
             [HideInInspector] public Inventory inventory;
-            [SerializeField] public DialogueVisualizer dialogueHandler; //REMOVE THIS AFTER FINISHED TESTING THIS IS NOT FINAL DESIGN
+            [SerializeField] public DialogueVisualiser dialogueHandler; //REMOVE THIS AFTER FINISHED TESTING THIS IS NOT FINAL DESIGN
         #endregion
         
         #region Constants 

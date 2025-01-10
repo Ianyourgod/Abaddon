@@ -1,11 +1,8 @@
-﻿		///----------------------------\\\				
-		//  Ultimate Inventory Engine   \\
+﻿//-----------------------------------------------\\
+//			Ultimate Inventory Engine			 \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
-//      https://nikichatv.com/N-Studios.html	  \\
-///-----------------------------------------------\\\	
-
-
-
+//     https://nikichatv.com/N-Studios.html	     \\
+//-----------------------------------------------\\
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -423,44 +420,44 @@ public class DragAndDrop : MonoBehaviour
 		else
 		{
 			return;
-			if (Input.GetKey(KeyCode.Q) && timer <= 0 && !Input.GetKey(KeyCode.LeftControl) && inv.hotbarParent.equippedObject)
-			{
-				GameObject obj = null;
-				if (inv.hotbarParent.oldItem) { obj = inv.hotbarParent.oldItem.transform.parent.gameObject; }
-				if (obj)
-				{
-					if (obj.GetComponent<Slot>())
-					{
-						if (obj.transform.childCount > 1)
-						{
-							if (obj.transform.GetChild(1).GetComponent<Item>().amountInStack > 0)
-							{
-								obj.GetComponent<Slot>().DropItem(1, inv.gameObject, false);
-								timer = betweenDrop;
-							}
-						}
-					}
-				}
-			}
-			else if (Input.GetKey(KeyCode.LeftControl) && timer <= 0 && Input.GetKey(KeyCode.Q))
-			{
-				GameObject obj = null;
-				if (inv.hotbarParent.oldItem) { obj = inv.hotbarParent.oldItem.transform.parent.gameObject; }
-				if (obj)
-				{
-					if (obj.GetComponent<Slot>())
-					{
-						if (obj.transform.childCount > 1)
-						{
-							if (obj.transform.GetChild(1).GetComponent<Item>().amountInStack > 0)
-							{
-								obj.GetComponent<Slot>().DropItem(1, inv.gameObject, true);
-								timer = betweenDrop;
-							}
-						}
-					}
-				}
-			}
+			// if (Input.GetKey(KeyCode.Q) && timer <= 0 && !Input.GetKey(KeyCode.LeftControl) && inv.hotbarParent.equippedObject)
+			// {
+			// 	GameObject obj = null;
+			// 	if (inv.hotbarParent.oldItem) { obj = inv.hotbarParent.oldItem.transform.parent.gameObject; }
+			// 	if (obj)
+			// 	{
+			// 		if (obj.GetComponent<Slot>())
+			// 		{
+			// 			if (obj.transform.childCount > 1)
+			// 			{
+			// 				if (obj.transform.GetChild(1).GetComponent<Item>().amountInStack > 0)
+			// 				{
+			// 					obj.GetComponent<Slot>().DropItem(1, inv.gameObject, false);
+			// 					timer = betweenDrop;
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// }
+			// else if (Input.GetKey(KeyCode.LeftControl) && timer <= 0 && Input.GetKey(KeyCode.Q))
+			// {
+			// 	GameObject obj = null;
+			// 	if (inv.hotbarParent.oldItem) { obj = inv.hotbarParent.oldItem.transform.parent.gameObject; }
+			// 	if (obj)
+			// 	{
+			// 		if (obj.GetComponent<Slot>())
+			// 		{
+			// 			if (obj.transform.childCount > 1)
+			// 			{
+			// 				if (obj.transform.GetChild(1).GetComponent<Item>().amountInStack > 0)
+			// 				{
+			// 					obj.GetComponent<Slot>().DropItem(1, inv.gameObject, true);
+			// 					timer = betweenDrop;
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// }
 		}
 	}
 

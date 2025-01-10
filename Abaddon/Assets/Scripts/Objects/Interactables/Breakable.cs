@@ -30,10 +30,10 @@ public class Breakable : Interactable
             switch (type)
             {
                 case BreakableType.Pot:
-                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/PotBreak"), transform.position, Quaternion.identity);
+                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/PotBreak"), transform.position, Quaternion.identity);
                     break;
                 case BreakableType.Barrel:
-                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/BarrelBreak"), transform.position, Quaternion.identity);
+                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/BarrelBreak"), transform.position, Quaternion.identity);
                     break;
             }
             GetComponent<ItemDropper>().Die();

@@ -1,43 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour {
-    [SerializeField] UnityEngine.UI.Image panel;
-    [SerializeField] Transform sprite;
-    [SerializeField] float startingY = -600f;
-    bool paused = false;
+    [SerializeField] float lerpSpeed;
+    [SerializeField, Range(0,1)] float pausedDarknessLevel;
+
+
+    private Vector3 startingPosition;
+    private float verticalDisplacement = -600;
+    private bool reachedPosition = true;
+    private bool paused = false;
+
+    private void OnEnable() {
+        if (startingPosition == Vector3.zero) startingPosition = transform.position;
+        transform.position = TargetPosition();
+    }
+
+    private void Awake() {
+        startingPosition = transform.position;
+    }
+
+    public bool IsPaused() => paused;
 
     public void Pause() {
+        reachedPosition = false;
         paused = true;
-        Controller.main.enabled = false;
+        UIStateManager.singleton.FadeInDarkener(0, pausedDarknessLevel, lerpSpeed);
+        // UIStateManager.singleton.SetDarkenedBackground(true);
+        // UIStateManager.singleton.darkenerOpacity = 0;
     }
 
     public void Unpause() {
         paused = false;
-        Controller.main.enabled = true;
+        reachedPosition = false;
+        UIStateManager.singleton.FadeInDarkener(pausedDarknessLevel, 0, lerpSpeed);
     }
 
-    void Update() {
-        if (paused && panel.color.a < 0.75f) {
-            panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, panel.color.a + 0.01f);
-            // drop down the image
-        } else if (!paused && panel.color.a >= 0.05f) {
-            panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, panel.color.a - 0.01f);
-        }
+    Vector2 TargetPosition() => new Vector3(startingPosition.x , startingPosition.y + (paused ? 0 : verticalDisplacement), startingPosition.z);
 
-        if (paused && sprite.localPosition.y < -10f) {
-            sprite.localPosition = new Vector3(
-                sprite.localPosition.x,
-                Mathf.Lerp(sprite.localPosition.y, -10, 0.1f),
-                sprite.localPosition.z
-            );
-        } else if (!paused && sprite.localPosition.y >= startingY) {
-            sprite.localPosition = new Vector3(
-                sprite.localPosition.x,
-                Mathf.Lerp(sprite.localPosition.y, startingY, 0.1f),
-                sprite.localPosition.z
-            );
+    void Update() {
+        if (!reachedPosition) {
+            Vector3 endingPosition = TargetPosition(); 
+            transform.position = Vector3.Lerp(transform.position, endingPosition, lerpSpeed * Time.deltaTime);
+            // UIStateManager.singleton.darkenerOpacity = Mathf.Lerp(UIStateManager.singleton.darkenerOpacity, pausedDarknessLevel, lerpSpeed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, endingPosition) <= 1f) { 
+                reachedPosition = true;
+                transform.position = endingPosition;
+                // UIStateManager.singleton.darkenerOpacity = pausedDarknessLevel;
+                if (!paused) gameObject.SetActive(false);
+                print("reached end point");
+            }
         }
     }
 }

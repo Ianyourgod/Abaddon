@@ -35,34 +35,34 @@ public class Slot : MonoBehaviour
 
 	public void CustomStart()
 	{
-			drag = GameObject.FindObjectOfType<DragAndDrop>();
-			#region Placement
+		drag = GameObject.FindObjectOfType<DragAndDrop>();
+		#region Placement
 
-			inv = Object.FindObjectOfType<Inventory>();
-			defaultSprite = GetComponent<Image>().sprite;
+		inv = Object.FindObjectOfType<Inventory>();
+		defaultSprite = GetComponent<Image>().sprite;
 
-			var VisualLayer = new GameObject("GUI");
-			VisualLayer.transform.SetParent(gameObject.transform);
-			VisualLayer.AddComponent<RectTransform>();
-			var text = new GameObject("Text");
-			text.transform.SetParent(VisualLayer.transform);
-			vLayer = VisualLayer;
-			vText = text;
-			vLayer.AddComponent<CanvasRenderer>();
-			vLayer.AddComponent<Image>();
-			vText.AddComponent<RectTransform>();
-			vText.AddComponent<TextMeshProUGUI>();
+		var VisualLayer = new GameObject("GUI");
+		VisualLayer.transform.SetParent(gameObject.transform);
+		VisualLayer.AddComponent<RectTransform>();
+		var text = new GameObject("Text");
+		text.transform.SetParent(VisualLayer.transform);
+		vLayer = VisualLayer;
+		vText = text;
+		vLayer.AddComponent<CanvasRenderer>();
+		vLayer.AddComponent<Image>();
+		vText.AddComponent<RectTransform>();
+		vText.AddComponent<TextMeshProUGUI>();
 
-			amountText = text.GetComponent<TextMeshProUGUI>();
-			amountText.text = "";
-			#endregion
+		amountText = text.GetComponent<TextMeshProUGUI>();
+		amountText.text = "";
+		#endregion
 
 	}
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonUp(0)) if (clone) Destroy(clone);
-
+		if (Input.GetMouseButtonUp(0) && clone) Destroy(clone);
+		
 		if (vLayer)
 		{
 			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	// this line
@@ -139,6 +139,7 @@ public class Slot : MonoBehaviour
 						else
 						{
 							Destroy(slotsItem.gameObject);
+							print("sprinte");
 							itemImage.sprite = defaultSprite;
 						}
 					}

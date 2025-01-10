@@ -2618,13 +2618,49 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - state: 0
-    screenObject: {fileID: 6628212468478409100}
+    screenObject: {fileID: 0}
     onEnable:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6628212468478409100}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 5879144311375236784}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: Pause
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onDisable:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 5879144311375236784}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: Unpause
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   darkener_prefab: {fileID: 8448798473533695517, guid: 8510006997526aa49b0553d64157766f, type: 3}
 --- !u!224 &3335768740276331174
 RectTransform:
@@ -4027,8 +4063,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076af447aa03c281fae1cdf985cb6b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpSpeed: 3
-  springFactor: 20
+  lerpSpeed: 10
+  pausedDarknessLevel: 0.477
 --- !u!114 &5931117629626587050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4199,7 +4235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6753035338669700438
 RectTransform:
   m_ObjectHideFlags: 0

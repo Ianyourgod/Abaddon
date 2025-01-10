@@ -77,6 +77,7 @@ public class DialogueVisualiser : MonoBehaviour
     
     public void ClearQueue() => messageQueue.Clear();
     public void SetQueue(params Message[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages); }
+    public void SetQueueAndPlayFirst(params Message[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages); PlayCurrentMessage(); }
     public void SetQueue(float timeForAll, bool usingCharacterTime, params string[] strings) {
         messageQueue.Clear();
         Message[] messages = new Message[strings.Length];

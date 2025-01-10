@@ -49,6 +49,8 @@ public class UIStateManager : MonoBehaviour
     }
 
     public UIState? currentState {get; private set;} = null;
+    private float lerpSpeed = 0;
+    private float intendedDarkValue = 0;
 
     private void Awake() {
         singleton = this;
@@ -57,14 +59,41 @@ public class UIStateManager : MonoBehaviour
         darkenerInstance.gameObject.SetActive(false);
     }
 
-    public void ToggleUIPage(UIState newState, float? darkLevel = null) {
+    private void Update() {
+        if (lerpSpeed != 0) {
+            print($"dark value: {intendedDarkValue - darkenerOpacity} - (current: {darkenerOpacity}, intended: {intendedDarkValue})");
+            darkenerOpacity = Mathf.Lerp(darkenerOpacity, intendedDarkValue, Time.deltaTime * lerpSpeed);
+            print($"dark value: {intendedDarkValue - darkenerOpacity} - (current: {darkenerOpacity}, intended: {intendedDarkValue})");
+            if (intendedDarkValue - darkenerOpacity < 0.03f) {
+                lerpSpeed = 0;
+                darkenerOpacity = intendedDarkValue;
+                intendedDarkValue = 0;
+                print("finished lerping");
+            }
+        }
+    }
+
+    public void FadeInDarkener(float startValue, float endValue, float speed) {
+        darkenerOpacity = startValue;
+        SetDarkenedBackground(true);
+        lerpSpeed = speed;
+        intendedDarkValue = endValue;
+        print($"dark value: {darkenerOpacity - intendedDarkValue} - (current: {darkenerOpacity}, intended: {intendedDarkValue})");
+    }
+
+    public void ToggleUIPage(UIState newState, float? darkLevel = null, float? lerpSpeed = null) {
         if (currentState == newState) ClosePages();
         else {
             SetUIPage(newState);
             
             if (darkLevel != null) {
-                darkenerOpacity = (float)darkLevel;
-                SetDarkenedBackground(true);
+                if (lerpSpeed != null) {
+                    FadeInDarkener(0, (float)darkLevel, (float)lerpSpeed);
+                }
+                else {
+                    darkenerOpacity = (float)darkLevel;
+                    SetDarkenedBackground(true);
+                }
             }
         }
 
@@ -81,7 +110,7 @@ public class UIStateManager : MonoBehaviour
     public void SetUIPage(UIState newState) {
         currentState = newState;
         foreach (var screen in screens.Where(screen => screen.state == newState)) {
-            screen.screenObject.SetActive(true);
+            if (screen.screenObject) screen.screenObject.SetActive(true);
             screen.onEnable?.Invoke();
         }
     }
@@ -90,10 +119,8 @@ public class UIStateManager : MonoBehaviour
         currentState = null;
         SetDarkenedBackground(false);
         foreach (var screen in screens) {
-            if (screen.screenObject.activeInHierarchy) {
-                screen.onDisable?.Invoke();
-            }
-            screen.screenObject.SetActive(false);
+            if (!screen.screenObject || screen.screenObject.activeInHierarchy) screen.onDisable?.Invoke();
+            if (screen.screenObject) screen.screenObject.SetActive(false);
         }
     }
 

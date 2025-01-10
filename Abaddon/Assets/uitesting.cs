@@ -14,21 +14,11 @@ public class uitesting : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab)) uimanager.ToggleUIPage(UIState.Inventory, 0.2f);
-        if (Input.GetKeyDown(KeyCode.T)) {
-            dialogue.SetQueue(messages);
-            dialogue.PlayCurrentMessage();
-            uimanager.ToggleUIPage(UIState.Dialogue, 0.5f);
-        }
+        if (Input.GetKeyDown(KeyCode.Escape)) uimanager.ToggleUIPage(UIState.Pause);
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (!pauseMenu.IsPaused()) pauseMenu.Pause();
-            else pauseMenu.Unpause();
-            // if (uimanager.currentState == null) {
-            //     uimanager.OpenUIPage(UIState.Pause);
-            // }
-            // else {
-            //     uimanager.ClosePages();
-            // }
+        if (Input.GetKeyDown(KeyCode.T)) {
+            dialogue.SetQueueAndPlayFirst(messages);
+            uimanager.ToggleUIPage(UIState.Dialogue, 0.5f);
         }
     }
 }

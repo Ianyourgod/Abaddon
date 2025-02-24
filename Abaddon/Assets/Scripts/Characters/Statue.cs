@@ -5,7 +5,7 @@ using UnityEngine;
 public class Statue : DamageTaker
 {
     [HideInInspector] public Boss1 boss;
-    [SerializeField] uint health = 20;
+    [SerializeField] int health = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +19,18 @@ public class Statue : DamageTaker
         
     }
 
-    public override void TakeDamage(uint damage) {
-        health -= damage;
+    public override bool TakeDamage(uint damage) {
+        health -= (int) damage;
         Debug.Log("statue health " + health);
         if (health <= 0) {
-            boss.Die();
+            boss.StatueDestroyed();
+            Die();
         }
+
+        return true;
+    }
+
+    private void Die() {
+        Destroy(gameObject);
     }
 }

@@ -7,7 +7,7 @@ public class BoxFightCollider : MonoBehaviour
     [HideInInspector] public bool playerInside = false;
     [SerializeField] Gate gate;
     [SerializeField] Boss1 boss;
-    [SerializeField] CameraScript camera;
+    [SerializeField] CameraScript cam;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class BoxFightCollider : MonoBehaviour
             playerInside = true;
             gate.Close();
             // focus on boss
-            camera.PanToSmooth(boss.transform.position, 1f, 1f);
+            cam.PanToSmooth(boss.transform.position, 1f, 1f);
             boss.StartFight();
         }
     }

@@ -158,7 +158,8 @@ public class Controller : MonoBehaviour {
             respawnPoint = Instantiate(transform, transform.position, Quaternion.identity);
         }
 
-        Vector2 targetPosition = new Vector2(-17.5f, 65.5f);
+        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+        Vector2 targetPosition = boss.transform.position;
 
         // disable player movement until the camera has panned
         done_with_tick = false;

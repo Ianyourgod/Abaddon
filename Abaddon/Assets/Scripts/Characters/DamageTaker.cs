@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageTaker : MonoBehaviour {
-    public virtual void TakeDamage(uint damage) {
+    public virtual bool TakeDamage(uint damage) {
         // ahhh im taking damage!!
+        return true;
     }
 }

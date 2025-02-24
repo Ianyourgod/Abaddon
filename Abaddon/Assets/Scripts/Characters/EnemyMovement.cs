@@ -237,7 +237,7 @@ public class EnemyMovement : DamageTaker
     }
     */
 
-    public override void TakeDamage(uint damage) {
+    public override bool TakeDamage(uint damage) {
         if (damage >= health) {
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
@@ -247,7 +247,7 @@ public class EnemyMovement : DamageTaker
             GetComponent<ItemDropper>().Die();
             // run death animation
             PlayAnimation(direction, "death");
-            return;
+            return true;
         }
         PlayAnimation(direction, "hurt");
         // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
@@ -256,6 +256,8 @@ public class EnemyMovement : DamageTaker
         health -= damage;
         GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Random.Range(1, 5) / 10, Random.Range(1, 5) / 10, 0), Quaternion.identity);
         damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
+
+        return true;
     }
 
     public void Die()

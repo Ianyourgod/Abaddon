@@ -60,6 +60,13 @@ public class Boss1 : DamageTaker
         Debug.Log("i am 1ssoB, and i hate (but im also dead so)");
         // set color to dark red
         spriteRenderer.color = new Color(0.5f, 0, 0);
+
+        StartCoroutine(FullyDie(2));
+    }
+
+    IEnumerator FullyDie(float wait_time) {
+        yield return new WaitForSeconds(wait_time);
+        Destroy(gameObject);
     }
 
     private void CustomUpdate() {

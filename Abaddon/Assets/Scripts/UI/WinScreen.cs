@@ -8,8 +8,6 @@ public class WinScreen : MonoBehaviour
     bool allEnemiesDead = false;
 
     void Update() {
-        return;
-
         if (allEnemiesDead) {
             return;
         }

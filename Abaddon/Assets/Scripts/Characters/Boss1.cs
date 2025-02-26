@@ -9,12 +9,13 @@ public class Boss1 : DamageTaker
     [SerializeField] Animator animator;
     [SerializeField] int AllowedAttackTicks = 7;
     [SerializeField] int Stages = 3;
-    [SerializeField] int statueRange = 5;
+    [SerializeField] Vector2Int roomSize = new Vector2Int(21, 11);
+    [SerializeField] int maxHealth = 15;
 
     [HideInInspector] public bool inFight = false;
     [HideInInspector] public int stage = 0;
 
-    private int health = 10;
+    private int health = 15;
     private int ticks_till_move_back = 0;
 
     void Awake() {
@@ -22,6 +23,7 @@ public class Boss1 : DamageTaker
     }
 
     public void StartFight() {
+        health = maxHealth;
         inFight = true;
         stage = 1;
         Debug.Log("i am 1ssoB, and i hate");
@@ -32,8 +34,10 @@ public class Boss1 : DamageTaker
         // generate statue position
         Vector2 bossPosition = transform.position;
         // man i hate unity
-        float range = Random.Range(2, statueRange);
-        Vector2 random_position = Random.insideUnitCircle.normalized * range;
+        Vector2 random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
+        while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2) {
+            random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
+        }
         Vector2 statuePosition = new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
 
         GameObject statue = Instantiate(statuePrefab, statuePosition, Quaternion.identity);
@@ -48,13 +52,7 @@ public class Boss1 : DamageTaker
             Die();
         }
 
-        if (stage % 2 == 1) {
-            SpawnStatue();
-        } else {
-            // allow boss to be damaged
-            health = 15;
-            ticks_till_move_back = AllowedAttackTicks;
-        }
+        ticks_till_move_back = AllowedAttackTicks;
     }
 
     public void Die() {
@@ -97,7 +95,7 @@ public class Boss1 : DamageTaker
             Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
             PlayAnimation("damage");
             if (health <= 0) {
-                health = 0;
+                health = maxHealth;
                 stage++;
                 Debug.Log("i am 1ssoB, and i am dead but maybe not potentially stage is now " + stage);
                 if (stage > Stages*2) {
@@ -114,6 +112,6 @@ public class Boss1 : DamageTaker
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, statueRange);
+        Gizmos.DrawWireCube(transform.position, new Vector3(roomSize.x, roomSize.y, 0));
     }
 }

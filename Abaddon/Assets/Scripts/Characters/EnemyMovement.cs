@@ -251,7 +251,7 @@ public class EnemyMovement : DamageTaker
         }
         PlayAnimation(direction, "hurt");
         // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
-        StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
+        StartCoroutine(ExecuteAftePlayAnimationrTime(0.25f, direction, 1));
         sfxPlayer.PlayHurtSound();
         health -= damage;
         GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Random.Range(1, 5) / 10, Random.Range(1, 5) / 10, 0), Quaternion.identity);

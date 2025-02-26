@@ -6,8 +6,10 @@ public class Boss1 : DamageTaker
 {
     [SerializeField] GameObject statuePrefab;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Animator animator;
     [SerializeField] int AllowedAttackTicks = 7;
     [SerializeField] int Stages = 3;
+    [SerializeField] int statueRange = 5;
 
     [HideInInspector] public bool inFight = false;
     [HideInInspector] public int stage = 0;
@@ -30,7 +32,8 @@ public class Boss1 : DamageTaker
         // generate statue position
         Vector2 bossPosition = transform.position;
         // man i hate unity
-        Vector2 random_position = Random.insideUnitCircle.normalized * 3;
+        float range = Random.Range(2, statueRange);
+        Vector2 random_position = Random.insideUnitCircle.normalized * range;
         Vector2 statuePosition = new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
 
         GameObject statue = Instantiate(statuePrefab, statuePosition, Quaternion.identity);
@@ -58,6 +61,7 @@ public class Boss1 : DamageTaker
         inFight = false;
         stage = 0;
         Debug.Log("i am 1ssoB, and i hate (but im also dead so)");
+        PlayAnimation("die");
         // set color to dark red
         spriteRenderer.color = new Color(0.5f, 0, 0);
 
@@ -80,10 +84,18 @@ public class Boss1 : DamageTaker
         }
     }
 
+    private void PlayAnimation(string action)
+    {
+        string animation = $"BOSS1_animation_{action}";
+
+        animator.Play(animation);
+    }
+
     public override bool TakeDamage(uint damage) {
         if (inFight && stage % 2 == 0) {
             health -= (int) damage;
             Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
+            PlayAnimation("damage");
             if (health <= 0) {
                 health = 0;
                 stage++;
@@ -98,5 +110,10 @@ public class Boss1 : DamageTaker
         }
 
         return false;
+    }
+
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, statueRange);
     }
 }

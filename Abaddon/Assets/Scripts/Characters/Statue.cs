@@ -6,18 +6,7 @@ public class Statue : DamageTaker
 {
     [HideInInspector] public Boss1 boss;
     [SerializeField] int health = 20;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] Animator animator;
 
     public override bool TakeDamage(uint damage) {
         health -= (int) damage;
@@ -25,6 +14,15 @@ public class Statue : DamageTaker
         if (health <= 0) {
             boss.StatueDestroyed();
             Die();
+        } else {
+            base.TakeDamage(damage); // this is so the damage text appears
+            int damage_level = health < (20/3) ?
+                                3
+                                : health < (2*20/3) ?
+                                    2
+                                    : 1;
+
+            PlayAnimation($"damage{damage_level}");
         }
 
         return true;
@@ -32,5 +30,12 @@ public class Statue : DamageTaker
 
     private void Die() {
         Destroy(gameObject);
+    }
+
+    private void PlayAnimation(string action)
+    {
+        string animation = $"statue_animation_{action}";
+
+        animator.Play(animation);
     }
 }

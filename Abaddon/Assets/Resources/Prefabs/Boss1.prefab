@@ -72,12 +72,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1489757d820f5448dedf3cf0cf231d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
   statuePrefab: {fileID: 4903596350638405677, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
   spriteRenderer: {fileID: 435642702979050185}
   animator: {fileID: 8160346232297714436}
   AllowedAttackTicks: 7
   Stages: 3
-  statueRange: 5
+  roomSize: {x: 21, y: 11}
+  maxHealth: 15
   inFight: 0
   stage: 0
 --- !u!1 &4186379011150645085

@@ -93,6 +93,7 @@ public class Boss1 : DamageTaker
         if (inFight && stage % 2 == 0) {
             health -= (int) damage;
             Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
+            base.TakeDamage(damage); // this is so the damage text appears
             PlayAnimation("damage");
             if (health <= 0) {
                 health = maxHealth;
@@ -101,6 +102,7 @@ public class Boss1 : DamageTaker
                 if (stage > Stages*2) {
                     Die();
                 } else {
+                    PlayAnimation("stunned");
                     SpawnStatue();
                 }
             }

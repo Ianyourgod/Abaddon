@@ -21,7 +21,7 @@ public class EnemyMovement : DamageTaker
     [SerializeField] SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
-    [SerializeField] int detectionDistance = 1;
+    [SerializeField] int detectionDistance = 4;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
 
@@ -37,6 +37,10 @@ public class EnemyMovement : DamageTaker
 
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
+        StartPosition = transform.position;
+        int gridSize = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeX = gridSize;
+        pathfinding.grid.gridSizeY = gridSize;
     }
 
     private void Start() {
@@ -221,19 +225,13 @@ public class EnemyMovement : DamageTaker
         animator.Play(animation);
     }
 
-    /*
     //sadly disabled because it causes errors when building
-    private void OnDrawGizmosSelected() {
-        //pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
-        //pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
-        //pathfinding.grid.CreateGrid();
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
-        //Handles.color = Color.red;
-        // draw a square around the player
-        //Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
+    void OnDrawGizmosSelected() {
+        int gridSize = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeX = gridSize;
+        pathfinding.grid.gridSizeY = gridSize;
+        pathfinding.grid.DrawGizmos();
     }
-    */
 
     public override bool TakeDamage(uint damage) {
         if (damage >= health) {

@@ -5,10 +5,12 @@ using UnityEngine;
 public class Boss1 : DamageTaker
 {
     [SerializeField] GameObject statuePrefab;
+    [SerializeField] GameObject baseEnemy;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Animator animator;
     [SerializeField] int AllowedAttackTicks = 7;
     [SerializeField] int Stages = 3;
+    [SerializeField] int enemiesPerStage = 2;
     [SerializeField] Vector2Int roomSize = new Vector2Int(21, 11);
     [SerializeField] int maxHealth = 15;
 
@@ -30,19 +32,31 @@ public class Boss1 : DamageTaker
         SpawnStatue();
     }
 
-    private void SpawnStatue() {
-        // generate statue position
+    private Vector2 GenerateRandomPosition() {
         Vector2 bossPosition = transform.position;
         // man i hate unity
         Vector2 random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
-        while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2) {
+        // also check that theres no enemies or statues already there
+        while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2 || Physics2D.OverlapCircle(new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition, 0.5f, LayerMask.GetMask("Enemy"))) {
             random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
         }
-        Vector2 statuePosition = new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
+        return new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
+    }
+
+    private void SpawnStatue() {
+        // generate statue position
+        Vector2 statuePosition = GenerateRandomPosition();
 
         GameObject statue = Instantiate(statuePrefab, statuePosition, Quaternion.identity);
 
         statue.GetComponent<Statue>().boss = this;
+
+        // also spawn enemies
+        for (int i = 0; i < (enemiesPerStage + (stage/2)); i++) {
+            Vector2 enemyPosition = GenerateRandomPosition();
+            // make a copy of the base enemy
+            GameObject enemy = Instantiate(baseEnemy, enemyPosition, Quaternion.identity);
+        }
     }
 
     public void StatueDestroyed() {

@@ -14,12 +14,14 @@ public class Grid2D : MonoBehaviour
     public Vector3 worldBottomLeft;
 
     float nodeDiameter;
-    public int gridSizeX, gridSizeY;
+    public int gridSizeX, gridSizeY = 0;
 
     void Awake()
     {
-        gridSizeX = Mathf.RoundToInt(9);
-        gridSizeY = Mathf.RoundToInt(9);
+        if (gridSizeX == 0) {
+            gridSizeX = Mathf.RoundToInt(9);
+            gridSizeY = Mathf.RoundToInt(9);
+        }
         CreateGrid();
     }
 
@@ -127,8 +129,7 @@ public class Grid2D : MonoBehaviour
         return Grid[x, y];
     }
     
-    //Draws visual representation of grid
-    void OnDrawGizmosSelected()
+    public void DrawGizmos()
     {
         CreateGrid();
         if (Grid != null)

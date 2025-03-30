@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     [HideInInspector] public MusicManager musicManager;
 
     void Awake(){
-        main =  this;
+        main = this;
         musicManager = GetComponent<MusicManager>();
 
         //GameObject[] objs = GameObject.FindGameObjectsWithTag("AudioManager");

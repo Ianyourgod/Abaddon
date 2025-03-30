@@ -315,6 +315,7 @@ public class Controller : MonoBehaviour
 
     public void UpdateStats()
     {
+        double health_percentage = (double)health / (double)max_health;
         max_health = constitution * 2;
         if (healthBarVisual)
         {

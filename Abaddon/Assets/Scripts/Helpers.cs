@@ -10,6 +10,7 @@ public class Helpers : MonoBehaviour {
     public static Helpers singleton;
 
     [SerializeField] GameObject textFadePrefab;
+    [SerializeField] GameObject darkener;
 
     private void Awake()
     {
@@ -25,5 +26,16 @@ public class Helpers : MonoBehaviour {
         ).GetComponent<RealTextFadeUp>();
         
         damageAmount.SetText(text, Color.red, Color.white, 0.4f);
-    }   
+    }
+}
+
+public static class StaticHelpers {
+    public static T Pop<T>(this List<T> list) {
+        if (list == null || list.Count == 0) {
+            throw new InvalidOperationException("Cannot pop from an empty or null list.");
+        }
+        T item = list[list.Count - 1];
+        list.RemoveAt(list.Count - 1);
+        return item;
+    }
 }

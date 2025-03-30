@@ -1,10 +1,8 @@
-﻿		///----------------------------\\\
-		//  Ultimate Inventory Engine   \\
+﻿//-----------------------------------------------\\
+//			Ultimate Inventory Engine			 \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
-//      https://nikichatv.com/N-Studios.html	  \\
-///-----------------------------------------------\\\
-
-
+//     https://nikichatv.com/N-Studios.html	     \\
+//-----------------------------------------------\\
 
 using UnityEngine;
 

@@ -40,13 +40,13 @@ public class MenuHandler : MonoBehaviour
     }
 
     void TogglePauseMenu() {
-        isPaused = !isPaused;
-        if (isPaused) {
-            Pause();
-        }
-        else {
-            Unpause();
-        }
+        // isPaused = !isPaused;
+        // if (isPaused) {
+        //     Pause();
+        // }
+        // else {
+        //     Unpause();
+        // }
     }
 
     void Pause() {

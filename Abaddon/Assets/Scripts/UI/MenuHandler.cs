@@ -13,6 +13,8 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] List<GameObject> pausedObjects;
     [SerializeField] List<Behaviour> pausedComponents;
     [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] Inventory inventory;
+    [SerializeField] KeyCode inventoryKey;
     [SerializeField] TransitionIntoHandler transitionIntoHandler;
 
     public bool isPaused {get; private set;} = false;
@@ -26,8 +28,15 @@ public class MenuHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePauseMenu();
+            if (inventory.isInventoryOpen)
+                inventory.CloseInventory();
+            else
+                TogglePauseMenu();
+            return;
         }
+        if(Input.GetKeyDown(inventoryKey))
+            if (inventory.isInventoryOpen) inventory.CloseInventory();
+            else inventory.OpenInventory();
     }
 
     void TogglePauseMenu() {

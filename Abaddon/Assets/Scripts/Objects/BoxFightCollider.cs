@@ -23,13 +23,16 @@ public class BoxFightCollider : MonoBehaviour
             playerInside = true;
             gate.Close();
             // focus on boss
-            cam.PanToSmooth(boss.transform.position, 1f, 1f);
+            print("Focusing on boss");
+            cam.ChangeTarget(boss.transform, 1f, () => print("Boss fight started"));
             boss.StartFight();
         }
     }
 
-    private void onDie() {
-        if (playerInside) {
+    private void onDie()
+    {
+        if (playerInside)
+        {
             gate.Open();
         }
     }

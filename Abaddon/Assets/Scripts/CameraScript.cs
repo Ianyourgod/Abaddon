@@ -1,87 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] float lerpSpeed = 0.1f;
-    [SerializeField] float targetFPS = 60;
+    [SerializeField] float defaultLerpSpeed = 0.1f;
+    [SerializeField] public Transform defaultFollowTarget;
+    private float currentLerpSpeed;
+    private Transform currentTarget;
+    private System.Action onComplete;
 
-    private bool panning = false;
-    private Vector2 panStart;
-    private Vector2 panTarget;
-    private float stayTime = 0.5f;
-    private float panSpeed = 0.05f;
-    private bool smooth = false;
-    private float time = 1.0f;
-    private float current_time = 0.0f;
+    void Start()
+    {
+        ResetTarget();
+    }
 
-    void Update() {
+    Vector2 CalcNextPosition()
+    {
+        // Calculate normalized time for sigmoid interpolation
+        float t = currentLerpSpeed * Time.deltaTime;
+        // Apply sigmoid function to get smooth S-curve
+        float smoothT = t / (1 + t);
+
+        return Vector3.Lerp(transform.position, currentTarget.position + new Vector3(0, 0, -10), smoothT);
+    }
+
+    void Update()
+    {
         if (Controller.main == null) return;
+        print("panning to " + currentTarget.gameObject.name);
 
-        if (panning) {
-            PanInternal();
-            return;
+        Vector3 newPosition = CalcNextPosition();
+        if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f)
+        {
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            onComplete?.Invoke();
+            onComplete = null;
         }
-
-        Vector2 playerPosition = Controller.main.transform.position;
-        Vector2 cameraPosition = transform.position;
-
-        Vector2 newPosition = Vector2.Lerp(cameraPosition, playerPosition, lerpSpeed * (Time.deltaTime * targetFPS));
-
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
-    }
-
-    public void PanTo(Vector2 target, float speed, float stay) {
-        panStart = transform.position;
-        panTarget = target;
-        panSpeed = speed;
-        stayTime = stay;
-        smooth = false;
-        panning = true;
-        Controller.main.done_with_tick = false;
-    }
-
-    public void PanToSmooth(Vector2 target, float time_, float stay) {
-        panStart = transform.position;
-        panTarget = target;
-        time = time_;
-        current_time = 0.0f;
-        stayTime = stay;
-        smooth = true;
-        panning = true;
-        Controller.main.done_with_tick = false;
-    }
-
-    private float sigmoid(float t, float steepness) {
-        return 1 / (1 + Mathf.Exp(-steepness * (t - 0.5f)));
-    }
-
-    private Vector2 smoothLerp(Vector2 a, Vector2 b, float t, float steepness = 10) {
-        return Vector2.Lerp(a, b, sigmoid(t, steepness));
-    }
-
-    private void PanInternal() {
-        Vector2 cameraPosition = transform.position;
-
-        Vector2 newPosition;
-
-        if (smooth) {
-            current_time += Time.deltaTime;
-
-            newPosition = smoothLerp(panStart, panTarget, current_time / time);
-        } else {
-            newPosition = Vector2.Lerp(cameraPosition, panTarget, panSpeed * (Time.deltaTime * targetFPS));
+        else
+        {
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
         }
+    }
 
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+    public void PanToPoint(Vector2 point)
+    {
+        defaultFollowTarget = Instantiate(new GameObject("Follow Target").transform);
+        defaultFollowTarget.position = point;
+    }
 
-        if (Vector2.Distance(newPosition, panTarget) < 0.5f) {
-            stayTime -= Time.deltaTime;
-            if (stayTime <= 0) {
-                panning = false;
-                Controller.main.done_with_tick = true;
-            }
-        }
+    public void ChangeTarget(Transform target, float lerpSpeed, System.Action onComplete)
+    {
+        currentTarget = target;
+        currentLerpSpeed = lerpSpeed;
+        this.onComplete = onComplete;
+    }
+
+    public void ResetTarget()
+    {
+        currentTarget = defaultFollowTarget;
+        currentLerpSpeed = defaultLerpSpeed;
     }
 }

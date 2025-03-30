@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,7 +19,8 @@ public class Grid2D : MonoBehaviour
 
     void Awake()
     {
-        if (gridSizeX == 0) {
+        if (gridSizeX == 0)
+        {
             gridSizeX = Mathf.RoundToInt(9);
             gridSizeY = Mathf.RoundToInt(9);
         }
@@ -41,7 +43,8 @@ public class Grid2D : MonoBehaviour
 
     private bool ObjectIsThere(Vector3 position)
     {
-        return Physics2D.OverlapCircle(position, 0.3f, collideLayers) != null;
+        float size = 0.9f;
+        return Physics2D.OverlapBox(position, new Vector2(size, size), 0, collideLayers) != null;
     }
 
     public void CreateGrid()
@@ -57,9 +60,11 @@ public class Grid2D : MonoBehaviour
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * x + Vector3.up * y;
                 Grid[x, y] = new Node2D(false, worldPoint, x, y);
 
-                if (x == Math.Floor((float) gridSizeX / 2) && y == Math.Floor((float) gridSizeY / 2)) {
+                if (x == Math.Floor((float)gridSizeX / 2) && y == Math.Floor((float)gridSizeY / 2))
+                {
                     Grid[x, y].SetObstacle(false);
-                } else
+                }
+                else
 
                 if (HasTile(Grid[x, y].worldPosition))
                     Grid[x, y].SetObstacle(true);
@@ -128,7 +133,7 @@ public class Grid2D : MonoBehaviour
 
         return Grid[x, y];
     }
-    
+
     public void DrawGizmos()
     {
         CreateGrid();
@@ -138,10 +143,12 @@ public class Grid2D : MonoBehaviour
             Gizmos.DrawWireCube(transform.position, new Vector3(gridSizeX, gridSizeY, 1));
             foreach (Node2D n in Grid)
             {
-                if (n.obstacle) {
+                if (n.obstacle)
+                {
                     Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
                     Gizmos.DrawCube(n.worldPosition + halfNodeSize, Vector3.one);
-                } else
+                }
+                else
                     Gizmos.color = Color.white;
 
                 if (path != null && path.Contains(n))

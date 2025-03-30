@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +19,23 @@ public class AudioManagerBetter : MonoBehaviour
     [SerializeField] KeyCode increaseVolumeKey;
     [SerializeField] KeyCode decreaseVolumeKey;
 
+    [Header("Music Dictionary")]
+    [Tooltip("Keys and values must be at same indexes, and keys and values must be the same length")]
+    [SerializeField] string[] songKeys;
+    [SerializeField] AudioClip[] songValues;
+
+    Dictionary<string, AudioClip> songs;
+
     void Awake()
     {
         main = this;
         sfxPlayer.volume = sfxVolume;
         musicPlayer.volume = musicVolume;
+
+        songs = new Dictionary<string, AudioClip>();
+        for(int i = 0; i < songKeys.Length; i++){
+            songs[songKeys[i]] = songValues[i];
+        }
     }
 
     void Update()

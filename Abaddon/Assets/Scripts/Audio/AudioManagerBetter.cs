@@ -21,6 +21,8 @@ public class AudioManagerBetter : MonoBehaviour
     void Awake()
     {
         main = this;
+        sfxPlayer.volume = sfxVolume;
+        musicPlayer.volume = musicVolume;
     }
 
     void Update()
@@ -46,16 +48,26 @@ public class AudioManagerBetter : MonoBehaviour
     public void IncreaseVolume(float interval){
         sfxVolume += interval;
         musicVolume += interval;
+
+        sfxPlayer.volume = sfxVolume;
+        musicPlayer.volume = musicVolume;
     }
 
     public void DecreaseVolume(float interval){
         sfxVolume -= interval;
         musicVolume -= interval;
+
+        sfxPlayer.volume = sfxVolume;
+        musicPlayer.volume = musicVolume;
     }
 
     public void PlayMusic(AudioClip music){
         musicPlayer.clip = music;
         musicPlayer.Play();
+    }
+
+    public void StopMusic(){
+        musicPlayer.Stop();
     }
 
     public void PlaySfx(AudioClip sfx){

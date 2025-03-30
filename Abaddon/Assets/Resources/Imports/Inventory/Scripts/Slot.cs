@@ -36,7 +36,6 @@ public class Slot : MonoBehaviour
 	public void CustomStart()
 	{
 		drag = GameObject.FindObjectOfType<DragAndDrop>();
-		#region Placement
 
 		inv = Object.FindObjectOfType<Inventory>();
 		defaultSprite = GetComponent<Image>().sprite;
@@ -55,26 +54,30 @@ public class Slot : MonoBehaviour
 
 		amountText = text.GetComponent<TextMeshProUGUI>();
 		amountText.text = "";
-		#endregion
 
+		// shitty fix. fixes the thing where the inventory will "shift" when first opened
+		for (int i=0;i<10;i++) {
+			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+			vLayer.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+
+			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// this sets the centerpoint of the "GUI" object in the slot.
+			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
+		}
 	}
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonUp(0) && clone) Destroy(clone);
-		
+		if (Input.GetMouseButtonUp(0)) if (clone) Destroy(clone);
+
 		if (vLayer)
 		{
-			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	// this line
-			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-			vLayer.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-			vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// through this line, probably some weird alignment stuff? nothing changes visibly when modified
-			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// this sets the centerpoint of the "GUI" object in the slot
-			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(-0, vLayer.GetComponent<RectTransform>().offsetMax.y);
-			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(vLayer.GetComponent<RectTransform>().offsetMax.x, -0);
+			// only changes scale if not equal to default (i.e. if an item is in the slot)
 			itemImage = vLayer.GetComponent<Image>();
-			if (itemImage.sprite != defaultSprite) {	// only changes scale if not equal to default (i.e. if an item is in the slot)
+			if (itemImage.sprite != defaultSprite) {
 				vLayer.GetComponent<RectTransform>().localScale = new Vector3(.75f, .75f, 1);	// scales it down
+			} else {
+				vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// scales it back up	
 			}
 		}
 		if (vText && !beingDragged)
@@ -139,7 +142,6 @@ public class Slot : MonoBehaviour
 						else
 						{
 							Destroy(slotsItem.gameObject);
-							print("sprinte");
 							itemImage.sprite = defaultSprite;
 						}
 					}
@@ -239,19 +241,6 @@ public class Slot : MonoBehaviour
 						thrownItem.transform.SetParent(null);
 
 						thrownItem.GetComponent<Item>().amountInStack = 1;
-
-						var rb = thrownItem.GetComponent<Rigidbody>();
-						rb.isKinematic = false;
-						rb.useGravity = true;
-
-						//AddForce
-						rb.interpolation = RigidbodyInterpolation.Extrapolate;
-						rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-						rb.AddForce(player.transform.forward * player.GetComponent<Inventory>().throwForceForward, ForceMode.Impulse);
-						rb.AddForce(player.transform.up * player.GetComponent<Inventory>().throwForceUp, ForceMode.Impulse);
-
-						float random = Random.Range(-1f, 1f);
-						rb.AddTorque(new Vector3(random, random, random) * 10);
 					}
 					else
 					{
@@ -278,18 +267,6 @@ public class Slot : MonoBehaviour
 					thrownItem.gameObject.SetActive(true);
 					thrownItem.transform.localScale = slotsItem.startSize;
 					thrownItem.GetComponent<Item>().amountInStack = slotsItem.amountInStack;
-
-					Rigidbody rb = thrownItem.GetComponent<Rigidbody>();
-					rb.isKinematic = false;
-					rb.useGravity = true;
-
-					rb.interpolation = RigidbodyInterpolation.Extrapolate;
-					rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-					rb.AddForce(player.transform.forward * player.GetComponent<Inventory>().throwForceForward, ForceMode.Impulse);
-					rb.AddForce(player.transform.up * player.GetComponent<Inventory>().throwForceUp, ForceMode.Impulse);
-					//Add random rotation
-					float random = Random.Range(-3f, 3f);
-					rb.AddTorque(new Vector3(random, random, random) * 10);
 				}
 				else
 				{
@@ -299,7 +276,7 @@ public class Slot : MonoBehaviour
 				slotsItem.amountInStack = 0;
 			}
 		}
-		inv.hotbarParent.SelectItem();
+		//inv.hotbarParent.SelectItem();
 	}
 
 	public List<Item> GetIdenticalItems(int ID)

@@ -24,6 +24,7 @@ public class StatInfoUpdater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Controller.main == null) return;
         switch (stat)
         {
             case Stat.Wisdom:

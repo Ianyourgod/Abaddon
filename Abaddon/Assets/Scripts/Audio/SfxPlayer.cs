@@ -40,6 +40,8 @@ public class SfxPlayer : MonoBehaviour
     }
 
     public void PlaySfx(AudioClip soundFx, float addedSound = 0f){
+        if (soundFx == null)
+            return;
 
         if (playableOffScreen || sprRend.isVisible)
         {

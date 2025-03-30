@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemySfx))]
 [RequireComponent(typeof(ItemDropper))]
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : DamageTaker
 {
 
     [Header("References")]
@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
-    [SerializeField] int detectionDistance = 1;
+    [SerializeField] int detectionDistance = 4;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
 
@@ -35,10 +35,12 @@ public class EnemyMovement : MonoBehaviour
     
     private EnemySfx sfxPlayer;
 
-    [SerializeField] GameObject textFadePrefab;
-
     private void Awake(){
         sfxPlayer = GetComponent<EnemySfx>();
+        StartPosition = transform.position;
+        int gridSize = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeX = gridSize;
+        pathfinding.grid.gridSizeY = gridSize;
     }
 
     private void Start() {
@@ -223,37 +225,35 @@ public class EnemyMovement : MonoBehaviour
         animator.Play(animation);
     }
 
-    /*
-    sadly disabled because it causes errors when building
-    private void OnDrawGizmosSelected() {
-        pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.CreateGrid();
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, detectionDistance);
-        Handles.color = Color.red;
-        // draw a square around the player
-        Handles.DrawWireDisc(transform.position, transform.forward, followDistance);
+    //sadly disabled because it causes errors when building
+    void OnDrawGizmosSelected() {
+        int gridSize = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeX = gridSize;
+        pathfinding.grid.gridSizeY = gridSize;
+        pathfinding.grid.DrawGizmos();
     }
-    */
 
-    public void DamageEnemy(uint damage, string targetTag) {
+    public override bool TakeDamage(uint damage) {
         if (damage >= health) {
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
+            // random number between 1 and 3
+            Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().Die();
             // run death animation
             PlayAnimation(direction, "death");
-            return;
+            return true;
         }
         PlayAnimation(direction, "hurt");
         // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
         StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
         sfxPlayer.PlayHurtSound();
         health -= damage;
-        GameObject damageAmount = Instantiate(textFadePrefab, transform.position + new Vector3(Random.Range(1, 5) / 10, Random.Range(1, 5) / 10, 0), Quaternion.identity);
-        damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
+
+        base.TakeDamage(damage); // this is so the damage text appears
+
+        return true;
     }
 
     public void Die()

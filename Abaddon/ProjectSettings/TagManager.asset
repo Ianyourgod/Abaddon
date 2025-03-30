@@ -7,6 +7,7 @@ TagManager:
   - first_enemy
   - AudioManager
   - StopMusic
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - 
   - 
   - interactable
-  - 
+  - gate
   - 
   - 
   - 

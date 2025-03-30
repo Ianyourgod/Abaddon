@@ -28,6 +28,8 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
+        if (musicAudSource == null || AudioManager.main == null) return;
+
         musicAudSource.volume = AudioManager.main.musicVolume;
     }
 

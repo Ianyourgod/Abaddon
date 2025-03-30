@@ -49,6 +49,8 @@ public class AbilitySwapper : MonoBehaviour {
     }
 
     public static BaseAbility getAbility(Controller player) {
+        return player.GetComponent<NormalAttack>();
+        
         switch (currently_selected) {
             case Ability.Attack: return player.GetComponent<NormalAttack>();
             case Ability.TempAbility: return player.GetComponent<TempAbility>();

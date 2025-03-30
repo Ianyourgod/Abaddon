@@ -11,9 +11,9 @@ public class CameraScript : MonoBehaviour
     private Transform currentTarget;
     private System.Action onComplete;
 
-    void Start()
-    {
-        ResetTarget();
+    void Awake() {
+        currentTarget = defaultFollowTarget;
+        currentLerpSpeed = defaultLerpSpeed;
     }
 
     Vector2 CalcNextPosition()

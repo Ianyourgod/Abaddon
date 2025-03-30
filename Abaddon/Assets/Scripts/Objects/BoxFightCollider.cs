@@ -24,7 +24,10 @@ public class BoxFightCollider : MonoBehaviour
             gate.Close();
             // focus on boss
             print("Focusing on boss");
-            cam.ChangeTarget(boss.transform, 1f, () => print("Boss fight started"));
+            cam.ChangeTarget(boss.transform, 0.75f, () => {
+                print("Boss fight started");
+                cam.ResetTarget();
+            });
             boss.StartFight();
         }
     }

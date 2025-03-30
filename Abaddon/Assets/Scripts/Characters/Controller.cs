@@ -169,18 +169,24 @@ public class Controller : MonoBehaviour
         }
 
         GameObject boss = GameObject.FindGameObjectWithTag("Boss");
-        Vector2 targetPosition = boss.transform.position;
+        Transform targetPosition = boss.transform;
 
         // disable player movement until the camera has panned
-        // done_with_tick = false;
-        // StartCoroutine(StartWithPan(0.75f, targetPosition, 5f, 2f));
+        done_with_tick = false;
+        StartCoroutine(AfterDelay(1f, () =>
+            mainCamera.ChangeTarget(targetPosition, 1f, () => {
+                done_with_tick = true;
+                mainCamera.ResetTarget();
+            })
+        ));
     }
 
-    // IEnumerator StartWithPan(float wait_time, Vector2 target, float time, float stay)
-    // {
-    //     yield return new WaitForSeconds(wait_time);
-    //     mainCamera.PanToPoint(target);
-    // }
+    IEnumerator AfterDelay(float wait_time, System.Action run)
+    {
+        yield return new WaitForSeconds(wait_time);
+        Debug.Log("hiii");
+        run?.Invoke();
+    }
 
     void Update()
     {

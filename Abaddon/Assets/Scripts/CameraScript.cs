@@ -29,7 +29,7 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         if (Controller.main == null) return;
-        print("panning to " + currentTarget.gameObject.name);
+        //print("panning to " + currentTarget.gameObject.name);
 
         Vector3 newPosition = CalcNextPosition();
         if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f)

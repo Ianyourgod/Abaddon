@@ -7,6 +7,9 @@ public class AudioManagerBetter : MonoBehaviour
 {
     public static AudioManagerBetter main;
 
+    [Header("References")]
+    [SerializeField] AudioSource musicSource;
+
     [Header("Attributes")]
     [SerializeField] float sfxVolume = 0.02f;
     [SerializeField] float musicVolume = 0.02f;
@@ -21,7 +24,6 @@ public class AudioManagerBetter : MonoBehaviour
     [SerializeField] AudioClip[] songValues;
 
     Dictionary<string, AudioClip> songs;
-    AudioSource[] audioSources; //first index is always the music audio source, others are for sfx
 
     void Awake()
     {
@@ -31,8 +33,6 @@ public class AudioManagerBetter : MonoBehaviour
         for(int i = 0; i < songKeys.Length; i++){
             songs[songKeys[i]] = songValues[i];
         }
-
-        audioSources[0] = new AudioSource();
     }
 
     void Update()
@@ -51,6 +51,10 @@ public class AudioManagerBetter : MonoBehaviour
         return songs[key];
     }
 
+    public AudioSource GetMusicSource(){
+        return musicSource;
+    }
+
     public void IncreaseVolume(float interval){
         sfxVolume += interval;
         musicVolume += interval;
@@ -66,15 +70,12 @@ public class AudioManagerBetter : MonoBehaviour
     }
 
     void UpdateAudioSourcesVolume(){
-        audioSources[0].volume = musicVolume;
-        for(int i = 1; i < audioSources.Length; i++){
-            audioSources[i].volume = sfxVolume;
-        }
+        musicSource.volume = musicVolume;
     }
 
     public void PlaySong(string songName){
-        audioSources[0].clip = songs[songName];
-        audioSources[0].Play();
+        musicSource.clip = songs[songName];
+        musicSource.Play();
     }
 
     public void StopSong(AudioSource musicPlayer){

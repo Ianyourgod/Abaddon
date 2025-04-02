@@ -118,6 +118,7 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnPath(string path)
     {
+        Debug.Log(path);
         Instantiate((UnityEngine.Object)Resources.Load(path), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

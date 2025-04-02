@@ -174,17 +174,16 @@ public class Controller : MonoBehaviour
         // disable player movement until the camera has panned
         done_with_tick = false;
         StartCoroutine(AfterDelay(1f, () =>
-            mainCamera.ChangeTarget(targetPosition, 1f, () => {
+            mainCamera.ChangeTarget(targetPosition, 4f, 2f, () => {
                 done_with_tick = true;
-                mainCamera.ResetTarget();
-            })
+            }, false)
         ));
     }
 
     IEnumerator AfterDelay(float wait_time, System.Action run)
     {
         yield return new WaitForSeconds(wait_time);
-        Debug.Log("hiii");
+        Debug.Log("after delay");
         run?.Invoke();
     }
 

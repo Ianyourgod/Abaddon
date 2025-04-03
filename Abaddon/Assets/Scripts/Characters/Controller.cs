@@ -326,6 +326,7 @@ public class Controller : MonoBehaviour
         {
             healthBarVisual.maxValue = max_health;
         }
+        health = (int) ((double) max_health * health_percentage);
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
     }

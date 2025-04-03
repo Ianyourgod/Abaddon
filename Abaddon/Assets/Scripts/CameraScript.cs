@@ -44,7 +44,6 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         if (Controller.main == null) return;
-        //print("panning to " + currentTarget.gameObject.name);
         Vector3 newPosition = CalcNextPosition();
         if ((Vector2.Distance(transform.position, currentTarget.position) < 0.5f && is_lerp_mode) ||
            (current_movement_time > seconds && !is_lerp_mode)) {

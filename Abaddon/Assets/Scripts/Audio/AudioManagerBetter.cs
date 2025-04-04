@@ -24,6 +24,7 @@ public class AudioManagerBetter : MonoBehaviour
     [SerializeField] AudioClip[] songValues;
 
     Dictionary<string, AudioClip> songs;
+    List<SfxSource> sfxSources;
 
     void Awake()
     {
@@ -33,6 +34,8 @@ public class AudioManagerBetter : MonoBehaviour
         for(int i = 0; i < songKeys.Length; i++){
             songs[songKeys[i]] = songValues[i];
         }
+
+        sfxSources = new List<SfxSource>();
     }
 
     void Update()
@@ -71,6 +74,9 @@ public class AudioManagerBetter : MonoBehaviour
 
     void UpdateAudioSourcesVolume(){
         musicSource.volume = musicVolume;
+        foreach(SfxSource currentSource in sfxSources){
+            currentSource.Volume(sfxVolume);
+        }
     }
 
     public void PlaySong(string songName){
@@ -80,5 +86,16 @@ public class AudioManagerBetter : MonoBehaviour
 
     public void StopSong(AudioSource musicPlayer){
         musicPlayer.Stop();
+    }
+
+    public void PopSfxSource(int index){
+        sfxSources.RemoveAt(index);
+        for(int i = 0; i < sfxSources.Count; i++){
+            sfxSources[i].SetIndex(i);
+        }
+    }
+
+    public void PlaySound(AudioClip sound){
+        sfxSources.Add(new SfxSource(sound, sfxSources.Count, sfxVolume));
     }
 }

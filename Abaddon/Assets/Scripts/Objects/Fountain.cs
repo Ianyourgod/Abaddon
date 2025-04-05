@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(FountainSfx))]
+[RequireComponent(typeof(SfxPlayerBetter))]
 
 public class Fountain : MonoBehaviour
 {
@@ -29,5 +29,6 @@ public class Fountain : MonoBehaviour
     {
         // this solution is actually kinda pretty and i love it
         HealthStored = Controller.main.HealPlayer(HealthStored);
+        gameObject.GetComponent<SfxPlayerBetter>().PlaySound("drink");
     }
 }

@@ -175,8 +175,6 @@ public class Controller : MonoBehaviour {
         }
         // if we hit a fountain, heal from it
         else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
-            if (health < max_health)
-                hit.GetComponent<FountainSfx>().PlayFountainSound();
             hit.gameObject.GetComponent<Fountain>().Heal();
             FinishTick();
         }

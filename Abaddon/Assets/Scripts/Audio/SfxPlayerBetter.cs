@@ -22,4 +22,14 @@ public class SfxPlayerBetter : MonoBehaviour
 	public void PlaySound(string key){
         AudioManagerBetter.main.PlaySfx(soundEffects[key]);
     }
+
+    public void PlayRandomSound(string baseKey){
+        int baseKeyAmount = 0;
+        foreach((string key, AudioClip value) in soundEffects){
+            if(key.Contains(baseKey)){
+                baseKeyAmount++;
+            }
+        }
+        var rand = new Random();
+    }
 }

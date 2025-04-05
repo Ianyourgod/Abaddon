@@ -6,8 +6,8 @@ public class Potion : MonoBehaviour
 {
     [SerializeField] int healAmount = 10;
 
-    public void Consume(UISfx sfxPlayer) {
-        sfxPlayer.PlayUseSound(0);
+    public void Consume() {
+        GetComponent<SfxPlayerBetter>().PlaySound("drink");
         Controller.main.HealPlayer(healAmount);
     }
 }

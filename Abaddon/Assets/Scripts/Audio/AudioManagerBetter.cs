@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManagerBetter : MonoBehaviour
@@ -75,7 +76,7 @@ public class AudioManagerBetter : MonoBehaviour
     void UpdateAudioSourcesVolume(){
         musicSource.volume = musicVolume;
         foreach(SfxSource currentSource in sfxSources){
-            currentSource.Volume(sfxVolume);
+            currentSource.SetVolume(sfxVolume);
         }
     }
 
@@ -89,13 +90,16 @@ public class AudioManagerBetter : MonoBehaviour
     }
 
     public void PopSfxSource(int index){
+        Destroy(sfxSources[index].Source());
+        Destroy(sfxSources[index]);
         sfxSources.RemoveAt(index);
         for(int i = 0; i < sfxSources.Count; i++){
             sfxSources[i].SetIndex(i);
         }
     }
 
-    public void PlaySound(AudioClip sound){
-        sfxSources.Add(new SfxSource(sound, sfxSources.Count, sfxVolume));
+    public void PlaySfx(AudioClip sound){
+        sfxSources.Add(gameObject.AddComponent<SfxSource>());
+        sfxSources[^1].Play(sound);
     }
 }

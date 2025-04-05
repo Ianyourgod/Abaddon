@@ -17,6 +17,12 @@ public class SfxSource : MonoBehaviour
         Play();
     }
 
+	void Awake()
+	{
+        source = gameObject.AddComponent<AudioSource>();
+        source.loop = false;
+	}
+
 	void Update()
 	{
 		if(!source.isPlaying){
@@ -44,6 +50,11 @@ public class SfxSource : MonoBehaviour
         source.Play();
     }
 
+    public void Play(AudioClip clip){
+        SetAudioClip(clip);
+        source.Play();
+    }
+
     public void Pause(){
         source.Pause();
     }
@@ -52,7 +63,7 @@ public class SfxSource : MonoBehaviour
         source.UnPause();
     }
 
-    public void Volume(float volume){
+    public void SetVolume(float volume){
         source.volume = volume;
     }
 }

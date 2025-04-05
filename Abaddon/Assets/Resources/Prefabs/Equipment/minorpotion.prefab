@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 9061713491536200824}
   - component: {fileID: 8444585494693830666}
   - component: {fileID: -2513266356810522662}
+  - component: {fileID: 2174422374136724377}
   m_Layer: 0
   m_Name: minorpotion
   m_TagString: Untagged
@@ -271,3 +272,21 @@ MonoBehaviour:
   randomPickupSound: 0
   addedPickupVolume: 0
   usable: 1
+--- !u!114 &2174422374136724377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061713491536200831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fb8b86fd3a6b4ea9bfbb16a2730ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundKeys:
+  - pickup
+  - drink
+  soundValues:
+  - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
+  - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}

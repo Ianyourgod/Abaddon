@@ -56,6 +56,7 @@ public class Slot : MonoBehaviour
 		amountText.text = "";
 
 		// shitty fix. fixes the thing where the inventory will "shift" when first opened
+		// TODO: make this shitty fix actually work
 		for (int i=0;i<10;i++) {
 			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
 			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);

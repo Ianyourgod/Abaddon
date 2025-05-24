@@ -105,7 +105,7 @@ public class Controller : MonoBehaviour
         Down,
         Left,
         Right
-    } 
+    }
 
     private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
 
@@ -199,13 +199,18 @@ public class Controller : MonoBehaviour
         // disable player movement until the camera has panned
         done_with_tick = false;
         StartCoroutine(AfterDelay(1f, () =>
-            mainCamera.ChangeTarget(targetPosition, 4f, 2f, () => {
-                done_with_tick = true;
-            }, false)
+            mainCamera.ChangeTarget(targetPosition, 4f, 2f, onComplete: () =>
+            {
+                mainCamera.ResetTarget(4f, true, () =>
+                {
+                    print("Camera reset complete");
+                    done_with_tick = true;
+                });
+            }, callResetOnceDone: false)
         ));
     }
 
-    IEnumerator AfterDelay(float wait_time, System.Action run)
+    IEnumerator AfterDelay(float wait_time, Action run)
     {
         yield return new WaitForSeconds(wait_time);
         Debug.Log("after delay");
@@ -330,7 +335,8 @@ public class Controller : MonoBehaviour
             FinishTick();
         }
         // if we hit a fountain, heal from it
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain")) {
+        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain"))
+        {
             hit.gameObject.GetComponent<Fountain>().Heal();
             FinishTick();
         }
@@ -348,7 +354,7 @@ public class Controller : MonoBehaviour
         {
             healthBarVisual.maxValue = max_health;
         }
-        health = (int) ((double) max_health * health_percentage);
+        health = (int)((double)max_health * health_percentage);
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
     }

@@ -17,7 +17,7 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] KeyCode inventoryKey;
     [SerializeField] TransitionIntoHandler transitionIntoHandler;
 
-    public bool isPaused {get; private set;} = false;
+    public bool isPaused { get; private set; } = false;
 
     private void Awake()
     {
@@ -34,49 +34,60 @@ public class MenuHandler : MonoBehaviour
                 TogglePauseMenu();
             return;
         }
-        if(Input.GetKeyDown(inventoryKey))
+        if (Input.GetKeyDown(inventoryKey))
             if (inventory.isInventoryOpen) inventory.CloseInventory();
             else inventory.OpenInventory();
     }
 
-    void TogglePauseMenu() {
-        // isPaused = !isPaused;
-        // if (isPaused) {
-        //     Pause();
-        // }
-        // else {
-        //     Unpause();
-        // }
+    public void TogglePauseMenu()
+    {
+        isPaused = !isPaused;
+        if (isPaused)
+        {
+            Pause();
+        }
+        else
+        {
+            Unpause();
+        }
     }
 
-    void Pause() {
+    void Pause()
+    {
         Time.timeScale = 0f;
         SetAllListsTo(true);
         pauseMenu.Pause();
     }
 
-    void Unpause() {
+    void Unpause()
+    {
         Time.timeScale = 1f;
         SetAllListsTo(false);
         pauseMenu.Unpause();
     }
 
-    void SetAllListsTo(bool input) {
-        foreach (Behaviour g in visibleComponents) {
+    void SetAllListsTo(bool input)
+    {
+        foreach (Behaviour g in visibleComponents)
+        {
             g.enabled = input;
         }
-        foreach (GameObject g in visibleObjects) {
+        foreach (GameObject g in visibleObjects)
+        {
             g.SetActive(input);
         }
-        foreach (Behaviour g in pausedComponents) {
+        foreach (Behaviour g in pausedComponents)
+        {
             g.enabled = !input;
         }
-        foreach (GameObject g in pausedObjects) {
+        foreach (GameObject g in pausedObjects)
+        {
             g.SetActive(!input);
         }
     }
 
-    public void Quit() {
+    public void Quit()
+    {
         Unpause();
         transitionIntoHandler.SwitchSceneToMainMenu();
     }

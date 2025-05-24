@@ -22,7 +22,14 @@ public class SfxPlayerBetter : MonoBehaviour
 
     public void PlaySound(string key)
     {
-        AudioManagerBetter.main.PlaySfx(soundEffects[key]);
+        if (soundEffects.ContainsKey(key) && AudioManagerBetter.main)
+        {
+            AudioManagerBetter.main.PlaySfx(soundEffects[key]);
+        }
+        else
+        {
+            print("invalid sound byte key: " + key);
+        }
     }
 
     public void PlayRandomSound(string baseKey)

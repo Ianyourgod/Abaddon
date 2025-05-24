@@ -5,21 +5,25 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] public Transform defaultFollowTarget;
-    [SerializeField] public float default_seconds;
-    [SerializeField] public float default_wait_time;
-    [SerializeField] public float default_lerp_speed=0.25f;
-    [SerializeField] AnimationCurve camera_moveto_curve;
+    [SerializeField] private Transform defaultFollowTarget;
+    [SerializeField] private float default_seconds;
+    [SerializeField] private float default_wait_time;
+    [SerializeField] private float default_lerp_speed = 0.25f;
+    [SerializeField] private bool default_useSmoothMovementOnReset = true;
+    [SerializeField] private AnimationCurve camera_moveto_curve;
     private float seconds;
     private float wait_time = 0;
     private Transform currentTarget;
     private System.Action onComplete;
-    private bool is_lerp_mode = true;
+    private bool useSmoothMovement = true;
     private float current_movement_time = 0;
     private float current_wait_time = 0;
     private Vector2 start_position;
+    private bool useSmoothMovementOnReset = true;
+    private bool callResetOnceDone = true;
 
-    void Awake() {
+    void Awake()
+    {
         currentTarget = defaultFollowTarget;
         seconds = 0;
     }
@@ -27,14 +31,17 @@ public class CameraScript : MonoBehaviour
     Vector2 CalcNextPosition()
     {
         float time = current_movement_time / seconds;
-        if (time > 1) {
+        if (time > 1)
+        {
             time = 1;
         }
-        if (float.IsNaN(time)) {
+        if (float.IsNaN(time))
+        {
             time = 0;
         }
         current_movement_time += Time.deltaTime;
-        if (!is_lerp_mode) {
+        if (useSmoothMovement)
+        {
             time = camera_moveto_curve.Evaluate(time);
             return Vector3.Lerp(start_position, currentTarget.position + new Vector3(0, 0, -10), time);
         }
@@ -44,25 +51,32 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         if (Controller.main == null) return;
+
         Vector3 newPosition = CalcNextPosition();
-        if ((Vector2.Distance(transform.position, currentTarget.position) < 0.5f && is_lerp_mode) ||
-           (current_movement_time > seconds && !is_lerp_mode)) {
-            if (current_wait_time < wait_time) {
+        if ((Vector2.Distance(transform.position, currentTarget.position) < 0.5f && !useSmoothMovement) ||
+           (current_movement_time > seconds && useSmoothMovement))
+        {
+            if (current_wait_time < wait_time)
+            {
                 current_wait_time += Time.deltaTime;
-            } else {
+            }
+            else
+            {
                 transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
                 onComplete?.Invoke();
                 onComplete = null;
-                ResetTarget();
+                if (callResetOnceDone) ResetTarget();
             }
-        } else {
+        }
+        else
+        {
             transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
         }
     }
 
-    public void PanToPoint(Vector2 point, float seconds, float wait_time, bool is_lerp_mode=true)
+    public void PanToPoint(Vector2 point, float seconds, float wait_time, bool useSmoothMovement = true)
     {
-        this.is_lerp_mode = is_lerp_mode;
+        this.useSmoothMovement = useSmoothMovement;
         defaultFollowTarget = Instantiate(new GameObject("Follow Target").transform);
         defaultFollowTarget.position = point;
         this.seconds = seconds;
@@ -71,9 +85,10 @@ public class CameraScript : MonoBehaviour
         current_wait_time = 0;
     }
 
-    public void ChangeTarget(Transform target, float seconds, float wait_time, System.Action onComplete, bool is_lerp_mode=true)
+    public void ChangeTarget(Transform target, float seconds, float wait_time, bool useSmoothMovementTowardsTarget = true, bool useSmoothMovementFromTarget = true, System.Action onComplete = null, bool callResetOnceDone = true)
     {
-        this.is_lerp_mode = is_lerp_mode;
+        this.useSmoothMovement = useSmoothMovementTowardsTarget;
+        this.useSmoothMovementOnReset = useSmoothMovementFromTarget;
         current_movement_time = 0;
         currentTarget = target;
         this.seconds = seconds;
@@ -82,16 +97,20 @@ public class CameraScript : MonoBehaviour
         this.start_position = transform.position;
         current_movement_time = 0;
         current_wait_time = 0;
+        this.callResetOnceDone = callResetOnceDone;
     }
 
-    public void ResetTarget()
+    public void ResetTarget(float? seconds = null, bool? useSmoothMovement = null, System.Action onComplete = null)
     {
-        this.is_lerp_mode = true;
+        this.useSmoothMovementOnReset = default_useSmoothMovementOnReset;
+        this.useSmoothMovement = useSmoothMovement ?? default_useSmoothMovementOnReset;
+        current_movement_time = 0;
+        currentTarget = defaultFollowTarget;
+        this.seconds = seconds ?? default_seconds;
+        this.onComplete = onComplete;
+        this.start_position = transform.position;
         current_movement_time = 0;
         current_wait_time = 0;
         wait_time = default_wait_time;
-        seconds = default_seconds;
-        currentTarget = defaultFollowTarget;
-        this.start_position = transform.position;
     }
 }

@@ -95,8 +95,9 @@ public class Controller : MonoBehaviour
     #region Movement Controls
     private class MoveState
     {
-        public float heldTime = 0f;
-        public bool wasHeldLastFrame = false;
+        public float held_time = 0f;
+        public bool held_last_frame = false;
+        public float last_repeat_run = 0f;
     }
 
     private enum MovementDirection
@@ -109,7 +110,8 @@ public class Controller : MonoBehaviour
 
     private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
 
-    public float initialMovementDelay = 0.3f;
+    [SerializeField] float initialMovementDelay = 0.3f;
+    [SerializeField] float holdDelay = 0.016f;
 
     #endregion
 
@@ -395,23 +397,31 @@ public class Controller : MonoBehaviour
 
         if (isHeld)
         {
-            state.heldTime += Time.deltaTime;
+            state.held_time += Time.deltaTime;
 
-            if (!state.wasHeldLastFrame)
+            if (!state.held_last_frame)
             {
-                state.wasHeldLastFrame = true;
-                state.heldTime = 0f;
+                state.held_last_frame = true;
+                state.held_time = 0f;
                 return true;
             }
-            else if (state.heldTime > initialMovementDelay)
+            else if (state.held_time > initialMovementDelay)
             {
-                return true;
+                if (state.last_repeat_run > holdDelay)
+                {
+                    state.last_repeat_run = 0f;
+                    return true;
+                }
+                else
+                {
+                    state.last_repeat_run += Time.deltaTime;
+                }
             }
         }
         else
         {
-            state.wasHeldLastFrame = false;
-            state.heldTime = 0f;
+            state.held_last_frame = false;
+            state.held_time = 0f;
         }
 
         return false;

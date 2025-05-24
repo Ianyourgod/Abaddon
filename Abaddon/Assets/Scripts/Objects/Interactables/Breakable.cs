@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ItemDropper))]
-[RequireComponent(typeof(BreakableSfx))]
+[RequireComponent(typeof(SfxPlayerBetter))]
 
 public class Breakable : Interactable
 {
@@ -15,15 +15,15 @@ public class Breakable : Interactable
 
     [SerializeField] BreakableType type = BreakableType.Pot;
     [SerializeField] float health = 1;
-    BreakableSfx sfxPlayer;
+    SfxPlayerBetter sfxPlayer;
 
     public void Start() {
-        sfxPlayer = GetComponent<BreakableSfx>();
+        sfxPlayer = GetComponent<SfxPlayerBetter>();
     }
 
     public override void Interact(float damage)
     {
-        sfxPlayer.PlayBreakSound();
+        sfxPlayer.PlaySound("break");
         health -= damage;
         if (health <= 0)
         {

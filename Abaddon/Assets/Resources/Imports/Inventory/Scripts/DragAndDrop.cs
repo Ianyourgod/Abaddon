@@ -464,7 +464,7 @@ public class DragAndDrop : MonoBehaviour
 	public void DoubleClick(Item clickedItem)
 	{
 		if (clickedItem.TryGetComponent(out Potion potion)) {
-			potion.Consume(sfxPlayer);
+			potion.Consume();
 			inv.RemoveItemAmount(clickedItem.ItemID, 1);
 		}
 	}

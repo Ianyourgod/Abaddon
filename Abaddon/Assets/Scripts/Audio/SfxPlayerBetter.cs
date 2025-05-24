@@ -9,27 +9,32 @@ public class SfxPlayerBetter : MonoBehaviour
     [SerializeField] string[] soundKeys;
     [SerializeField] AudioClip[] soundValues;
 
-	Dictionary<string, AudioClip> soundEffects;
+    Dictionary<string, AudioClip> soundEffects;
 
-	void Awake()
-	{
-		soundEffects = new Dictionary<string, AudioClip>();
-        for(int i = 0; i < soundKeys.Length; i++){
+    void Awake()
+    {
+        soundEffects = new Dictionary<string, AudioClip>();
+        for (int i = 0; i < soundKeys.Length; i++)
+        {
             soundEffects[soundKeys[i]] = soundValues[i];
         }
-	}
+    }
 
-	public void PlaySound(string key){
+    public void PlaySound(string key)
+    {
         AudioManagerBetter.main.PlaySfx(soundEffects[key]);
     }
 
-    public void PlayRandomSound(string baseKey){
+    public void PlayRandomSound(string baseKey)
+    {
         int baseKeyAmount = 0;
-        foreach((string key, AudioClip value) in soundEffects){
-            if(key.Contains(baseKey)){
+        foreach ((string key, AudioClip value) in soundEffects)
+        {
+            if (key.Contains(baseKey))
+            {
                 baseKeyAmount++;
             }
         }
-        var rand = new Random();
+        // var rand = new Random();
     }
 }

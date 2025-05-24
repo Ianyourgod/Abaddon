@@ -14,10 +14,6 @@ using TMPro;
 [RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
 {
-	[Header("Buttons")]
-	[Tooltip("Select a button that will open the inventory when pressed.")]
-	public KeyCode inventoryKey;
-
 	[Header("Inventory Settings")]
 	[Tooltip("Put your whole inventory object inside here.")]
 	public GameObject inventoryObject;
@@ -77,7 +73,6 @@ public class Inventory : MonoBehaviour
 	private void Awake()
     {
 		invSfxPlayer = inventoryObject.transform.parent.GetComponent<UISfx>();
-
 	}
 
 	private void Start()
@@ -106,34 +101,6 @@ public class Inventory : MonoBehaviour
 	private void Update()
 	{
 		if (MenuHandler.instance && MenuHandler.instance.isPaused) return;
-		if (Input.GetKeyDown(inventoryKey) && !isInventoryOpen)
-		{
-			invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
-
-			isInventoryOpen = true;
-
-			ReloadInventory();
-			ShowButtons();
-
-			//Cursor.visible = true;
-			//Cursor.lockState = CursorLockMode.None;
-
-			playerMovement.enabled = false;
-			if (shadow) shadow.SetActive(true);
-		} 
-		else if (Input.GetKeyDown(inventoryKey) || (Input.GetKeyDown(KeyCode.Escape)) && isInventoryOpen)
-		{
-			invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
-
-			CloseAllTabs();
-			HideButtons();
-
-			isInventoryOpen = false;
-			//Cursor.visible = false;
-			//Cursor.lockState = CursorLockMode.Locked;
-			playerMovement.enabled = true;
-			if (shadow) shadow.SetActive(false);
-		}
 
 		foreach (Slot i in slots)
 		{
@@ -144,6 +111,34 @@ public class Inventory : MonoBehaviour
 		{
 			i.CheckForItem();
 		}
+	}
+
+	public void OpenInventory() {
+		invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
+
+		isInventoryOpen = true;
+
+		ReloadInventory();
+		ShowButtons();
+
+		//Cursor.visible = true;
+		//Cursor.lockState = CursorLockMode.None;
+
+		playerMovement.enabled = false;
+		if (shadow) shadow.SetActive(true);
+	}
+
+	public void CloseInventory() {
+		invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
+
+		CloseAllTabs();
+		HideButtons();
+
+		isInventoryOpen = false;
+		//Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
+		playerMovement.enabled = true;
+		if (shadow) shadow.SetActive(false);
 	}
 
 	public bool CheckIfItemExists(int id) {

@@ -57,8 +57,6 @@ public class Controller : MonoBehaviour
     }
     int _health;
 
-    private bool god_mode = false;
-    private (bool, bool) god_mode_keys = (false, false);
     #endregion
 
     #region Movement
@@ -88,6 +86,33 @@ public class Controller : MonoBehaviour
     #region Constants 
     const int KeyID = 1;
     #endregion
+
+    #region Local Things
+    private bool god_mode = false;
+    private (bool, bool) god_mode_keys = (false, false);
+    #endregion
+
+    #region Movement Controls
+    private class MoveState
+    {
+        public float heldTime = 0f;
+        public bool wasHeldLastFrame = false;
+    }
+
+    private enum MovementDirection
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    } 
+
+    private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
+
+    public float initialMovementDelay = 0.3f;
+
+    #endregion
+
     #endregion
 
     void Awake()
@@ -364,18 +389,61 @@ public class Controller : MonoBehaviour
         }
     }
 
+    private bool ShouldMove(MovementDirection dir, bool isHeld)
+    {
+        if (!movementStates.ContainsKey(dir))
+            movementStates[dir] = new MoveState();
+
+        MoveState state = movementStates[dir];
+
+        if (isHeld)
+        {
+            state.heldTime += Time.deltaTime;
+
+            if (!state.wasHeldLastFrame)
+            {
+                state.wasHeldLastFrame = true;
+                state.heldTime = 0f;
+                return true;
+            }
+            else if (state.heldTime > initialMovementDelay)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            state.wasHeldLastFrame = false;
+            state.heldTime = 0f;
+        }
+
+        return false;
+    }
+
     Vector2 GetAxis()
     {
         Func<bool, int> BoolToInt = boolValue => boolValue ? 1 : 0;
 
         // todo: allow people to rebind movement keys
-        int up = BoolToInt(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow));
-        int down = BoolToInt(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow));
-        int left = BoolToInt(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow));
-        int right = BoolToInt(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow));
 
-        float horizontal = (float)(right - left);
-        float vertical = (float)(up - down);
+
+        bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+        bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+
+        up = ShouldMove(MovementDirection.Up, up);
+        down = ShouldMove(MovementDirection.Down, down);
+        left = ShouldMove(MovementDirection.Left, left);
+        right = ShouldMove(MovementDirection.Right, right);
+
+        int i_up = BoolToInt(up);
+        int i_down = BoolToInt(down);
+        int i_left = BoolToInt(left);
+        int i_right = BoolToInt(right);
+
+        float horizontal = (float)(i_right - i_left);
+        float vertical = (float)(i_up - i_down);
 
         return new Vector2(horizontal, vertical);
     }

@@ -111,7 +111,7 @@ public class Controller : MonoBehaviour
     private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
 
     [SerializeField] float initialMovementDelay = 0.3f;
-    [SerializeField] float holdDelay = 0.016f;
+    [SerializeField] float holdDelay = 0.03f;
 
     #endregion
 

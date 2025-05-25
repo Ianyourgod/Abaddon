@@ -22,12 +22,13 @@ public class BoxFightCollider : MonoBehaviour
         {
             playerInside = true;
             gate.Close();
-            // focus on boss
-            print("Focusing on boss");
-            cam.ChangeTarget(boss.transform, 3f, 1.5f, () => {
-                print("Boss fight started");
-            }, false);
-            boss.StartFight();
+            cam.ChangeTarget(boss.transform, 2f, onComplete: () =>
+            {
+                cam.UpdateFOV(7f, 2f, onComplete: () =>
+                {
+                    boss.StartFight();
+                });
+            });
         }
     }
 

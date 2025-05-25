@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ItemDropper))]
 [RequireComponent(typeof(SfxPlayerBetter))]
 
-public class Breakable : Interactable
+public class Breakable : MonoBehaviour, Hurtable
 {
     public enum BreakableType
     {
@@ -17,27 +17,31 @@ public class Breakable : Interactable
     [SerializeField] float health = 1;
     SfxPlayerBetter sfxPlayer;
 
-    public void Start() {
+    public void Start()
+    {
         sfxPlayer = GetComponent<SfxPlayerBetter>();
     }
 
-    public override void Interact(float damage)
+    public bool Hurt(float damage)
     {
         sfxPlayer.PlaySound("break");
         health -= damage;
-        if (health <= 0)
+        if (health <= 0) Die();
+        return true;
+    }
+
+    public void Die()
+    {
+        switch (type)
         {
-            switch (type)
-            {
-                case BreakableType.Pot:
-                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/PotBreak"), transform.position, Quaternion.identity);
-                    break;
-                case BreakableType.Barrel:
-                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/BarrelBreak"), transform.position, Quaternion.identity);
-                    break;
-            }
-            GetComponent<ItemDropper>().Die();
-            Destroy(gameObject);
+            case BreakableType.Pot:
+                Instantiate((GameObject)Resources.Load("Prefabs/Environment/PotBreak"), transform.position, Quaternion.identity);
+                break;
+            case BreakableType.Barrel:
+                Instantiate((GameObject)Resources.Load("Prefabs/Environment/BarrelBreak"), transform.position, Quaternion.identity);
+                break;
         }
+        GetComponent<ItemDropper>().Die();
+        Destroy(gameObject);
     }
 }

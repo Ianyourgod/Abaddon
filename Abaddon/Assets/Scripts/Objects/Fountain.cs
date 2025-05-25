@@ -1,34 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SfxPlayerBetter))]
 
-public class Fountain : MonoBehaviour
+public class Fountain : MonoBehaviour, Interactable
 {
     [SerializeField] Animator animator;
-    [SerializeField] int HealthStored = 50;
+    [SerializeField] int healthStored = 50;
+    private SfxPlayerBetter sfxPlayer;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        sfxPlayer = GetComponent<SfxPlayerBetter>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (HealthStored <= 0)
-        {
-            HealthStored = 0;
-            animator.Play("Fountain_empty");
-        }
+        if (healthStored <= 0) animator.Play("Fountain_empty");
     }
 
-    public void Heal()
+    public void Interact()
     {
         // this solution is actually kinda pretty and i love it
-        HealthStored = Controller.main.HealPlayer(HealthStored);
-        gameObject.GetComponent<SfxPlayerBetter>().PlaySound("drink");
+        healthStored = Math.Max(0, Controller.main.HealPlayer(healthStored));
+        sfxPlayer.PlaySound("drink");
     }
 }

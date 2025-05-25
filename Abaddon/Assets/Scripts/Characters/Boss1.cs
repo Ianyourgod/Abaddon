@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss1 : DamageTaker
+public class Boss1 : MonoBehaviour, Fightable
 {
     [SerializeField] GameObject statuePrefab;
     [SerializeField] GameObject baseEnemy;
@@ -20,11 +20,13 @@ public class Boss1 : DamageTaker
     private int health = 15;
     private int ticks_till_move_back = 0;
 
-    void Awake() {
+    void Awake()
+    {
         Controller.OnTick += CustomUpdate;
     }
 
-    public void StartFight() {
+    public void StartFight()
+    {
         health = maxHealth;
         inFight = true;
         stage = 1;
@@ -32,18 +34,26 @@ public class Boss1 : DamageTaker
         SpawnStatue();
     }
 
-    private Vector2 GenerateRandomPosition() {
+    private Vector2 GenerateRandomPosition()
+    {
         Vector2 bossPosition = transform.position;
         // man i hate unity
         Vector2 random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
         // also check that theres no enemies or statues already there
-        while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2 || Physics2D.OverlapCircle(new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition, 0.5f, LayerMask.GetMask("Enemy"))) {
+        while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2 || Physics2D.OverlapCircle(new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition, 0.5f, LayerMask.GetMask("Enemy")))
+        {
             random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
         }
         return new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
     }
 
-    private void SpawnStatue() {
+    public void Attack(uint damage)
+    {
+        SpawnStatue();
+    }
+
+    private void SpawnStatue()
+    {
         // generate statue position
         Vector2 statuePosition = GenerateRandomPosition();
 
@@ -52,24 +62,28 @@ public class Boss1 : DamageTaker
         statue.GetComponent<Statue>().boss = this;
 
         // also spawn enemies
-        for (int i = 0; i < (enemiesPerStage + (stage/2)); i++) {
+        for (int i = 0; i < (enemiesPerStage + (stage / 2)); i++)
+        {
             Vector2 enemyPosition = GenerateRandomPosition();
             // make a copy of the base enemy
             GameObject enemy = Instantiate(baseEnemy, enemyPosition, Quaternion.identity);
         }
     }
 
-    public void StatueDestroyed() {
+    public void StatueDestroyed()
+    {
         stage++;
         Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im on stage " + stage);
-        if (stage > Stages*2) {
+        if (stage > Stages * 2)
+        {
             Die();
         }
 
         ticks_till_move_back = AllowedAttackTicks;
     }
 
-    public void Die() {
+    public void Die()
+    {
         inFight = false;
         stage = 0;
         Debug.Log("i am 1ssoB, and i hate (but im also dead so)");
@@ -80,16 +94,20 @@ public class Boss1 : DamageTaker
         StartCoroutine(FullyDie(2));
     }
 
-    IEnumerator FullyDie(float wait_time) {
+    IEnumerator FullyDie(float wait_time)
+    {
         yield return new WaitForSeconds(wait_time);
         Destroy(gameObject);
     }
 
-    private void CustomUpdate() {
-        if (stage % 2 == 0 && stage != 0) {
+    private void CustomUpdate()
+    {
+        if (stage % 2 == 0 && stage != 0)
+        {
             ticks_till_move_back--;
             Debug.Log("uh oh im running out of ticks! " + ticks_till_move_back);
-            if (ticks_till_move_back <= 0) {
+            if (ticks_till_move_back <= 0)
+            {
                 stage--;
                 SpawnStatue();
             }
@@ -103,19 +121,24 @@ public class Boss1 : DamageTaker
         animator.Play(animation);
     }
 
-    public override bool TakeDamage(uint damage) {
-        if (inFight && stage % 2 == 0) {
-            health -= (int) damage;
+    public bool TakeDamage(uint damage)
+    {
+        if (inFight && stage % 2 == 0)
+        {
+            health -= (int)damage;
             Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
-            base.TakeDamage(damage); // this is so the damage text appears
             PlayAnimation("damage");
-            if (health <= 0) {
+            if (health <= 0)
+            {
                 health = maxHealth;
                 stage++;
                 Debug.Log("i am 1ssoB, and i am dead but maybe not potentially stage is now " + stage);
-                if (stage > Stages*2) {
+                if (stage > Stages * 2)
+                {
                     Die();
-                } else {
+                }
+                else
+                {
                     PlayAnimation("stunned");
                     SpawnStatue();
                 }
@@ -126,7 +149,8 @@ public class Boss1 : DamageTaker
         return false;
     }
 
-    void OnDrawGizmosSelected() {
+    void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, new Vector3(roomSize.x, roomSize.y, 0));
     }

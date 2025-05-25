@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemySfx))]
 [RequireComponent(typeof(ItemDropper))]
 
-public class EnemyMovement : DamageTaker
+public class EnemyMovement : MonoBehaviour, Fightable
 {
 
     [Header("References")]
@@ -32,63 +32,79 @@ public class EnemyMovement : DamageTaker
     private bool followingPlayer = false;
 
     private Vector3 StartPosition;
-    
+
     private EnemySfx sfxPlayer;
 
-    private void Awake(){
+    private void Awake()
+    {
         sfxPlayer = GetComponent<EnemySfx>();
         StartPosition = transform.position;
-        int gridSize = (int) (detectionDistance * 2 + 1);
+        int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
     }
 
-    private void Start() {
+    private void Start()
+    {
         StartPosition = transform.position;
-        int gridSize = (int) (detectionDistance * 2 + 1);
+        int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
     }
 
-    bool CheckPlayerIsInDetectionRange() {
+    bool CheckPlayerIsInDetectionRange()
+    {
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
     }
 
-    bool CheckPlayerIsInFollowRange() {
+    bool CheckPlayerIsInFollowRange()
+    {
         float distance = UnityEngine.Vector2.Distance(Controller.main.transform.position, StartPosition);
         return distance <= followDistance;
     }
 
-    public void MakeDecision() {
+    public void MakeDecision()
+    {
         bool inFollowRange = CheckPlayerIsInFollowRange();
         bool inDetectionRange = CheckPlayerIsInDetectionRange();
         bool atHome = transform.position == StartPosition;
 
-        if (inDetectionRange && inFollowRange) {
+        if (inDetectionRange && inFollowRange)
+        {
             Invoke(nameof(MoveToPlayer), enemyDecisionDelay);
-        } else if (!inFollowRange && !atHome) {
+        }
+        else if (!inFollowRange && !atHome)
+        {
             Vector2 direction = ToHome();
-            
-            if (direction == Vector2.zero) {
+
+            if (direction == Vector2.zero)
+            {
                 Invoke(nameof(callNextEnemy), 0f);
                 return;
             }
 
             Move(direction);
-        } else {
+        }
+        else
+        {
             Invoke(nameof(callNextEnemy), 0f);
         }
     }
 
-    private void callNextEnemy() {
+    private void callNextEnemy()
+    {
         Controller.main.NextEnemy();
     }
 
-    void MoveToPlayer() {
-        if (CheckPlayerIsInDetectionRange()) {
+    void MoveToPlayer()
+    {
+        if (CheckPlayerIsInDetectionRange())
+        {
             followingPlayer = true;
             movementTarget = Controller.main.transform.position;
-        } else if (followingPlayer && !CheckPlayerIsInFollowRange()) {
+        }
+        else if (followingPlayer && !CheckPlayerIsInFollowRange())
+        {
             followingPlayer = false;
             Invoke(nameof(callNextEnemy), 0f);
             return;
@@ -96,7 +112,8 @@ public class EnemyMovement : DamageTaker
 
         direction = ToPlayer();
 
-        if (direction == Vector2.zero) {
+        if (direction == Vector2.zero)
+        {
             Invoke(nameof(callNextEnemy), 0f);
             return;
         }
@@ -106,38 +123,53 @@ public class EnemyMovement : DamageTaker
         Move(direction);
     }
 
-    private void Move(Vector2 direction) {
+    private void Move(Vector2 direction)
+    {
         Collider2D hit = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
         bool will_attack = attack.WillAttack(hit, direction);
 
-        if (will_attack) {
-            Controller.main.enabled = false;
-            animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-            PlayAnimation(direction, "attack");
-        } else if (hit == null) {
+        if (will_attack)
+        {
+            Attack(1);
+        }
+        else if (hit == null)
+        {
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
             Invoke(nameof(callNextEnemy), 0f);
-        } else {
+        }
+        else
+        {
             Invoke(nameof(callNextEnemy), 0f);
         }
     }
 
-    private static float Clamp(float value, float min, float max) {
+    public void Attack(uint damage)
+    {
+        Controller.main.enabled = false;
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        PlayAnimation(direction, "attack");
+    }
+
+    private static float Clamp(float value, float min, float max)
+    {
         return (value < min) ? min : (value > max) ? max : value;
     }
 
-    private Vector2 ToPlayer() {
+    private Vector2 ToPlayer()
+    {
         List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
 
-        if (path == null) {
+        if (path == null)
+        {
             return Vector2.zero;
         }
 
         // shouldnt happen but just in case
-        if (path.Count == 0) {
+        if (path.Count == 0)
+        {
             return Vector2.zero;
         }
 
@@ -156,20 +188,23 @@ public class EnemyMovement : DamageTaker
         return new Vector2(horizontal, vertical);
     }
 
-    private Vector2 ToHome() {
-        pathfinding.grid.gridSizeX = (int) (followDistance * 2 + 1);
-        pathfinding.grid.gridSizeY = (int) (followDistance * 2 + 1);
+    private Vector2 ToHome()
+    {
+        pathfinding.grid.gridSizeX = (int)(followDistance * 2 + 1);
+        pathfinding.grid.gridSizeY = (int)(followDistance * 2 + 1);
         List<Node2D> path = pathfinding.FindPath(transform.position, StartPosition);
 
-        pathfinding.grid.gridSizeX = (int) (detectionDistance * 2 + 1);
-        pathfinding.grid.gridSizeY = (int) (detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeX = (int)(detectionDistance * 2 + 1);
+        pathfinding.grid.gridSizeY = (int)(detectionDistance * 2 + 1);
 
-        if (path == null) {
+        if (path == null)
+        {
             return Vector2.zero;
         }
 
         // shouldnt happen but just in case
-        if (path.Count == 0) {
+        if (path.Count == 0)
+        {
             return Vector2.zero;
         }
 
@@ -188,25 +223,34 @@ public class EnemyMovement : DamageTaker
         return new Vector2(horizontal, vertical);
     }
 
-    private Collider2D IsValidMove(Vector2 direction) {
-        return Physics2D.OverlapCircle(transform.position+new Vector3(direction.x, direction.y, 0), 0.1f, collideLayers);
+    private Collider2D IsValidMove(Vector2 direction)
+    {
+        return Physics2D.OverlapCircle(transform.position + new Vector3(direction.x, direction.y, 0), 0.1f, collideLayers);
     }
 
-    string DirectionToString(Vector2 direction) {
+    string DirectionToString(Vector2 direction)
+    {
         /*
         back: (0, 1)
         front: (0, -1)
         left: (-1, 0)
         right: (1, 0)
         */
-        
-        if (direction == Vector2.up) {
+
+        if (direction == Vector2.up)
+        {
             return "back";
-        } else if (direction == Vector2.down) {
+        }
+        else if (direction == Vector2.down)
+        {
             return "front";
-        } else if (direction == Vector2.left) {
+        }
+        else if (direction == Vector2.left)
+        {
             return "left";
-        } else if (direction == Vector2.right) {
+        }
+        else if (direction == Vector2.right)
+        {
             return "right";
         }
         return "front";
@@ -215,7 +259,8 @@ public class EnemyMovement : DamageTaker
     // 1 is idle, 2 is hurt, 3 is attack
     private void PlayAnimation(Vector2 direction, string action)
     {
-        if (action == "death") {
+        if (action == "death")
+        {
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
@@ -226,15 +271,18 @@ public class EnemyMovement : DamageTaker
     }
 
     //sadly disabled because it causes errors when building
-    void OnDrawGizmosSelected() {
-        int gridSize = (int) (detectionDistance * 2 + 1);
+    void OnDrawGizmosSelected()
+    {
+        int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
         pathfinding.grid.DrawGizmos();
     }
 
-    public override bool TakeDamage(uint damage) {
-        if (damage >= health) {
+    public bool TakeDamage(uint damage)
+    {
+        if (damage >= health)
+        {
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
@@ -251,7 +299,6 @@ public class EnemyMovement : DamageTaker
         sfxPlayer.PlayHurtSound();
         health -= damage;
 
-        base.TakeDamage(damage); // this is so the damage text appears
 
         return true;
     }
@@ -263,11 +310,13 @@ public class EnemyMovement : DamageTaker
     }
 
     // this is called by the animation
-    public void AttackTiming(Vector2 direction) {
+    public void AttackTiming(Vector2 direction)
+    {
         attack.Attack(direction);
     }
 
-    public void AttackEnd(Vector2 direction) {
+    public void AttackEnd(Vector2 direction)
+    {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");

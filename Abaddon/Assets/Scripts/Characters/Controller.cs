@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 [RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
 
@@ -70,6 +71,7 @@ public class Controller : MonoBehaviour
 
     #region Player Update System 
     [HideInInspector] public static Action OnTick;
+    [HideInInspector] public static Action OnMoved;
     [HideInInspector] public EnemyMovement[] enemies;
     [HideInInspector] public bool done_with_tick = true;
     int current_enemy = 0;
@@ -197,23 +199,22 @@ public class Controller : MonoBehaviour
         Transform targetPosition = boss.transform;
 
         // disable player movement until the camera has panned
-        done_with_tick = false;
-        StartCoroutine(AfterDelay(1f, () =>
-            mainCamera.ChangeTarget(targetPosition, 4f, 2f, onComplete: () =>
-            {
-                mainCamera.ResetTarget(4f, true, () =>
-                {
-                    print("Camera reset complete");
-                    done_with_tick = true;
-                });
-            }, callResetOnceDone: false)
-        ));
+        // done_with_tick = false;
+        // StartCoroutine(AfterDelay(1f, () =>
+        //     mainCamera.ChangeTarget(targetPosition, 0.5f, onComplete: () =>
+        //     {
+        //         mainCamera.ResetTarget(0.5f, onComplete: () =>
+        //         {
+        //             print("Camera reset complete");
+        //             done_with_tick = true;
+        //         });
+        //     })
+        // ));
     }
 
     IEnumerator AfterDelay(float wait_time, Action run)
     {
         yield return new WaitForSeconds(wait_time);
-        Debug.Log("after delay");
         run?.Invoke();
     }
 
@@ -275,6 +276,18 @@ public class Controller : MonoBehaviour
         transform.Translate(direction / 5);
     }
 
+    bool CanMove(GameObject[] objectsAhead)
+    {
+        var collidableLayers = Enumerable.Range(0, 31).Where(i => (collideLayers.value & (1 << i)) != 0).Select(i => LayerMask.LayerToName(i) + "::" + i).ToArray();
+        print($"collideLayers ({collideLayers.value}): " + string.Join(", ", collidableLayers));
+        var hinderances = objectsAhead.Where(obj => (collideLayers.value & (1 << obj.layer)) != 0).Select(obj => LayerMask.LayerToName(obj.layer) + "::" + obj.layer).ToArray();
+        if (hinderances.Any())
+        {
+            print("hinderances: " + string.Join(", ", hinderances.ToArray()));
+        }
+        return !hinderances.Any();
+    }
+
     void Move()
     {
         Vector2 direction = GetAxis();
@@ -286,63 +299,60 @@ public class Controller : MonoBehaviour
 
         done_with_tick = false;
         current_player_direction = direction;
-        Collider2D hit = SendRaycast(direction);
-        bool validMove = hit == null;
+        GameObject[] objectsAhead = SendRaycast(direction);
+        bool canMove = CanMove(objectsAhead);
+        print("canMove: " + canMove);
 
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
-        if (Time.time - lastMovement <= movementDelay)
-        {
-            return;
-        }
-
+        if (Time.time - lastMovement <= movementDelay) return;
         lastMovement = Time.time;
 
-        // you hit a wall
-        if (!validMove && hit == null)
-        {
-            FinishTick();
-            return;
-        }
 
-        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap"))
+        if (canMove)
         {
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
-            FinishTick();
-            // if we hit an enemy, attack it
-        }
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            Attack(hit, direction); // calls next enemy
-                                    // if we hit a door, attempt to open it
-        }
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable"))
-        {
-            hit.GetComponent<Interactable>().Interact(attackDamage);
+            OnMoved?.Invoke();
             FinishTick();
         }
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("gate"))
-        {
-            if (hit.GetComponent<Gate>().open)
-            {
-                // move
-                transform.Translate(direction);
-                sfxPlayer.PlayWalkSound();
-            }
 
-            FinishTick();
-        }
-        // if we hit a fountain, heal from it
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain"))
+        foreach (GameObject obj in objectsAhead)
         {
-            hit.gameObject.GetComponent<Fountain>().Heal();
-            FinishTick();
-        }
-        else
-        {
-            FinishTick();
+            bool did_something = false;
+            if (obj.TryGetComponent(out Hurtable hurtable))
+            {
+                hurtable.Hurt(attackDamage);
+                FinishTick();
+                did_something = true;
+            }
+            if (obj.TryGetComponent(out Interactable interactable))
+            {
+                interactable.Interact();
+                FinishTick();
+                did_something = true;
+            }
+            if (obj.TryGetComponent(out Fightable fightable))
+            {
+                print("attacking enemy");
+                Attack(fightable, direction); // calls next enemy
+                                              // if we hit a door, attempt to open it
+                did_something = true;
+            }
+            // if (obj.layer == LayerMask.NameToLayer("gate"))
+            // {
+            //     if (obj.GetComponent<Gate>().open)
+            //     {
+            //         // move
+            //         transform.Translate(direction);
+            //         OnMoved?.Invoke();
+            //         sfxPlayer.PlayWalkSound();
+            //     }
+
+            //     FinishTick();
+            // }
+            if (!did_something) FinishTick();
         }
     }
 
@@ -377,14 +387,14 @@ public class Controller : MonoBehaviour
     }
 
     // real is whether or not to try to actually hit, set to false to just play the animation
-    private void Attack(Collider2D hit, Vector2 direction)
+    private void Attack(Fightable fightable, Vector2 direction)
     {
         // get current attack
         BaseAbility attack = AbilitySwapper.getAbility(main);
 
-        if (attack.CanUse(hit, direction))
+        if (attack.CanUse(fightable, direction))
         {
-            attack.Attack(hit, direction, animator, sfxPlayer);
+            attack.Attack(fightable, direction, animator, sfxPlayer);
         }
         else
         {
@@ -451,19 +461,12 @@ public class Controller : MonoBehaviour
         return new Vector2(horizontal, vertical);
     }
 
-    public Vector2 V3_2_V2(Vector3 vec)
-    {
-        return new Vector2(vec.x, vec.y);
-    }
-
     // (if it hit something, what it hit)
-    Collider2D SendRaycast(Vector2 direction)
+    GameObject[] SendRaycast(Vector2 direction)
     {
-        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f / 2f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
+        Vector2 world_position = (Vector2)transform.position + (direction * 1.02f / 2f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
 
-        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
-
-        return hit;
+        return Physics2D.RaycastAll(world_position, direction, .5f).Select(hit => hit.collider.gameObject).ToArray();
     }
 
     string DirectionToAnimationLabel(Vector2 direction)

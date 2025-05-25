@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class CameraScript : MonoBehaviour
 {
@@ -9,23 +12,36 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private float default_seconds;
     [SerializeField] private float default_wait_time;
     [SerializeField] private float default_lerp_speed = 0.25f;
-    [SerializeField] private bool default_useSmoothMovementOnReset = true;
+    [SerializeField] private bool default_useSmoothMovement = true;
     [SerializeField] private AnimationCurve camera_moveto_curve;
+    private bool useSmoothMovement = true;
     private float seconds;
     private float wait_time = 0;
     private Transform currentTarget;
-    private System.Action onComplete;
-    private bool useSmoothMovement = true;
+    private Action onComplete;
     private float current_movement_time = 0;
     private float current_wait_time = 0;
     private Vector2 start_position;
-    private bool useSmoothMovementOnReset = true;
-    private bool callResetOnceDone = true;
+    private float thresholdDistance = 0.5f;
+    private CameraState currentState = CameraState.MovingToTarget;
+    private enum CameraState
+    {
+        MovingToTarget,
+        Waiting,
+        FollowingTarget
+    }
+
+    private Action onWidenFOVComplete;
+    private float target_fov = 5;
+    private float initial_fov = 5;
+    private float timeSpentWideningFOV = 0;
+    private float timeToWidenFOV = 0;
 
     void Awake()
     {
         currentTarget = defaultFollowTarget;
         seconds = 0;
+        initial_fov = Camera.main.orthographicSize;
     }
 
     Vector2 CalcNextPosition()
@@ -52,65 +68,72 @@ public class CameraScript : MonoBehaviour
     {
         if (Controller.main == null) return;
 
+        void onReachedTarget()
+        {
+            currentState = CameraState.FollowingTarget;
+            onComplete?.Invoke();
+        }
+
+        if (timeToWidenFOV > 0)
+        {
+            timeSpentWideningFOV += Time.deltaTime;
+            Camera.main.orthographicSize = Mathf.Lerp(initial_fov, target_fov, timeSpentWideningFOV / timeToWidenFOV);
+            if (timeSpentWideningFOV >= timeToWidenFOV)
+            {
+                timeToWidenFOV = 0;
+                timeSpentWideningFOV = 0;
+                Camera.main.orthographicSize = target_fov;
+                onWidenFOVComplete?.Invoke();
+            }
+        }
+
         Vector3 newPosition = CalcNextPosition();
-        if ((Vector2.Distance(transform.position, currentTarget.position) < 0.5f && !useSmoothMovement) ||
-           (current_movement_time > seconds && useSmoothMovement))
+        switch (currentState)
         {
-            if (current_wait_time < wait_time)
-            {
-                current_wait_time += Time.deltaTime;
-            }
-            else
-            {
+            case CameraState.MovingToTarget:
                 transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
-                onComplete?.Invoke();
-                onComplete = null;
-                if (callResetOnceDone) ResetTarget();
-            }
-        }
-        else
-        {
-            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+                if (Vector2.Distance(transform.position, currentTarget.position) < thresholdDistance)
+                {
+                    if (wait_time > 0)
+                    {
+                        currentState = CameraState.Waiting;
+                        current_wait_time = 0;
+                    }
+                    else onReachedTarget();
+                }
+                break;
+            case CameraState.Waiting:
+                current_wait_time += Time.deltaTime;
+                if (current_wait_time > wait_time) onReachedTarget();
+                break;
+            case CameraState.FollowingTarget:
+                transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+                break;
         }
     }
 
-    public void PanToPoint(Vector2 point, float seconds, float wait_time, bool useSmoothMovement = true)
+    public void ChangeTarget(Transform target, float seconds, float wait_time = 0, bool useSmoothMovement = true, System.Action onComplete = null)
     {
+        this.seconds = seconds;
+        this.wait_time = wait_time;
+        this.onComplete = onComplete;
         this.useSmoothMovement = useSmoothMovement;
-        defaultFollowTarget = Instantiate(new GameObject("Follow Target").transform);
-        defaultFollowTarget.position = point;
-        this.seconds = seconds;
-        this.wait_time = wait_time;
-        current_movement_time = 0;
-        current_wait_time = 0;
-    }
-
-    public void ChangeTarget(Transform target, float seconds, float wait_time, bool useSmoothMovementTowardsTarget = true, bool useSmoothMovementFromTarget = true, System.Action onComplete = null, bool callResetOnceDone = true)
-    {
-        this.useSmoothMovement = useSmoothMovementTowardsTarget;
-        this.useSmoothMovementOnReset = useSmoothMovementFromTarget;
-        current_movement_time = 0;
         currentTarget = target;
-        this.seconds = seconds;
-        this.wait_time = wait_time;
-        this.onComplete = onComplete;
-        this.start_position = transform.position;
+
+        currentState = CameraState.MovingToTarget;
+        start_position = transform.position;
         current_movement_time = 0;
-        current_wait_time = 0;
-        this.callResetOnceDone = callResetOnceDone;
+        current_movement_time = 0;
+
     }
 
-    public void ResetTarget(float? seconds = null, bool? useSmoothMovement = null, System.Action onComplete = null)
+    public void ResetTarget(float? seconds = null, bool? useSmoothMovement = null, System.Action onComplete = null) => ChangeTarget(defaultFollowTarget, seconds ?? default_seconds, 0, useSmoothMovement ?? default_useSmoothMovement, onComplete);
+
+    public void UpdateFOV(float size, float seconds = 0, Action onComplete = null)
     {
-        this.useSmoothMovementOnReset = default_useSmoothMovementOnReset;
-        this.useSmoothMovement = useSmoothMovement ?? default_useSmoothMovementOnReset;
-        current_movement_time = 0;
-        currentTarget = defaultFollowTarget;
-        this.seconds = seconds ?? default_seconds;
-        this.onComplete = onComplete;
-        this.start_position = transform.position;
-        current_movement_time = 0;
-        current_wait_time = 0;
-        wait_time = default_wait_time;
+        target_fov = size;
+        timeToWidenFOV = seconds;
+        initial_fov = Camera.main.orthographicSize;
+        onWidenFOVComplete = onComplete;
     }
 }

@@ -17,7 +17,7 @@ public class PauseMenu : MonoBehaviour
     private void OnEnable()
     {
         if (startingPosition == Vector3.zero) startingPosition = transform.position;
-        transform.position = TargetPosition();
+        transform.position = targetPosition.position;
     }
 
     private void Awake()
@@ -43,13 +43,11 @@ public class PauseMenu : MonoBehaviour
         UIStateManager.singleton.FadeInDarkener(pausedDarknessLevel, 0, lerpSpeed);
     }
 
-    Vector2 TargetPosition() => new Vector3(targetPosition.position.x, targetPosition.position.y, targetPosition.position.z);
-
     void Update()
     {
         if (!reachedPosition)
         {
-            Vector3 endingPosition = TargetPosition();
+            Vector3 endingPosition = targetPosition.position;
             transform.position = Vector3.Lerp(transform.position, endingPosition, lerpSpeed * Time.deltaTime);
             // UIStateManager.singleton.darkenerOpacity = Mathf.Lerp(UIStateManager.singleton.darkenerOpacity, pausedDarknessLevel, lerpSpeed * Time.deltaTime);
 

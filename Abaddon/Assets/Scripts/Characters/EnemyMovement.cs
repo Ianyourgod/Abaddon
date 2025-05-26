@@ -8,9 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(EnemySfx))]
 [RequireComponent(typeof(ItemDropper))]
 
-public class EnemyMovement : MonoBehaviour, Fightable
+public class EnemyMovement : MonoBehaviour, CanFight
 {
-
     [Header("References")]
     [SerializeField] LayerMask collideLayers;
     [SerializeField] Animator animator;
@@ -132,7 +131,7 @@ public class EnemyMovement : MonoBehaviour, Fightable
 
         if (will_attack)
         {
-            Attack(1);
+            Attack();
         }
         else if (hit == null)
         {
@@ -146,8 +145,9 @@ public class EnemyMovement : MonoBehaviour, Fightable
         }
     }
 
-    public void Attack(uint damage)
+    public void Attack()
     {
+        // GetComponent<CanFight>().Attack();
         Controller.main.enabled = false;
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         PlayAnimation(direction, "attack");
@@ -230,47 +230,30 @@ public class EnemyMovement : MonoBehaviour, Fightable
 
     string DirectionToString(Vector2 direction)
     {
-        /*
-        back: (0, 1)
-        front: (0, -1)
-        left: (-1, 0)
-        right: (1, 0)
-        */
+        direction = direction.normalized;
 
-        if (direction == Vector2.up)
-        {
-            return "back";
-        }
-        else if (direction == Vector2.down)
-        {
-            return "front";
-        }
-        else if (direction == Vector2.left)
-        {
-            return "left";
-        }
-        else if (direction == Vector2.right)
-        {
-            return "right";
-        }
-        return "front";
+        if (direction == Vector2.up) return "back";
+        else if (direction == Vector2.down) return "front";
+        else if (direction == Vector2.left) return "left";
+        else if (direction == Vector2.right) return "right";
+
+        else throw new System.Exception("Invalid direction to be converted to string: " + direction);
     }
 
-    // 1 is idle, 2 is hurt, 3 is attack
     private void PlayAnimation(Vector2 direction, string action)
     {
         if (action == "death")
         {
+            print($"playing animation {animation_prefix}_animation_death");
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
 
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
-
+        print($"playing animation {animation}");
         animator.Play(animation);
     }
 
-    //sadly disabled because it causes errors when building
     void OnDrawGizmosSelected()
     {
         int gridSize = (int)(detectionDistance * 2 + 1);
@@ -279,29 +262,33 @@ public class EnemyMovement : MonoBehaviour, Fightable
         pathfinding.grid.DrawGizmos();
     }
 
-    public bool TakeDamage(uint damage)
+    public void Hurt(uint damage)
     {
         if (damage >= health)
         {
+            Controller.OnTick -= MakeDecision;
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
-            // random number between 1 and 3
             Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().Die();
-            // run death animation
             PlayAnimation(direction, "death");
-            return true;
         }
-        PlayAnimation(direction, "hurt");
-        // TODO: GET RID OF THE COROUTINE!!!!!!!!!!!!
-        StartCoroutine(ExecuteAfterTime(0.25f, direction, 1));
-        sfxPlayer.PlayHurtSound();
-        health -= damage;
-
-
-        return true;
+        else
+        {
+            Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+            PlayAnimation(direction, "hurt");
+            sfxPlayer.PlayHurtSound();
+            health -= damage;
+        }
     }
+
+    public uint Heal(uint amount)
+    {
+        health += amount;
+        return health;
+    }
+
 
     public void Die()
     {
@@ -321,20 +308,5 @@ public class EnemyMovement : MonoBehaviour, Fightable
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");
         Invoke(nameof(callNextEnemy), 0f);
-    }
-
-    // intent 1 is hurt
-    IEnumerator ExecuteAfterTime(float time, Vector2 direction, uint intent)
-    {
-        yield return new WaitForSeconds(time);
-
-        switch (intent)
-        {
-            case 1:
-                PlayAnimation(direction, "idle");
-                break;
-            default:
-                break;
-        }
     }
 }

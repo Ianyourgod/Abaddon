@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Statue : MonoBehaviour, Hurtable
+public class Statue : MonoBehaviour, CanBeHurt
 {
     [HideInInspector] public Boss1 boss;
     [SerializeField] int health = 20;
     [SerializeField] Animator animator;
 
-    public bool Hurt(float damage)
+    public bool Hurt(uint damage)
     {
         health -= (int)damage;
         Debug.Log("statue health " + health);

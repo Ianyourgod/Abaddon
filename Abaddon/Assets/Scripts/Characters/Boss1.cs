@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
-public class Boss1 : MonoBehaviour, Fightable
+public class Boss1 : MonoBehaviour, CanFight
 {
     [SerializeField] GameObject statuePrefab;
     [SerializeField] GameObject baseEnemy;
@@ -12,12 +14,20 @@ public class Boss1 : MonoBehaviour, Fightable
     [SerializeField] int Stages = 3;
     [SerializeField] int enemiesPerStage = 2;
     [SerializeField] Vector2Int roomSize = new Vector2Int(21, 11);
-    [SerializeField] int maxHealth = 15;
+    [SerializeField] uint maxHealth = 15;
 
     [HideInInspector] public bool inFight = false;
     [HideInInspector] public int stage = 0;
+    private uint _health = 15;
+    public uint health
+    {
+        get { return _health; }
+        set
+        {
+            _health = (uint)Mathf.Clamp(value, 0, maxHealth);
+        }
+    }
 
-    private int health = 15;
     private int ticks_till_move_back = 0;
 
     void Awake()
@@ -38,19 +48,16 @@ public class Boss1 : MonoBehaviour, Fightable
     {
         Vector2 bossPosition = transform.position;
         // man i hate unity
-        Vector2 random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
+        Vector2 random_position = new Vector2(UnityEngine.Random.Range(-roomSize.x / 2, roomSize.x / 2), UnityEngine.Random.Range(-roomSize.y / 2, roomSize.y / 2));
         // also check that theres no enemies or statues already there
         while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2 || Physics2D.OverlapCircle(new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition, 0.5f, LayerMask.GetMask("Enemy")))
         {
-            random_position = new Vector2(Random.Range(-roomSize.x / 2, roomSize.x / 2), Random.Range(-roomSize.y / 2, roomSize.y / 2));
+            random_position = new Vector2(UnityEngine.Random.Range(-roomSize.x / 2, roomSize.x / 2), UnityEngine.Random.Range(-roomSize.y / 2, roomSize.y / 2));
         }
         return new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
     }
 
-    public void Attack(uint damage)
-    {
-        SpawnStatue();
-    }
+    public void Attack() => SpawnStatue();
 
     private void SpawnStatue()
     {
@@ -121,11 +128,11 @@ public class Boss1 : MonoBehaviour, Fightable
         animator.Play(animation);
     }
 
-    public bool TakeDamage(uint damage)
+    public void Hurt(uint damage)
     {
         if (inFight && stage % 2 == 0)
         {
-            health -= (int)damage;
+            health -= damage;
             Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
             PlayAnimation("damage");
             if (health <= 0)
@@ -143,10 +150,13 @@ public class Boss1 : MonoBehaviour, Fightable
                     SpawnStatue();
                 }
             }
-            return true;
         }
+    }
 
-        return false;
+    public uint Heal(uint amount)
+    {
+        health += amount;
+        return health;
     }
 
     void OnDrawGizmosSelected()

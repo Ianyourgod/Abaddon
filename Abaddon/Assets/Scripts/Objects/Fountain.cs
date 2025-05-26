@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SfxPlayerBetter))]
 
-public class Fountain : MonoBehaviour, Interactable
+public class Fountain : MonoBehaviour, CanBeInteractedWith
 {
     [SerializeField] Animator animator;
     [SerializeField] int healthStored = 50;

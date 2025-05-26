@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TempAbility : BaseAbility
 {
-    public override void Attack(Fightable fightable, Vector2 direction, Animator animator, PlayerSfx sfxPlayer)
+    public override void Attack(CanFight fightable, Vector2 direction, Animator animator, PlayerSfx sfxPlayer)
     {
         // rahh im attacking!!
         Debug.Log("Rahh soul-steal!!");

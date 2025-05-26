@@ -1,5 +1,5 @@
-﻿		///----------------------------\\\
-		//  Ultimate Inventory Engine   \\
+﻿///----------------------------\\\
+//  Ultimate Inventory Engine   \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
 ///-----------------------------------------------\\\
@@ -57,12 +57,13 @@ public class Slot : MonoBehaviour
 
 		// shitty fix. fixes the thing where the inventory will "shift" when first opened
 		// TODO: make this shitty fix actually work
-		for (int i=0;i<10;i++) {
+		for (int i = 0; i < 10; i++)
+		{
 			vLayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
 			vLayer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
 			vLayer.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
 
-			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// this sets the centerpoint of the "GUI" object in the slot.
+			vLayer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);   // this sets the centerpoint of the "GUI" object in the slot.
 			vLayer.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
 		}
 	}
@@ -75,10 +76,13 @@ public class Slot : MonoBehaviour
 		{
 			// only changes scale if not equal to default (i.e. if an item is in the slot)
 			itemImage = vLayer.GetComponent<Image>();
-			if (itemImage.sprite != defaultSprite) {
-				vLayer.GetComponent<RectTransform>().localScale = new Vector3(.75f, .75f, 1);	// scales it down
-			} else {
-				vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// scales it back up	
+			if (itemImage.sprite != defaultSprite)
+			{
+				vLayer.GetComponent<RectTransform>().localScale = new Vector3(.75f, .75f, 1);   // scales it down
+			}
+			else
+			{
+				vLayer.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);     // scales it back up	
 			}
 		}
 		if (vText && !beingDragged)
@@ -88,14 +92,14 @@ public class Slot : MonoBehaviour
 			vText.GetComponent<TMP_Text>().fontSize = 20;
 			var font = inv.font;
 			vText.GetComponent<TMP_Text>().font = font;
-			vText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);	// this line
+			vText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);   // this line
 			vText.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
 			vText.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-			vText.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);		// through this line, probably some weird alignment stuff? nothing changes visibly when modified
-			vText.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);	// not sure what this line actually does
+			vText.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);      // through this line, probably some weird alignment stuff? nothing changes visibly when modified
+			vText.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);    // not sure what this line actually does
 			vText.GetComponent<RectTransform>().offsetMax = new Vector2(-5, vText.GetComponent<RectTransform>().offsetMax.y); // why is it like this? i have no idea.
 			vText.GetComponent<RectTransform>().offsetMax = new Vector2(vText.GetComponent<RectTransform>().offsetMax.x, -0); // it doesn't seem like there should be a reason for it to be on two lines
-		}																													  // but the inventory engine came like this so whatever
+		}                                                                                                                     // but the inventory engine came like this so whatever
 
 		if (!GetComponent<EquipmentSlot>() && !GetComponent<CraftingSlot>())
 		{

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(DoorSfx))]
 
-public class Door : MonoBehaviour, Interactable
+public class Door : MonoBehaviour, CanBeInteractedWith
 {
     [SerializeField] public bool NeedsKey;
     [SerializeField] GameObject lockPrefab;

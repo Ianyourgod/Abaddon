@@ -37,6 +37,11 @@ public class MenuHandler : MonoBehaviour
         if (Input.GetKeyDown(inventoryKey))
             if (inventory.isInventoryOpen) inventory.CloseInventory();
             else inventory.OpenInventory();
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            UIStateManager.singleton.Win();
+        }
     }
 
     public void TogglePauseMenu()

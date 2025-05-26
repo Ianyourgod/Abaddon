@@ -3,28 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenu : MonoBehaviour {
+public class PauseMenu : MonoBehaviour
+{
+    [SerializeField] Transform targetPosition;
     [SerializeField] float lerpSpeed;
-    [SerializeField, Range(0,1)] float pausedDarknessLevel;
+    [SerializeField, Range(0, 1)] float pausedDarknessLevel;
 
 
     private Vector3 startingPosition;
-    private float verticalDisplacement = -600;
     private bool reachedPosition = true;
     private bool paused = false;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         if (startingPosition == Vector3.zero) startingPosition = transform.position;
         transform.position = TargetPosition();
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         startingPosition = transform.position;
     }
 
     public bool IsPaused() => paused;
 
-    public void Pause() {
+    public void Pause()
+    {
         reachedPosition = false;
         paused = true;
         UIStateManager.singleton.FadeInDarkener(0, pausedDarknessLevel, lerpSpeed);
@@ -32,21 +36,25 @@ public class PauseMenu : MonoBehaviour {
         // UIStateManager.singleton.darkenerOpacity = 0;
     }
 
-    public void Unpause() {
+    public void Unpause()
+    {
         paused = false;
         reachedPosition = false;
         UIStateManager.singleton.FadeInDarkener(pausedDarknessLevel, 0, lerpSpeed);
     }
 
-    Vector2 TargetPosition() => new Vector3(startingPosition.x , startingPosition.y + (paused ? 0 : verticalDisplacement), startingPosition.z);
+    Vector2 TargetPosition() => new Vector3(targetPosition.position.x, targetPosition.position.y, targetPosition.position.z);
 
-    void Update() {
-        if (!reachedPosition) {
-            Vector3 endingPosition = TargetPosition(); 
+    void Update()
+    {
+        if (!reachedPosition)
+        {
+            Vector3 endingPosition = TargetPosition();
             transform.position = Vector3.Lerp(transform.position, endingPosition, lerpSpeed * Time.deltaTime);
             // UIStateManager.singleton.darkenerOpacity = Mathf.Lerp(UIStateManager.singleton.darkenerOpacity, pausedDarknessLevel, lerpSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, endingPosition) <= 1f) { 
+            if (Vector2.Distance(transform.position, endingPosition) <= 1f)
+            {
                 reachedPosition = true;
                 transform.position = endingPosition;
                 // UIStateManager.singleton.darkenerOpacity = pausedDarknessLevel;

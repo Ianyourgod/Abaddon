@@ -105,6 +105,7 @@ public class Boss1 : MonoBehaviour, CanFight
     {
         yield return new WaitForSeconds(wait_time);
         Destroy(gameObject);
+        UIStateManager.singleton.OpenUIPage(UIState.Win);
     }
 
     private void CustomUpdate()

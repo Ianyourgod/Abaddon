@@ -6,58 +6,56 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] Transform targetPosition;
-    [SerializeField] float lerpSpeed;
+    [SerializeField] float timeToEnter;
     [SerializeField, Range(0, 1)] float pausedDarknessLevel;
 
 
     private Vector3 startingPosition;
-    private bool reachedPosition = true;
-    private bool paused = false;
-
-    private void OnEnable()
-    {
-        if (startingPosition == Vector3.zero) startingPosition = transform.position;
-        transform.position = targetPosition.position;
-    }
+    private enum PauseState { Paused, Unpaused, TravelingToPause, TravelingToUnpause }
+    private PauseState pauseState = PauseState.Unpaused;
 
     private void Awake()
     {
         startingPosition = transform.position;
     }
 
-    public bool IsPaused() => paused;
-
     public void Pause()
     {
-        reachedPosition = false;
-        paused = true;
-        UIStateManager.singleton.FadeInDarkener(0, pausedDarknessLevel, lerpSpeed);
-        // UIStateManager.singleton.SetDarkenedBackground(true);
-        // UIStateManager.singleton.darkenerOpacity = 0;
+        pauseState = PauseState.TravelingToPause;
+        UIStateManager.singleton.FadeInDarkener(timeToEnter, pausedDarknessLevel);
+        Controller.main.enabled = false;
     }
 
     public void Unpause()
     {
-        paused = false;
-        reachedPosition = false;
-        UIStateManager.singleton.FadeInDarkener(pausedDarknessLevel, 0, lerpSpeed);
+        pauseState = PauseState.TravelingToUnpause;
+        UIStateManager.singleton.FadeOutDarkener(timeToEnter);
+        Controller.main.enabled = true;
     }
 
     void Update()
     {
-        if (!reachedPosition)
+        if (pauseState == PauseState.TravelingToUnpause)
         {
-            Vector3 endingPosition = targetPosition.position;
-            transform.position = Vector3.Lerp(transform.position, endingPosition, lerpSpeed * Time.deltaTime);
-            // UIStateManager.singleton.darkenerOpacity = Mathf.Lerp(UIStateManager.singleton.darkenerOpacity, pausedDarknessLevel, lerpSpeed * Time.deltaTime);
+            Vector3 endingPosition = startingPosition;
+            transform.position = Vector3.Lerp(transform.position, endingPosition, timeToEnter * Time.deltaTime);
 
             if (Vector2.Distance(transform.position, endingPosition) <= 1f)
             {
-                reachedPosition = true;
-                transform.position = endingPosition;
-                // UIStateManager.singleton.darkenerOpacity = pausedDarknessLevel;
-                if (!paused) gameObject.SetActive(false);
-                print("reached end point");
+                pauseState = PauseState.Unpaused;
+                transform.position = new Vector3(endingPosition.x, endingPosition.y, transform.position.z);
+            }
+        }
+
+        if (pauseState == PauseState.TravelingToPause)
+        {
+            Vector3 endingPosition = targetPosition.position;
+            transform.position = Vector3.Lerp(transform.position, endingPosition, timeToEnter * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, endingPosition) <= 1f)
+            {
+                pauseState = PauseState.Paused;
+                transform.position = new Vector3(endingPosition.x, endingPosition.y, transform.position.z);
             }
         }
     }

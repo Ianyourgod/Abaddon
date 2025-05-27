@@ -120,12 +120,17 @@ public class Controller : MonoBehaviour
 
     #endregion
 
-    // Hard coded to 4 stats but can be easily changed
-    private (int, int, int, int) GenerateStats(int minimum_stat_roll, int maximum_stat_roll, int sum_of_stats)
+    void Awake()
     {
-        float minPercentage = (float)minimum_stat_roll / sum_of_stats;
-        float maxPercentage = (float)maximum_stat_roll / sum_of_stats;
+        main = this;
+        onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
 
+        sfxPlayer = GetComponent<PlayerSfx>();
+        inventory = FindObjectOfType<Inventory>();
+
+        #region Generate Stats
+        float minPercentage = (float)minimum_stat_roll / sum_of_starting_stats;
+        float maxPercentage = (float)maximum_stat_roll / sum_of_starting_stats;
 
         float[] newStats = new float[4];
         for (int i = 0; i < newStats.Length; i++)
@@ -139,26 +144,16 @@ public class Controller : MonoBehaviour
             newStats[i] = newStats[i] / total;
         }
 
-        var results = newStats.Select(stat => Mathf.RoundToInt(stat * sum_of_stats)).ToArray();
+        var results = newStats.Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats)).ToArray();
 
-        int diff = results.Sum() - sum_of_stats;
+        int diff = results.Sum() - sum_of_starting_stats;
         if (diff != 0) results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
 
-        return (results[0], results[1], results[2], results[3]);
-    }
-
-    void Awake()
-    {
-        main = this;
-
-        sfxPlayer = GetComponent<PlayerSfx>();
-        inventory = FindObjectOfType<Inventory>();
-
-        (int strength, int dexterity, int constitution, int wisdom) stats = GenerateStats(minimum_stat_roll, maximum_stat_roll, sum_of_starting_stats);
-        strength = stats.strength;
-        dexterity = stats.dexterity;
-        constitution = stats.constitution;
-        wisdom = stats.wisdom;
+        strength = results[0];
+        dexterity = results[1];
+        constitution = results[2];
+        wisdom = results[3];
+        #endregion
 
         max_health = constitution * 2;
         health = max_health;
@@ -196,12 +191,6 @@ public class Controller : MonoBehaviour
         //         });
         //     })
         // ));
-    }
-
-    IEnumerator AfterDelay(float wait_time, Action run)
-    {
-        yield return new WaitForSeconds(wait_time);
-        run?.Invoke();
     }
 
     void Update()
@@ -270,8 +259,7 @@ public class Controller : MonoBehaviour
     void Move()
     {
         Vector2 direction = GetAxis();
-        // if we are not moving, do nothing. if we are going diagonally, do nothing
-        if (direction.magnitude != 1) return;
+        if (direction.magnitude != 1) return; // if we are not moving, do nothing. if we are going diagonally, do nothing
 
         done_with_tick = false;
         current_player_direction = direction;
@@ -310,9 +298,7 @@ public class Controller : MonoBehaviour
             }
             if (obj.TryGetComponent(out CanFight enemy))
             {
-                print("attacking enemy");
-                Attack(enemy, direction); // calls next enemy
-                                          // if we hit a door, attempt to open it
+                Attack(enemy, direction); // calls next enemy so no need for a finish tick
                 did_something = true;
             }
 
@@ -350,11 +336,9 @@ public class Controller : MonoBehaviour
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    // real is whether or not to try to actually hit, set to false to just play the animation
     private void Attack(CanFight enemy, Vector2 direction)
     {
-        // get current attack
-        BaseAbility attack = AbilitySwapper.getAbility(main);
+        BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
 
         if (attack.CanUse(enemy, direction))
         {
@@ -466,7 +450,6 @@ public class Controller : MonoBehaviour
 
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
-        print($"playing animation {action} with direction {facingDirection}");
         if (facingDirection == null) facingDirection = current_player_direction;
         string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
@@ -502,6 +485,7 @@ public class Controller : MonoBehaviour
     {
         health = max_health;
         transform.position = respawnPoint.position;
+        UIStateManager.singleton.CloseUIPage(UIState.Death);
     }
 
     // returns overflow health

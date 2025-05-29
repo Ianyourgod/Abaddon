@@ -40,7 +40,7 @@ public class CameraScript : MonoBehaviour
     void Awake()
     {
         currentTarget = defaultFollowTarget;
-        seconds = 0;
+        seconds = default_seconds;
         initial_fov = Camera.main.orthographicSize;
     }
 

@@ -27,6 +27,7 @@ public class Controller : MonoBehaviour
 
     [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
     [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
+    [SerializeField, Tooltip("Sum of starting stats")] public int sum_of_starting_stats = 40;
 
     public int exp = 0;
 
@@ -122,59 +123,37 @@ public class Controller : MonoBehaviour
     void Awake()
     {
         main = this;
+        onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
 
         sfxPlayer = GetComponent<PlayerSfx>();
         inventory = FindObjectOfType<Inventory>();
 
-        // stat randomization
+        #region Generate Stats
+        float minPercentage = (float)minimum_stat_roll / sum_of_starting_stats;
+        float maxPercentage = (float)maximum_stat_roll / sum_of_starting_stats;
 
-        // to do this, we gotta do some annoying ass math
-        /*
-            The Problem: we don't want to user to get shitty stats
-            but we also dont want them to get super op stats.
-            and so we gotta do math.
-
-            this ALSO means, that if some one for example, gets relatively
-            good dexterity, we wanna give them less constitution. Or if
-            they get good constitution, then they should get less strength,
-            etc.
-        */
-
-        int minimum_stat_roll = 1;
-        int maximum_stat_roll = 7;
-
-        int new_strength = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
-        int new_dexterity = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
-        int new_constitution = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
-
-        int total_stats = new_strength + new_dexterity + new_constitution;
-        int max_total = 10;
-        int min_total = 5;
-
-        if (total_stats > max_total)
+        float[] newStats = new float[4];
+        for (int i = 0; i < newStats.Length; i++)
         {
-            int excess = total_stats - max_total;
-            new_strength -= excess / 3;
-            new_dexterity -= excess / 3;
-            new_constitution -= excess / 3;
-        }
-        else if (total_stats < min_total)
-        {
-            int deficit = min_total - total_stats;
-            new_strength += deficit / 3;
-            new_dexterity += deficit / 3;
-            new_constitution += deficit / 3;
+            newStats[i] = UnityEngine.Random.Range(minPercentage, maxPercentage);
         }
 
-        // Ensure no stat goes below the minimum or above the maximum
-        new_strength = Mathf.Clamp(new_strength, minimum_stat_roll, maximum_stat_roll);
-        new_dexterity = Mathf.Clamp(new_dexterity, minimum_stat_roll, maximum_stat_roll);
-        new_constitution = Mathf.Clamp(new_constitution, minimum_stat_roll, maximum_stat_roll);
-        wisdom = Mathf.Clamp(wisdom, minimum_stat_roll, maximum_stat_roll);
+        float total = newStats.Sum();
+        for (int i = 0; i < newStats.Length; i++)
+        {
+            newStats[i] = newStats[i] / total;
+        }
 
-        strength += new_strength;
-        dexterity += new_dexterity;
-        constitution += new_constitution;
+        var results = newStats.Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats)).ToArray();
+
+        int diff = results.Sum() - sum_of_starting_stats;
+        if (diff != 0) results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
+
+        strength = results[0];
+        dexterity = results[1];
+        constitution = results[2];
+        wisdom = results[3];
+        #endregion
 
         max_health = constitution * 2;
         health = max_health;
@@ -213,12 +192,6 @@ public class Controller : MonoBehaviour
         //         });
         //     })
         // ));
-    }
-
-    IEnumerator AfterDelay(float wait_time, Action run)
-    {
-        yield return new WaitForSeconds(wait_time);
-        run?.Invoke();
     }
 
     void Update()
@@ -281,30 +254,18 @@ public class Controller : MonoBehaviour
 
     bool CanMove(GameObject[] objectsAhead)
     {
-        var collidableLayers = Enumerable.Range(0, 31).Where(i => (collideLayers.value & (1 << i)) != 0).Select(i => LayerMask.LayerToName(i) + "::" + i).ToArray();
-        print($"collideLayers ({collideLayers.value}): " + string.Join(", ", collidableLayers));
-        var hinderances = objectsAhead.Where(obj => (collideLayers.value & (1 << obj.layer)) != 0).Select(obj => LayerMask.LayerToName(obj.layer) + "::" + obj.layer).ToArray();
-        if (hinderances.Any())
-        {
-            print("hinderances: " + string.Join(", ", hinderances.ToArray()));
-        }
-        return !hinderances.Any();
+        return !objectsAhead.Any(obj => (collideLayers.value & (1 << obj.layer)) != 0);
     }
 
     void Move()
     {
         Vector2 direction = GetAxis();
-        // if we are not moving, do nothing. if we are going diagonally, do nothing
-        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0))
-        {
-            return;
-        }
+        if (direction.magnitude != 1) return; // if we are not moving, do nothing. if we are going diagonally, do nothing
 
         done_with_tick = false;
         current_player_direction = direction;
         GameObject[] objectsAhead = SendRaycast(direction);
         bool canMove = CanMove(objectsAhead);
-        print("canMove: " + canMove);
 
         current_enemy = 0;
         PlayAnimation("idle", direction);
@@ -321,40 +282,27 @@ public class Controller : MonoBehaviour
             FinishTick();
         }
 
+        bool did_something = false;
         foreach (GameObject obj in objectsAhead)
         {
-            bool did_something = false;
-            if (obj.TryGetComponent(out Hurtable hurtable))
+            if (obj.TryGetComponent(out CanBeHurt hurtable))
             {
-                hurtable.Hurt(attackDamage);
+                hurtable.Hurt((uint)attackDamage);
                 FinishTick();
                 did_something = true;
             }
-            if (obj.TryGetComponent(out Interactable interactable))
+            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
             {
                 interactable.Interact();
                 FinishTick();
                 did_something = true;
             }
-            if (obj.TryGetComponent(out Fightable fightable))
+            if (obj.TryGetComponent(out CanFight enemy))
             {
-                print("attacking enemy");
-                Attack(fightable, direction); // calls next enemy
-                                              // if we hit a door, attempt to open it
+                Attack(enemy, direction); // calls next enemy so no need for a finish tick
                 did_something = true;
             }
-            // if (obj.layer == LayerMask.NameToLayer("gate"))
-            // {
-            //     if (obj.GetComponent<Gate>().open)
-            //     {
-            //         // move
-            //         transform.Translate(direction);
-            //         OnMoved?.Invoke();
-            //         sfxPlayer.PlayWalkSound();
-            //     }
 
-            //     FinishTick();
-            // }
             if (!did_something) FinishTick();
         }
     }
@@ -389,15 +337,14 @@ public class Controller : MonoBehaviour
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    // real is whether or not to try to actually hit, set to false to just play the animation
-    private void Attack(Fightable fightable, Vector2 direction)
+    private void Attack(CanFight enemy, Vector2 direction)
     {
-        // get current attack
-        BaseAbility attack = AbilitySwapper.getAbility(main);
+        BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
 
-        if (attack.CanUse(fightable, direction))
+        if (attack.CanUse(enemy, direction))
         {
-            attack.Attack(fightable, direction, animator, sfxPlayer);
+            print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
+            attack.Attack(enemy, direction, animator, sfxPlayer);
         }
         else
         {
@@ -466,8 +413,8 @@ public class Controller : MonoBehaviour
         int i_left = BoolToInt(left);
         int i_right = BoolToInt(right);
 
-        float horizontal = (float)(i_right - i_left);
-        float vertical = (float)(i_up - i_down);
+        float horizontal = i_right - i_left;
+        float vertical = i_up - i_down;
 
         return new Vector2(horizontal, vertical);
     }
@@ -539,6 +486,7 @@ public class Controller : MonoBehaviour
     {
         health = max_health;
         transform.position = respawnPoint.position;
+        UIStateManager.singleton.CloseUIPage(UIState.Death);
     }
 
     // returns overflow health

@@ -6,7 +6,7 @@ public class BaseAbility : MonoBehaviour
 {
     public bool enbaled = false;
 
-    public virtual bool CanUse(Fightable fightable, Vector2 direction)
+    public virtual bool CanUse(CanFight fightable, Vector2 direction)
     {
         if (!enbaled) return false;
 
@@ -15,9 +15,10 @@ public class BaseAbility : MonoBehaviour
         return true;
     }
 
-    public virtual void Attack(Fightable fightable, Vector2 direction, Animator animator, PlayerSfx sfxPlayer)
+    public virtual void Attack(CanFight fightable, Vector2 direction, Animator animator, PlayerSfx sfxPlayer)
     {
         // rahh im attacking!!
+        print($"attacking BASE {fightable.GetType().Name} with {GetType().Name}");
 
     }
 }

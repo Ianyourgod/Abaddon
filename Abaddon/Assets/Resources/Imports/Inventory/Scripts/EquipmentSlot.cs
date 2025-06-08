@@ -32,7 +32,7 @@ public class EquipmentSlot : MonoBehaviour
 	{
 		curItem = GetComponent<Slot>().slotsItem;
 		if (GetComponent<Slot>().slotsItem && !equipped) Equip();
-		if (GetComponent<Slot>().slotsItem == null && equipped) Unequip();
+		if (GetComponent<Slot>().beingDragged && equipped) Unequip();
 	}
 
 	public void Equip()
@@ -44,7 +44,8 @@ public class EquipmentSlot : MonoBehaviour
 		{
 			var item = GetComponent<Slot>().slotsItem;
 			searchID = item.ItemID;
-			if (item.TryGetComponent(out StatModifier slotModifier)) {
+			if (item.TryGetComponent(out StatModifier slotModifier))
+			{
 				Controller.main.dexterity += slotModifier.dexterity;
 				Controller.main.constitution += slotModifier.constitution;
 				Controller.main.strength += slotModifier.strength;
@@ -59,12 +60,12 @@ public class EquipmentSlot : MonoBehaviour
 			}
 			//for (int i = 0; i < possibleEqips.Length; i++)
 			//{
-				//if (possibleEqips[i].ItemID == searchID)
-				//{
-				//	assigned = possibleEqips[i];
-				//	curItem = GetComponent<Slot>().slotsItem;
-				//	possibleEqips[i].gameObject.SetActive(true);
-				//}
+			//if (possibleEqips[i].ItemID == searchID)
+			//{
+			//	assigned = possibleEqips[i];
+			//	curItem = GetComponent<Slot>().slotsItem;
+			//	possibleEqips[i].gameObject.SetActive(true);
+			//}
 			//}
 			//if (assigned == null || !assigned.gameObject.activeSelf)
 			//{

@@ -23,7 +23,6 @@ public class Fountain : MonoBehaviour, CanBeInteractedWith
 
     public void Interact()
     {
-        // this solution is actually kinda pretty and i love it
         healthStored = Math.Max(0, Controller.main.HealPlayer(healthStored));
         sfxPlayer.PlaySound("drink");
     }

@@ -13,11 +13,12 @@ public class Statue : MonoBehaviour, CanFight
         return; // The statue does not attack
     }
 
-    public void Heal(uint amount)
+    public uint Heal(uint amount)
     {
         health += amount;
         Debug.Log("statue health " + health);
         PlayAnimation("heal");
+        return 0; // the statue does not have max health 
     }
 
     public void Hurt(uint damage)

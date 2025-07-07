@@ -2,33 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Statue : MonoBehaviour, CanBeHurt
+public class Statue : MonoBehaviour, CanFight
 {
     [HideInInspector] public Boss1 boss;
-    [SerializeField] int health = 20;
+    [SerializeField] uint health = 20;
     [SerializeField] Animator animator;
 
-    public bool Hurt(uint damage)
+    public void Attack()
     {
-        health -= (int)damage;
+        return; // The statue does not attack
+    }
+
+    public void Heal(uint amount)
+    {
+        health += amount;
         Debug.Log("statue health " + health);
-        if (health <= 0)
+        PlayAnimation("heal");
+    }
+
+    public void Hurt(uint damage)
+    {
+        if (damage >= health)
         {
             boss.StatueDestroyed();
             Die();
         }
-        else
-        {
-            int damage_level = health < (20 / 3) ?
-                                3
-                                : health < (2 * 20 / 3) ?
-                                    2
-                                    : 1;
+        health -= damage;
+        Debug.Log("statue health " + health);
 
-            PlayAnimation($"damage{damage_level}");
-        }
+        int damage_level = health < (20 / 3) ?
+                            3
+                            : health < (2 * 20 / 3) ?
+                                2
+                                : 1;
 
-        return true;
+        PlayAnimation($"damage{damage_level}");
     }
 
     public void Die()

@@ -264,7 +264,7 @@ public class Controller : MonoBehaviour
     {
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        transform.Translate(direction / 5);
+        transform.Translate(direction * Time.deltaTime * 60f * .75f);
     }
 
     bool CanMove(GameObject[] objectsAhead)

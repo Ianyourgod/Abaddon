@@ -15,6 +15,7 @@ public interface HasHealth
 public interface CanFight
 {
     void Attack();
+    // the uint returned is the healing overflow (e.g. max health is 100, current health is 90, heal for 20, return 10)
     uint Heal(uint amount);
     void Hurt(uint damage);
     void Die();

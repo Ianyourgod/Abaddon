@@ -82,6 +82,7 @@ public class Controller : MonoBehaviour
     [Header("Other")]
     [SerializeField] Animator animator;
     [SerializeField] CameraScript mainCamera;
+    [SerializeField] Weapon currentWeapon;
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
     #endregion
@@ -180,6 +181,8 @@ public class Controller : MonoBehaviour
         Transform targetPosition = boss.transform;
 
         mainCamera.ResetTarget(null, false, null);
+
+        currentWeapon = new Sword();
         // disable player movement until the camera has panned
         // done_with_tick = false;
         // StartCoroutine(AfterDelay(1f, () =>
@@ -260,10 +263,12 @@ public class Controller : MonoBehaviour
     void Move()
     {
         Vector2 direction = GetAxis();
-        if (direction.magnitude != 1) return; // if we are not moving, do nothing. if we are going diagonally, do nothing
+        if (direction.magnitude > 0)
+        {
+            current_player_direction = direction;
+        }
 
         done_with_tick = false;
-        current_player_direction = direction;
         GameObject[] objectsAhead = SendRaycast(direction);
         bool canMove = CanMove(objectsAhead);
 
@@ -283,9 +288,9 @@ public class Controller : MonoBehaviour
         }
 
         bool did_something = false;
-        foreach (GameObject obj in objectsAhead)
+        if (Input.GetKey(KeyCode.E))
         {
-            if (Input.GetKey(KeyCode.E))
+            foreach (GameObject obj in objectsAhead)
             {
                 if (obj.TryGetComponent(out CanBeInteractedWith interactable))
                 {
@@ -294,14 +299,17 @@ public class Controller : MonoBehaviour
                     did_something = true;
                 }
             }
-            if (obj.TryGetComponent(out CanFight enemy))
-            {
-                Attack(enemy, direction); // calls next enemy so no need for a finish tick
-                did_something = true;
-            }
-
-            if (!did_something) FinishTick();
         }
+        if (Input.GetKey(KeyCode.V))
+        {
+            float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
+            CanFight[] enemies = currentWeapon.GetFightablesInDamageArea(transform.position, angle);
+            currentWeapon.AttackEnemies(enemies);
+            // TODO: do animation + sfx
+            FinishTick();
+            did_something = true;
+        }
+        if (!did_something) FinishTick();
     }
 
     public void UpdateStats()

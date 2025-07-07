@@ -80,6 +80,7 @@ public class Controller : MonoBehaviour
     [Header("Other")]
     [SerializeField] public Animator animator;
     [SerializeField] CameraScript mainCamera;
+    [SerializeField] Weapon currentWeapon;
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
     #endregion

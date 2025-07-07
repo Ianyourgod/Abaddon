@@ -10,8 +10,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[RequireComponent(typeof(MeshCollider))]
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SfxPlayerBetter))]
 
 public class Item : MonoBehaviour
@@ -53,15 +51,8 @@ public class Item : MonoBehaviour
     private void Start()
     {
         player = Object.FindObjectOfType<Inventory>();
-        //GetComponent<Rigidbody>().useGravity = true;
         startSize = transform.localScale;
-        GetComponent<MeshCollider>().convex = true;
-        if (GetComponent<SphereCollider>()) GetComponent<SphereCollider>().isTrigger = true;
-        else { gameObject.AddComponent<SphereCollider>(); GetComponent<SphereCollider>().isTrigger = true; }
         startRotation = transform.localRotation;
-        var rb = GetComponent<Rigidbody>();
-        rb.interpolation = RigidbodyInterpolation.None;
-        rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
     }
 
     private void Update()
@@ -191,6 +182,5 @@ public class Item : MonoBehaviour
     {
         Gizmos.color = Color.red;
         if (player) Gizmos.DrawWireSphere(transform.position, player.pickupRange);
-        if (!GetComponent<Rigidbody>()) Debug.LogError("You must have a Rigidbody attached to your item!");
     }
 }

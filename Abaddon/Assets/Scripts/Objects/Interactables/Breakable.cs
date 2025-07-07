@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ItemDropper))]
 [RequireComponent(typeof(SfxPlayerBetter))]
 
-public class Breakable : MonoBehaviour, CanBeInteractedWith
+public class Breakable : MonoBehaviour, CanBeHurt
 {
     public enum BreakableType
     {
@@ -22,11 +22,12 @@ public class Breakable : MonoBehaviour, CanBeInteractedWith
         sfxPlayer = GetComponent<SfxPlayerBetter>();
     }
 
-    public void Interact()
+    public bool Hurt(uint damage)
     {
         sfxPlayer.PlaySound("break");
         health -= 1;
         if (health <= 0) Die();
+        return true;
     }
 
     public void Die()

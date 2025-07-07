@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 9061713491536200821}
   - component: {fileID: 9061713491536200820}
   - component: {fileID: 9061713491536200827}
-  - component: {fileID: 9061713491536200826}
-  - component: {fileID: 9061713491536200825}
   - component: {fileID: 9061713491536200824}
   - component: {fileID: 2174422374136724377}
+  - component: {fileID: -4726550995149818794}
   m_Layer: 0
   m_Name: majorpotion
   m_TagString: Untagged
@@ -102,36 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 10
---- !u!64 &9061713491536200826
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061713491536200831}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!54 &9061713491536200825
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061713491536200831}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &9061713491536200824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,3 +142,29 @@ MonoBehaviour:
   soundValues:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
   - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
+--- !u!61 &-4726550995149818794
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061713491536200831}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.28, y: 1.28}
+  m_EdgeRadius: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using static Helpers;
 
 [RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(Rigidbody2D))]
 
@@ -11,6 +12,7 @@ public class Controller : MonoBehaviour
 
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
+    public bool canMove = true;
     #region Variables
     public static Controller main;
 
@@ -230,18 +232,39 @@ public class Controller : MonoBehaviour
         //     return;
         // }
 
-        Move();
+        if (canMove) Move();
+        else rb.velocity = Vector2.zero; // Stop movement if not allowed
 
         if (Input.GetKeyDown(KeyCode.I))
         {
             InteractAhead();
         }
 
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {
+            print("Attacking on the " + current_player_direction);
+            canMove = false; // Prevents movement during attack animation
+            PlayAnimation("attack", current_player_direction);
+            SendRaycast(current_player_direction).ToList().ForEach(obj =>
+            {
+                if (obj.TryGetComponent(out CanFight enemy))
+                {
+                    Vector2 direction = GetAxis();
+                    Attack(enemy, direction);
+                }
+                if (obj.TryGetComponent(out CanBeHurt hurtable))
+                {
+                    hurtable.Hurt((uint)attackDamage);
+                }
+            });
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
-            var items = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max).ToList().Where(obj => obj.TryGetComponent(out Item item)).Select(obj => obj.GetComponent<Item>()).ToList();
+            var items = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max).ToList().Where(obj => obj.TryGetComponentFromParent(out Item item)).Select(obj => obj.GetComponentInParent<Item>()).ToList();
             foreach (var item in items)
             {
+                print("Picking up item: " + item.name);
                 item.Pickup();
             }
         }
@@ -254,11 +277,6 @@ public class Controller : MonoBehaviour
             if (obj.TryGetComponent(out CanBeInteractedWith interactable))
             {
                 interactable.Interact();
-            }
-            else if (obj.TryGetComponent(out CanFight enemy))
-            {
-                Vector2 direction = GetAxis();
-                Attack(enemy, direction);
             }
         });
     }
@@ -290,6 +308,7 @@ public class Controller : MonoBehaviour
             }
         }
         current_player_direction = current_player_direction.normalized;
+
         PlayAnimation("idle", current_player_direction);
 
         rb.velocity = direction.normalized * moveSpeed;
@@ -418,6 +437,12 @@ public class Controller : MonoBehaviour
 
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
+        var currentState = animator.GetCurrentAnimatorStateInfo(0);
+        string currentName = currentState.IsName("") ? "" : currentState.shortNameHash.ToString();
+
+        // If currently playing an attack animation and trying to play idle, skip
+        if (action == "idle" && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.ToLower().Contains("attack"))
+            return;
         if (facingDirection == null || facingDirection == Vector2.zero) facingDirection = current_player_direction;
         string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
@@ -467,6 +492,7 @@ public class Controller : MonoBehaviour
     public void AttackAnimationFinishHandler()
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+        canMove = true; // Allow movement again after attack animation finishes
     }
 
     public void add_exp(int exp)

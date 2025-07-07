@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public class Helpers : MonoBehaviour {
+public class Helpers : MonoBehaviour
+{
     public static Helpers singleton;
 
     [SerializeField] GameObject textFadePrefab;
@@ -18,24 +19,47 @@ public class Helpers : MonoBehaviour {
         else Destroy(this);
     }
 
-    public void SpawnHurtText(string text, Vector3 position) {
+    public void SpawnHurtText(string text, Vector3 position)
+    {
         RealTextFadeUp damageAmount = Instantiate(
             textFadePrefab,
-            position, 
+            position,
             Quaternion.identity
         ).GetComponent<RealTextFadeUp>();
-        
+
         damageAmount.SetText(text, Color.red, Color.white, 0.4f);
     }
 }
 
-public static class StaticHelpers {
-    public static T Pop<T>(this List<T> list) {
-        if (list == null || list.Count == 0) {
+public static class StaticHelpers
+{
+    public static T Pop<T>(this List<T> list)
+    {
+        if (list == null || list.Count == 0)
+        {
             throw new InvalidOperationException("Cannot pop from an empty or null list.");
         }
         T item = list[list.Count - 1];
         list.RemoveAt(list.Count - 1);
         return item;
+    }
+
+    public static bool TryGetComponentFromParent<T>(this Collider2D collider, out T component) where T : Component
+    {
+        component = collider.GetComponent<T>();
+        if (component == null)
+        {
+            Transform parent = collider.transform.parent;
+            while (parent != null && component == null)
+            {
+                component = parent.GetComponent<T>();
+                parent = parent.parent;
+            }
+            return component != null;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

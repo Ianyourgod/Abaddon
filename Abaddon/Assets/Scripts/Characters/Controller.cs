@@ -1,19 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 using System.Linq;
-using UnityEditor.Callbacks;
 
-[RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(Rigidbody2D))]
 
 public class Controller : MonoBehaviour
 {
 
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     #region Variables
     public static Controller main;
 
@@ -125,6 +122,8 @@ public class Controller : MonoBehaviour
     void Awake()
     {
         main = this;
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
 
         sfxPlayer = GetComponent<PlayerSfx>();
@@ -237,6 +236,15 @@ public class Controller : MonoBehaviour
         {
             InteractAhead();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var items = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max).ToList().Where(obj => obj.TryGetComponent(out Item item)).Select(obj => obj.GetComponent<Item>()).ToList();
+            foreach (var item in items)
+            {
+                item.Pickup();
+            }
+        }
     }
 
     void InteractAhead()
@@ -252,11 +260,6 @@ public class Controller : MonoBehaviour
                 Vector2 direction = GetAxis();
                 Attack(enemy, direction);
             }
-            // TODO: Implement this
-            // else if (obj.TryGetComponent(out CanPickUp pickUp))
-            // {
-            //     pickUp.PickUp();
-            // }
         });
     }
 

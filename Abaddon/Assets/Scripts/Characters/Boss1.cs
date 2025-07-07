@@ -30,11 +30,6 @@ public class Boss1 : MonoBehaviour, CanFight
 
     private int ticks_till_move_back = 0;
 
-    void Awake()
-    {
-        Controller.OnTick += CustomUpdate;
-    }
-
     public void StartFight()
     {
         health = maxHealth;
@@ -108,6 +103,7 @@ public class Boss1 : MonoBehaviour, CanFight
         UIStateManager.singleton.OpenUIPage(UIState.Win);
     }
 
+    // TODO: ADD A NEW WAY TO CALL THIS
     private void CustomUpdate()
     {
         if (stage % 2 == 0 && stage != 0)

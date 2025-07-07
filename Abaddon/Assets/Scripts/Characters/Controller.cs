@@ -6,16 +6,20 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using UnityEditor.Callbacks;
 
 [RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
 
 public class Controller : MonoBehaviour
 {
+
+    public Rigidbody2D rb;
     #region Variables
     public static Controller main;
 
     #region Stats
     [Header("Base Stats")]
+    [SerializeField, Tooltip("Movement speed")] public float moveSpeed = 2f;
     [SerializeField, Tooltip("Constitution (maximum health)")] public int constitution = 9;
 
     [SerializeField, Tooltip("Dexterity (dodge chance)")] public int dexterity = 9;
@@ -71,10 +75,8 @@ public class Controller : MonoBehaviour
     #endregion
 
     #region Player Update System 
-    [HideInInspector] public static Action OnTick;
     [HideInInspector] public static Action OnMoved;
     [HideInInspector] public EnemyMovement[] enemies;
-    [HideInInspector] public bool done_with_tick = true;
     int current_enemy = 0;
     #endregion
 
@@ -198,51 +200,64 @@ public class Controller : MonoBehaviour
     {
         UpdateStats();
 
-        bool god_mode_keys_prev = god_mode_keys.Item1;
-        bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
-        god_mode_keys = (god_mode_keys_pressed, god_mode_keys_prev);
+        // bool god_mode_keys_prev = god_mode_keys.Item1;
+        // bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
+        // god_mode_keys = (god_mode_keys_pressed, god_mode_keys_prev);
 
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && god_mode)
-        {
-            print("God mode deactivated");
-            god_mode = false;
-            god_mode_keys = (true, true);
-            // round to nearest tile
-            transform.position = new Vector3(
-                Mathf.Round(transform.position.x - 0.5f) + 0.5f,
-                Mathf.Round(transform.position.y - 0.5f) + 0.5f,
-                transform.position.z
-            );
-        }
+        // if (god_mode_keys.Item1 && !god_mode_keys.Item2 && god_mode)
+        // {
+        //     print("God mode deactivated");
+        //     god_mode = false;
+        //     god_mode_keys = (true, true);
+        //     // round to nearest tile
+        //     transform.position = new Vector3(
+        //         Mathf.Round(transform.position.x - 0.5f) + 0.5f,
+        //         Mathf.Round(transform.position.y - 0.5f) + 0.5f,
+        //         transform.position.z
+        //     );
+        // }
 
-        enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick)
-        {
-            return;
-        }
+        // enemies = FindObjectsOfType<EnemyMovement>();
 
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
-        {
-            god_mode = true;
-            print("God mode activated");
-        }
+        // if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
+        // {
+        //     god_mode = true;
+        //     print("God mode activated");
+        // }
 
-        if (god_mode)
-        {
-            GodModeMove();
-            return;
-        }
+        // if (god_mode)
+        // {
+        //     GodModeMove();
+        //     return;
+        // }
 
         Move();
 
-        if (Input.GetKeyDown(KeyCode.Equals))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            health += 1;
+            InteractAhead();
         }
-        if (Input.GetKeyDown(KeyCode.Minus))
+    }
+
+    void InteractAhead()
+    {
+        SendRaycast(current_player_direction).ToList().ForEach(obj =>
         {
-            DamagePlayer(1, false);
-        }
+            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
+            {
+                interactable.Interact();
+            }
+            else if (obj.TryGetComponent(out CanFight enemy))
+            {
+                Vector2 direction = GetAxis();
+                Attack(enemy, direction);
+            }
+            // TODO: Implement this
+            // else if (obj.TryGetComponent(out CanPickUp pickUp))
+            // {
+            //     pickUp.PickUp();
+            // }
+        });
     }
 
     void GodModeMove()
@@ -259,52 +274,23 @@ public class Controller : MonoBehaviour
 
     void Move()
     {
-        Vector2 direction = GetAxis();
-        if (direction.magnitude != 1) return; // if we are not moving, do nothing. if we are going diagonally, do nothing
-
-        done_with_tick = false;
-        current_player_direction = direction;
-        GameObject[] objectsAhead = SendRaycast(direction);
-        bool canMove = CanMove(objectsAhead);
-
-        current_enemy = 0;
-        PlayAnimation("idle", direction);
-
-        if (Time.time - lastMovement <= movementDelay) return;
-        lastMovement = Time.time;
-
-
-        if (canMove)
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (direction.magnitude > 0.5f)
         {
-            transform.Translate(direction);
-            sfxPlayer.PlayWalkSound();
-            OnMoved?.Invoke();
-            FinishTick();
+            if (direction.magnitude == 1)
+            {
+                current_player_direction = direction;
+            }
+            else
+            {
+                current_player_direction = new Vector2(direction.x, 0).normalized;
+            }
         }
+        current_player_direction = current_player_direction.normalized;
+        print($"Current player direction: {current_player_direction}");
+        // PlayAnimation("idle", current_player_direction);
 
-        bool did_something = false;
-        foreach (GameObject obj in objectsAhead)
-        {
-            if (obj.TryGetComponent(out CanBeHurt hurtable))
-            {
-                hurtable.Hurt((uint)attackDamage);
-                FinishTick();
-                did_something = true;
-            }
-            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
-            {
-                interactable.Interact();
-                FinishTick();
-                did_something = true;
-            }
-            if (obj.TryGetComponent(out CanFight enemy))
-            {
-                Attack(enemy, direction); // calls next enemy so no need for a finish tick
-                did_something = true;
-            }
-
-            if (!did_something) FinishTick();
-        }
+        rb.velocity = direction.normalized * moveSpeed;
     }
 
     public void UpdateStats()
@@ -320,23 +306,6 @@ public class Controller : MonoBehaviour
         HealPlayer(0);
     }
 
-    public void FinishTick()
-    {
-        OnTick?.Invoke();
-        NextEnemy();
-    }
-
-    public void NextEnemy()
-    {
-        if (current_enemy >= enemies.Length)
-        {
-            done_with_tick = true;
-            return;
-        }
-        current_enemy++;
-        enemies[current_enemy - 1].MakeDecision();
-    }
-
     private void Attack(CanFight enemy, Vector2 direction)
     {
         BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
@@ -345,10 +314,6 @@ public class Controller : MonoBehaviour
         {
             print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
             attack.Attack(enemy, direction, animator, sfxPlayer);
-        }
-        else
-        {
-            FinishTick();
         }
     }
 
@@ -446,12 +411,12 @@ public class Controller : MonoBehaviour
             return "right";
         }
 
-        throw new Exception("Invalid direction");
+        throw new Exception("Invalid direction: " + direction);
     }
 
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
-        if (facingDirection == null) facingDirection = current_player_direction;
+        if (facingDirection == null || facingDirection == Vector2.zero) facingDirection = current_player_direction;
         string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
     }
@@ -500,7 +465,6 @@ public class Controller : MonoBehaviour
     public void AttackAnimationFinishHandler()
     {
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
-        FinishTick();
     }
 
     public void add_exp(int exp)

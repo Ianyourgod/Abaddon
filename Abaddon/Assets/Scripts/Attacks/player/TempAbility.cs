@@ -9,6 +9,6 @@ public class TempAbility : BaseAbility
     {
         // rahh im attacking!!
         Debug.Log("Rahh soul-steal!!");
-        Controller.main.FinishTick();
+        // Controller.main.FinishTick();
     }
 }

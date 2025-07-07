@@ -9,24 +9,29 @@ public class Fireball : MonoBehaviour
 
     private uint timeAlive = 0;
 
-    void Awake() {
-        Controller.OnTick += CustomUpdate;
-        if (transform.position == Controller.main.transform.position) {
+    void Awake()
+    {
+        if (transform.position == Controller.main.transform.position)
+        {
             Controller.main.DamagePlayer(damage, false);
         }
     }
 
-    void OnDestroy() {
-        Controller.OnTick -= CustomUpdate;
+    void OnDestroy()
+    {
     }
 
-    void CustomUpdate() {
+    // TODO: ADD A NEW WAY TO CALL THIS
+    void CustomUpdate()
+    {
         timeAlive++;
-        if (timeAlive > lastingTime) {
+        if (timeAlive > lastingTime)
+        {
             Destroy(gameObject);
         }
 
-        if (transform.position == Controller.main.transform.position) {
+        if (transform.position == Controller.main.transform.position)
+        {
             Controller.main.DamagePlayer(damage, false);
         }
     }

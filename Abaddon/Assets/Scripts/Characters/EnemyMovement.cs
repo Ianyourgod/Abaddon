@@ -78,7 +78,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
             if (direction == Vector2.zero)
             {
-                Invoke(nameof(callNextEnemy), 0f);
+                // TODO: FIX THIS
+                // Invoke(nameof(callNextEnemy), 0f);
                 return;
             }
 
@@ -86,13 +87,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
         }
         else
         {
-            Invoke(nameof(callNextEnemy), 0f);
+            // TODO: FIX THIS
+            // Invoke(nameof(callNextEnemy), 0f);
         }
-    }
-
-    private void callNextEnemy()
-    {
-        Controller.main.NextEnemy();
     }
 
     void MoveToPlayer()
@@ -105,7 +102,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
         else if (followingPlayer && !CheckPlayerIsInFollowRange())
         {
             followingPlayer = false;
-            Invoke(nameof(callNextEnemy), 0f);
+            // TODO: FIX THIS
+            // Invoke(nameof(callNextEnemy), 0f);
             return;
         }
 
@@ -113,7 +111,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
         if (direction == Vector2.zero)
         {
-            Invoke(nameof(callNextEnemy), 0f);
+            // TODO: FIX THIS
+            // Invoke(nameof(callNextEnemy), 0f);
             return;
         }
 
@@ -137,11 +136,13 @@ public class EnemyMovement : MonoBehaviour, CanFight
         {
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
-            Invoke(nameof(callNextEnemy), 0f);
+            // TODO: FIX THIS
+            // Invoke(nameof(callNextEnemy), 0f);
         }
         else
         {
-            Invoke(nameof(callNextEnemy), 0f);
+            // TODO: FIX THIS
+            // Invoke(nameof(callNextEnemy), 0f);
         }
     }
 
@@ -266,7 +267,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (damage >= health)
         {
-            Controller.OnTick -= MakeDecision;
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
@@ -292,7 +292,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void Die()
     {
-        Invoke(nameof(callNextEnemy), 0f);
+        // TODO: FIX THIS
+        // Invoke(nameof(callNextEnemy), 0f);
         Destroy(gameObject);
     }
 
@@ -307,6 +308,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");
-        Invoke(nameof(callNextEnemy), 0f);
+        // TODO: FIX THIS
+        // Invoke(nameof(callNextEnemy), 0f);
     }
 }

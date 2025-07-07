@@ -312,17 +312,14 @@ public class Controller : MonoBehaviour
         bool did_something = false;
         foreach (GameObject obj in objectsAhead)
         {
-            if (obj.TryGetComponent(out CanBeHurt hurtable))
+            if (Input.GetKey(KeyCode.E))
             {
-                hurtable.Hurt((uint)attackDamage);
-                FinishTick();
-                did_something = true;
-            }
-            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
-            {
-                interactable.Interact();
-                FinishTick();
-                did_something = true;
+                if (obj.TryGetComponent(out CanBeInteractedWith interactable))
+                {
+                    interactable.Interact();
+                    FinishTick();
+                    did_something = true;
+                }
             }
             if (obj.TryGetComponent(out CanFight enemy))
             {

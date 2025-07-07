@@ -7,21 +7,9 @@ public interface CanBeInteractedWith
     void Interact();
 }
 
-public interface HasHealth : CanBeHurt
+public interface HasHealth
 {
     void Heal(uint amount);
-}
-
-public interface CanBeHurt
-{
-    bool Hurt(uint damage);
-    void Die();
-}
-
-public enum EnemyType
-{
-    Gnome,
-    Boss1,
 }
 
 public interface CanFight

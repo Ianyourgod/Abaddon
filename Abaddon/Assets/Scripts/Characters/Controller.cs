@@ -274,7 +274,7 @@ public class Controller : MonoBehaviour
 
     void Move()
     {
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (direction.magnitude > 0.5f)
         {
             if (direction.magnitude == 1)
@@ -287,8 +287,7 @@ public class Controller : MonoBehaviour
             }
         }
         current_player_direction = current_player_direction.normalized;
-        print($"Current player direction: {current_player_direction}");
-        // PlayAnimation("idle", current_player_direction);
+        PlayAnimation("idle", current_player_direction);
 
         rb.velocity = direction.normalized * moveSpeed;
     }

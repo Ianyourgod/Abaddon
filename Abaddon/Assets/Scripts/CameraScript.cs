@@ -59,7 +59,10 @@ public class CameraScript : MonoBehaviour
         if (useSmoothMovement)
         {
             time = camera_moveto_curve.Evaluate(time);
-            return Vector3.Lerp(start_position, currentTarget.position + new Vector3(0, 0, -10), time);
+            if (currentTarget != null)
+                return Vector3.Lerp(start_position, currentTarget.position + new Vector3(0, 0, -10), time);
+            else
+                return transform.position;
         }
         return Vector3.Lerp(transform.position, currentTarget.position + new Vector3(0, 0, -10), default_lerp_speed * Time.deltaTime * 60f);
     }

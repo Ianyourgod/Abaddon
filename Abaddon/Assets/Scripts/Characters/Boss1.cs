@@ -14,17 +14,17 @@ public class Boss1 : MonoBehaviour, CanFight
     [SerializeField] int Stages = 3;
     [SerializeField] int enemiesPerStage = 2;
     [SerializeField] Vector2Int roomSize = new Vector2Int(21, 11);
-    [SerializeField] uint maxHealth = 15;
+    [SerializeField] int maxHealth = 15;
 
     [HideInInspector] public bool inFight = false;
     [HideInInspector] public int stage = 0;
-    private uint _health = 15;
-    public uint health
+    private int _health = 15;
+    public int health
     {
         get { return _health; }
         set
         {
-            _health = (uint)Mathf.Clamp(value, 0, maxHealth);
+            _health = (int)Mathf.Clamp(value, 0, maxHealth);
         }
     }
 
@@ -129,14 +129,18 @@ public class Boss1 : MonoBehaviour, CanFight
         animator.Play(animation);
     }
 
-    public void Hurt(uint damage)
+    public void Hurt(uint _damage)
     {
+        int damage = (int)_damage;
+
+        print(health);
+        
         if (inFight && stage % 2 == 0)
         {
             health -= damage;
             Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
             PlayAnimation("damage");
-            if (health <= 0)
+            if (health == 0)
             {
                 health = maxHealth;
                 stage++;
@@ -154,10 +158,11 @@ public class Boss1 : MonoBehaviour, CanFight
         }
     }
 
-    public uint Heal(uint amount)
+    public uint Heal(uint _amount)
     {
+        int amount = (int)_amount;
         health += amount;
-        return health;
+        return (uint)health;
     }
 
     void OnDrawGizmosSelected()

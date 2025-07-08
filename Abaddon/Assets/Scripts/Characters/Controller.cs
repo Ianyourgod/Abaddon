@@ -80,7 +80,7 @@ public class Controller : MonoBehaviour
     [Header("Other")]
     [SerializeField] public Animator animator;
     [SerializeField] CameraScript mainCamera;
-    [SerializeField] Weapon currentWeapon;
+    [SerializeField] Weapon currentWeapon = new Sword();
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
     #endregion
@@ -195,7 +195,6 @@ public class Controller : MonoBehaviour
         Transform targetPosition = boss.transform;
 
         mainCamera.ResetTarget(null, false, null);
-
         // disable player movement until the camera has panned
         // done_with_tick = false;
         // StartCoroutine(AfterDelay(1f, () =>
@@ -312,9 +311,11 @@ public class Controller : MonoBehaviour
         if (!stickMoved && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
         if (stickMoved)
         {
+            // Debug.Log($"Moving in direction: {direction}");
             current_player_direction = direction;
         }
 
+        // Debug.Log("Setting done_with_tick to false");
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
         bool canMove = CanMove(objectsAhead);
@@ -327,6 +328,7 @@ public class Controller : MonoBehaviour
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
+            lastMovement = Time.time;
             FinishTick();
         }
 
@@ -339,6 +341,7 @@ public class Controller : MonoBehaviour
                 if (obj.TryGetComponent(out CanBeInteractedWith interactable))
                 {
                     interactable.Interact();
+                    lastMovement = Time.time;
                     FinishTick();
                     // TODO: do animation + sfx
                     did_something = true;
@@ -357,7 +360,10 @@ public class Controller : MonoBehaviour
                 did_something = true;
             }
         }
+        // if (objectsAhead.Length == 0)
+        // {
         if (!did_something) FinishTick();
+        // }
     }
 
     public void UpdateConstitutionModifier(int conDiff)

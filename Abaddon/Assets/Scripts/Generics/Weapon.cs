@@ -68,6 +68,10 @@ public abstract class Weapon : MonoBehaviour
         {
             return false; // No enemies to attack
         }
+        if (enemies.Length == 0)
+        {
+            return false; // No enemies to attack
+        }
         lastAttackTime = Time.time; // Update the last attack time
         Controller.main.animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         Controller.main.sfxPlayer.PlayAttackSound();

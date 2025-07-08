@@ -96,9 +96,9 @@ public class Controller : MonoBehaviour
     #region Movement Controls
     private class MoveState
     {
-        public float held_time = 0f;
+        public float start_hold_time = 0f;
         public bool held_last_frame = false;
-        public float last_repeat_run = 0f;
+        public float next_repeat_run = 0f;
     }
 
     private enum MovementDirection
@@ -227,10 +227,7 @@ public class Controller : MonoBehaviour
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick)
-        {
-            return;
-        }
+        if (!done_with_tick) return;
 
         // Debug.Log("Done with tick, processing input");
 
@@ -295,6 +292,7 @@ public class Controller : MonoBehaviour
 
         if (canMove && stickMoved)
         {
+
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
@@ -408,31 +406,26 @@ public class Controller : MonoBehaviour
 
         if (isHeld)
         {
-            state.held_time += Time.deltaTime;
-
             if (!state.held_last_frame)
             {
                 state.held_last_frame = true;
-                state.held_time = 0f;
+                state.start_hold_time = Time.time + initialMovementDelay;
                 return true;
             }
-            else if (state.held_time > initialMovementDelay)
+            else if (state.start_hold_time <= Time.time)
             {
-                if (state.last_repeat_run > holdDelay)
+                //print(state.next_repeat_run + " " + holdDelay);
+                if (state.next_repeat_run <= Time.time)
                 {
-                    state.last_repeat_run = 0f;
+                    state.next_repeat_run = Time.time + holdDelay;
                     return true;
-                }
-                else
-                {
-                    state.last_repeat_run += Time.deltaTime;
                 }
             }
         }
         else
         {
             state.held_last_frame = false;
-            state.held_time = 0f;
+            state.start_hold_time = float.PositiveInfinity;
         }
 
         return false;

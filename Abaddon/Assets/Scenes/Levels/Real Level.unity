@@ -13803,6 +13803,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1169130323}
     - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: movementDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: levelBarVisual
       value: 
       objectReference: {fileID: 4446540409404021929}
@@ -72493,8 +72497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076af447aa03c281fae1cdf985cb6b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onScreenPosition: {x: 0, y: 0, z: 0}
-  offScreenPosition: {x: 0, y: -1000, z: -60}
+  targetPosition: {fileID: 0}
   timeToEnter: 5
   pausedDarknessLevel: 0.75
 --- !u!114 &2196849675972469318

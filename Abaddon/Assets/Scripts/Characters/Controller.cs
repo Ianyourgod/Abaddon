@@ -67,7 +67,7 @@ public class Controller : MonoBehaviour
     [SerializeField] float movementDelay = 0.1f;
     [Space]
     Vector2 current_player_direction = new Vector2(0, -1);
-    float lastMovement = 0f;
+    [SerializeField] float lastMovement = 0f;
     #endregion
 
     #region Player Update System 
@@ -80,9 +80,9 @@ public class Controller : MonoBehaviour
 
     #region Other 
     [Header("Other")]
-    [SerializeField] Animator animator;
+    [SerializeField] public Animator animator;
     [SerializeField] CameraScript mainCamera;
-    [SerializeField] Weapon currentWeapon;
+    [SerializeField] Weapon currentWeapon = new Sword();
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
     #endregion
@@ -197,8 +197,6 @@ public class Controller : MonoBehaviour
         Transform targetPosition = boss.transform;
 
         mainCamera.ResetTarget(null, false, null);
-
-        currentWeapon = new Sword();
         // disable player movement until the camera has panned
         // done_with_tick = false;
         // StartCoroutine(AfterDelay(1f, () =>
@@ -238,6 +236,8 @@ public class Controller : MonoBehaviour
 
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick) return;
+
+        // Debug.Log("Done with tick, processing input");
 
         if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
         {
@@ -289,21 +289,26 @@ public class Controller : MonoBehaviour
 
     void Move()
     {
+        Debug.Log("Starting player movement");
         Vector2 direction = GetAxis();
-        if (direction.magnitude > 0)
+        if (direction.magnitude != 0)
         {
+            // Debug.Log($"Moving in direction: {direction}");
             current_player_direction = direction;
         }
 
+        // Debug.Log("Setting done_with_tick to false");
         done_with_tick = false;
-        GameObject[] objectsAhead = SendRaycast(direction);
+        GameObject[] objectsAhead = SendRaycast(current_player_direction);
         bool canMove = CanMove(objectsAhead);
+
+        // Debug.Log("Playing animation");
 
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
-        if (Time.time - lastMovement <= movementDelay) return;
-        lastMovement = Time.time;
+        // Debug.Log("Checking if movement delay has passed");
+        // Debug.Log($"Last movement time: {lastMovement}, Current time: {Time.time}, Movement delay: {movementDelay}");
 
         if (canMove)
         {
@@ -311,10 +316,12 @@ public class Controller : MonoBehaviour
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
+            lastMovement = Time.time;
             FinishTick();
         }
 
         bool did_something = false;
+        Debug.Log(objectsAhead.Length + " objects ahead");
         if (Input.GetKey(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
@@ -322,6 +329,7 @@ public class Controller : MonoBehaviour
                 if (obj.TryGetComponent(out CanBeInteractedWith interactable))
                 {
                     interactable.Interact();
+                    lastMovement = Time.time;
                     FinishTick();
                     did_something = true;
                 }
@@ -329,14 +337,21 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.V))
         {
+            Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
             CanFight[] enemies = currentWeapon.GetFightablesInDamageArea(transform.position, angle);
-            currentWeapon.AttackEnemies(enemies);
+            bool attackWorked = currentWeapon.AttackEnemies(enemies, current_player_direction);
             // TODO: do animation + sfx
-            FinishTick();
-            did_something = true;
+            lastMovement = Time.time;
+            if (attackWorked)
+            {
+                did_something = true;
+            }
         }
+        // if (objectsAhead.Length == 0)
+        // {
         if (!did_something) FinishTick();
+        // }
     }
 
     public void UpdateStats()
@@ -472,8 +487,8 @@ public class Controller : MonoBehaviour
     // (if it hit something, what it hit)
     GameObject[] SendRaycast(Vector2 direction)
     {
-        Vector2 world_position = (Vector2)transform.position + (direction * 1.02f / 2f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
-
+        Vector2 world_position = (Vector2)transform.position + (direction * .51f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
+        Debug.DrawLine(new Vector3(world_position.x, world_position.y, 0), new Vector3(world_position.x + direction.x * .5f, world_position.y + direction.y * .5f, 0), Color.green, 0.2f, false);
         return Physics2D.RaycastAll(world_position, direction, .5f).Select(hit => hit.collider.gameObject).ToArray();
     }
 
@@ -487,11 +502,15 @@ public class Controller : MonoBehaviour
         {
             return "back";
         }
-        else if (direction == Vector2.left)
+        else if (direction == Vector2.left ||
+                 direction == new Vector2(-1, -1) || // diagonal left down
+                 direction == new Vector2(-1, 1)) // diagonal left up
         {
             return "left";
         }
-        else if (direction == Vector2.right)
+        else if (direction == Vector2.right ||
+                 direction == new Vector2(1, -1) || // diagonal right down
+                 direction == new Vector2(1, 1)) // diagonal right up
         {
             return "right";
         }
@@ -501,7 +520,7 @@ public class Controller : MonoBehaviour
 
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
-        if (facingDirection == null) facingDirection = current_player_direction;
+        if (facingDirection == null || facingDirection == Vector2.zero) facingDirection = current_player_direction;
         string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
     }

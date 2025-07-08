@@ -68,7 +68,7 @@ public class DialogueVisualiser : MonoBehaviour
     public void WriteMessage(string message, float time = 8f, bool usingCPS = true, Sprite img = null)
     {
         print("A");
-        startAmmount = usingCPS ? message.Length / time : time;
+        startAmmount = usingCPS ? message.Length * time : time;
         print("B");
         timeLeftToType = startAmmount;
         print("C");

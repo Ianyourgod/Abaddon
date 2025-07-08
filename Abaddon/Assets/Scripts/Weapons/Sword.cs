@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 
 public class Sword : Weapon
 {
-    public new Vector2 damageBoxHalfExtents = new Vector2(1f, 1f);
+    public new Vector2 size = new Vector2(1f, 1f);
 
     public override float GetAttackSpeed()
     {

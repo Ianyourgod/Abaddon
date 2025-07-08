@@ -1,5 +1,5 @@
-﻿		///----------------------------\\\
-		//  Ultimate Inventory Engine   \\
+﻿///----------------------------\\\
+//  Ultimate Inventory Engine   \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
 ///-----------------------------------------------\\\
@@ -62,7 +62,8 @@ public class Inventory : MonoBehaviour
 
 	private UISfx invSfxPlayer;
 
-	private enum Tab {
+	private enum Tab
+	{
 		Inventory,
 		LevelUp,
 	}
@@ -71,7 +72,7 @@ public class Inventory : MonoBehaviour
 	public bool isInventoryOpen = false;
 
 	private void Awake()
-    {
+	{
 		invSfxPlayer = inventoryObject.transform.parent.GetComponent<UISfx>();
 	}
 
@@ -100,7 +101,8 @@ public class Inventory : MonoBehaviour
 
 	private void Update()
 	{
-		if (MenuHandler.instance && MenuHandler.instance.isPaused) return;
+		if (UIStateManager.singleton.mostRecentState == UIState.Pause) return;
+		if (Input.GetKeyDown(KeyCode.Tab)) UIStateManager.singleton.ToggleUIPage(UIState.Inventory);
 
 		foreach (Slot i in slots)
 		{
@@ -113,7 +115,8 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public void OpenInventory() {
+	public void OpenInventory()
+	{
 		invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
 
 		isInventoryOpen = true;
@@ -128,7 +131,8 @@ public class Inventory : MonoBehaviour
 		if (shadow) shadow.SetActive(true);
 	}
 
-	public void CloseInventory() {
+	public void CloseInventory()
+	{
 		invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
 
 		CloseAllTabs();
@@ -141,7 +145,8 @@ public class Inventory : MonoBehaviour
 		if (shadow) shadow.SetActive(false);
 	}
 
-	public bool CheckIfItemExists(int id) {
+	public bool CheckIfItemExists(int id)
+	{
 		// more efficient !!!!!!
 		foreach (Slot slot in slots)
 		{
@@ -155,19 +160,22 @@ public class Inventory : MonoBehaviour
 			}
 		}
 		return false;
-    }
+	}
 
-	public void SwapTuahTheStats() {
+	public void SwapTuahTheStats()
+	{
 		current_tab = Tab.LevelUp;
 		ReloadInventory();
 	}
 
-	public void SwapToInventory() {
+	public void SwapToInventory()
+	{
 		current_tab = Tab.Inventory;
 		ReloadInventory();
 	}
 
-	public void CloseAllTabs() {
+	public void CloseAllTabs()
+	{
 		inventoryObject.SetActive(false);
 		equipmentObject.SetActive(false);
 		statObject.SetActive(false);
@@ -175,30 +183,34 @@ public class Inventory : MonoBehaviour
 		levelUpObject.SetActive(false);
 	}
 
-	public void HideButtons() {
+	public void HideButtons()
+	{
 		InventoryTabButton.SetActive(false);
 		LevelUpTabButton.SetActive(false);
 	}
 
-	public void ShowButtons() {
+	public void ShowButtons()
+	{
 		InventoryTabButton.SetActive(true);
 		LevelUpTabButton.SetActive(true);
 	}
 
-	public void ReloadInventory() {
+	public void ReloadInventory()
+	{
 		CloseAllTabs();
 
-		switch (current_tab) {
-				case Tab.Inventory:
-					inventoryObject.SetActive(true);
-					equipmentObject.SetActive(true);
-					statObject.SetActive(true);
-					craftObject.SetActive(true);
-					break;
-				case Tab.LevelUp:
-					levelUpObject.SetActive(true);
-					break;
-			}
+		switch (current_tab)
+		{
+			case Tab.Inventory:
+				inventoryObject.SetActive(true);
+				equipmentObject.SetActive(true);
+				statObject.SetActive(true);
+				craftObject.SetActive(true);
+				break;
+			case Tab.LevelUp:
+				levelUpObject.SetActive(true);
+				break;
+		}
 	}
 
 	public int GetItemAmount(int id)

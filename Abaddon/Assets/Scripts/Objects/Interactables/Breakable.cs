@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ItemDropper))]
-[RequireComponent(typeof(BreakableSfx))]
+[RequireComponent(typeof(SfxPlayerBetter))]
 
-public class Breakable : Interactable
+public class Breakable : MonoBehaviour, CanBeInteractedWith
 {
     public enum BreakableType
     {
@@ -15,29 +15,32 @@ public class Breakable : Interactable
 
     [SerializeField] BreakableType type = BreakableType.Pot;
     [SerializeField] float health = 1;
-    BreakableSfx sfxPlayer;
+    SfxPlayerBetter sfxPlayer;
 
-    public void Start() {
-        sfxPlayer = GetComponent<BreakableSfx>();
+    public void Start()
+    {
+        sfxPlayer = GetComponent<SfxPlayerBetter>();
     }
 
-    public override void Interact(float damage)
+    public void Interact()
     {
-        sfxPlayer.PlayBreakSound();
-        health -= damage;
-        if (health <= 0)
+        sfxPlayer.PlaySound("break");
+        health -= 1;
+        if (health <= 0) Die();
+    }
+
+    public void Die()
+    {
+        switch (type)
         {
-            switch (type)
-            {
-                case BreakableType.Pot:
-                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/PotBreak"), transform.position, Quaternion.identity);
-                    break;
-                case BreakableType.Barrel:
-                    Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Environment/BarrelBreak"), transform.position, Quaternion.identity);
-                    break;
-            }
-            GetComponent<ItemDropper>().Die();
-            Destroy(gameObject);
+            case BreakableType.Pot:
+                Instantiate((GameObject)Resources.Load("Prefabs/Environment/PotBreak"), transform.position, Quaternion.identity);
+                break;
+            case BreakableType.Barrel:
+                Instantiate((GameObject)Resources.Load("Prefabs/Environment/BarrelBreak"), transform.position, Quaternion.identity);
+                break;
         }
+        GetComponent<ItemDropper>().Die();
+        Destroy(gameObject);
     }
 }

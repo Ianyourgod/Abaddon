@@ -18,8 +18,8 @@ TagManager:
   - Enemy
   - Player
   - 
-  - floor
-  - Immovable
+  - Walls
+  - Obstructions
   - door
   - fountain
   - floorTrap

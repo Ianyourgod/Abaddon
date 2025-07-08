@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 [RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
 
@@ -26,6 +27,7 @@ public class Controller : MonoBehaviour
 
     [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
     [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
+    [SerializeField, Tooltip("Sum of starting stats")] public int sum_of_starting_stats = 40;
 
     public int exp = 0;
 
@@ -70,6 +72,7 @@ public class Controller : MonoBehaviour
 
     #region Player Update System 
     [HideInInspector] public static Action OnTick;
+    [HideInInspector] public static Action OnMoved;
     [HideInInspector] public EnemyMovement[] enemies;
     [HideInInspector] public bool done_with_tick = true;
     int current_enemy = 0;
@@ -95,8 +98,9 @@ public class Controller : MonoBehaviour
     #region Movement Controls
     private class MoveState
     {
-        public float heldTime = 0f;
-        public bool wasHeldLastFrame = false;
+        public float start_hold_time = 0f;
+        public bool held_last_frame = false;
+        public float next_repeat_run = 0f;
     }
 
     private enum MovementDirection
@@ -105,11 +109,12 @@ public class Controller : MonoBehaviour
         Down,
         Left,
         Right
-    } 
+    }
 
     private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
 
-    public float initialMovementDelay = 0.3f;
+    [SerializeField] float initialMovementDelay = 0.3f;
+    [SerializeField] float holdDelay = 0.03f;
 
     #endregion
 
@@ -118,59 +123,37 @@ public class Controller : MonoBehaviour
     void Awake()
     {
         main = this;
+        onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
 
         sfxPlayer = GetComponent<PlayerSfx>();
         inventory = FindObjectOfType<Inventory>();
 
-        // stat randomization
+        #region Generate Stats
+        float minPercentage = (float)minimum_stat_roll / sum_of_starting_stats;
+        float maxPercentage = (float)maximum_stat_roll / sum_of_starting_stats;
 
-        // to do this, we gotta do some annoying ass math
-        /*
-            The Problem: we don't want to user to get shitty stats
-            but we also dont want them to get super op stats.
-            and so we gotta do math.
-
-            this ALSO means, that if some one for example, gets relatively
-            good dexterity, we wanna give them less constitution. Or if
-            they get good constitution, then they should get less strength,
-            etc.
-        */
-
-        int minimum_stat_roll = 1;
-        int maximum_stat_roll = 7;
-
-        int new_strength = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
-        int new_dexterity = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
-        int new_constitution = UnityEngine.Random.Range(minimum_stat_roll, maximum_stat_roll);
-
-        int total_stats = new_strength + new_dexterity + new_constitution;
-        int max_total = 10;
-        int min_total = 5;
-
-        if (total_stats > max_total)
+        float[] newStats = new float[4];
+        for (int i = 0; i < newStats.Length; i++)
         {
-            int excess = total_stats - max_total;
-            new_strength -= excess / 3;
-            new_dexterity -= excess / 3;
-            new_constitution -= excess / 3;
-        }
-        else if (total_stats < min_total)
-        {
-            int deficit = min_total - total_stats;
-            new_strength += deficit / 3;
-            new_dexterity += deficit / 3;
-            new_constitution += deficit / 3;
+            newStats[i] = UnityEngine.Random.Range(minPercentage, maxPercentage);
         }
 
-        // Ensure no stat goes below the minimum or above the maximum
-        new_strength = Mathf.Clamp(new_strength, minimum_stat_roll, maximum_stat_roll);
-        new_dexterity = Mathf.Clamp(new_dexterity, minimum_stat_roll, maximum_stat_roll);
-        new_constitution = Mathf.Clamp(new_constitution, minimum_stat_roll, maximum_stat_roll);
-        wisdom = Mathf.Clamp(wisdom, minimum_stat_roll, maximum_stat_roll);
+        float total = newStats.Sum();
+        for (int i = 0; i < newStats.Length; i++)
+        {
+            newStats[i] = newStats[i] / total;
+        }
 
-        strength += new_strength;
-        dexterity += new_dexterity;
-        constitution += new_constitution;
+        var results = newStats.Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats)).ToArray();
+
+        int diff = results.Sum() - sum_of_starting_stats;
+        if (diff != 0) results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
+
+        strength = results[0];
+        dexterity = results[1];
+        constitution = results[2];
+        wisdom = results[3];
+        #endregion
 
         max_health = constitution * 2;
         health = max_health;
@@ -196,20 +179,19 @@ public class Controller : MonoBehaviour
         GameObject boss = GameObject.FindGameObjectWithTag("Boss");
         Transform targetPosition = boss.transform;
 
+        mainCamera.ResetTarget(null, false, null);
         // disable player movement until the camera has panned
-        done_with_tick = false;
-        StartCoroutine(AfterDelay(1f, () =>
-            mainCamera.ChangeTarget(targetPosition, 4f, 2f, () => {
-                done_with_tick = true;
-            }, false)
-        ));
-    }
-
-    IEnumerator AfterDelay(float wait_time, System.Action run)
-    {
-        yield return new WaitForSeconds(wait_time);
-        Debug.Log("after delay");
-        run?.Invoke();
+        // done_with_tick = false;
+        // StartCoroutine(AfterDelay(1f, () =>
+        //     mainCamera.ChangeTarget(targetPosition, 0.5f, onComplete: () =>
+        //     {
+        //         mainCamera.ResetTarget(0.5f, onComplete: () =>
+        //         {
+        //             print("Camera reset complete");
+        //             done_with_tick = true;
+        //         });
+        //     })
+        // ));
     }
 
     void Update()
@@ -234,10 +216,7 @@ public class Controller : MonoBehaviour
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick)
-        {
-            return;
-        }
+        if (!done_with_tick) return;
 
         if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
         {
@@ -267,79 +246,62 @@ public class Controller : MonoBehaviour
     {
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        transform.Translate(direction / 5);
+        transform.Translate(direction * Time.deltaTime * 60f * .75f);
+    }
+
+    bool CanMove(GameObject[] objectsAhead)
+    {
+        return !objectsAhead.Any(obj => (collideLayers.value & (1 << obj.layer)) != 0);
     }
 
     void Move()
     {
         Vector2 direction = GetAxis();
-        // if we are not moving, do nothing. if we are going diagonally, do nothing
-        if (direction == Vector2.zero || (direction.x != 0 && direction.y != 0))
-        {
-            return;
-        }
+        if (direction.magnitude != 1) { return; } // if we are not moving, do nothing. if we are going diagonally, do nothing
 
         done_with_tick = false;
         current_player_direction = direction;
-        Collider2D hit = SendRaycast(direction);
-        bool validMove = hit == null;
+        GameObject[] objectsAhead = SendRaycast(direction);
+        bool canMove = CanMove(objectsAhead);
 
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
-        if (Time.time - lastMovement <= movementDelay)
-        {
-            return;
-        }
-
+        if (Time.time - lastMovement <= movementDelay) return;
+        if (canMove) print("doing move: " + (Time.time - lastMovement));
         lastMovement = Time.time;
 
-        // you hit a wall
-        if (!validMove && hit == null)
+        if (canMove)
         {
-            FinishTick();
-            return;
-        }
 
-        if (validMove || hit.gameObject.layer == LayerMask.NameToLayer("floorTrap"))
-        {
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
-            FinishTick();
-            // if we hit an enemy, attack it
-        }
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            Attack(hit, direction); // calls next enemy
-                                    // if we hit a door, attempt to open it
-        }
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("interactable"))
-        {
-            hit.GetComponent<Interactable>().Interact(attackDamage);
+            OnMoved?.Invoke();
             FinishTick();
         }
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("gate"))
+
+        bool did_something = false;
+        foreach (GameObject obj in objectsAhead)
         {
-            if (hit.GetComponent<Gate>().open)
+            if (obj.TryGetComponent(out CanBeHurt hurtable))
             {
-                // move
-                transform.Translate(direction);
-                sfxPlayer.PlayWalkSound();
+                hurtable.Hurt((uint)attackDamage);
+                FinishTick();
+                did_something = true;
+            }
+            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
+            {
+                interactable.Interact();
+                FinishTick();
+                did_something = true;
+            }
+            if (obj.TryGetComponent(out CanFight enemy))
+            {
+                Attack(enemy, direction); // calls next enemy so no need for a finish tick
+                did_something = true;
             }
 
-            FinishTick();
-        }
-        // if we hit a fountain, heal from it
-        else if (hit.gameObject.layer == LayerMask.NameToLayer("fountain"))
-        {
-            if (health < max_health)
-                hit.GetComponent<FountainSfx>().PlayFountainSound();
-            hit.gameObject.GetComponent<Fountain>().Heal();
-            FinishTick();
-        }
-        else
-        {
-            FinishTick();
+            if (!did_something) FinishTick();
         }
     }
 
@@ -351,7 +313,7 @@ public class Controller : MonoBehaviour
         {
             healthBarVisual.maxValue = max_health;
         }
-        health = (int) ((double) max_health * health_percentage);
+        health = (int)((double)max_health * health_percentage);
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
     }
@@ -373,15 +335,14 @@ public class Controller : MonoBehaviour
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    // real is whether or not to try to actually hit, set to false to just play the animation
-    private void Attack(Collider2D hit, Vector2 direction)
+    private void Attack(CanFight enemy, Vector2 direction)
     {
-        // get current attack
-        BaseAbility attack = AbilitySwapper.getAbility(main);
+        BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
 
-        if (attack.CanUse(hit, direction))
+        if (attack.CanUse(enemy, direction))
         {
-            attack.Attack(hit, direction, animator, sfxPlayer);
+            print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
+            attack.Attack(enemy, direction, animator, sfxPlayer);
         }
         else
         {
@@ -398,23 +359,26 @@ public class Controller : MonoBehaviour
 
         if (isHeld)
         {
-            state.heldTime += Time.deltaTime;
-
-            if (!state.wasHeldLastFrame)
+            if (!state.held_last_frame)
             {
-                state.wasHeldLastFrame = true;
-                state.heldTime = 0f;
+                state.held_last_frame = true;
+                state.start_hold_time = Time.time + initialMovementDelay;
                 return true;
             }
-            else if (state.heldTime > initialMovementDelay)
+            else if (state.start_hold_time <= Time.time)
             {
-                return true;
+                //print(state.next_repeat_run + " " + holdDelay);
+                if (state.next_repeat_run <= Time.time)
+                {
+                    state.next_repeat_run = Time.time + holdDelay;
+                    return true;
+                }
             }
         }
         else
         {
-            state.wasHeldLastFrame = false;
-            state.heldTime = 0f;
+            state.held_last_frame = false;
+            state.start_hold_time = float.PositiveInfinity;
         }
 
         return false;
@@ -442,25 +406,18 @@ public class Controller : MonoBehaviour
         int i_left = BoolToInt(left);
         int i_right = BoolToInt(right);
 
-        float horizontal = (float)(i_right - i_left);
-        float vertical = (float)(i_up - i_down);
+        float horizontal = i_right - i_left;
+        float vertical = i_up - i_down;
 
         return new Vector2(horizontal, vertical);
     }
 
-    public Vector2 V3_2_V2(Vector3 vec)
-    {
-        return new Vector2(vec.x, vec.y);
-    }
-
     // (if it hit something, what it hit)
-    Collider2D SendRaycast(Vector2 direction)
+    GameObject[] SendRaycast(Vector2 direction)
     {
-        Vector2 world_position = V3_2_V2(transform.position) + (direction * 1.02f / 2f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
+        Vector2 world_position = (Vector2)transform.position + (direction * 1.02f / 2f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
 
-        Collider2D hit = Physics2D.Raycast(world_position, direction, .5f, collideLayers).collider;
-
-        return hit;
+        return Physics2D.RaycastAll(world_position, direction, .5f).Select(hit => hit.collider.gameObject).ToArray();
     }
 
     string DirectionToAnimationLabel(Vector2 direction)
@@ -522,6 +479,7 @@ public class Controller : MonoBehaviour
     {
         health = max_health;
         transform.position = respawnPoint.position;
+        UIStateManager.singleton.CloseUIPage(UIState.Death);
     }
 
     // returns overflow health

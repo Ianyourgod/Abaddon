@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Statue : DamageTaker
+public class Statue : MonoBehaviour, CanBeHurt
 {
     [HideInInspector] public Boss1 boss;
     [SerializeField] int health = 20;
     [SerializeField] Animator animator;
 
-    public override bool TakeDamage(uint damage) {
-        health -= (int) damage;
+    public bool Hurt(uint damage)
+    {
+        health -= (int)damage;
         Debug.Log("statue health " + health);
-        if (health <= 0) {
+        if (health <= 0)
+        {
             boss.StatueDestroyed();
             Die();
-        } else {
-            base.TakeDamage(damage); // this is so the damage text appears
-            int damage_level = health < (20/3) ?
+        }
+        else
+        {
+            int damage_level = health < (20 / 3) ?
                                 3
-                                : health < (2*20/3) ?
+                                : health < (2 * 20 / 3) ?
                                     2
                                     : 1;
 
@@ -28,7 +31,8 @@ public class Statue : DamageTaker
         return true;
     }
 
-    private void Die() {
+    public void Die()
+    {
         Destroy(gameObject);
     }
 

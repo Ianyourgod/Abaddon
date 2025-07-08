@@ -12,6 +12,7 @@ using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SfxPlayerBetter))]
 
 public class Item : MonoBehaviour
 {
@@ -42,11 +43,11 @@ public class Item : MonoBehaviour
     [HideInInspector]
     public Inventory player;
 
-    ItemSfx sfxPlayer;
+    SfxPlayerBetter sfxPlayer;
 
     void Awake()
     {
-        sfxPlayer = GetComponent<ItemSfx>();
+        sfxPlayer = GetComponent<SfxPlayerBetter>();
     }
 
     private void Start()
@@ -100,7 +101,7 @@ public class Item : MonoBehaviour
             {
                 int possibleAmount = 0;
 
-                sfxPlayer.PlayPickupSound();
+                sfxPlayer.PlaySound("pickup");
 
                 foreach (Slot slot in player.slots)
                 {

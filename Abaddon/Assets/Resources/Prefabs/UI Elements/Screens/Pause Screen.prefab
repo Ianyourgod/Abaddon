@@ -192,9 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076af447aa03c281fae1cdf985cb6b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  sprite: {fileID: 3753363225365680635}
-  startingY: -600
+  targetPosition: {fileID: 0}
+  lerpSpeed: 0
+  pausedDarknessLevel: 0
 --- !u!82 &6702795978026111446
 AudioSource:
   m_ObjectHideFlags: 0

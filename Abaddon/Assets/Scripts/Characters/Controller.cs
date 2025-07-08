@@ -260,10 +260,17 @@ public class Controller : MonoBehaviour
         return !objectsAhead.Any(obj => (collideLayers.value & (1 << obj.layer)) != 0);
     }
 
+    bool playerPressingButtons()
+    {
+        return Input.GetKey(KeyCode.E) ||
+               Input.GetKey(KeyCode.V);
+    }
+
     void Move()
     {
         Debug.Log("Starting player movement");
         Vector2 direction = GetAxis();
+        if (direction.magnitude == 0 && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
         if (direction.magnitude != 0)
         {
             // Debug.Log($"Moving in direction: {direction}");

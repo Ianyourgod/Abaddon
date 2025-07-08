@@ -311,11 +311,9 @@ public class Controller : MonoBehaviour
         if (!stickMoved && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
         if (stickMoved)
         {
-            // Debug.Log($"Moving in direction: {direction}");
             current_player_direction = direction;
         }
 
-        // Debug.Log("Setting done_with_tick to false");
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
         bool canMove = CanMove(objectsAhead);
@@ -324,7 +322,6 @@ public class Controller : MonoBehaviour
 
         if (canMove && stickMoved)
         {
-
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
@@ -360,10 +357,7 @@ public class Controller : MonoBehaviour
                 did_something = true;
             }
         }
-        // if (objectsAhead.Length == 0)
-        // {
         if (!did_something) FinishTick();
-        // }
     }
 
     public void UpdateConstitutionModifier(int conDiff)

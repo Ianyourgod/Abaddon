@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public abstract class Weapon
     {
     public static float baseAttackSpeed = 1f;
-    public static uint baseDamage = 15;
+    public static uint baseDamage = 2;
 
     private float lastAttackTime;
     public Vector2 size;
@@ -32,6 +32,8 @@ public abstract class Weapon
     }
     public bool AttackEnemies(CanFight[] enemies, Vector2 direction)
     {
+        uint calculatedDamage = GetDamage() + Controller.main.GetDamageModifier();
+        Debug.Log($"Attacking with damage: {calculatedDamage}");
         if (Time.time - lastAttackTime < GetAttackSpeed())
         {
             return false; // Not enough time has passed to attack again
@@ -46,7 +48,7 @@ public abstract class Weapon
         Controller.main.PlayAnimation("attack", direction);
         foreach (CanFight enemy in enemies)
         {
-            enemy.Hurt(GetDamage());
+            enemy.Hurt(calculatedDamage);
         }
         return true; // Attack was successful
     }

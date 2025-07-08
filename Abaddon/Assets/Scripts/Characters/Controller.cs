@@ -268,7 +268,6 @@ public class Controller : MonoBehaviour
         PlayAnimation("idle", direction);
 
         if (Time.time - lastMovement <= movementDelay) return;
-        if (canMove) print("doing move: " + (Time.time - lastMovement));
         lastMovement = Time.time;
 
         if (canMove)

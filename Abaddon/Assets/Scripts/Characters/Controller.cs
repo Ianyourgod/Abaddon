@@ -322,6 +322,7 @@ public class Controller : MonoBehaviour
 
         if (canMove && stickMoved)
         {
+
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();

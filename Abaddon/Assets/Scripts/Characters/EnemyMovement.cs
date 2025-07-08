@@ -86,7 +86,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         }
         else
         {
-            Invoke(nameof(callNextEnemy), 0f);
+            callNextEnemy();
         }
     }
 

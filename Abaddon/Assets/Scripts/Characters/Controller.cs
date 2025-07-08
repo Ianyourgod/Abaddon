@@ -257,7 +257,7 @@ public class Controller : MonoBehaviour
     void Move()
     {
         Vector2 direction = GetAxis();
-        if (direction.magnitude != 1) { return; } // if we are not moving, do nothing. if we are going diagonally, do nothing
+        if (direction.magnitude != 1) return; // if we are not moving, do nothing. if we are going diagonally, do nothing
 
         done_with_tick = false;
         current_player_direction = direction;
@@ -268,7 +268,6 @@ public class Controller : MonoBehaviour
         PlayAnimation("idle", direction);
 
         if (Time.time - lastMovement <= movementDelay) return;
-        if (canMove) print("doing move: " + (Time.time - lastMovement));
         lastMovement = Time.time;
 
         if (canMove)

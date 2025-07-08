@@ -295,31 +295,23 @@ public class Controller : MonoBehaviour
 
     void Move()
     {
-        Debug.Log("Starting player movement");
+        // Debug.Log("Starting player movement");
         Vector2 direction = GetAxis();
-        if (direction.magnitude == 0 && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
-        if (direction.magnitude != 0)
+        bool stickMoved = direction.magnitude != 0;
+        if (!stickMoved && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
+        if (stickMoved)
         {
-            // Debug.Log($"Moving in direction: {direction}");
             current_player_direction = direction;
         }
 
-        // Debug.Log("Setting done_with_tick to false");
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
         bool canMove = CanMove(objectsAhead);
-
-        // Debug.Log("Playing animation");
-
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
-        // Debug.Log("Checking if movement delay has passed");
-        // Debug.Log($"Last movement time: {lastMovement}, Current time: {Time.time}, Movement delay: {movementDelay}");
-
-        if (canMove)
+        if (canMove && stickMoved)
         {
-
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
@@ -355,10 +347,7 @@ public class Controller : MonoBehaviour
                 did_something = true;
             }
         }
-        // if (objectsAhead.Length == 0)
-        // {
         if (!did_something) FinishTick();
-        // }
     }
 
     public void UpdateStats()
@@ -372,6 +361,11 @@ public class Controller : MonoBehaviour
         health = (int)((double)max_health * health_percentage);
         attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
+    }
+
+    public uint GetDamageModifier()
+    {
+        return (uint)(strength - 10) / 2;
     }
 
     public void FinishTick()

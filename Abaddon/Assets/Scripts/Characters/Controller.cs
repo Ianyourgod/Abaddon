@@ -302,6 +302,12 @@ public class Controller : MonoBehaviour
                 Attack(enemy, direction); // calls next enemy so no need for a finish tick
                 did_something = true;
             }
+            if (obj.TryGetComponent(out GenericNPC npc))
+            {
+                npc.StartConversation();
+                FinishTick();
+                did_something = true;
+            }
 
             if (!did_something) FinishTick();
         }

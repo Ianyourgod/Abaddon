@@ -216,6 +216,18 @@ public class Controller : MonoBehaviour
             );
         }
 
+        // rotation buttons
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            current_player_direction = new Vector2(-current_player_direction.y, current_player_direction.x); // rotate left
+            PlayAnimation("idle", current_player_direction);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            current_player_direction = new Vector2(current_player_direction.y, -current_player_direction.x); // rotate right
+            PlayAnimation("idle", current_player_direction);
+        }
+
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
         {

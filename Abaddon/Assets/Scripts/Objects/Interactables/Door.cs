@@ -7,6 +7,7 @@ using UnityEngine;
 public class Door : MonoBehaviour, CanBeInteractedWith
 {
     [SerializeField] public bool NeedsKey;
+    [SerializeField] GameObject keyPrefab;
     [SerializeField] GameObject lockPrefab;
     DoorSfx sfxPlayer;
 
@@ -28,6 +29,7 @@ public class Door : MonoBehaviour, CanBeInteractedWith
             if (NeedsKey)
             {
                 Controller.main.inventory.RemoveItemAmount(key_ID, 1);
+                Instantiate(keyPrefab, transform.position, Quaternion.identity);
                 sfxPlayer.PlayUnlockLockedSound();
             }
             else

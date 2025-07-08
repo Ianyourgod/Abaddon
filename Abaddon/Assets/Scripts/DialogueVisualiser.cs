@@ -65,10 +65,27 @@ public class DialogueVisualiser : MonoBehaviour
     }
 
     public void WriteMessage(Message msg) => WriteMessage(msg.message, msg.time, msg.usingCPS, msg.profileImage);
-    public void WriteMessage(string message, float time = 8f, bool usingCPS = true, Sprite img = null)
+    public void WriteMessage(string message, float time = 8f, TimeSettings usingCPS = TimeSettings.SecondsPerChar, Sprite img = null)
     {
         print("A");
-        startAmmount = usingCPS ? message.Length * time : time;
+        switch (usingCPS)
+        {
+            case TimeSettings.TotalTime:
+                {
+                    startAmmount = time;
+                    break;
+                }
+            case TimeSettings.CharsPerSecond:
+                {
+                    startAmmount = message.Length / time;
+                    break;
+                }
+            case TimeSettings.SecondsPerChar:
+                {
+                    startAmmount = message.Length * time;
+                    break;
+                }
+        }
         print("B");
         timeLeftToType = startAmmount;
         print("C");
@@ -86,7 +103,7 @@ public class DialogueVisualiser : MonoBehaviour
 
 
     public void AddToQueue(params Message[] messages) => messageQueue.AddRange(messages);
-    public void AddToQueue(float timeForAll, bool usingCharacterTime, params string[] strings)
+    public void AddToQueue(float timeForAll, TimeSettings usingCharacterTime, params string[] strings)
     {
         Message[] messages = new Message[strings.Length];
         for (int i = 0; i < strings.Length; i++)
@@ -96,7 +113,7 @@ public class DialogueVisualiser : MonoBehaviour
         messageQueue.AddRange(messages);
     }
 
-    public void AddToQueue(float timeForAll, bool usingCharacterTime, Sprite img, params string[] strings)
+    public void AddToQueue(float timeForAll, TimeSettings usingCharacterTime, Sprite img, params string[] strings)
     {
         Message[] messages = new Message[strings.Length];
         for (int i = 0; i < strings.Length; i++)
@@ -109,8 +126,8 @@ public class DialogueVisualiser : MonoBehaviour
     public void ClearQueue() => messageQueue.Clear();
     public void SetQueue(params Message[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages); }
     public void SetQueueAndPlayFirst(params Message[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages); PlayCurrentMessage(); }
-    public void SetQueueAndPlayFirst(params string[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages.Select((m) => new Message(m, 8, true, null))); PlayCurrentMessage(); }
-    public void SetQueue(float timeForAll, bool usingCharacterTime, params string[] strings)
+    public void SetQueueAndPlayFirst(params string[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages.Select((m) => new Message(m, 8, TimeSettings.CharsPerSecond, null))); PlayCurrentMessage(); }
+    public void SetQueue(float timeForAll, TimeSettings usingCharacterTime, params string[] strings)
     {
         messageQueue.Clear();
         Message[] messages = new Message[strings.Length];
@@ -157,6 +174,14 @@ public class DialogueVisualiser : MonoBehaviour
 }
 
 [Serializable]
+public enum TimeSettings
+{
+    TotalTime,
+    CharsPerSecond,
+    SecondsPerChar
+};
+
+[Serializable]
 public struct Message
 {
     public Sprite profileImage;
@@ -164,9 +189,10 @@ public struct Message
     public float time;
 
     //Whether the message should use time as a measure of characters per second or how long the whole message should take
-    public bool usingCPS;
 
-    public Message(string message, float time, bool usingCPS, Sprite profileImage)
+    public TimeSettings usingCPS;
+
+    public Message(string message, float time, TimeSettings usingCPS, Sprite profileImage)
     {
         this.time = time;
         this.message = message;
@@ -175,7 +201,7 @@ public struct Message
     }
 
     //THIS IS GOING TO BE DEPRECATED SOON
-    public Message(string message, float time, bool usingCPS)
+    public Message(string message, float time, TimeSettings usingCPS)
     {
         this.time = time;
         this.message = message;

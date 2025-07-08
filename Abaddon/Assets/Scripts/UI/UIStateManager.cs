@@ -7,6 +7,7 @@ using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public enum UIState
@@ -47,6 +48,7 @@ public class UIStateManager : MonoBehaviour
     [SerializeField] private Image darkener;
     [Tooltip("The list of screens that can be opened/closed and their settings.")]
     [SerializeField] private List<UIScreen> screens = new List<UIScreen>();
+    [SerializeField] string MainMenuScene = "Main Menu";
 
     private float _darkenerOpacity = 1;
     public float darkenerOpacity
@@ -161,4 +163,9 @@ public class UIStateManager : MonoBehaviour
 
     public void SetDarkenedBackground(bool shouldDarken) => darkener.enabled = shouldDarken;
     public void ToggleDarkenedBackground() => darkener.enabled = !darkener.enabled;
+
+    public void Quit()
+    {
+        SceneManager.LoadScene(MainMenuScene);
+    }
 }

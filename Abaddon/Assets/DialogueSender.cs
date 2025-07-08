@@ -5,16 +5,9 @@ using UnityEngine.UI;
 
 public class DialogueSender : MonoBehaviour
 {
-    DialogueVisualiser visualizer;
     Button button;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SendTestingMessage()
     {
-        visualizer = FindObjectOfType<DialogueVisualiser>();
-    }
-
-    public void SendTestingMessage() {
-        visualizer.WriteMessage("This is a test message", 1, true);
+        DialogueVisualiser.singleton.WriteMessage("This is a test message", 1, true);
     }
 }

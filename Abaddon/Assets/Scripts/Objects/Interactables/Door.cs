@@ -27,7 +27,7 @@ public class Door : MonoBehaviour, CanBeInteractedWith
         {
             if (NeedsKey)
             {
-                Controller.main.inventory.RemoveByID(key_ID);
+                Controller.main.inventory.RemoveItemAmount(key_ID, 1);
                 sfxPlayer.PlayUnlockLockedSound();
             }
             else

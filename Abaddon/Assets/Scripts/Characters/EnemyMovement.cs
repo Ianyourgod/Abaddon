@@ -35,7 +35,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private EnemySfx sfxPlayer;
 
-    public EnemyType GetEnemyType() {
+    public EnemyType GetEnemyType()
+    {
         return enemyType;
     }
 
@@ -259,7 +260,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
             direction = Vector2.down;
         }
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
-        //print($"playing animation {animation}");
         animator.Play(animation);
     }
 

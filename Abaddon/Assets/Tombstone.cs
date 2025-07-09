@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
 
@@ -9,16 +11,15 @@ public class Tombstone : MonoBehaviour, CanBeInteractedWith
 
     public void SetItems(Item[] newItems)
     {
-        items = newItems;
+        var copiedItems = newItems.Where(i => i).Select(i => Instantiate(i)).ToArray();
+        items = copiedItems;
     }
 
     public void Interact()
     {
-        print("Picking up tombstone items");
-        foreach (var item in items)
-        {
-            Controller.main.inventory.AddItem(item);
-        }
+        var nonVoidItems = items.Where(i => i != null).ToArray();
+        print($"Picking up tombstone items: [{string.Join(", ", nonVoidItems.Select(i => i.name))}] ({nonVoidItems.Length}/{items.Length} items)");
+        Controller.main.inventory.AddItems(items.ToList());
         items = new Item[0];
     }
 }

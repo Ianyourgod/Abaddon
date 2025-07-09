@@ -617,13 +617,25 @@ public class Controller : MonoBehaviour
     public GenericNPC? CanStartConversation()
     {
         // do initial check for nearness
-        GenericNPC? npc = Physics2D.OverlapCircle(transform.position, 2f, collideLayers)?.GetComponent<GenericNPC>();
+        Collider2D[] npcs = Physics2D.OverlapCircleAll(transform.position, 1.2f, collideLayers);
 
-        if (npc == null) return null;
+        (GenericNPC?, float) npc = (null, 9999f);
+        foreach (Collider2D col in npcs)
+        {
+            if (col.TryGetComponent(out GenericNPC possible_npc))
+            {
+                float dist = Vector2.Distance(possible_npc.transform.position, transform.position);
+                if (dist < npc.Item2)
+                    npc = (possible_npc, dist);
+                break;
+            }
+        }
+
+        if (npc.Item1 == null) return null;
 
         // real check
-        return Vector2.Distance(npc.transform.position, transform.position) <= 1.1f ?
-            npc :
+        return npc.Item2 <= 1.1f ?
+            npc.Item1 :
             null;
     }
 

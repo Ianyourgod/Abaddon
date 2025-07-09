@@ -12,6 +12,13 @@ public interface HasHealth
     void Heal(uint amount);
 }
 
+public enum EnemyType
+{
+    Gnome,
+    Boss1,
+    Statue
+}
+
 public interface CanFight
 {
     EnemyType GetEnemyType();

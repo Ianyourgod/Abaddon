@@ -13,6 +13,11 @@ public class Statue : MonoBehaviour, CanFight
         return; // The statue does not attack
     }
 
+    public EnemyType GetEnemyType()
+    {
+        return EnemyType.Statue;
+    }
+
     public uint Heal(uint amount)
     {
         health += amount;

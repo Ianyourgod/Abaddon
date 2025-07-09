@@ -591,7 +591,7 @@ public class Controller : MonoBehaviour
         transform.position = respawnPoint.position;
         UIStateManager.singleton.CloseUIPage(UIState.Death);
         var newSword = Instantiate(baseRespawnSword);
-        inventory.AddItemAtIndex(newSword, 3, true);
+        inventory.AddItemAtIndex(newSword, 3, isEquipmentSlot: true);
     }
 
     // returns overflow health

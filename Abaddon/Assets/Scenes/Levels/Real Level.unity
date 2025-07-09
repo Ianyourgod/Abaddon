@@ -334,6 +334,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6148610868119937922, guid: b46503ee362c87c49bc8d6143a8f0427, type: 3}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: npcName
+      value: Old Ass Man
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: tokenID
       value: OLD_MAN_Q1
       objectReference: {fileID: 0}
@@ -71882,7 +71886,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: d74ed9dbf4d09f14f95863666757288a, type: 2}
   - m_RefCount: 19
     m_Data: {fileID: 11400000, guid: 036045ff53d8aaf4f8a757e48ac542e2, type: 2}
-  - m_RefCount: 3811
+  - m_RefCount: 3496
     m_Data: {fileID: 11400000, guid: 20ae2c7b8d1540e4a94419c7894dfe7c, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 22

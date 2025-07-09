@@ -8,14 +8,14 @@ using System;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public static float baseAttackSpeed = 1f;
+    // public static float baseAttackSpeed = 1f;
     public static uint baseDamage = 2;
     public static Vector2 baseSize = new Vector2(1f, 1f);
 
     private float lastAttackTime;
 
     public abstract Vector2 GetSize();
-    public abstract float GetAttackSpeed();
+    // public abstract float GetAttackSpeed();
     public abstract uint GetDamage();
 
     public static Weapon GetCurrentWeapon()
@@ -62,10 +62,10 @@ public abstract class Weapon : MonoBehaviour
     {
         uint calculatedDamage = GetDamage() + Controller.main.GetDamageModifier();
         Debug.Log($"Attacking with damage: {calculatedDamage}");
-        if (Time.time - lastAttackTime < GetAttackSpeed())
-        {
-            return false; // Not enough time has passed to attack again
-        }
+        // if (Time.time - lastAttackTime < GetAttackSpeed())
+        // {
+        //     return false; // Not enough time has passed to attack again
+        // }
         if (enemies.Length == 0)
         {
             return false; // No enemies to attack

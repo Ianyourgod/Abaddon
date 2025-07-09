@@ -13,10 +13,10 @@ public class Sword : Weapon
         return baseSize;
     }
 
-    public override float GetAttackSpeed()
-    {
-        return baseAttackSpeed;
-    }
+    // public override float GetAttackSpeed()
+    // {
+    //     return baseAttackSpeed;
+    // }
 
     public override uint GetDamage()
     {

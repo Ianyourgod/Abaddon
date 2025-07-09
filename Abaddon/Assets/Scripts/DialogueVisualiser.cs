@@ -25,7 +25,7 @@ public class DialogueVisualiser : MonoBehaviour
     private List<Message> messageQueue = new List<Message>();
     private string currentMessage = "";
     private float timeLeftToType = 0;
-    private float startAmmount = 0;
+    private float startAmount = 0;
     private int qIndex = 0;
     public Action onDoneTalking;
 
@@ -56,7 +56,7 @@ public class DialogueVisualiser : MonoBehaviour
         //Typewriter Effect
         if (timeLeftToType > 0)
         {
-            textbox.text = currentMessage.Substring(0, 1 + (int)(currentMessage.Length * (1 - (timeLeftToType / startAmmount))));
+            textbox.text = currentMessage.Substring(0, 1 + (int)(currentMessage.Length * (1 - (timeLeftToType / startAmount))));
             timeLeftToType -= Time.deltaTime;
 
             // Could be an event but have no reason for it yet
@@ -67,37 +67,27 @@ public class DialogueVisualiser : MonoBehaviour
     public void WriteMessage(Message msg) => WriteMessage(msg.message, msg.time, msg.usingCPS, msg.profileImage);
     public void WriteMessage(string message, float time = 8f, TimeSettings usingCPS = TimeSettings.SecondsPerChar, Sprite img = null)
     {
-        print("A");
         switch (usingCPS)
         {
             case TimeSettings.TotalTime:
                 {
-                    startAmmount = time;
+                    startAmount = time;
                     break;
                 }
             case TimeSettings.CharsPerSecond:
                 {
-                    startAmmount = message.Length / time;
+                    startAmount = message.Length / time;
                     break;
                 }
             case TimeSettings.SecondsPerChar:
                 {
-                    startAmmount = message.Length * time;
+                    startAmount = message.Length * time;
                     break;
                 }
         }
-        print("B");
-        timeLeftToType = startAmmount;
-        print("C");
+        timeLeftToType = startAmount;
         currentMessage = message;
-        print("D");
-        if (img)
-        {
-            print("D1");
-            if (profileImage) profileImage.sprite = img;
-            print("D2");
-        }
-        print("E");
+        if (img && profileImage) profileImage.sprite = img;
         print($"Writing message: {message} with time: {time} and usingCPS: {usingCPS}");
     }
 

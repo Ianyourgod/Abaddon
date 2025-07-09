@@ -83,8 +83,10 @@ public class Controller : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] CameraScript mainCamera;
     [SerializeField] GameObject tombstonePrefab;
+    [SerializeField] Item baseRespawnSword;
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
+
     #endregion
 
     #region Constants 
@@ -489,6 +491,8 @@ public class Controller : MonoBehaviour
         health = max_health;
         transform.position = respawnPoint.position;
         UIStateManager.singleton.CloseUIPage(UIState.Death);
+        var newSword = Instantiate(baseRespawnSword);
+        inventory.AddItemAtIndex(newSword, 3, true);
     }
 
     // returns overflow health

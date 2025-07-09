@@ -35,6 +35,10 @@ public class Boss1 : MonoBehaviour, CanFight
         Controller.OnTick += CustomUpdate;
     }
 
+    public EnemyType GetEnemyType() {
+        return EnemyType.Boss1;
+    }
+
     public void StartFight()
     {
         health = maxHealth;
@@ -91,6 +95,7 @@ public class Boss1 : MonoBehaviour, CanFight
 
     public void Die()
     {
+        Controller.main.KilledEnemy(GetEnemyType());
         inFight = false;
         stage = 0;
         Debug.Log("i am 1ssoB, and i hate (but im also dead so)");

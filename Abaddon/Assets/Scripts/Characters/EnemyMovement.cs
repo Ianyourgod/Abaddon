@@ -23,6 +23,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     [SerializeField] int detectionDistance = 4;
     [SerializeField] float followDistance = 3f;
     [SerializeField] float enemyDecisionDelay;
+    [SerializeField] EnemyType enemyType;
 
     public uint health = 10;
     private Vector2 direction = Vector2.zero;
@@ -33,6 +34,10 @@ public class EnemyMovement : MonoBehaviour, CanFight
     private Vector3 StartPosition;
 
     private EnemySfx sfxPlayer;
+
+    public EnemyType GetEnemyType() {
+        return enemyType;
+    }
 
     private void Awake()
     {
@@ -244,13 +249,17 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (action == "death")
         {
-            print($"playing animation {animation_prefix}_animation_death");
+            //print($"playing animation {animation_prefix}_animation_death");
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
 
+        if (direction == Vector2.zero)
+        {
+            direction = Vector2.down;
+        }
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
-        print($"playing animation {animation}");
+        //print($"playing animation {animation}");
         animator.Play(animation);
     }
 
@@ -266,6 +275,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (damage >= health)
         {
+            Controller.main.KilledEnemy(enemyType);
             Controller.OnTick -= MakeDecision;
             health = 0;
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source

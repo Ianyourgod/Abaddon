@@ -12,8 +12,16 @@ public interface HasHealth
     void Heal(uint amount);
 }
 
+public enum EnemyType
+{
+    Gnome,
+    Boss1,
+    Statue,
+}
+
 public interface CanFight
 {
+    EnemyType GetEnemyType();
     void Attack();
     // the uint returned is the healing overflow (e.g. max health is 100, current health is 90, heal for 20, return 10)
     uint Heal(uint amount);

@@ -99,51 +99,7 @@ public class Item : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                int possibleAmount = 0;
-
-                sfxPlayer.PlaySound("pickup");
-
-                foreach (Slot slot in player.slots)
-                {
-                    if (!slot.gameObject.GetComponent<EquipmentSlot>() && !slot.slotsItem)
-                    {
-                        possibleAmount += maxStackSize;
-                    }
-
-                    if (slot.slotsItem && slot.slotsItem.ItemID == ItemID)
-                    {
-                        possibleAmount += slot.slotsItem.maxStackSize - slot.slotsItem.amountInStack;
-                    }
-                }
-
-                if (possibleAmount > 0)
-                {
-                    if (player.readyToAdd)
-                    {
-                        if (possibleAmount > amountInStack)
-                        {
-                            player.AddItem(this, null);
-                        }
-                        else
-                        {
-                            var clone = Instantiate(this);
-                            clone.amountInStack = possibleAmount;
-                            amountInStack -= possibleAmount;
-                            player.AddItem(clone);
-                        }
-                    }
-                    else
-                    {
-                        if (possibleAmount > amountInStack) StartCoroutine(WaitUntilReady(this));
-                        else
-                        {
-                            var clone = Instantiate(this);
-                            clone.amountInStack = possibleAmount;
-                            amountInStack -= possibleAmount;
-                            StartCoroutine(WaitUntilReady(clone));
-                        }
-                    }
-                }
+                Pickup();
             }
         }
         else
@@ -167,6 +123,55 @@ public class Item : MonoBehaviour
     {
         yield return new WaitUntil(() => player.readyToAdd == true);
         player.AddItem(item, null);
+    }
+
+    public void Pickup()
+    {
+        int possibleAmount = 0;
+
+        sfxPlayer.PlaySound("pickup");
+
+        foreach (Slot slot in player.slots)
+        {
+            if (!slot.gameObject.GetComponent<EquipmentSlot>() && !slot.slotsItem)
+            {
+                possibleAmount += maxStackSize;
+            }
+
+            if (slot.slotsItem && slot.slotsItem.ItemID == ItemID)
+            {
+                possibleAmount += slot.slotsItem.maxStackSize - slot.slotsItem.amountInStack;
+            }
+        }
+
+        if (possibleAmount > 0)
+        {
+            if (player.readyToAdd)
+            {
+                if (possibleAmount > amountInStack)
+                {
+                    player.AddItem(this, null);
+                }
+                else
+                {
+                    var clone = Instantiate(this);
+                    clone.amountInStack = possibleAmount;
+                    amountInStack -= possibleAmount;
+                    player.AddItem(clone);
+                }
+            }
+            else
+            {
+                if (possibleAmount > amountInStack) StartCoroutine(WaitUntilReady(this));
+                else
+                {
+                    var clone = Instantiate(this);
+                    clone.amountInStack = possibleAmount;
+                    amountInStack -= possibleAmount;
+                    StartCoroutine(WaitUntilReady(clone));
+                }
+            }
+        }
     }
 
     private bool DetectRenderingPipeline()

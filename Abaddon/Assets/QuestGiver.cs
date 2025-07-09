@@ -6,6 +6,8 @@ public class QuestGiver : GenericNPC
 {
     [SerializeField] private Message[] completionMessages;
     [SerializeField] public Controller.Quest questID;
+    [SerializeField] private Item reward;
+    [SerializeField] private Inventory inventory;
 
     public override void StartConversation()
     {
@@ -17,6 +19,8 @@ public class QuestGiver : GenericNPC
             messages = completionMessages;
             base.StartConversation();
             messages = m;
+            Item r = Instantiate(reward);
+            inventory.AddItem(r);
         }
         else if (!Controller.main.current_quests.Contains(questID))
         {

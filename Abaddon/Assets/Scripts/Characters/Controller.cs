@@ -319,7 +319,6 @@ public class Controller : MonoBehaviour
         {
             current_player_direction = direction;
         }
-
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
         bool canMove = CanMove(objectsAhead);
@@ -328,7 +327,6 @@ public class Controller : MonoBehaviour
 
         if (canMove && stickMoved)
         {
-
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
@@ -336,7 +334,7 @@ public class Controller : MonoBehaviour
         }
 
         bool did_something = false;
-        Debug.Log(objectsAhead.Length + " objects ahead");
+        // Debug.Log(objectsAhead.Length + " objects ahead");
         if (Input.GetKey(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
@@ -352,7 +350,7 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.V))
         {
-            Debug.Log("V pressed, checking for enemies to attack");
+            // Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
             CanFight[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
             bool attackWorked = Weapon.GetCurrentWeapon().AttackEnemies(enemies, current_player_direction);

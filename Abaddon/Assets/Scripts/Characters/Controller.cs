@@ -243,6 +243,18 @@ public class Controller : MonoBehaviour
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+#nullable enable
+            GenericNPC? npc = CanStartConversation();
+
+            if (npc != null)
+            {
+                npc.StartConversation();
+                return;
+            }
+        }
+
         Move();
 
         if (Input.GetKeyDown(KeyCode.Equals))
@@ -550,5 +562,28 @@ public class Controller : MonoBehaviour
     public void add_exp(int exp)
     {
         this.exp += exp;
+    }
+
+#nullable enable
+    public GenericNPC? CanStartConversation()
+    {
+        // do initial check for nearness
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, 2f, collideLayers);
+        if (hit == null) return null;
+
+        GenericNPC? npc = null;
+        if (hit.TryGetComponent(out GenericNPC n)) npc = n;
+        else if (hit.TryGetComponent(out QuestGiver q)) npc = (GenericNPC)q;
+
+        if (npc == null) return null;
+
+        return Vector2.Distance(npc.transform.position, transform.position) <= 1.1f ?
+            npc :
+            null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 2);
     }
 }

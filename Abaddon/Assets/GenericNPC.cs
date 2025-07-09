@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GenericNPC : MonoBehaviour, CanCommunicateWith
 {
-    [SerializeField] string npcName;
+    [SerializeField] public string npcName;
     [SerializeField] Message[] messages;
 
-    public void StartConversation()
+    public virtual void StartConversation()
     {
         Debug.Log("Starting conversation");
         UIStateManager.singleton.OpenUIPage(UIState.Dialogue);

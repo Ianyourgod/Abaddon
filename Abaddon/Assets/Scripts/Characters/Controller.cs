@@ -123,6 +123,13 @@ public class Controller : MonoBehaviour
         Kill15Gnomes
     }
 
+    private class QuestState
+    {
+        public int Kill15Gnomes;
+    }
+
+    private QuestState quest_state;
+
 
     [HideInInspector] public List<Quest> current_quests;
     [HideInInspector] public List<Quest> completed_quests;
@@ -201,6 +208,8 @@ public class Controller : MonoBehaviour
         //         });
         //     })
         // ));
+
+        quest_state = new QuestState();
     }
 
     void Update()
@@ -367,6 +376,29 @@ public class Controller : MonoBehaviour
         else
         {
             FinishTick();
+        }
+    }
+
+    public void KilledEnemy(EnemyType enemy)
+    {
+        switch (enemy)
+        {
+            case EnemyType.Gnome:
+                {
+                    if (current_quests.Contains(Quest.Kill15Gnomes))
+                    {
+                        quest_state.Kill15Gnomes += 1;
+                        print(quest_state.Kill15Gnomes);
+                        if (quest_state.Kill15Gnomes >= 2)
+                        {
+                            print("COMPLETED COMPLETED COMPLETED COMLPETED COMPLERTERD");
+                            current_quests.Remove(Quest.Kill15Gnomes);
+                            completed_quests.Add(Quest.Kill15Gnomes);
+                        }
+                    }
+                    break;
+                }
+            default: break;
         }
     }
 

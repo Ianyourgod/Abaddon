@@ -9,6 +9,8 @@ public class QuestGiver : GenericNPC
 
     public override void StartConversation()
     {
+        print(questID);
+        print(Controller.main.completed_quests.ToString());
         if (Controller.main.completed_quests.Contains(questID))
         {
             Message[] m = messages;
@@ -16,9 +18,11 @@ public class QuestGiver : GenericNPC
             base.StartConversation();
             messages = m;
         }
-        else
+        else if (!Controller.main.current_quests.Contains(questID))
         {
             base.StartConversation();
+            Controller.main.current_quests.Add(questID);
         }
+        // TODO! text when you havent finished the quest
     }
 }

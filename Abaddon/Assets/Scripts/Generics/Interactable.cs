@@ -18,8 +18,15 @@ public interface CanBeHurt
     void Die();
 }
 
+public enum EnemyType
+{
+    Gnome,
+    Boss1,
+}
+
 public interface CanFight
 {
+    EnemyType GetEnemyType();
     void Attack();
     uint Heal(uint amount);
     void Hurt(uint damage);

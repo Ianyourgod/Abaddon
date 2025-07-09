@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,10 @@ using ImageComponent = UnityEngine.UI.Image; //To make the Image class be the co
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class DialogueVisualiser : MonoBehaviour
 {
+    public static DialogueVisualiser singleton;
+
+    void OnValidate() { if (!singleton) singleton = this; }
+
     [Header("References To Important Objects")]
     [SerializeField] private TextMeshProUGUI textbox;
     [SerializeField] private ImageComponent profileImage;
@@ -22,6 +27,7 @@ public class DialogueVisualiser : MonoBehaviour
     private float timeLeftToType = 0;
     private float startAmmount = 0;
     private int qIndex = 0;
+    public Action onDoneTalking;
 
     public bool CurrentlyTyping() => timeLeftToType != 0;
     public string CurrentMessage() => currentMessage;
@@ -59,7 +65,7 @@ public class DialogueVisualiser : MonoBehaviour
     }
 
     public void WriteMessage(Message msg) => WriteMessage(msg.message, msg.time, msg.usingCPS, msg.profileImage);
-    public void WriteMessage(string message, float time, bool usingCPS, Sprite img = null)
+    public void WriteMessage(string message, float time = 8f, bool usingCPS = true, Sprite img = null)
     {
         print("A");
         startAmmount = usingCPS ? message.Length / time : time;
@@ -103,6 +109,7 @@ public class DialogueVisualiser : MonoBehaviour
     public void ClearQueue() => messageQueue.Clear();
     public void SetQueue(params Message[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages); }
     public void SetQueueAndPlayFirst(params Message[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages); PlayCurrentMessage(); }
+    public void SetQueueAndPlayFirst(params string[] messages) { messageQueue.Clear(); messageQueue.AddRange(messages.Select((m) => new Message(m, 8, true, null))); PlayCurrentMessage(); }
     public void SetQueue(float timeForAll, bool usingCharacterTime, params string[] strings)
     {
         messageQueue.Clear();
@@ -114,9 +121,34 @@ public class DialogueVisualiser : MonoBehaviour
         messageQueue.AddRange(messages);
     }
 
-    public void PlayPreviousMessage() { if (messageQueue.Count > 0 && qIndex > 0) WriteMessage(messageQueue[--qIndex]); }
+    public void PlayPreviousMessage()
+    {
+        if (messageQueue.Count > 0 && qIndex > 0) WriteMessage(messageQueue[--qIndex]);
+    }
+
     public void PlayCurrentMessage() { print($"Playing current message: {messageQueue[qIndex].message}"); WriteMessage(messageQueue[qIndex]); }
-    public void PlayNextMessage() { if (messageQueue.Count > 0 && qIndex < messageQueue.Count - 1) WriteMessage(messageQueue[++qIndex]); }
+    public void ClosePage()
+    {
+        print("No more messages in queue, closing dialogue UI");
+        UIStateManager.singleton.CloseUIPage(UIState.Dialogue);
+        qIndex = 0;
+        messageQueue.Clear();
+        currentMessage = "";
+        textbox.text = "";
+        timeLeftToType = 0;
+    }
+
+    public void PlayNextMessage()
+    {
+        if (CurrentlyTyping())
+        {
+            SkipTyping();
+            return;
+        }
+        if (messageQueue.Count > 0 && qIndex < messageQueue.Count - 1) WriteMessage(messageQueue[++qIndex]);
+        else ClosePage();
+    }
+
     public void SkipTyping()
     {
         textbox.text = currentMessage;

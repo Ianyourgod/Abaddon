@@ -1,5 +1,5 @@
-﻿		///----------------------------\\\				
-		//  Ultimate Inventory Engine   \\
+﻿///----------------------------\\\				
+//  Ultimate Inventory Engine   \\
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
 ///-----------------------------------------------\\\	
@@ -64,7 +64,7 @@ public class Item : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
     }
 
-	private void Update()
+    private void Update()
     {
         if (player != null)
         {
@@ -85,7 +85,7 @@ public class Item : MonoBehaviour
         if (close && canBePicked)
         {
             if (useOutline && DetectRenderingPipeline())
-			{
+            {
                 Shader outlineShader = Shader.Find("Outlined/Custom");
                 if (GetComponent<MeshRenderer>())
                 {
@@ -99,6 +99,7 @@ public class Item : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                print("Picking up item");
                 int possibleAmount = 0;
 
                 sfxPlayer.PlaySound("pickup");
@@ -163,14 +164,14 @@ public class Item : MonoBehaviour
         }
     }
 
-	IEnumerator WaitUntilReady(Item item)
-	{
+    IEnumerator WaitUntilReady(Item item)
+    {
         yield return new WaitUntil(() => player.readyToAdd == true);
         player.AddItem(item, null);
     }
 
     private bool DetectRenderingPipeline()
-	{
+    {
         if (GraphicsSettings.renderPipelineAsset)
         {
             return false;

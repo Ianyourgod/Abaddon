@@ -19,44 +19,74 @@ public class EquipmentSlot : MonoBehaviour
 	[Tooltip("You need to drag and drop here every single object that may be equipped. You also need to make sure that you only reference objects that are suitable for this slot's equipment type.")]
 	public EqippableItem[] possibleEqips;
 
-	[HideInInspector]
+	[SerializeField]
 	public GameObject curItemObj;
+	[SerializeField]
+	public bool wasEquipped;
+	[SerializeField]
+	public int pastEquippedItemID;
 	[HideInInspector]
-	public bool equipped;
-	[HideInInspector]
-	public int currentEquippedItemID;
 	int searchID;
 	private int[] savedStats = new int[4];
+
+	void Awake()
+	{
+		wasEquipped = isEquipped();
+	}
 
 	private void Update()
 	{
 		curItem = GetComponent<Slot>().slotsItem;
-		if (GetComponent<Slot>().slotsItem && !equipped) Equip();
-		if (GetComponent<Slot>().beingDragged && equipped) Unequip();
+		if (wasEquipped && !isEquipped())
+		{
+			Unequip();
+		}
+		if (!wasEquipped && isEquipped())
+		{
+			Equip();
+		}
+		if (wasEquipped && isEquipped() && pastEquippedItemID != getCurrentEquippedItemID())
+		{
+			Unequip();
+			Equip();
+		}
+		wasEquipped = isEquipped();
+		pastEquippedItemID = getCurrentEquippedItemID();
+	}
+
+	bool isEquipped()
+	{
+		return curItem != null;
+	}
+
+	int getCurrentEquippedItemID()
+	{
+		if (!isEquipped())
+		{
+			return -1; // No item equipped
+		}
+		return curItem.ItemID;
 	}
 
 	public void Equip()
 	{
-		currentEquippedItemID = GetComponent<Slot>().slotsItem.ItemID;
-		equipped = true;
-		//EqippableItem assigned = null;
 		if (GetComponent<Slot>().slotsItem)
 		{
 			var item = GetComponent<Slot>().slotsItem;
 			searchID = item.ItemID;
 			if (item.TryGetComponent(out StatModifier slotModifier))
 			{
-				Controller.main.dexterity += slotModifier.dexterity;
-				Controller.main.constitution += slotModifier.constitution;
-				Controller.main.strength += slotModifier.strength;
-				Controller.main.wisdom += slotModifier.wisdom;
+				Debug.Log("Equipping item with ID and slotmodifiers: " + searchID);
+				Controller.main.UpdateConstitutionModifier(slotModifier.constitution);
+				Controller.main.UpdateDexterityModifier(slotModifier.dexterity);
+				Controller.main.UpdateStrengthModifier(slotModifier.strength);
+				Controller.main.UpdateWisdomModifier(slotModifier.wisdom);
 				savedStats = new int[] {
 					slotModifier.dexterity,
 					slotModifier.constitution,
 					slotModifier.strength,
 					slotModifier.wisdom
 				};
-				Controller.main.UpdateStats();
 			}
 			//for (int i = 0; i < possibleEqips.Length; i++)
 			//{
@@ -77,15 +107,12 @@ public class EquipmentSlot : MonoBehaviour
 
 	public void Unequip()
 	{
-		equipped = false;
 		var item = GetComponent<Slot>().slotsItem;
-
-		Controller.main.dexterity -= savedStats[0];
-		Controller.main.constitution -= savedStats[1];
-		Controller.main.strength -= savedStats[2];
-		Controller.main.wisdom -= savedStats[3];
-		savedStats = new int[] { 0, 0, 0, 0 };
-		Controller.main.UpdateStats();
+		Debug.Log("Unequipping item with ID and slotmodifiers: " + searchID);
+		Controller.main.UpdateConstitutionModifier(-savedStats[0]);
+		Controller.main.UpdateDexterityModifier(-savedStats[1]);
+		Controller.main.UpdateStrengthModifier(-savedStats[2]);
+		Controller.main.UpdateWisdomModifier(-savedStats[3]);
 		foreach (EqippableItem eqippableItem in possibleEqips)
 		{
 			if (eqippableItem.ItemID == searchID)

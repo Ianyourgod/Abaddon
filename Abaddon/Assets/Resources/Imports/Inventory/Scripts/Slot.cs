@@ -25,8 +25,11 @@ public class Slot : MonoBehaviour
 	Image itemImage;
 	[HideInInspector]
 	public TMP_Text amountText;
+	[SerializeField]
+	[ReadOnly]
+	public bool beingDragged;
 	[HideInInspector]
-	public bool beingDragged, beingSplitted;
+	public bool beingSplitted;
 	[HideInInspector]
 	public GameObject vLayer, vText, clone, thrownItem;
 	Inventory inv;

@@ -17,17 +17,17 @@ public class Controller : MonoBehaviour
     #region Stats
     [Header("Base Stats")]
     [SerializeField, Tooltip("Constitution (maximum health)")] public int constitution = 9;
-
     [SerializeField, Tooltip("Dexterity (dodge chance)")] public int dexterity = 9;
-
     [SerializeField, Tooltip("Strength (attack damage)")] public int strength = 9;
-    [HideInInspector] public int attackDamage;
-
     [SerializeField, Tooltip("Wisdom (ability damage)")] public int wisdom = 9;
-
     [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
     [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
     [SerializeField, Tooltip("Sum of starting stats")] public int sum_of_starting_stats = 40;
+
+    [SerializeField] public int conModifier;
+    [SerializeField] public int dexModifier;
+    [SerializeField] public int strModifier;
+    [SerializeField] public int wisModifier;
 
     public int exp = 0;
 
@@ -197,6 +197,7 @@ public class Controller : MonoBehaviour
         Transform targetPosition = boss.transform;
 
         mainCamera.ResetTarget(null, false, null);
+
         // disable player movement until the camera has panned
         // done_with_tick = false;
         // StartCoroutine(AfterDelay(1f, () =>
@@ -215,7 +216,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        UpdateStats();
+        UpdateConstitutionModifier(0);
 
         bool god_mode_keys_prev = god_mode_keys.Item1;
         bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
@@ -362,22 +363,40 @@ public class Controller : MonoBehaviour
         if (!did_something) FinishTick();
     }
 
-    public void UpdateStats()
+    public void UpdateConstitutionModifier(int conDiff)
     {
+        conModifier += conDiff;
         double health_percentage = (double)health / (double)max_health;
-        max_health = constitution * 2;
+        max_health = (constitution + conModifier) * 2;
         if (healthBarVisual)
         {
             healthBarVisual.maxValue = max_health;
         }
         health = (int)((double)max_health * health_percentage);
-        attackDamage = 2 + ((strength - 10) / 2); // attack damage
         HealPlayer(0);
+    }
+
+    public void UpdateDexterityModifier(int dexDiff)
+    {
+        dexModifier += dexDiff;
+        // No need to update anything else, since dexterity is only used for dodge chance
+    }
+
+    public void UpdateStrengthModifier(int strDiff)
+    {
+        strModifier += strDiff;
+        // No need to update anything else, since strength is only used for damage
+    }
+
+    public void UpdateWisdomModifier(int wisDiff)
+    {
+        wisModifier += wisDiff;
+        // No need to update anything else, since wisdom is only used for ability damage
     }
 
     public uint GetDamageModifier()
     {
-        return (uint)(strength - 10) / 2;
+        return (uint)(strength + strModifier - 10) / 2;
     }
 
     public void FinishTick()
@@ -397,20 +416,20 @@ public class Controller : MonoBehaviour
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    private void Attack(CanFight enemy, Vector2 direction)
-    {
-        BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
+    // private void Attack(CanFight enemy, Vector2 direction)
+    // {
+    //     BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
 
-        if (attack.CanUse(enemy, direction))
-        {
-            print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
-            attack.Attack(enemy, direction, animator, sfxPlayer);
-        }
-        else
-        {
-            FinishTick();
-        }
-    }
+    //     if (attack.CanUse(enemy, direction))
+    //     {
+    //         print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
+    //         attack.Attack(enemy, direction, animator, sfxPlayer);
+    //     }
+    //     else
+    //     {
+    //         FinishTick();
+    //     }
+    // }
 
     public void KilledEnemy(EnemyType enemy)
     {

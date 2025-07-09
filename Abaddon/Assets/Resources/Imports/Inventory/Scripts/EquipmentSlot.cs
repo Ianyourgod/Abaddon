@@ -54,12 +54,12 @@ public class EquipmentSlot : MonoBehaviour
 		pastEquippedItemID = getCurrentEquippedItemID();
 	}
 
-	bool isEquipped()
+	public bool isEquipped()
 	{
 		return curItem != null;
 	}
 
-	int getCurrentEquippedItemID()
+	public int getCurrentEquippedItemID()
 	{
 		if (!isEquipped())
 		{

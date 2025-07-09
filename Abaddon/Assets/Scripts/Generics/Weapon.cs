@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using System;
 
+[System.Serializable]
 public abstract class Weapon
-    {
+{
     public static float baseAttackSpeed = 1f;
     public static uint baseDamage = 2;
 
@@ -15,6 +17,32 @@ public abstract class Weapon
 
     public abstract float GetAttackSpeed();
     public abstract uint GetDamage();
+
+    public static Weapon GetCurrentWeapon()
+    {
+        Slot slot = Controller.main.inventory.equipSlots[3];
+        if (slot == null)
+        {
+            Debug.LogWarning("No weapon slot found, returning default Sword.");
+            return new Sword(); // Default to Sword if no slot is found
+        }
+        if (slot.TryGetComponent(out EquipmentSlot equipmentSlot))
+        {
+            if (!equipmentSlot.isEquipped())
+            {
+                Debug.LogWarning("Weapon slot is not equipped, returning default Sword.");
+                return new Sword(); // Default to Sword if not equipped
+            }
+            Item currentItem = slot.GetComponent<Slot>().slotsItem;
+            if (currentItem.TryGetComponent(out ItemWeaponAssociation weaponAssociation))
+            {
+                return weaponAssociation.GetWeaponType();
+            }
+            Debug.LogWarning("Current item does not have a weapon association, returning default Sword.");
+            return new Sword(); // Default to Sword if no weapon association is found
+        }
+        return new Sword(); // Default to Sword if no weapon is equipped
+    }
 
     public CanFight[] GetFightablesInDamageArea(Vector2 position, float orientation)
     {

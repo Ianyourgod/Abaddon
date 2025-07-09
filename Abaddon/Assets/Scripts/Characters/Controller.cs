@@ -80,6 +80,7 @@ public class Controller : MonoBehaviour
     [Header("Other")]
     [SerializeField] public Animator animator;
     [SerializeField] CameraScript mainCamera;
+    [SerializeField] GameObject tombstonePrefab;
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
     #endregion
@@ -138,6 +139,13 @@ public class Controller : MonoBehaviour
     {
         main = this;
         onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
+        onDie += () =>
+        {
+            var tombstone = Instantiate(tombstonePrefab, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity).GetComponent<Tombstone>();
+            Item[] items = inventory.slots.Union(inventory.equipSlots).Where(slot => slot.slotsItem != null).Select(slot => slot.slotsItem).ToArray();
+            print(items.Length);
+            tombstone.SetItems(items);
+        };
 
         sfxPlayer = GetComponent<PlayerSfx>();
         inventory = FindObjectOfType<Inventory>();
@@ -275,14 +283,8 @@ public class Controller : MonoBehaviour
 
         Move();
 
-        if (Input.GetKeyDown(KeyCode.Equals))
-        {
-            health += 1;
-        }
-        if (Input.GetKeyDown(KeyCode.Minus))
-        {
-            DamagePlayer(1, false);
-        }
+        if (Input.GetKeyDown(KeyCode.J) && Input.GetKey(KeyCode.LeftShift)) health += 1;
+        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift)) DamagePlayer(10, false);
     }
 
     void GodModeMove()

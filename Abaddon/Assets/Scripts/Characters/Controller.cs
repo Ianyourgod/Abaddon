@@ -64,10 +64,8 @@ public class Controller : MonoBehaviour
     #region Movement
     [Header("Movement")]
     [SerializeField] LayerMask collideLayers;
-    [SerializeField] float movementDelay = 0.1f;
     [Space]
     Vector2 current_player_direction = new Vector2(0, -1);
-    [SerializeField] float lastMovement = 0f;
     #endregion
 
     #region Player Update System 
@@ -327,7 +325,6 @@ public class Controller : MonoBehaviour
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
-            lastMovement = Time.time;
             FinishTick();
         }
 
@@ -340,8 +337,8 @@ public class Controller : MonoBehaviour
                 if (obj.TryGetComponent(out CanBeInteractedWith interactable))
                 {
                     interactable.Interact();
-                    lastMovement = Time.time;
                     FinishTick();
+                    // TODO: do animation + sfx
                     did_something = true;
                 }
             }
@@ -353,7 +350,6 @@ public class Controller : MonoBehaviour
             CanFight[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
             bool attackWorked = Weapon.GetCurrentWeapon().AttackEnemies(enemies, current_player_direction);
             // TODO: do animation + sfx
-            lastMovement = Time.time;
             if (attackWorked)
             {
                 did_something = true;

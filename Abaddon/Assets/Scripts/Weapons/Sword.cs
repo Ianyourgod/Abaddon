@@ -17,6 +17,6 @@ public class Sword : Weapon
 
     public override uint GetDamage()
     {
-        return Weapon.baseDamage;
+        return Weapon.baseDamage + Controller.main.GetDamageModifier();
     }
 }

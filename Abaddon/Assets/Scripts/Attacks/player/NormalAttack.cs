@@ -8,7 +8,7 @@ public class NormalAttack : BaseAbility
     // public override void Attack(CanFight fightable, Vector2 direction, Animator animator, PlayerSfx sfxPlayer)
     public override void Attack(CanFight enemy, Vector2 direction, Animator animator, PlayerSfx sfxPlayer)
     {
-        enemy.Hurt((uint)Controller.main.attackDamage);
+        enemy.Hurt(Controller.main.GetDamageModifier() + 2); // bad but we don't use this
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
 
         sfxPlayer.PlayAttackSound();

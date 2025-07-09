@@ -24,19 +24,18 @@ public class StatUpdater : MonoBehaviour {
     public void AddToStat(Stat stat, int amount) {
         switch (stat) {
             case Stat.Wisdom:
-                Controller.main.wisdom += amount;
+                Controller.main.UpdateWisdomModifier(amount);
                 break;
             case Stat.Strength:
-                Controller.main.strength += amount;
+                Controller.main.UpdateStrengthModifier(amount);
                 break;
             case Stat.Dexterity:
-                Controller.main.dexterity += amount;
+                Controller.main.UpdateDexterityModifier(amount);
                 break;
             case Stat.Constitution:
-                Controller.main.constitution += amount;
+                Controller.main.UpdateConstitutionModifier(amount);
                 break;
         }
-        Controller.main.UpdateStats();
     }
 
     public void IncreaseConstitution(int cost) {

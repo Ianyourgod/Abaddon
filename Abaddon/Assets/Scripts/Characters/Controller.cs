@@ -116,6 +116,15 @@ public class Controller : MonoBehaviour
 
     #endregion
 
+    public enum Quest
+    {
+        Kill15Gnomes
+    }
+
+
+    [HideInInspector] public List<Quest> current_quests;
+    [HideInInspector] public List<Quest> completed_quests;
+
     #endregion
 
     void Awake()

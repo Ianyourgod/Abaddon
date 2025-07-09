@@ -5,7 +5,7 @@ using UnityEngine;
 public class GenericNPC : MonoBehaviour, CanCommunicateWith
 {
     [SerializeField] public string npcName;
-    [SerializeField] Message[] messages;
+    [SerializeField] public Message[] messages;
 
     public virtual void StartConversation()
     {

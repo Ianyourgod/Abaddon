@@ -5,10 +5,20 @@ using UnityEngine;
 public class QuestGiver : GenericNPC
 {
     [SerializeField] private Message[] completionMessages;
-    [SerializeField] private string tokenID;
+    [SerializeField] public Controller.Quest questID;
 
     public override void StartConversation()
     {
-        base.StartConversation();
+        if (Controller.main.completed_quests.Contains(questID))
+        {
+            Message[] m = messages;
+            messages = completionMessages;
+            base.StartConversation();
+            messages = m;
+        }
+        else
+        {
+            base.StartConversation();
+        }
     }
 }

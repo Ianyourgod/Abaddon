@@ -330,12 +330,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: tokenID
+      value: OLD_MAN_Q1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].time
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: completionMessages.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].message
@@ -349,6 +357,18 @@ PrefabInstance:
       propertyPath: messages.Array.data[0].profileImage
       value: 
       objectReference: {fileID: 21300000, guid: 1ef753b41944e2f0f99e1fbac24ca594, type: 3}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: completionMessages.Array.data[0].time
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: completionMessages.Array.data[0].message
+      value: YAAAAY FUCK THOSE KIDS
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: completionMessages.Array.data[0].usingCPS
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6008026295858031786, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: m_Name
       value: QuestGiver

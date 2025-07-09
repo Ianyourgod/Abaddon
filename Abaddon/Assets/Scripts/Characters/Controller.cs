@@ -99,9 +99,9 @@ public class Controller : MonoBehaviour
     #region Movement Controls
     private class MoveState
     {
-        public float held_time = 0f;
+        public float start_hold_time = 0f;
         public bool held_last_frame = false;
-        public float last_repeat_run = 0f;
+        public float next_repeat_run = 0f;
     }
 
     private enum MovementDirection
@@ -224,10 +224,7 @@ public class Controller : MonoBehaviour
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick)
-        {
-            return;
-        }
+        if (!done_with_tick) return;
 
         if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
         {
@@ -251,7 +248,7 @@ public class Controller : MonoBehaviour
     {
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        transform.Translate(direction / 5);
+        transform.Translate(direction * Time.deltaTime * 60f * .75f);
     }
 
     bool CanMove(GameObject[] objectsAhead)
@@ -262,7 +259,7 @@ public class Controller : MonoBehaviour
     void Move()
     {
         Vector2 direction = GetAxis();
-        if (direction.magnitude != 1) return; // if we are not moving, do nothing. if we are going diagonally, do nothing
+        if (direction.magnitude != 1) { return; } // if we are not moving, do nothing. if we are going diagonally, do nothing
 
         done_with_tick = false;
         current_player_direction = direction;
@@ -273,11 +270,12 @@ public class Controller : MonoBehaviour
         PlayAnimation("idle", direction);
 
         if (Time.time - lastMovement <= movementDelay) return;
+        if (canMove) print("doing move: " + (Time.time - lastMovement));
         lastMovement = Time.time;
-
 
         if (canMove)
         {
+
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
@@ -369,31 +367,26 @@ public class Controller : MonoBehaviour
 
         if (isHeld)
         {
-            state.held_time += Time.deltaTime;
-
             if (!state.held_last_frame)
             {
                 state.held_last_frame = true;
-                state.held_time = 0f;
+                state.start_hold_time = Time.time + initialMovementDelay;
                 return true;
             }
-            else if (state.held_time > initialMovementDelay)
+            else if (state.start_hold_time <= Time.time)
             {
-                if (state.last_repeat_run > holdDelay)
+                //print(state.next_repeat_run + " " + holdDelay);
+                if (state.next_repeat_run <= Time.time)
                 {
-                    state.last_repeat_run = 0f;
+                    state.next_repeat_run = Time.time + holdDelay;
                     return true;
-                }
-                else
-                {
-                    state.last_repeat_run += Time.deltaTime;
                 }
             }
         }
         else
         {
             state.held_last_frame = false;
-            state.held_time = 0f;
+            state.start_hold_time = float.PositiveInfinity;
         }
 
         return false;

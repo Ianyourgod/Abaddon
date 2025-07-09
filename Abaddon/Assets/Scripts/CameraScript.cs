@@ -22,7 +22,7 @@ public class CameraScript : MonoBehaviour
     private float current_movement_time = 0;
     private float current_wait_time = 0;
     private Vector2 start_position;
-    private float thresholdDistance = 0.5f;
+    private readonly float thresholdDistance = 0.01f;
     private CameraState currentState = CameraState.MovingToTarget;
     private enum CameraState
     {
@@ -61,7 +61,7 @@ public class CameraScript : MonoBehaviour
             time = camera_moveto_curve.Evaluate(time);
             return Vector3.Lerp(start_position, currentTarget.position + new Vector3(0, 0, -10), time);
         }
-        return Vector3.Lerp(transform.position, currentTarget.position + new Vector3(0, 0, -10), default_lerp_speed);
+        return Vector3.Lerp(transform.position, currentTarget.position + new Vector3(0, 0, -10), default_lerp_speed * Time.deltaTime * 60f);
     }
 
     void Update()

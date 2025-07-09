@@ -8,8 +8,6 @@ public class UITesting : MonoBehaviour
     void Awake()
     {
         uiManager = FindObjectOfType<UIStateManager>(true);
-        print($"{uiManager.gameObject.name} {uiManager.gameObject.activeSelf}");
-        print($"{DialogueVisualiser.singleton.gameObject.name} {DialogueVisualiser.singleton.gameObject.activeSelf}");
     }
 
     void Update()

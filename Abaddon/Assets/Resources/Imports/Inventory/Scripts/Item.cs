@@ -68,7 +68,7 @@ public class Item : MonoBehaviour
     {
         if (player != null)
         {
-            Vector3 distanceToPlayer = transform.position - player.transform.position;
+            Vector2 distanceToPlayer = transform.position - player.transform.position;
             if (distanceToPlayer.magnitude <= player.pickupRange) close = true;
             else close = false;
         }
@@ -99,7 +99,6 @@ public class Item : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                print("Picking up item");
                 int possibleAmount = 0;
 
                 sfxPlayer.PlaySound("pickup");

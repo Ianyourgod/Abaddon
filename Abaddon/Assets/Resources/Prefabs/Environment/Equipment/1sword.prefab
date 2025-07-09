@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4190bfebeec71c1458a3fa2e9277979d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentType: Sword
+  equipmentType: Weapon
   amountInStack: 1
   maxStackSize: 1
   ItemID: 9

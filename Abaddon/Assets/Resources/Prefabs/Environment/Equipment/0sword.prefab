@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4887135980581437041}
   - component: {fileID: 4887135980581437042}
   - component: {fileID: 510642772217015331}
+  - component: {fileID: 4519320876091988004}
   m_Layer: 0
   m_Name: 0sword
   m_TagString: Untagged
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4190bfebeec71c1458a3fa2e9277979d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentType: Sword
+  equipmentType: Weapon
   amountInStack: 1
   maxStackSize: 1
   ItemID: 5
@@ -188,3 +189,15 @@ MonoBehaviour:
   - pickup
   soundValues:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
+--- !u!114 &4519320876091988004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887135980581437043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a8377433d4839499af5a12016b035d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

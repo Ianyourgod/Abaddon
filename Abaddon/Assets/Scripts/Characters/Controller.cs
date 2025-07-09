@@ -82,7 +82,6 @@ public class Controller : MonoBehaviour
     [Header("Other")]
     [SerializeField] public Animator animator;
     [SerializeField] CameraScript mainCamera;
-    [SerializeField] Weapon currentWeapon = new Sword();
     [HideInInspector] public PlayerSfx sfxPlayer;
     [HideInInspector] public Inventory inventory;
     #endregion
@@ -324,8 +323,8 @@ public class Controller : MonoBehaviour
         {
             Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
-            CanFight[] enemies = currentWeapon.GetFightablesInDamageArea(transform.position, angle);
-            bool attackWorked = currentWeapon.AttackEnemies(enemies, current_player_direction);
+            CanFight[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
+            bool attackWorked = Weapon.GetCurrentWeapon().AttackEnemies(enemies, current_player_direction);
             // TODO: do animation + sfx
             lastMovement = Time.time;
             if (attackWorked)

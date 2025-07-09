@@ -8,15 +8,18 @@ using UnityEngine.Tilemaps;
 
 public class Sword : Weapon
 {
-    public new Vector2 size = new Vector2(1f, 1f);
+    public override Vector2 GetSize()
+    {
+        return baseSize;
+    }
 
     public override float GetAttackSpeed()
     {
-        return Weapon.baseAttackSpeed;
+        return baseAttackSpeed;
     }
 
     public override uint GetDamage()
     {
-        return Weapon.baseDamage + Controller.main.GetDamageModifier();
+        return baseDamage + Controller.main.GetDamageModifier();
     }
 }

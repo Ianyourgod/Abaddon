@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using System;
 
-[System.Serializable]
-public abstract class Weapon
+public abstract class Weapon : MonoBehaviour
 {
     public static float baseAttackSpeed = 1f;
     public static uint baseDamage = 2;
+    public static Vector2 baseSize = new Vector2(1f, 1f);
 
     private float lastAttackTime;
-    public Vector2 size;
 
+    public abstract Vector2 GetSize();
     public abstract float GetAttackSpeed();
     public abstract uint GetDamage();
 
@@ -34,9 +34,9 @@ public abstract class Weapon
                 return new Sword(); // Default to Sword if not equipped
             }
             Item currentItem = slot.GetComponent<Slot>().slotsItem;
-            if (currentItem.TryGetComponent(out ItemWeaponAssociation weaponAssociation))
+            if (currentItem.TryGetComponent(out Weapon weapon))
             {
-                return weaponAssociation.GetWeaponType();
+                return weapon; // Return the weapon associated with the current item
             }
             Debug.LogWarning("Current item does not have a weapon association, returning default Sword.");
             return new Sword(); // Default to Sword if no weapon association is found
@@ -47,7 +47,7 @@ public abstract class Weapon
     public CanFight[] GetFightablesInDamageArea(Vector2 position, float orientation)
     {
         Vector2 boxCenter = position + new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)) * 0.5f;
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, size * 2, 0f);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, GetSize() * 2, 0f);
         List<CanFight> fightables = new List<CanFight>();
         foreach (Collider2D collider in colliders)
         {

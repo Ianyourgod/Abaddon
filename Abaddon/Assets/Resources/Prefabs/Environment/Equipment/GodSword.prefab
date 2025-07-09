@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8956186374661559891}
   - component: {fileID: 8956186374661559888}
   - component: {fileID: 8797630982188822369}
+  - component: {fileID: 7596690220232150166}
   m_Layer: 0
   m_Name: GodSword
   m_TagString: Untagged
@@ -188,3 +189,15 @@ MonoBehaviour:
   - pickup
   soundValues:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
+--- !u!114 &7596690220232150166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8956186374661559889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f566a2a9948166f478f269f84df622b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

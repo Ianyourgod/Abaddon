@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4887135980581437041}
   - component: {fileID: 4887135980581437042}
   - component: {fileID: 510642772217015331}
-  - component: {fileID: 4519320876091988004}
+  - component: {fileID: 3159374218848095104}
   m_Layer: 0
   m_Name: 0sword
   m_TagString: Untagged
@@ -189,7 +189,7 @@ MonoBehaviour:
   - pickup
   soundValues:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
---- !u!114 &4519320876091988004
+--- !u!114 &3159374218848095104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,6 +198,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4887135980581437043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50a8377433d4839499af5a12016b035d, type: 3}
+  m_Script: {fileID: 11500000, guid: f566a2a9948166f478f269f84df622b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: {x: 0, y: 0}
+  size: {x: 0, y: 0}

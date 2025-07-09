@@ -332,7 +332,6 @@ public class Controller : MonoBehaviour
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
-            lastMovement = Time.time;
             FinishTick();
         }
 
@@ -345,7 +344,6 @@ public class Controller : MonoBehaviour
                 if (obj.TryGetComponent(out CanBeInteractedWith interactable))
                 {
                     interactable.Interact();
-                    lastMovement = Time.time;
                     FinishTick();
                     // TODO: do animation + sfx
                     did_something = true;

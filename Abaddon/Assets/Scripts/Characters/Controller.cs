@@ -195,6 +195,7 @@ public class Controller : MonoBehaviour
         Transform targetPosition = boss.transform;
 
         mainCamera.ResetTarget(null, false, null);
+
         // disable player movement until the camera has panned
         // done_with_tick = false;
         // StartCoroutine(AfterDelay(1f, () =>

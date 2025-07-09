@@ -250,7 +250,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
         }
 
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
-        print($"playing animation {animation}");
         animator.Play(animation);
     }
 

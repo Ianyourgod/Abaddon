@@ -128,9 +128,11 @@ public class Controller : MonoBehaviour
         onDie += () =>
         {
             var tombstone = Instantiate(tombstonePrefab, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity).GetComponent<Tombstone>();
-            Item[] items = inventory.slots.Union(inventory.equipSlots).Where(slot => slot.slotsItem != null).Select(slot => slot.slotsItem).ToArray();
-            print(items.Length);
+            var unioned = inventory.slots.Union(inventory.equipSlots);
+            print(string.Join(", ", unioned.Select(slot => slot.name + (slot.slotsItem != null ? $"({slot.slotsItem.name})" : "(empty)"))));
+            Item[] items = unioned.Where(slot => slot.slotsItem != null).Select(slot => slot.slotsItem).ToArray();
             tombstone.SetItems(items);
+            inventory.ClearInventory();
         };
 
         sfxPlayer = GetComponent<PlayerSfx>();
@@ -270,7 +272,6 @@ public class Controller : MonoBehaviour
         PlayAnimation("idle", direction);
 
         if (Time.time - lastMovement <= movementDelay) return;
-        if (canMove) print("doing move: " + (Time.time - lastMovement));
         lastMovement = Time.time;
 
         if (canMove)

@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 [RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
@@ -168,6 +169,17 @@ public class Inventory : MonoBehaviour
 		ReloadInventory();
 	}
 
+	public void ClearInventory()
+	{
+		foreach (Slot i in slots.Union(equipSlots))
+		{
+			if (!i) continue;
+
+			Destroy(i.slotsItem?.gameObject);
+			i.slotsItem = null;
+		}
+	}
+
 	public void SwapToInventory()
 	{
 		current_tab = Tab.Inventory;
@@ -275,6 +287,21 @@ public class Inventory : MonoBehaviour
 				}
 			}
 		}
+	}
+
+
+	public void AddItems(List<Item> itemsToBeAdded)
+	{
+		IEnumerator waiter()
+		{
+			foreach (Item i in itemsToBeAdded)
+			{
+				AddItem(i);
+				print($"Added item: {i.name} | {emptySlots.Count}/{slots.Length} empty slots left");
+				yield return new WaitForSeconds(0.003f);
+			}
+		}
+		StartCoroutine(waiter());
 	}
 
 	public void AddItem(Item itemToBeAdded, Item startingItem = null)

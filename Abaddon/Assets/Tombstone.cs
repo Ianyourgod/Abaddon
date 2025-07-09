@@ -21,5 +21,7 @@ public class Tombstone : MonoBehaviour, CanBeInteractedWith
         print($"Picking up tombstone items: [{string.Join(", ", nonVoidItems.Select(i => i.name))}] ({nonVoidItems.Length}/{items.Length} items)");
         Controller.main.inventory.AddItems(items.ToList());
         items = new Item[0];
+        GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }

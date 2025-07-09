@@ -116,6 +116,42 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
+	public bool AddItemAtIndex(Item itemToAdd, int index, bool isEquipmentSlot = false)
+	{
+		// Pick which slot array to use
+		Slot[] slotArray = isEquipmentSlot ? equipSlots : slots;
+
+		if (index < 0 || index >= slotArray.Length)
+		{
+			Debug.LogWarning($"AddItemAtIndex: Index {index} is out of range for {(isEquipmentSlot ? "equipSlots" : "slots")}");
+			return false;
+		}
+
+		Slot targetSlot = slotArray[index];
+
+		bool wasEmpty = (targetSlot.slotsItem == null);
+
+		// If there's already an item there, destroy or drop it if you want — up to you
+		if (!wasEmpty)
+		{
+			Debug.LogWarning($"AddItemAtIndex: Slot {index} already has an item. It will be replaced.");
+			Destroy(targetSlot.slotsItem.gameObject);
+		}
+
+		// Actually parent the item to this slot
+		itemToAdd.transform.SetParent(targetSlot.transform, false);
+		itemToAdd.transform.localPosition = Vector3.zero;
+		itemToAdd.gameObject.SetActive(true);
+
+		// Update the slot's reference
+		targetSlot.slotsItem = itemToAdd;
+
+		// If you want to remove it from emptySlots list:
+		emptySlots.Remove(targetSlot);
+
+		return wasEmpty;
+	}
+
 	public void OpenInventory()
 	{
 		invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)

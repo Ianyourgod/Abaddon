@@ -33,10 +33,17 @@ public class EnemyMovement : MonoBehaviour, CanFight
     SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
-    [SerializeField] int detectionDistance = 4;
-    [SerializeField] float followDistance = 3f;
-    [SerializeField] float enemyDecisionDelay;
-    [SerializeField] EnemyType enemyType;
+    [SerializeField]
+    int detectionDistance = 4;
+
+    [SerializeField]
+    float followDistance = 3f;
+
+    [SerializeField]
+    float enemyDecisionDelay;
+
+    [SerializeField]
+    EnemyType enemyType;
 
     public int health = 10;
     private Vector2 direction = Vector2.zero;
@@ -165,8 +172,11 @@ public class EnemyMovement : MonoBehaviour, CanFight
         bool will_attack = false;
         foreach (RaycastHit2D hit in hits)
         {
-            will_attack |= attack.WillAttack(hit, direction);
-            break;
+            if (attack.WillAttack(hit, direction))
+            {
+                will_attack = true;
+                break;
+            }
         }
         bool can_move = true;
         foreach (RaycastHit2D hit in hits)

@@ -8,14 +8,19 @@ using UnityEngine.Tilemaps;
 public class Grid2D : MonoBehaviour
 {
     public Node2D[,] Grid;
-    [SerializeField] Tilemap[] obstaclemaps;
-    [SerializeField] LayerMask collideLayers;
+
+    [SerializeField]
+    Tilemap[] obstaclemaps;
+
+    [SerializeField]
+    LayerMask collideLayers;
 
     public List<Node2D> path;
     public Vector3 worldBottomLeft;
 
     float nodeDiameter;
-    public int gridSizeX, gridSizeY = 0;
+    public int gridSizeX,
+        gridSizeY = 0;
 
     void Awake()
     {
@@ -36,8 +41,10 @@ public class Grid2D : MonoBehaviour
                 return true;
         }
         Vector3 new_position = worldPosition + new Vector3(.5f, .5f, 0);
-        if (new_position == transform.position) return false;
-        if (ObjectIsThere(new_position)) return true;
+        if (new_position == transform.position)
+            return false;
+        if (ObjectIsThere(new_position))
+            return true;
         return false;
     }
 
@@ -51,7 +58,8 @@ public class Grid2D : MonoBehaviour
     {
         Grid = new Node2D[gridSizeX, gridSizeY];
         Vector3 halfNodeSize = Vector3.one * 0.5f;
-        worldBottomLeft = transform.position - Vector3.right * gridSizeX / 2 - Vector3.up * gridSizeY / 2;
+        worldBottomLeft =
+            transform.position - Vector3.right * gridSizeX / 2 - Vector3.up * gridSizeY / 2;
 
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -64,17 +72,13 @@ public class Grid2D : MonoBehaviour
                 {
                     Grid[x, y].SetObstacle(false);
                 }
-                else
-
-                if (HasTile(Grid[x, y].worldPosition))
+                else if (HasTile(Grid[x, y].worldPosition))
                     Grid[x, y].SetObstacle(true);
                 else
                     Grid[x, y].SetObstacle(false);
-
             }
         }
     }
-
 
     //gets the neighboring nodes in the 4 cardinal directions. If you would like to enable diagonal pathfinding, uncomment out that portion of code
     public List<Node2D> GetNeighbors(Node2D node)
@@ -82,22 +86,40 @@ public class Grid2D : MonoBehaviour
         List<Node2D> neighbors = new List<Node2D>();
 
         //checks and adds top neighbor
-        if (node.GridX >= 0 && node.GridX < gridSizeX && node.GridY + 1 >= 0 && node.GridY + 1 < gridSizeY)
+        if (
+            node.GridX >= 0
+            && node.GridX < gridSizeX
+            && node.GridY + 1 >= 0
+            && node.GridY + 1 < gridSizeY
+        )
             neighbors.Add(Grid[node.GridX, node.GridY + 1]);
 
         //checks and adds bottom neighbor
-        if (node.GridX >= 0 && node.GridX < gridSizeX && node.GridY - 1 >= 0 && node.GridY - 1 < gridSizeY)
+        if (
+            node.GridX >= 0
+            && node.GridX < gridSizeX
+            && node.GridY - 1 >= 0
+            && node.GridY - 1 < gridSizeY
+        )
             neighbors.Add(Grid[node.GridX, node.GridY - 1]);
 
         //checks and adds right neighbor
-        if (node.GridX + 1 >= 0 && node.GridX + 1 < gridSizeX && node.GridY >= 0 && node.GridY < gridSizeY)
+        if (
+            node.GridX + 1 >= 0
+            && node.GridX + 1 < gridSizeX
+            && node.GridY >= 0
+            && node.GridY < gridSizeY
+        )
             neighbors.Add(Grid[node.GridX + 1, node.GridY]);
 
         //checks and adds left neighbor
-        if (node.GridX - 1 >= 0 && node.GridX - 1 < gridSizeX && node.GridY >= 0 && node.GridY < gridSizeY)
+        if (
+            node.GridX - 1 >= 0
+            && node.GridX - 1 < gridSizeX
+            && node.GridY >= 0
+            && node.GridY < gridSizeY
+        )
             neighbors.Add(Grid[node.GridX - 1, node.GridY]);
-
-
 
         /* Uncomment this code to enable diagonal movement
         
@@ -118,11 +140,8 @@ public class Grid2D : MonoBehaviour
             neighbors.Add(Grid[node.GridX - 1, node.GridY - 1]);
         */
 
-
-
         return neighbors;
     }
-
 
     public Node2D NodeFromWorldPoint(Vector3 worldPosition)
     {
@@ -154,7 +173,6 @@ public class Grid2D : MonoBehaviour
                 if (path != null && path.Contains(n))
                     Gizmos.color = Color.black;
                 Gizmos.DrawWireCube(n.worldPosition + halfNodeSize, Vector3.one);
-
             }
         }
     }

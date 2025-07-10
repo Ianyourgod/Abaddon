@@ -154,19 +154,34 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private void Move(Vector2 direction)
     {
-        Collider2D hit = IsValidMove(direction);
+        RaycastHit2D[] hits = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
-        bool will_attack = attack.WillAttack(hit, direction);
+        bool will_attack = false;
+        foreach (RaycastHit2D hit in hits)
+        {
+            will_attack |= attack.WillAttack(hit, direction);
+            break;
+        }
+        bool can_move = true;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.name != this.name)
+            {
+                can_move = false;
+                break;
+            }
+        }
 
         if (will_attack)
         {
             Attack();
         }
-        else if (hit == null)
+        else if (can_move)
         {
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
+            // Debug.Log($"chika chika my name is {this.name} Moving in direction: {direction}");
             Invoke(nameof(callNextEnemy), 0f);
         }
         else
@@ -258,13 +273,20 @@ public class EnemyMovement : MonoBehaviour, CanFight
         return new Vector2(horizontal, vertical);
     }
 
-    private Collider2D IsValidMove(Vector2 direction)
+    private RaycastHit2D[] IsValidMove(Vector2 direction)
     {
-        return Physics2D.OverlapCircle(
-            transform.position + new Vector3(direction.x, direction.y, 0),
-            0.1f,
-            collideLayers
-        );
+        // return Physics2D.OverlapCircle(
+        //     transform.position + new Vector3(direction.x, direction.y, 0),
+        //     0.1f,
+        //     collideLayers
+        // );
+        var hits = Physics2D.RaycastAll(transform.position, direction, 1f, collideLayers);
+
+        if (hits.Length > 1)
+        {
+            Debug.DrawRay(transform.position, direction, Color.magenta, 0.2f, false);
+        }
+        return hits;
     }
 
     string DirectionToString(Vector2 direction)

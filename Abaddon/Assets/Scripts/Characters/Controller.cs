@@ -411,15 +411,16 @@ public class Controller : MonoBehaviour
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
+        bool did_something = false;
         if (canMove && stickMoved)
         {
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
             FinishTick();
+            did_something = true;
         }
 
-        bool did_something = false;
         // Debug.Log(objectsAhead.Length + " objects ahead");
         if (Input.GetKey(KeyCode.E))
         {
@@ -506,21 +507,6 @@ public class Controller : MonoBehaviour
         current_enemy++;
         enemies[current_enemy - 1].MakeDecision();
     }
-
-    // private void Attack(CanFight enemy, Vector2 direction)
-    // {
-    //     BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
-
-    //     if (attack.CanUse(enemy, direction))
-    //     {
-    //         print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
-    //         attack.Attack(enemy, direction, animator, sfxPlayer);
-    //     }
-    //     else
-    //     {
-    //         FinishTick();
-    //     }
-    // }
 
     public void KilledEnemy(EnemyType enemy)
     {
@@ -611,17 +597,7 @@ public class Controller : MonoBehaviour
     GameObject[] SendRaycast(Vector2 direction)
     {
         Vector2 world_position = (Vector2)transform.position + (direction * .51f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
-        Debug.DrawLine(
-            new Vector3(world_position.x, world_position.y, 0),
-            new Vector3(
-                world_position.x + direction.x * .5f,
-                world_position.y + direction.y * .5f,
-                0
-            ),
-            Color.green,
-            0.2f,
-            false
-        );
+        Debug.DrawRay(world_position, direction, Color.green, 0.2f, false);
         return Physics2D
             .RaycastAll(world_position, direction, .5f)
             .Select(hit => hit.collider.gameObject)

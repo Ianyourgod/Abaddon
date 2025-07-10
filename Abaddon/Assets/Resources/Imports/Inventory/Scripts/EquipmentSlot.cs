@@ -89,7 +89,7 @@ public class EquipmentSlot : MonoBehaviour
             searchID = item.ItemID;
             if (item.TryGetComponent(out StatModifier slotModifier))
             {
-                Debug.Log("Equipping item with ID and slotmodifiers: " + searchID);
+                // Debug.Log("Equipping item with ID and slotmodifiers: " + searchID);
                 Controller.main.UpdateConstitutionModifier(slotModifier.constitution);
                 Controller.main.UpdateDexterityModifier(slotModifier.dexterity);
                 Controller.main.UpdateStrengthModifier(slotModifier.strength);

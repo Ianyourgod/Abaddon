@@ -68,15 +68,15 @@ public abstract class Weapon : MonoBehaviour
     private static float tempDebugOrientation = 0f;
     private static Vector2 tempDebugPosition = Vector2.zero;
 
-    public CanFight[] GetFightablesInDamageArea(Vector2 position, float orientation)
+    public CanBeDamaged[] GetFightablesInDamageArea(Vector2 position, float orientation)
     {
         // orientation is in radians
         tempDebugOrientation = orientation;
         tempDebugPosition = position;
-        Debug.Log(new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)));
-        Debug.Log(
-            $"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians"
-        );
+        // Debug.Log(new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)));
+        // Debug.Log(
+        //     $"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians"
+        // );
         Vector2 rotatedBox = rotate(GetSize() * 0.85f, orientation);
         // if you're looking at this
         // please note that the center offset doesn't work completely but it does enough to hit the enemies intended
@@ -87,10 +87,10 @@ public abstract class Weapon : MonoBehaviour
         );
         Vector2 boxCenter = position + centerOffset;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, rotatedBox, 0f);
-        List<CanFight> fightables = new List<CanFight>();
+        List<CanBeDamaged> fightables = new List<CanBeDamaged>();
         foreach (Collider2D collider in colliders)
         {
-            if (collider.TryGetComponent(out CanFight fightable))
+            if (collider.TryGetComponent(out CanBeDamaged fightable))
             {
                 fightables.Add(fightable);
             }
@@ -126,30 +126,25 @@ public abstract class Weapon : MonoBehaviour
     }
 
     // Retrusn true if attack was successful, false otherwise
-    public bool AttackEnemies(CanFight[] enemies, Vector2 direction)
+    public bool AttackEnemies(CanBeDamaged[] enemies, Vector2 direction)
     {
         if (Controller.main == null)
             return false; // if controller is null we can assume that no enemies were attacked
 
         int calculatedDamage = GetDamage() + Controller.main.GetDamageModifier();
-        Debug.Log($"Attacking with damage: {calculatedDamage}");
+
+        // Debug.Log($"Attacking with damage: {calculatedDamage}");
         if (enemies.Length == 0)
-        {
             return false; // No enemies to attack
-        }
-        if (enemies.Length == 0)
-        {
-            return false; // No enemies to attack
-        }
+
         Controller.main.animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID(
             "AttackerLayer"
         );
         Controller.main.sfxPlayer.PlayAttackSound();
         Controller.main.PlayAnimation("attack", direction);
-        foreach (CanFight enemy in enemies)
-        {
+        foreach (CanBeDamaged enemy in enemies)
             enemy.Hurt(calculatedDamage);
-        }
+
         return true; // Attack was successful
     }
 }

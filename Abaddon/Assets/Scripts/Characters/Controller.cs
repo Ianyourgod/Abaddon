@@ -437,7 +437,7 @@ public class Controller : MonoBehaviour
         }
 
         // Debug.Log(objectsAhead.Length + " objects ahead");
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
             {
@@ -450,11 +450,11 @@ public class Controller : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             // Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
-            CanFight[] enemies = Weapon
+            CanBeDamaged[] enemies = Weapon
                 .GetCurrentWeapon()
                 .GetFightablesInDamageArea(transform.position, angle);
             bool attackWorked = Weapon

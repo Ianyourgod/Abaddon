@@ -48,7 +48,8 @@ public class ItemDropper : MonoBehaviour
         return Mathf.Max(entry.chance - Controller.main.inventory.GetItemAmount(entry.item.ItemID) * DECAY_RATE, 0);
     }
 
-    public Item GetRandomItem()
+#nullable enable
+    public Item? GetRandomItem()
     {
         float maxValue = dropTable.Select(entry => DecayedChance(entry)).Sum();
         float randomValue = Random.Range(0f, maxValue);
@@ -63,15 +64,18 @@ public class ItemDropper : MonoBehaviour
             }
         }
 
-        throw new System.Exception("No item dropped, check drop table setup.");
+        return null;
     }
 
     public void DropRandomItem()
     {
         // Drop a random item from the drop table
-        Instantiate(GetRandomItem(), transform.position, Quaternion.identity);
+        var item = GetRandomItem();
+        if (item) Instantiate(item, transform.position, Quaternion.identity);
 
         // Drop a random amount of gold
+        if (goldCoinPrefab == null) return;
+
         int randomCointCount = Random.Range(minGoldDropAmmount, maxGoldDropAmmount + 1);
         for (int i = 0; i < randomCointCount; i++)
         {

@@ -28,5 +28,5 @@ public class Shop : MonoBehaviour
     {
         // TODO!!!!! Track the actual name of the item
         textMeshPro.text = item.name;
-    }
+    } 
 }

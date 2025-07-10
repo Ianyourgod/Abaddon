@@ -73843,6 +73843,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8767317562532271969, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
 --- !u!114 &1840516255 stripped
@@ -76394,7 +76398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5, y: -9.05}
+  m_AnchoredPosition: {x: 0.61, y: -8.57}
   m_SizeDelta: {x: 749.1123, y: 463.2915}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1211029802767053806

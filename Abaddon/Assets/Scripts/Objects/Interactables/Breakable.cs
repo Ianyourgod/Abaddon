@@ -4,16 +4,16 @@ using UnityEngine;
 
 [RequireComponent(typeof(ItemDropper))]
 [RequireComponent(typeof(SfxPlayerBetter))]
-
 public class Breakable : MonoBehaviour, CanBeKilled
 {
     public enum BreakableType
     {
         Pot,
-        Barrel
+        Barrel,
     }
 
-    [SerializeField] int health = 1;
+    [SerializeField]
+    int health = 1;
     private SfxPlayerBetter sfxPlayer;
     private ItemDropper dropper;
 

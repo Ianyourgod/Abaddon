@@ -191,7 +191,7 @@ public class Controller : MonoBehaviour
 
     public enum Quest
     {
-        Kill15Gnomes
+        Kill15Gnomes,
     }
 
     private class QuestState
@@ -428,7 +428,6 @@ public class Controller : MonoBehaviour
         bool did_something = false;
         if (canMove && stickMoved)
         {
-
             transform.Translate(direction);
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
@@ -528,20 +527,20 @@ public class Controller : MonoBehaviour
         switch (enemy)
         {
             case EnemyType.Gnome:
+            {
+                if (current_quests.Contains(Quest.Kill15Gnomes))
                 {
-                    if (current_quests.Contains(Quest.Kill15Gnomes))
+                    quest_state.Kill15Gnomes += 1;
+                    print(quest_state.Kill15Gnomes);
+                    if (quest_state.Kill15Gnomes >= 2)
                     {
-                        quest_state.Kill15Gnomes += 1;
-                        print(quest_state.Kill15Gnomes);
-                        if (quest_state.Kill15Gnomes >= 2)
-                        {
-                            print("COMPLETED COMPLETED COMPLETED COMLPETED COMPLERTERD");
-                            current_quests.Remove(Quest.Kill15Gnomes);
-                            completed_quests.Add(Quest.Kill15Gnomes);
-                        }
+                        print("COMPLETED COMPLETED COMPLETED COMLPETED COMPLERTERD");
+                        current_quests.Remove(Quest.Kill15Gnomes);
+                        completed_quests.Add(Quest.Kill15Gnomes);
                     }
-                    break;
                 }
+                break;
+            }
             default:
                 break;
         }
@@ -629,15 +628,21 @@ public class Controller : MonoBehaviour
         {
             return "back";
         }
-        else if (direction == Vector2.left ||
-                 direction == new Vector2(-1, -1) || // diagonal left down
-                 direction == new Vector2(-1, 1)) // diagonal left up
+        else if (
+            direction == Vector2.left
+            || direction == new Vector2(-1, -1)
+            || // diagonal left down
+            direction == new Vector2(-1, 1)
+        ) // diagonal left up
         {
             return "left";
         }
-        else if (direction == Vector2.right ||
-                 direction == new Vector2(1, -1) || // diagonal right down
-                 direction == new Vector2(1, 1)) // diagonal right up
+        else if (
+            direction == Vector2.right
+            || direction == new Vector2(1, -1)
+            || // diagonal right down
+            direction == new Vector2(1, 1)
+        ) // diagonal right up
         {
             return "right";
         }
@@ -712,10 +717,12 @@ public class Controller : MonoBehaviour
     public GenericNPC? CanStartConversation()
     {
         // do initial check for nearness
-        Collider2D npc = Physics2D.Raycast(transform.position, current_player_direction, 1f, collideLayers).collider;
-        if (npc == null) return null;
+        Collider2D npc = Physics2D
+            .Raycast(transform.position, current_player_direction, 1f, collideLayers)
+            .collider;
+        if (npc == null)
+            return null;
         return npc.GetComponent<GenericNPC>();
-
     }
 
     private void OnDrawGizmos()

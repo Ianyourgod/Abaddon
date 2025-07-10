@@ -172,8 +172,11 @@ public class EnemyMovement : MonoBehaviour, CanFight
         bool will_attack = false;
         foreach (RaycastHit2D hit in hits)
         {
-            will_attack |= attack.WillAttack(hit, direction);
-            break;
+            if (attack.WillAttack(hit, direction))
+            {
+                will_attack = true;
+                break;
+            }
         }
         bool can_move = true;
         foreach (RaycastHit2D hit in hits)

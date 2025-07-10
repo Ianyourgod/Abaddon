@@ -344,11 +344,8 @@ PrefabInstance:
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 51370678}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].time
       value: 0.1
@@ -884,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22274,6 +22271,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c7f7024290ca5f17be1edbfdad70d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1192153430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192153404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f566a2a9948166f478f269f84df622b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1215643366 stripped
@@ -77085,7 +77094,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6148610868119937925}
   - component: {fileID: 6148610868119937922}
   - component: {fileID: 7875330181036555798}
+  - component: {fileID: 5144439966123380482}
   m_Layer: 9
   m_Name: Key
   m_TagString: Untagged
@@ -157,3 +158,16 @@ MonoBehaviour:
   - pickup
   soundValues:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
+--- !u!114 &5144439966123380482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6148610868119937923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc49c4656de8bec44a2d446a6add0ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyID: -1

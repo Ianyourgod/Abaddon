@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 using System.Linq;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
-
+[
+    RequireComponent(typeof(PlayerSfx)),
+    RequireComponent(typeof(Inventory)),
+    RequireComponent(typeof(BoxCollider2D))
+]
 public class Controller : MonoBehaviour
 {
     #region Variables
@@ -17,33 +20,61 @@ public class Controller : MonoBehaviour
 
     #region Stats
     [Header("Base Stats")]
-    [SerializeField, Tooltip("Constitution (maximum health)")] public int constitution = 9;
-    [SerializeField, Tooltip("Dexterity (dodge chance)")] public int dexterity = 9;
-    [SerializeField, Tooltip("Strength (attack damage)")] public int strength = 9;
-    [SerializeField, Tooltip("Wisdom (ability damage)")] public int wisdom = 9;
-    [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
-    [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
-    [SerializeField, Tooltip("Sum of starting stats")] public int sum_of_starting_stats = 40;
+    [SerializeField, Tooltip("Constitution (maximum health)")]
+    public int constitution = 9;
 
-    [SerializeField] public int conModifier;
-    [SerializeField] public int dexModifier;
-    [SerializeField] public int strModifier;
-    [SerializeField] public int wisModifier;
+    [SerializeField, Tooltip("Dexterity (dodge chance)")]
+    public int dexterity = 9;
+
+    [SerializeField, Tooltip("Strength (attack damage)")]
+    public int strength = 9;
+
+    [SerializeField, Tooltip("Wisdom (ability damage)")]
+    public int wisdom = 9;
+
+    [SerializeField, Tooltip("Minimum stat roll")]
+    public int minimum_stat_roll = 1;
+
+    [SerializeField, Tooltip("Maximum stat roll")]
+    public int maximum_stat_roll = 7;
+
+    [SerializeField, Tooltip("Sum of starting stats")]
+    public int sum_of_starting_stats = 40;
+
+    [SerializeField]
+    public int conModifier;
+
+    [SerializeField]
+    public int dexModifier;
+
+    [SerializeField]
+    public int strModifier;
+
+    [SerializeField]
+    public int wisModifier;
 
     public int exp = 0;
 
-    [SerializeField] Slider expBarVisual;
+    [SerializeField]
+    Slider expBarVisual;
 
     [Space]
     #endregion
 
     #region Health
     [Header("Health")]
-    [SerializeField] Slider healthBarVisual;
-    [SerializeField] Transform respawnPoint;
+    [SerializeField]
+    Slider healthBarVisual;
+
+    [SerializeField]
+    Transform respawnPoint;
+
     [Space]
-    [HideInInspector] public Action onDie;
-    [HideInInspector] public int max_health;
+    [HideInInspector]
+    public Action onDie;
+
+    [HideInInspector]
+    public int max_health;
     public int health
     {
         get => _health;
@@ -51,7 +82,8 @@ public class Controller : MonoBehaviour
         {
             _health = value;
             _health = Math.Clamp(_health, 0, max_health);
-            if (healthBarVisual) healthBarVisual.value = health;
+            if (healthBarVisual)
+                healthBarVisual.value = health;
             if (_health <= 0)
             {
                 onDie?.Invoke();
@@ -64,32 +96,54 @@ public class Controller : MonoBehaviour
 
     #region Movement
     [Header("Movement")]
-    [SerializeField] LayerMask collideLayers;
+    [SerializeField]
+    LayerMask collideLayers;
+
     [Space]
     Vector2 current_player_direction = new Vector2(0, -1);
     #endregion
 
-    #region Player Update System 
-    [HideInInspector] public static Action OnTick;
-    [HideInInspector] public static Action OnMoved;
-    [HideInInspector] public EnemyMovement[] enemies;
-    [HideInInspector] public bool done_with_tick = true;
+    #region Player Update System
+    [HideInInspector]
+    public static Action OnTick;
+
+    [HideInInspector]
+    public static Action OnMoved;
+
+    [HideInInspector]
+    public EnemyMovement[] enemies;
+
+    [HideInInspector]
+    public bool done_with_tick = true;
     int current_enemy = 0;
     #endregion
 
-    #region Other 
+    #region Other
     [Header("Other")]
-    [SerializeField] public TextMeshProUGUI goldIndicator;
-    [SerializeField] public Animator animator;
-    [SerializeField] CameraScript mainCamera;
-    [SerializeField] GameObject tombstonePrefab;
-    [SerializeField] Item baseRespawnSword;
-    [HideInInspector] public PlayerSfx sfxPlayer;
-    [HideInInspector] public Inventory inventory;
+    [SerializeField]
+    private TextMeshProUGUI goldIndicator;
+
+    [SerializeField]
+    public Animator animator;
+
+    [SerializeField]
+    CameraScript mainCamera;
+
+    [SerializeField]
+    GameObject tombstonePrefab;
+
+    [SerializeField]
+    Item baseRespawnSword;
+
+    [HideInInspector]
+    public PlayerSfx sfxPlayer;
+
+    [HideInInspector]
+    public Inventory inventory;
 
     #endregion
 
-    #region Constants 
+    #region Constants
     const int KeyID = 1;
     #endregion
 
@@ -121,13 +175,17 @@ public class Controller : MonoBehaviour
         Up,
         Down,
         Left,
-        Right
+        Right,
     }
 
-    private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
+    private Dictionary<MovementDirection, MoveState> movementStates =
+        new Dictionary<MovementDirection, MoveState>();
 
-    [SerializeField] float initialMovementDelay = 0.3f;
-    [SerializeField] float holdDelay = 0.03f;
+    [SerializeField]
+    float initialMovementDelay = 0.3f;
+
+    [SerializeField]
+    float holdDelay = 0.03f;
 
     #endregion
 
@@ -143,9 +201,11 @@ public class Controller : MonoBehaviour
 
     private QuestState quest_state;
 
+    [HideInInspector]
+    public List<Quest> current_quests;
 
-    [HideInInspector] public List<Quest> current_quests;
-    [HideInInspector] public List<Quest> completed_quests;
+    [HideInInspector]
+    public List<Quest> completed_quests;
 
     #endregion
 
@@ -155,10 +215,26 @@ public class Controller : MonoBehaviour
         onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
         onDie += () =>
         {
-            var tombstone = Instantiate(tombstonePrefab, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity).GetComponent<Tombstone>();
+            var tombstone = Instantiate(
+                    tombstonePrefab,
+                    new Vector3(transform.position.x, transform.position.y, -5),
+                    Quaternion.identity
+                )
+                .GetComponent<Tombstone>();
             var unioned = inventory.slots.Union(inventory.equipSlots);
-            print(string.Join(", ", unioned.Select(slot => slot.name + (slot.slotsItem != null ? $"({slot.slotsItem.name})" : "(empty)"))));
-            Item[] items = unioned.Where(slot => slot.slotsItem != null).Select(slot => slot.slotsItem).ToArray();
+            print(
+                string.Join(
+                    ", ",
+                    unioned.Select(slot =>
+                        slot.name
+                        + (slot.slotsItem != null ? $"({slot.slotsItem.name})" : "(empty)")
+                    )
+                )
+            );
+            Item[] items = unioned
+                .Where(slot => slot.slotsItem != null)
+                .Select(slot => slot.slotsItem)
+                .ToArray();
             tombstone.SetItems(items);
             inventory.ClearInventory();
         };
@@ -182,10 +258,13 @@ public class Controller : MonoBehaviour
             newStats[i] = newStats[i] / total;
         }
 
-        var results = newStats.Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats)).ToArray();
+        var results = newStats
+            .Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats))
+            .ToArray();
 
         int diff = results.Sum() - sum_of_starting_stats;
-        if (diff != 0) results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
+        if (diff != 0)
+            results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
 
         strength = results[0];
         dexterity = results[1];
@@ -259,17 +338,24 @@ public class Controller : MonoBehaviour
         // rotation buttons
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            current_player_direction = new Vector2(-current_player_direction.y, current_player_direction.x); // rotate left
+            current_player_direction = new Vector2(
+                -current_player_direction.y,
+                current_player_direction.x
+            ); // rotate left
             PlayAnimation("idle", current_player_direction);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            current_player_direction = new Vector2(current_player_direction.y, -current_player_direction.x); // rotate right
+            current_player_direction = new Vector2(
+                current_player_direction.y,
+                -current_player_direction.x
+            ); // rotate right
             PlayAnimation("idle", current_player_direction);
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick) return;
+        if (!done_with_tick)
+            return;
 
         // Debug.Log("Done with tick, processing input");
 
@@ -299,8 +385,10 @@ public class Controller : MonoBehaviour
 
         Move();
 
-        if (Input.GetKeyDown(KeyCode.J) && Input.GetKey(KeyCode.LeftShift)) health += 1;
-        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift)) DamagePlayer(10, false);
+        if (Input.GetKeyDown(KeyCode.J) && Input.GetKey(KeyCode.LeftShift))
+            health += 1;
+        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift))
+            DamagePlayer(10, false);
     }
 
     void GodModeMove()
@@ -317,8 +405,7 @@ public class Controller : MonoBehaviour
 
     bool playerPressingButtons()
     {
-        return Input.GetKey(KeyCode.E) ||
-               Input.GetKey(KeyCode.V);
+        return Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.V);
     }
 
     void Move()
@@ -326,18 +413,19 @@ public class Controller : MonoBehaviour
         // Debug.Log("Starting player movement");
         Vector2 direction = GetAxis();
         bool stickMoved = direction.magnitude != 0;
-        if (!stickMoved && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
+        if (!stickMoved && !playerPressingButtons())
+            return; // if the player is not pressing a movement key, do nothing
         if (stickMoved)
         {
             current_player_direction = direction;
         }
-
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
         bool canMove = CanMove(objectsAhead);
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
+        bool did_something = false;
         if (canMove && stickMoved)
         {
 
@@ -345,9 +433,10 @@ public class Controller : MonoBehaviour
             sfxPlayer.PlayWalkSound();
             OnMoved?.Invoke();
             FinishTick();
+            did_something = true;
         }
 
-        bool did_something = false;
+        // Debug.Log(objectsAhead.Length + " objects ahead");
         if (Input.GetKey(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
@@ -363,17 +452,22 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.V))
         {
-            Debug.Log("V pressed, checking for enemies to attack");
+            // Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
-            CanBeDamaged[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
-            bool attackWorked = Weapon.GetCurrentWeapon().AttackEnemies(enemies, current_player_direction);
+            CanFight[] enemies = Weapon
+                .GetCurrentWeapon()
+                .GetFightablesInDamageArea(transform.position, angle);
+            bool attackWorked = Weapon
+                .GetCurrentWeapon()
+                .AttackEnemies(enemies, current_player_direction);
             // TODO: do animation + sfx
             if (attackWorked)
             {
                 did_something = true;
             }
         }
-        if (!did_something) FinishTick();
+        if (!did_something)
+            FinishTick();
     }
 
     public void UpdateConstitutionModifier(int conDiff)
@@ -429,21 +523,6 @@ public class Controller : MonoBehaviour
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    // private void Attack(CanFight enemy, Vector2 direction)
-    // {
-    //     BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
-
-    //     if (attack.CanUse(enemy, direction))
-    //     {
-    //         print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
-    //         attack.Attack(enemy, direction, animator, sfxPlayer);
-    //     }
-    //     else
-    //     {
-    //         FinishTick();
-    //     }
-    // }
-
     public void KilledEnemy(EnemyType enemy)
     {
         switch (enemy)
@@ -463,7 +542,8 @@ public class Controller : MonoBehaviour
                     }
                     break;
                 }
-            default: break;
+            default:
+                break;
         }
     }
 
@@ -507,7 +587,6 @@ public class Controller : MonoBehaviour
 
         // todo: allow people to rebind movement keys
 
-
         bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
         bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
         bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
@@ -533,8 +612,11 @@ public class Controller : MonoBehaviour
     GameObject[] SendRaycast(Vector2 direction)
     {
         Vector2 world_position = (Vector2)transform.position + (direction * .51f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
-        Debug.DrawLine(new Vector3(world_position.x, world_position.y, 0), new Vector3(world_position.x + direction.x * .5f, world_position.y + direction.y * .5f, 0), Color.green, 0.2f, false);
-        return Physics2D.RaycastAll(world_position, direction, .5f).Select(hit => hit.collider.gameObject).ToArray();
+        Debug.DrawRay(world_position, direction, Color.green, 0.2f, false);
+        return Physics2D
+            .RaycastAll(world_position, direction, .5f)
+            .Select(hit => hit.collider.gameObject)
+            .ToArray();
     }
 
     string DirectionToAnimationLabel(Vector2 direction)
@@ -565,8 +647,10 @@ public class Controller : MonoBehaviour
 
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
-        if (facingDirection == null || facingDirection == Vector2.zero) facingDirection = current_player_direction;
-        string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
+        if (facingDirection == null || facingDirection == Vector2.zero)
+            facingDirection = current_player_direction;
+        string animation =
+            $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
     }
 

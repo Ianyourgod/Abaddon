@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using TMPro;
 
 [RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
 
@@ -78,6 +79,7 @@ public class Controller : MonoBehaviour
 
     #region Other 
     [Header("Other")]
+    [SerializeField] public TextMeshProUGUI goldIndicator;
     [SerializeField] public Animator animator;
     [SerializeField] CameraScript mainCamera;
     [SerializeField] GameObject tombstonePrefab;
@@ -93,6 +95,16 @@ public class Controller : MonoBehaviour
 
     #region Local Things
     private bool god_mode = false;
+    private int _goldCount = 0;
+    public int goldCount
+    {
+        get => _goldCount;
+        set
+        {
+            goldIndicator.text = $"Gold: {value}";
+            _goldCount = value;
+        }
+    }
     private (bool, bool) god_mode_keys = (false, false);
     #endregion
 
@@ -336,7 +348,6 @@ public class Controller : MonoBehaviour
         }
 
         bool did_something = false;
-        Debug.Log(objectsAhead.Length + " objects ahead");
         if (Input.GetKey(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
@@ -354,7 +365,7 @@ public class Controller : MonoBehaviour
         {
             Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
-            CanFight[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
+            CanBeDamaged[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
             bool attackWorked = Weapon.GetCurrentWeapon().AttackEnemies(enemies, current_player_direction);
             // TODO: do animation + sfx
             if (attackWorked)
@@ -396,9 +407,9 @@ public class Controller : MonoBehaviour
         // No need to update anything else, since wisdom is only used for ability damage
     }
 
-    public uint GetDamageModifier()
+    public int GetDamageModifier()
     {
-        return (uint)(strength + strModifier - 10) / 2;
+        return (strength + strModifier - 10) / 2;
     }
 
     public void FinishTick()

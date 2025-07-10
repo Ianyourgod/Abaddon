@@ -8,13 +8,13 @@ using System;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public static uint baseDamage = 2;
+    public static int baseDamage = 2;
     public static Vector2 baseSize = new Vector2(1f, 1f);
 
     private float lastAttackTime;
 
     public abstract Vector2 GetSize();
-    public abstract uint GetDamage();
+    public abstract int GetDamage();
 
     public static Weapon GetCurrentWeapon()
     {
@@ -42,23 +42,23 @@ public abstract class Weapon : MonoBehaviour
         return new Sword(); // Default to Sword if no weapon is equipped
     }
 
-    public CanFight[] GetFightablesInDamageArea(Vector2 position, float orientation)
+    public CanBeDamaged[] GetFightablesInDamageArea(Vector2 position, float orientation)
     {
         Vector2 boxCenter = position + new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)) * 0.5f;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, GetSize() * 2, 0f);
-        List<CanFight> fightables = new List<CanFight>();
+        List<CanBeDamaged> fightables = new List<CanBeDamaged>();
         foreach (Collider2D collider in colliders)
         {
-            if (collider.TryGetComponent(out CanFight fightable))
+            if (collider.TryGetComponent(out CanBeDamaged fightable))
             {
                 fightables.Add(fightable);
             }
         }
         return fightables.ToArray();
     }
-    public bool AttackEnemies(CanFight[] enemies, Vector2 direction)
+    public bool AttackEnemies(CanBeDamaged[] enemies, Vector2 direction)
     {
-        uint calculatedDamage = GetDamage() + Controller.main.GetDamageModifier();
+        int calculatedDamage = GetDamage() + Controller.main.GetDamageModifier();
         Debug.Log($"Attacking with damage: {calculatedDamage}");
         // if (Time.time - lastAttackTime < GetAttackSpeed())
         // {
@@ -72,7 +72,7 @@ public abstract class Weapon : MonoBehaviour
         Controller.main.animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
         Controller.main.sfxPlayer.PlayAttackSound();
         Controller.main.PlayAnimation("attack", direction);
-        foreach (CanFight enemy in enemies)
+        foreach (CanBeDamaged enemy in enemies)
         {
             enemy.Hurt(calculatedDamage);
         }

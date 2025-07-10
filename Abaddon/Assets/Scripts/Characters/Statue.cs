@@ -5,7 +5,7 @@ using UnityEngine;
 public class Statue : MonoBehaviour, CanFight
 {
     [HideInInspector] public Boss1 boss;
-    [SerializeField] uint health = 20;
+    [SerializeField] int health = 20;
     [SerializeField] Animator animator;
 
     public void Attack()
@@ -18,7 +18,7 @@ public class Statue : MonoBehaviour, CanFight
         return EnemyType.Statue;
     }
 
-    public uint Heal(uint amount)
+    public int Heal(int amount)
     {
         health += amount;
         Debug.Log("statue health " + health);
@@ -26,7 +26,7 @@ public class Statue : MonoBehaviour, CanFight
         return 0; // the statue does not have max health 
     }
 
-    public void Hurt(uint damage)
+    public int Hurt(int damage)
     {
         if (damage >= health)
         {
@@ -43,6 +43,7 @@ public class Statue : MonoBehaviour, CanFight
                                 : 1;
 
         PlayAnimation($"damage{damage_level}");
+        return health; // Return remaining health
     }
 
     public void Die()

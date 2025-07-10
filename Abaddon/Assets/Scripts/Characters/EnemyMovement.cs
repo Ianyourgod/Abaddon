@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     [SerializeField] float enemyDecisionDelay;
     [SerializeField] EnemyType enemyType;
 
-    public uint health = 10;
+    public int health = 10;
     private Vector2 direction = Vector2.zero;
 
     private Vector2 movementTarget;
@@ -271,7 +271,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         pathfinding.grid.DrawGizmos();
     }
 
-    public void Hurt(uint damage)
+    public int Hurt(int damage)
     {
         if (damage >= health)
         {
@@ -281,7 +281,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
             Controller.main.add_exp(Random.Range(1, 4));
-            GetComponent<ItemDropper>().Die();
+            GetComponent<ItemDropper>().DropRandomItem();
             PlayAnimation(direction, "death");
         }
         else
@@ -291,9 +291,10 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.PlayHurtSound();
             health -= damage;
         }
+        return (int)health; // Return remaining health as int
     }
 
-    public uint Heal(uint amount)
+    public int Heal(int amount)
     {
         health += amount;
         return health;

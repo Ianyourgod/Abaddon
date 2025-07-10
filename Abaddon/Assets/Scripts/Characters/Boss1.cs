@@ -35,7 +35,8 @@ public class Boss1 : MonoBehaviour, CanFight
         Controller.OnTick += CustomUpdate;
     }
 
-    public EnemyType GetEnemyType() {
+    public EnemyType GetEnemyType()
+    {
         return EnemyType.Boss1;
     }
 
@@ -134,12 +135,10 @@ public class Boss1 : MonoBehaviour, CanFight
         animator.Play(animation);
     }
 
-    public void Hurt(uint _damage)
+    public int Hurt(int damage)
     {
-        int damage = (int)_damage;
-
         print(health);
-        
+
         if (inFight && stage % 2 == 0)
         {
             health -= damage;
@@ -161,13 +160,13 @@ public class Boss1 : MonoBehaviour, CanFight
                 }
             }
         }
+        return health;
     }
 
-    public uint Heal(uint _amount)
+    public int Heal(int amount)
     {
-        int amount = (int)_amount;
         health += amount;
-        return (uint)health;
+        return health;
     }
 
     void OnDrawGizmosSelected()

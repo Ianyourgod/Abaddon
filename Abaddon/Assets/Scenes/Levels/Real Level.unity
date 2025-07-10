@@ -21553,7 +21553,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    closeOnEsc: 0
+    closeOnEsc: 1
   - state: 0
     overrides: 
     inhibits: 

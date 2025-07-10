@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class RealTextFadeUp : MonoBehaviour
 {
-    [SerializeField] public TMP_Text textObject;
+    [SerializeField]
+    public TMP_Text textObject;
 
     public float minimum = 0f;
     public float maximum = 1f;
@@ -26,9 +27,15 @@ public class RealTextFadeUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!textObject) return;
+        if (!textObject)
+            return;
         transform.position = new Vector3(transform.position.x, Mathf.Lerp(minimum, maximum, t), 0);
-        textObject.color = new Color(textObject.color.r, textObject.color.g, textObject.color.b, Mathf.Lerp(1f, 0f, t));
+        textObject.color = new Color(
+            textObject.color.r,
+            textObject.color.g,
+            textObject.color.b,
+            Mathf.Lerp(1f, 0f, t)
+        );
 
         t += 0.5f * Time.deltaTime;
         if (t > timeLimit)

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Shopkeeper : GenericNPC
 {
-    [SerializeField] private Message[] purchaseMessages;
-    [SerializeField] private Item[] shopContents;
-    [SerializeField] private Inventory inventory;
+    [SerializeField]
+    private Message[] purchaseMessages;
+
+    [SerializeField]
+    private Item[] shopContents;
+
+    [SerializeField]
+    private Inventory inventory;
 
     /*
     Message[] m = messages;
@@ -21,7 +26,6 @@ public class Shopkeeper : GenericNPC
     {
         onFinish = () =>
         {
-            
             print("opening ui");
             UIStateManager.singleton.OpenUIPage(UIState.Shop);
         };

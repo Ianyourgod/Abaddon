@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class GenericNPC : MonoBehaviour, CanCommunicateWith
 {
-    [SerializeField] public string npcName;
-    [SerializeField] public Message[] messages;
+    [SerializeField]
+    public string npcName;
+
+    [SerializeField]
+    public Message[] messages;
 
     protected Action onFinish = null;
 
@@ -17,7 +20,6 @@ public class GenericNPC : MonoBehaviour, CanCommunicateWith
         DialogueVisualiser.singleton.SetQueueAndPlayFirst(onFinish, messages);
     }
 }
-
 
 public interface CanCommunicateWith
 {

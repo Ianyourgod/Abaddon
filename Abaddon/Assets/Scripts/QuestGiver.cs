@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class QuestGiver : GenericNPC
 {
-    [SerializeField] private Message[] completionMessages;
-    [SerializeField] public Controller.Quest questID;
-    [SerializeField] private Item reward;
-    [SerializeField] private Inventory inventory;
+    [SerializeField]
+    private Message[] completionMessages;
+
+    [SerializeField]
+    public Controller.Quest questID;
+
+    [SerializeField]
+    private Item reward;
+
+    [SerializeField]
+    private Inventory inventory;
 
     public override void StartConversation()
     {
-        if (Controller.main == null) return;
+        if (Controller.main == null)
+            return;
 
         print(questID);
         print(Controller.main.completed_quests.ToString());

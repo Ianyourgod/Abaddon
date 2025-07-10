@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class UITesting : MonoBehaviour
 {
-    [SerializeField] private Message[] messages;
+    [SerializeField]
+    private Message[] messages;
     private UIStateManager uiManager;
 
     void Awake()

@@ -8,9 +8,14 @@ using ImageComponent = UnityEngine.UI.Image; //To make the Image class be the co
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] float timeToEnter;
-    [SerializeField, Range(0, 1)] float shopDarknessLevel;
-    [SerializeField] TextMeshProUGUI textMeshPro;
+    [SerializeField]
+    float timeToEnter;
+
+    [SerializeField, Range(0, 1)]
+    float shopDarknessLevel;
+
+    [SerializeField]
+    TextMeshProUGUI textMeshPro;
 
     public void OnEnable()
     {
@@ -28,5 +33,5 @@ public class Shop : MonoBehaviour
     {
         // TODO!!!!! Track the actual name of the item
         textMeshPro.text = item.name;
-    } 
+    }
 }

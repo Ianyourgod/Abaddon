@@ -5,9 +5,14 @@ using UnityEngine;
 public class MusicPlayer : MonoBehaviour
 {
     [Tooltip("Reference the scene's AudioManager to see each song's number.")]
-    [SerializeField] int songNumber;
-    [SerializeField] bool playOnStart;
-    [SerializeField] bool playOnCollision;
+    [SerializeField]
+    int songNumber;
+
+    [SerializeField]
+    bool playOnStart;
+
+    [SerializeField]
+    bool playOnCollision;
     private GameObject player;
     bool activated = false;
 

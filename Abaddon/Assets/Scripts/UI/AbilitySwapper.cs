@@ -5,20 +5,29 @@ using UnityEngine.UI;
 
 public class AbilitySwapper : MonoBehaviour
 {
-    [SerializeField] Image image;
-    [SerializeField] Sprite spriteOne;
-    [SerializeField] Sprite spriteTwo;
-    [SerializeField] Sprite spriteThree;
+    [SerializeField]
+    Image image;
+
+    [SerializeField]
+    Sprite spriteOne;
+
+    [SerializeField]
+    Sprite spriteTwo;
+
+    [SerializeField]
+    Sprite spriteThree;
 
     public enum Ability
     {
         Attack,
         TempAbility,
-        Other2
+        Other2,
     }
 
     private static int currently_selected_int = 0;
-    [HideInInspector] public static Ability currently_selected = Ability.Attack;
+
+    [HideInInspector]
+    public static Ability currently_selected = Ability.Attack;
 
     void Start()
     {
@@ -50,9 +59,15 @@ public class AbilitySwapper : MonoBehaviour
     {
         switch (n)
         {
-            case Ability.Attack: image.sprite = spriteOne; break;
-            case Ability.TempAbility: image.sprite = spriteTwo; break;
-            case Ability.Other2: image.sprite = spriteThree; break;
+            case Ability.Attack:
+                image.sprite = spriteOne;
+                break;
+            case Ability.TempAbility:
+                image.sprite = spriteTwo;
+                break;
+            case Ability.Other2:
+                image.sprite = spriteThree;
+                break;
         }
     }
 

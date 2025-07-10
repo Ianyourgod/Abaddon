@@ -5,19 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField] string SceneTarget;
+    [SerializeField]
+    string SceneTarget;
 
     // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    void Start() { }
 
     // Update is called once per frame
-    void Update()
-    {
-
-    }
+    void Update() { }
 
     public void PortalTravel()
     {

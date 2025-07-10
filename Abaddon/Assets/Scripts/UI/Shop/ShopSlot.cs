@@ -8,8 +8,11 @@ using ImageComponent = UnityEngine.UI.Image; //To make the Image class be the co
 
 public class ShopSlot : MonoBehaviour
 {
-    [SerializeField] Shop shop;
-    [SerializeField] Item item;
+    [SerializeField]
+    Shop shop;
+
+    [SerializeField]
+    Item item;
     ImageComponent image;
 
     void Awake()

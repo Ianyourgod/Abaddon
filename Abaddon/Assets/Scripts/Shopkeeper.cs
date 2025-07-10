@@ -19,6 +19,12 @@ public class Shopkeeper : GenericNPC
 
     public override void StartConversation()
     {
+        onFinish = () =>
+        {
+            
+            print("opening ui");
+            UIStateManager.singleton.OpenUIPage(UIState.Shop);
+        };
         base.StartConversation();
     }
 }

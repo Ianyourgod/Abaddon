@@ -20219,6 +20219,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
   m_PrefabInstance: {fileID: 715850490}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &717580322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6041179290915918698, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
+  m_PrefabInstance: {fileID: 1402642064}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &719806331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21548,10 +21553,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    closeOnEsc: 0
   - state: 0
     overrides: 
     inhibits: 
-    screenObject: {fileID: 0}
+    screenObject: {fileID: 1715716650575989856}
     defaultKey: 27
     onEnable:
       m_PersistentCalls:
@@ -21583,6 +21589,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    closeOnEsc: 0
   - state: 4
     overrides: 030000000200000000000000
     inhibits: 
@@ -21642,6 +21649,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+    closeOnEsc: 0
   - state: 3
     overrides: 010000000200000000000000
     inhibits: 
@@ -21701,6 +21709,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+    closeOnEsc: 0
   - state: 1
     overrides: 
     inhibits: 
@@ -21712,6 +21721,43 @@ MonoBehaviour:
     onDisable:
       m_PersistentCalls:
         m_Calls: []
+    closeOnEsc: 0
+  - state: 5
+    overrides: 00000000
+    inhibits: 
+    screenObject: {fileID: 717580322}
+    defaultKey: 264
+    onEnable:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 717580322}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onDisable:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 717580322}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    closeOnEsc: 1
   MainMenuScene: Main Menu
 --- !u!114 &1061819241 stripped
 MonoBehaviour:
@@ -22670,9 +22716,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -224}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 349, y: -206.2}
+  m_SizeDelta: {x: 96, y: 32}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1278404479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22706,7 +22752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ef04ad9a5747cc3d7a8612c71de375d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1d07b394124a14a292d88928bb9b219, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -41207,6 +41253,14 @@ PrefabInstance:
     - target: {fileID: 5574912101336230554, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913457844737581165, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
+      propertyPath: timeToEnter
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913457844737581165, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
+      propertyPath: shopDarknessLevel
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6041179290915918698, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
       propertyPath: m_Name
@@ -76434,7 +76488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076af447aa03c281fae1cdf985cb6b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {fileID: 0}
+  targetPosition: {fileID: 338380353}
   timeToEnter: 5
   pausedDarknessLevel: 0.75
 --- !u!114 &2196849675972469318

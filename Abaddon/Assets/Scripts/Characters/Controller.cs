@@ -336,7 +336,6 @@ public class Controller : MonoBehaviour
         }
 
         bool did_something = false;
-        Debug.Log(objectsAhead.Length + " objects ahead");
         if (Input.GetKey(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)

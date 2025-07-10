@@ -14,6 +14,6 @@ public class InteractionButton : MonoBehaviour
 
     void Update()
     {
-        image.enabled = Controller.main.CanStartConversation();
+        image.enabled = Controller.main.enabled && Controller.main.CanStartConversation();
     }
 }

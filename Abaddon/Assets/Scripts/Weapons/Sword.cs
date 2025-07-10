@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class Sword : Weapon
 {
     public static new int baseDamage = 3;

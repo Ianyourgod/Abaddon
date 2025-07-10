@@ -28,7 +28,7 @@ public enum EnemyType
 {
     Gnome,
     Boss1,
-    Statue
+    Statue,
 }
 
 public interface CanFight : CanBeKilled

@@ -21712,7 +21712,7 @@ MonoBehaviour:
     closeOnEsc: 0
   - state: 1
     overrides: 
-    inhibits: 
+    inhibits: 02000000
     screenObject: {fileID: 1432934391}
     defaultKey: 0
     onEnable:
@@ -21724,7 +21724,7 @@ MonoBehaviour:
     closeOnEsc: 0
   - state: 5
     overrides: 00000000
-    inhibits: 
+    inhibits: 02000000
     screenObject: {fileID: 717580322}
     defaultKey: 264
     onEnable:

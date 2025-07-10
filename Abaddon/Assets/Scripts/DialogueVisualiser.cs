@@ -103,20 +103,20 @@ public class DialogueVisualiser : MonoBehaviour
         switch (usingCPS)
         {
             case TimeSettings.TotalTime:
-                {
-                    startAmount = time;
-                    break;
-                }
+            {
+                startAmount = time;
+                break;
+            }
             case TimeSettings.CharsPerSecond:
-                {
-                    startAmount = message.Length / time;
-                    break;
-                }
+            {
+                startAmount = message.Length / time;
+                break;
+            }
             case TimeSettings.SecondsPerChar:
-                {
-                    startAmount = message.Length * time;
-                    break;
-                }
+            {
+                startAmount = message.Length * time;
+                break;
+            }
         }
         timeLeftToType = startAmount;
         currentMessage = message;
@@ -157,12 +157,14 @@ public class DialogueVisualiser : MonoBehaviour
     }
 
     public void ClearQueue() => messageQueue.Clear();
+
     public void SetQueue(System.Action onFinish = null, params Message[] messages)
     {
         onDoneTalking = onFinish;
         messageQueue.Clear();
         messageQueue.AddRange(messages);
     }
+
     public void SetQueueAndPlayFirst(System.Action onFinish = null, params Message[] messages)
     {
         onDoneTalking = onFinish;
@@ -170,14 +172,23 @@ public class DialogueVisualiser : MonoBehaviour
         messageQueue.AddRange(messages);
         PlayCurrentMessage();
     }
+
     public void SetQueueAndPlayFirst(System.Action onFinish = null, params string[] messages)
     {
         onDoneTalking = onFinish;
         messageQueue.Clear();
-        messageQueue.AddRange(messages.Select((m) => new Message(m, 8, TimeSettings.CharsPerSecond, null)));
+        messageQueue.AddRange(
+            messages.Select((m) => new Message(m, 8, TimeSettings.CharsPerSecond, null))
+        );
         PlayCurrentMessage();
     }
-    public void SetQueue(float timeForAll, TimeSettings usingCharacterTime, System.Action onFinish = null, params string[] strings)
+
+    public void SetQueue(
+        float timeForAll,
+        TimeSettings usingCharacterTime,
+        System.Action onFinish = null,
+        params string[] strings
+    )
     {
         onDoneTalking = onFinish;
         messageQueue.Clear();

@@ -10,7 +10,11 @@ public class GoldItem : MonoBehaviour
 
     void CheckIfGoldShouldBeCollected()
     {
-        if (Vector2.Distance(transform.position, Controller.main.transform.position) < GetComponent<CircleCollider2D>().radius) CollectGold();
+        if (
+            Vector2.Distance(transform.position, Controller.main.transform.position)
+            < GetComponent<CircleCollider2D>().radius
+        )
+            CollectGold();
     }
 
     void CollectGold()
@@ -23,7 +27,9 @@ public class GoldItem : MonoBehaviour
 
     bool WithinBox(Vector2 point, Vector2 boxCenter, float halfSize)
     {
-        return point.x >= boxCenter.x - halfSize && point.x <= boxCenter.x + halfSize &&
-               point.y >= boxCenter.y - halfSize && point.y <= boxCenter.y + halfSize;
+        return point.x >= boxCenter.x - halfSize
+            && point.x <= boxCenter.x + halfSize
+            && point.y >= boxCenter.y - halfSize
+            && point.y <= boxCenter.y + halfSize;
     }
 }

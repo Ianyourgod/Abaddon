@@ -21,11 +21,11 @@ public struct DropTableEntry
     }
 }
 
-
 [CreateAssetMenu(fileName = "DropTableSO", menuName = "")]
 public class DropTableSO : ScriptableObject
 {
-    [SerializeField] public DropTableEntry[] dropTable;
+    [SerializeField]
+    public DropTableEntry[] dropTable;
 
     public Dictionary<Item, float> ConvertToDictionary()
     {
@@ -50,5 +50,4 @@ public class DropTableSO : ScriptableObject
             index++;
         }
     }
-
 };

@@ -7,15 +7,23 @@ using UnityEngine.Rendering;
 
 public class ItemDropper : MonoBehaviour
 {
-    [SerializeField] public DropTableEntry[] dropTable;
-    [SerializeField] public GameObject goldCoinPrefab;
-    [SerializeField, Tooltip("Put both to zero to stop gold dropping")] public int minGoldDropAmmount = 1; // Minimum amount of gold to drop
-    [SerializeField, Tooltip("Put both to zero to stop gold dropping")] public int maxGoldDropAmmount = 1; // Minimum amount of gold to drop
+    [SerializeField]
+    public DropTableEntry[] dropTable;
+
+    [SerializeField]
+    public GameObject goldCoinPrefab;
+
+    [SerializeField, Tooltip("Put both to zero to stop gold dropping")]
+    public int minGoldDropAmmount = 1; // Minimum amount of gold to drop
+
+    [SerializeField, Tooltip("Put both to zero to stop gold dropping")]
+    public int maxGoldDropAmmount = 1; // Minimum amount of gold to drop
     private static float DECAY_RATE = 0.1f; // Rate at which the drop chance decays per same item in the players inventory
 
     public void ForceDrop(GameObject item)
     {
-        if (item == null) return;
+        if (item == null)
+            return;
 
         // Instantiate the item at the dropper's position and rotation
         GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
@@ -45,7 +53,10 @@ public class ItemDropper : MonoBehaviour
     private float DecayedChance(DropTableEntry entry)
     {
         // Take the base chance and subtract the decay based on the decay rate and # of those items in the player's inventory (with a minimum of 0)
-        return Mathf.Max(entry.chance - Controller.main.inventory.GetItemAmount(entry.item.ItemID) * DECAY_RATE, 0);
+        return Mathf.Max(
+            entry.chance - Controller.main.inventory.GetItemAmount(entry.item.ItemID) * DECAY_RATE,
+            0
+        );
     }
 
 #nullable enable
@@ -71,10 +82,12 @@ public class ItemDropper : MonoBehaviour
     {
         // Drop a random item from the drop table
         var item = GetRandomItem();
-        if (item) Instantiate(item, transform.position, Quaternion.identity);
+        if (item)
+            Instantiate(item, transform.position, Quaternion.identity);
 
         // Drop a random amount of gold
-        if (goldCoinPrefab == null) return;
+        if (goldCoinPrefab == null)
+            return;
 
         int randomCointCount = Random.Range(minGoldDropAmmount, maxGoldDropAmmount + 1);
         for (int i = 0; i < randomCointCount; i++)

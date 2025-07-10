@@ -33,10 +33,17 @@ public class EnemyMovement : MonoBehaviour, CanFight
     SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
-    [SerializeField] int detectionDistance = 4;
-    [SerializeField] float followDistance = 3f;
-    [SerializeField] float enemyDecisionDelay;
-    [SerializeField] EnemyType enemyType;
+    [SerializeField]
+    int detectionDistance = 4;
+
+    [SerializeField]
+    float followDistance = 3f;
+
+    [SerializeField]
+    float enemyDecisionDelay;
+
+    [SerializeField]
+    EnemyType enemyType;
 
     public int health = 10;
     private Vector2 direction = Vector2.zero;

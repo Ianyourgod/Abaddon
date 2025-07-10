@@ -6,26 +6,43 @@ using UnityEngine;
 
 public class Boss1 : MonoBehaviour, CanFight
 {
-    [SerializeField] GameObject statuePrefab;
-    [SerializeField] GameObject baseEnemy;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] Animator animator;
-    [SerializeField] int AllowedAttackTicks = 7;
-    [SerializeField] int Stages = 3;
-    [SerializeField] int enemiesPerStage = 2;
-    [SerializeField] Vector2Int roomSize = new Vector2Int(21, 11);
-    [SerializeField] int maxHealth = 15;
+    [SerializeField]
+    GameObject statuePrefab;
 
-    [HideInInspector] public bool inFight = false;
-    [HideInInspector] public int stage = 0;
+    [SerializeField]
+    GameObject baseEnemy;
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    int AllowedAttackTicks = 7;
+
+    [SerializeField]
+    int Stages = 3;
+
+    [SerializeField]
+    int enemiesPerStage = 2;
+
+    [SerializeField]
+    Vector2Int roomSize = new Vector2Int(21, 11);
+
+    [SerializeField]
+    int maxHealth = 15;
+
+    [HideInInspector]
+    public bool inFight = false;
+
+    [HideInInspector]
+    public int stage = 0;
     private int _health = 15;
     public int health
     {
         get { return _health; }
-        set
-        {
-            _health = Mathf.Clamp(value, 0, maxHealth);
-        }
+        set { _health = Mathf.Clamp(value, 0, maxHealth); }
     }
 
     private int ticks_till_move_back = 0;

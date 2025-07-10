@@ -13,7 +13,8 @@ public class NormalAttack : BaseAbility
         PlayerSfx sfxPlayer
     )
     {
-        if (Controller.main == null) return;
+        if (Controller.main == null)
+            return;
 
         enemy.Hurt(Controller.main.GetDamageModifier() + 2); // bad but we don't use this
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");

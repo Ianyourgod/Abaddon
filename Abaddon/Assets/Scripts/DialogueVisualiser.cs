@@ -157,31 +157,29 @@ public class DialogueVisualiser : MonoBehaviour
     }
 
     public void ClearQueue() => messageQueue.Clear();
-
-    public void SetQueue(params Message[] messages)
+    public void SetQueue(System.Action onFinish = null, params Message[] messages)
     {
+        onDoneTalking = onFinish;
         messageQueue.Clear();
         messageQueue.AddRange(messages);
     }
-
-    public void SetQueueAndPlayFirst(params Message[] messages)
+    public void SetQueueAndPlayFirst(System.Action onFinish = null, params Message[] messages)
     {
+        onDoneTalking = onFinish;
         messageQueue.Clear();
         messageQueue.AddRange(messages);
         PlayCurrentMessage();
     }
-
-    public void SetQueueAndPlayFirst(params string[] messages)
+    public void SetQueueAndPlayFirst(System.Action onFinish = null, params string[] messages)
     {
+        onDoneTalking = onFinish;
         messageQueue.Clear();
-        messageQueue.AddRange(
-            messages.Select((m) => new Message(m, 8, TimeSettings.CharsPerSecond, null))
-        );
+        messageQueue.AddRange(messages.Select((m) => new Message(m, 8, TimeSettings.CharsPerSecond, null)));
         PlayCurrentMessage();
     }
-
-    public void SetQueue(float timeForAll, TimeSettings usingCharacterTime, params string[] strings)
+    public void SetQueue(float timeForAll, TimeSettings usingCharacterTime, System.Action onFinish = null, params string[] strings)
     {
+        onDoneTalking = onFinish;
         messageQueue.Clear();
         Message[] messages = new Message[strings.Length];
         for (int i = 0; i < strings.Length; i++)
@@ -212,6 +210,7 @@ public class DialogueVisualiser : MonoBehaviour
         currentMessage = "";
         textbox.text = "";
         timeLeftToType = 0;
+        onDoneTalking?.Invoke();
     }
 
     public void PlayNextMessage()

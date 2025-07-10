@@ -14,6 +14,7 @@ public enum UIState
     Inventory,
     Death,
     Win,
+    Shop
 }
 
 [Serializable]
@@ -41,8 +42,10 @@ public struct UIScreen
     public KeyCode defaultKey;
 
     [Tooltip("The events that will be called when the screen is enabled/disabled.")]
-    public UnityEvent onEnable,
-        onDisable;
+    public UnityEvent onEnable, onDisable;
+
+    [Tooltip("Close the screen when ESC is pressed.")]
+    public bool closeOnEsc;
 }
 
 public class UIStateManager : MonoBehaviour
@@ -90,8 +93,8 @@ public class UIStateManager : MonoBehaviour
     {
         screens.ForEach(screen =>
         {
-            if (Input.GetKeyDown(screen.defaultKey))
-                ToggleUIPage(screen.state);
+            if (Input.GetKeyDown(screen.defaultKey)) ToggleUIPage(screen.state);
+            else if (screen.closeOnEsc && mostRecentState == screen.state && Input.GetKeyDown(KeyCode.Escape)) CloseUIPage(screen.state);
         });
 
         if (isBeingAltered && lerpSpeed != 0)

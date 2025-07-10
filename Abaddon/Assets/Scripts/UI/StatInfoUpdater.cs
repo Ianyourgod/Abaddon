@@ -1,30 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class StatInfoUpdater : MonoBehaviour
 {
-    private enum Stat {
+    private enum Stat
+    {
         Wisdom,
         Strength,
         Dexterity,
         Constitution,
-        Health
+        Health,
     }
 
-    [SerializeField] private TMP_Text text;
-    [SerializeField] private Stat stat;
+    [SerializeField]
+    private TMP_Text text;
+
+    [SerializeField]
+    private Stat stat;
+
     // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    void Start() { }
 
     // Update is called once per frame
     void Update()
     {
-        if (Controller.main == null) return;
+        if (Controller.main == null)
+            return;
+
         switch (stat)
         {
             case Stat.Wisdom:

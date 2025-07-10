@@ -3,14 +3,11 @@
 // Copyright (c) N-Studios. All Rights Reserved. \\
 //      https://nikichatv.com/N-Studios.html	  \\
 ///-----------------------------------------------\\\
-
-
-
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using System.Linq;
+using TMPro;
+using UnityEngine;
 
 [RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
@@ -18,46 +15,71 @@ public class Inventory : MonoBehaviour
 	[Header("Inventory Settings")]
 	[Tooltip("Put your whole inventory object inside here.")]
 	public GameObject inventoryObject;
+
 	[Tooltip("Assign your inventory object inside here.")]
 	public GameObject equipmentObject;
+
 	[Tooltip("equiptment object.")]
 	public GameObject statObject;
+
 	[Tooltip("stat object.")]
 	public GameObject craftObject;
+
 	[Tooltip("crafting :scream:")]
 	public GameObject levelUpObject;
-	[Tooltip("level up object.")]
 
+	[Tooltip("level up object.")]
 	public GameObject InventoryTabButton;
 	public GameObject LevelUpTabButton;
 	public GameObject shadow;
-	[Tooltip("Assign the game object thas is a parent for each of your hotbar slots. NOTE: It has to have the \"HotbarParent\" script attached to it.")]
+
+	[Tooltip(
+		"Assign the game object thas is a parent for each of your hotbar slots. NOTE: It has to have the \"HotbarParent\" script attached to it."
+	)]
 	public HotbarParent hotbarParent;
+
 	[Tooltip("Select a font for the amount displays.")]
 	public TMP_FontAsset font;
 
 	[Header("Forces")]
-	[Tooltip("Assign an empty game object it's position will be used as the point from where items will be dropped when thrown out of the inventory.")]
+	[Tooltip(
+		"Assign an empty game object it's position will be used as the point from where items will be dropped when thrown out of the inventory."
+	)]
 	public Transform throwPosition;
-	[Tooltip("This is distance from which the player can pick items. The red wire sphere displays the maximum distance in the editor window.")]
+
+	[Tooltip(
+		"This is distance from which the player can pick items. The red wire sphere displays the maximum distance in the editor window."
+	)]
 	public float pickupRange;
+
 	[Tooltip("This is the upward force that will be applied to the item when throwing it.")]
 	public float throwForceUp;
+
 	[Tooltip("This is the forward force that will be applied to the item when throwing it.")]
 	public float throwForceForward;
-	[Tooltip("Select your movement script of choice. It could be our built-in FPS controller or any other.")]
+
+	[Tooltip(
+		"Select your movement script of choice. It could be our built-in FPS controller or any other."
+	)]
 	public Controller playerMovement;
 
 	[Header("Slots")]
-	[Tooltip("Drag all of your slots in here. NOTE: They HAVE to be in ascending order or else the items will not go to the first empty slot but in a random one!")]
+	[Tooltip(
+		"Drag all of your slots in here. NOTE: They HAVE to be in ascending order or else the items will not go to the first empty slot but in a random one!"
+	)]
 	public Slot[] slots;
-	[Tooltip("Drag all of your equipment slots in here. NOTE: They HAVE to be in ascending order or else the items will not go to the first empty slot but in a random one!")]
+
+	[Tooltip(
+		"Drag all of your equipment slots in here. NOTE: They HAVE to be in ascending order or else the items will not go to the first empty slot but in a random one!"
+	)]
 	public Slot[] equipSlots;
+
 	[Tooltip("no tooltip for you")]
 	public StatInfoUpdater[] statValues;
 
 	[HideInInspector]
 	public List<Slot> emptySlots;
+
 	[HideInInspector]
 	public bool readyToAdd = true;
 
@@ -81,17 +103,20 @@ public class Inventory : MonoBehaviour
 	{
 		for (int i = 0; i < slots.Length; i++)
 		{
-			if (!slots[i].slotsItem && !slots[i].gameObject.GetComponent<EquipmentSlot>()) emptySlots.Add(slots[i]);
+			if (!slots[i].slotsItem && !slots[i].gameObject.GetComponent<EquipmentSlot>())
+				emptySlots.Add(slots[i]);
 		}
 
 		foreach (Slot slot in slots)
 		{
-			if (slot) slot.CustomStart();
+			if (slot)
+				slot.CustomStart();
 		}
 
 		foreach (Slot slot in equipSlots)
 		{
-			if (slot) slot.CustomStart();
+			if (slot)
+				slot.CustomStart();
 		}
 
 		CloseAllTabs();
@@ -102,12 +127,17 @@ public class Inventory : MonoBehaviour
 
 	private void Update()
 	{
-		if (UIStateManager.singleton.mostRecentState == UIState.Pause) return;
-		if (Input.GetKeyDown(KeyCode.Tab)) UIStateManager.singleton.ToggleUIPage(UIState.Inventory);
+		if (UIStateManager.singleton == null)
+			return;
+		if (UIStateManager.singleton.mostRecentState == UIState.Pause)
+			return;
+		if (Input.GetKeyDown(KeyCode.Tab))
+			UIStateManager.singleton.ToggleUIPage(UIState.Inventory);
 
 		foreach (Slot i in slots)
 		{
-			if (i) i.CheckForItem();
+			if (i)
+				i.CheckForItem();
 		}
 
 		foreach (Slot i in equipSlots)
@@ -123,7 +153,9 @@ public class Inventory : MonoBehaviour
 
 		if (index < 0 || index >= slotArray.Length)
 		{
-			Debug.LogWarning($"AddItemAtIndex: Index {index} is out of range for {(isEquipmentSlot ? "equipSlots" : "slots")}");
+			Debug.LogWarning(
+				$"AddItemAtIndex: Index {index} is out of range for {(isEquipmentSlot ? "equipSlots" : "slots")}"
+			);
 			return false;
 		}
 
@@ -134,7 +166,9 @@ public class Inventory : MonoBehaviour
 		// If there's already an item there, destroy or drop it if you want — up to you
 		if (!wasEmpty)
 		{
-			Debug.LogWarning($"AddItemAtIndex: Slot {index} already has an item. It will be replaced.");
+			Debug.LogWarning(
+				$"AddItemAtIndex: Slot {index} already has an item. It will be replaced."
+			);
 			Destroy(targetSlot.slotsItem.gameObject);
 		}
 
@@ -165,7 +199,8 @@ public class Inventory : MonoBehaviour
 		//Cursor.lockState = CursorLockMode.None;
 
 		playerMovement.enabled = false;
-		if (shadow) shadow.SetActive(true);
+		if (shadow)
+			shadow.SetActive(true);
 	}
 
 	public void CloseInventory()
@@ -179,7 +214,8 @@ public class Inventory : MonoBehaviour
 		//Cursor.visible = false;
 		//Cursor.lockState = CursorLockMode.Locked;
 		playerMovement.enabled = true;
-		if (shadow) shadow.SetActive(false);
+		if (shadow)
+			shadow.SetActive(false);
 	}
 
 	public bool CheckIfItemExists(int id)
@@ -199,6 +235,23 @@ public class Inventory : MonoBehaviour
 		return false;
 	}
 
+	public Item[] GetItemsByID(int id)
+	{
+		List<Item> items = new List<Item>();
+		foreach (Slot slot in slots)
+		{
+			if (slot.slotsItem)
+			{
+				Item z = slot.slotsItem;
+				if (z.ItemID == id)
+				{
+					items.Add(z);
+				}
+			}
+		}
+		return items.ToArray();
+	}
+
 	public void SwapTuahTheStats()
 	{
 		current_tab = Tab.LevelUp;
@@ -209,7 +262,8 @@ public class Inventory : MonoBehaviour
 	{
 		foreach (Slot i in slots.Union(equipSlots))
 		{
-			if (!i) continue;
+			if (!i)
+				continue;
 
 			Destroy(i.slotsItem?.gameObject);
 			i.slotsItem = null;
@@ -325,7 +379,6 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-
 	public void AddItems(List<Item> itemsToBeAdded)
 	{
 		IEnumerator waiter()
@@ -351,10 +404,15 @@ public class Inventory : MonoBehaviour
 
 			for (int i = 0; i < slots.Length; i++)
 			{
-				if (!slots[i].slotsItem && !slots[i].gameObject.GetComponent<EquipmentSlot>()) empty.Add(slots[i]);
+				if (!slots[i].slotsItem && !slots[i].gameObject.GetComponent<EquipmentSlot>())
+					empty.Add(slots[i]);
 			}
 
-			if (startingItem && startingItem.ItemID == itemToBeAdded.ItemID && startingItem.amountInStack < startingItem.maxStackSize)
+			if (
+				startingItem
+				&& startingItem.ItemID == itemToBeAdded.ItemID
+				&& startingItem.amountInStack < startingItem.maxStackSize
+			)
 			{
 				stackableItems.Add(startingItem);
 			}
@@ -364,7 +422,11 @@ public class Inventory : MonoBehaviour
 				if (slot.slotsItem)
 				{
 					Item itemOfCurSlot = slot.slotsItem;
-					if (itemOfCurSlot.ItemID == itemToBeAdded.ItemID && itemOfCurSlot.amountInStack < itemOfCurSlot.maxStackSize && itemOfCurSlot != startingItem)
+					if (
+						itemOfCurSlot.ItemID == itemToBeAdded.ItemID
+						&& itemOfCurSlot.amountInStack < itemOfCurSlot.maxStackSize
+						&& itemOfCurSlot != startingItem
+					)
 					{
 						stackableItems.Add(itemOfCurSlot);
 					}
@@ -388,7 +450,11 @@ public class Inventory : MonoBehaviour
 						i.transform.parent = null;
 						for (int z = 0; z < slots.Length; z++)
 						{
-							if (!slots[z].slotsItem && !slots[z].gameObject.GetComponent<EquipmentSlot>()) empty.Add(slots[z]);
+							if (
+								!slots[z].slotsItem
+								&& !slots[z].gameObject.GetComponent<EquipmentSlot>()
+							)
+								empty.Add(slots[z]);
 						}
 						AddItem(i);
 					}
@@ -421,7 +487,6 @@ public class Inventory : MonoBehaviour
 			StartCoroutine(ItemWait());
 		}
 	}
-
 
 	IEnumerator ItemWait()
 	{

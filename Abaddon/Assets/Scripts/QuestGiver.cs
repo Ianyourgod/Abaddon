@@ -11,6 +11,8 @@ public class QuestGiver : GenericNPC
 
     public override void StartConversation()
     {
+        if (Controller.main == null) return;
+
         print(questID);
         print(Controller.main.completed_quests.ToString());
         if (Controller.main.completed_quests.Contains(questID))

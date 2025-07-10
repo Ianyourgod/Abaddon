@@ -1,23 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 //using UnityEditor;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Pathfinding2D))]
 [RequireComponent(typeof(EnemySfx))]
 [RequireComponent(typeof(ItemDropper))]
-
 public class EnemyMovement : MonoBehaviour, CanFight
 {
     [Header("References")]
-    [SerializeField] LayerMask collideLayers;
-    [SerializeField] Animator animator;
-    [SerializeField] Pathfinding2D pathfinding;
-    [SerializeField] string animation_prefix = "Goblin";
-    [SerializeField] BaseAttack attack;
-    [SerializeField] SfxPlayer walkingSfxPlayer;
-    [SerializeField] SfxPlayer hurtSfxPlayer;
+    [SerializeField]
+    LayerMask collideLayers;
+
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    Pathfinding2D pathfinding;
+
+    [SerializeField]
+    string animation_prefix = "Goblin";
+
+    [SerializeField]
+    BaseAttack attack;
+
+    [SerializeField]
+    SfxPlayer walkingSfxPlayer;
+
+    [SerializeField]
+    SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
     [SerializeField] int detectionDistance = 4;
@@ -25,7 +38,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     [SerializeField] float enemyDecisionDelay;
     [SerializeField] EnemyType enemyType;
 
-    public uint health = 10;
+    public int health = 10;
     private Vector2 direction = Vector2.zero;
 
     private Vector2 movementTarget;
@@ -59,12 +72,22 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     bool CheckPlayerIsInDetectionRange()
     {
-        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
+        if (Controller.main == null)
+            return false;
+
+        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position)
+            <= detectionDistance;
     }
 
     bool CheckPlayerIsInFollowRange()
     {
-        float distance = UnityEngine.Vector2.Distance(Controller.main.transform.position, StartPosition);
+        if (Controller.main == null)
+            return false;
+
+        float distance = UnityEngine.Vector2.Distance(
+            Controller.main.transform.position,
+            StartPosition
+        );
         return distance <= followDistance;
     }
 
@@ -98,6 +121,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private void callNextEnemy()
     {
+        if (Controller.main == null)
+            return;
+
         Controller.main.NextEnemy();
     }
 
@@ -105,6 +131,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (CheckPlayerIsInDetectionRange())
         {
+            if (Controller.main == null)
+                return;
+
             followingPlayer = true;
             movementTarget = Controller.main.transform.position;
         }
@@ -130,19 +159,34 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private void Move(Vector2 direction)
     {
-        Collider2D hit = IsValidMove(direction);
+        RaycastHit2D[] hits = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
-        bool will_attack = attack.WillAttack(hit, direction);
+        bool will_attack = false;
+        foreach (RaycastHit2D hit in hits)
+        {
+            will_attack |= attack.WillAttack(hit, direction);
+            break;
+        }
+        bool can_move = true;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.name != this.name)
+            {
+                can_move = false;
+                break;
+            }
+        }
 
         if (will_attack)
         {
             Attack();
         }
-        else if (hit == null)
+        else if (can_move)
         {
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
+            // Debug.Log($"chika chika my name is {this.name} Moving in direction: {direction}");
             Invoke(nameof(callNextEnemy), 0f);
         }
         else
@@ -153,6 +197,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void Attack()
     {
+        if (Controller.main == null)
+            return;
+
         // GetComponent<CanFight>().Attack();
         Controller.main.enabled = false;
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
@@ -161,12 +208,20 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private static float Clamp(float value, float min, float max)
     {
-        return (value < min) ? min : (value > max) ? max : value;
+        return (value < min) ? min
+            : (value > max) ? max
+            : value;
     }
 
     private Vector2 ToPlayer()
     {
-        List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
+        if (Controller.main == null)
+            return Vector2.zero;
+
+        List<Node2D> path = pathfinding.FindPath(
+            transform.position,
+            Controller.main.transform.position
+        );
 
         if (path == null)
         {
@@ -229,21 +284,36 @@ public class EnemyMovement : MonoBehaviour, CanFight
         return new Vector2(horizontal, vertical);
     }
 
-    private Collider2D IsValidMove(Vector2 direction)
+    private RaycastHit2D[] IsValidMove(Vector2 direction)
     {
-        return Physics2D.OverlapCircle(transform.position + new Vector3(direction.x, direction.y, 0), 0.1f, collideLayers);
+        // return Physics2D.OverlapCircle(
+        //     transform.position + new Vector3(direction.x, direction.y, 0),
+        //     0.1f,
+        //     collideLayers
+        // );
+        var hits = Physics2D.RaycastAll(transform.position, direction, 1f, collideLayers);
+
+        if (hits.Length > 1)
+        {
+            Debug.DrawRay(transform.position, direction, Color.magenta, 0.2f, false);
+        }
+        return hits;
     }
 
     string DirectionToString(Vector2 direction)
     {
         direction = direction.normalized;
 
-        if (direction == Vector2.up) return "back";
-        else if (direction == Vector2.down) return "front";
-        else if (direction == Vector2.left) return "left";
-        else if (direction == Vector2.right) return "right";
-
-        else throw new System.Exception("Invalid direction to be converted to string: " + direction);
+        if (direction == Vector2.up)
+            return "back";
+        else if (direction == Vector2.down)
+            return "front";
+        else if (direction == Vector2.left)
+            return "left";
+        else if (direction == Vector2.right)
+            return "right";
+        else
+            throw new System.Exception("Invalid direction to be converted to string: " + direction);
     }
 
     private void PlayAnimation(Vector2 direction, string action)
@@ -271,7 +341,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         pathfinding.grid.DrawGizmos();
     }
 
-    public void Hurt(uint damage)
+    public int Hurt(int damage)
     {
         if (damage >= health)
         {
@@ -281,7 +351,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
             Controller.main.add_exp(Random.Range(1, 4));
-            GetComponent<ItemDropper>().Die();
+            GetComponent<ItemDropper>().DropRandomItem();
             PlayAnimation(direction, "death");
         }
         else
@@ -291,14 +361,14 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.PlayHurtSound();
             health -= damage;
         }
+        return health; // Return remaining health as int
     }
 
-    public uint Heal(uint amount)
+    public int Heal(int amount)
     {
         health += amount;
         return health;
     }
-
 
     public void Die()
     {
@@ -314,6 +384,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void AttackEnd(Vector2 direction)
     {
+        if (Controller.main == null)
+            return;
+
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");

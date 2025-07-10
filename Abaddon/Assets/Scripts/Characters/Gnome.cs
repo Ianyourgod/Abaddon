@@ -312,7 +312,6 @@
 //         sfxPlayer.PlayHurtSound();
 //         health -= damage;
 
-
 //         return true;
 //     }
 

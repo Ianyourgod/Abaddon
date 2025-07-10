@@ -1,20 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using System;
+using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
     public static Weapon defaultWeapon;
     public static uint baseDamage = 2;
-    public static Vector2 baseSize = new Vector2(1f, 1f);
-
+    public static Vector2 baseSize = new Vector2(1f, 1f); // length, width
 
     public abstract Vector2 GetSize();
     public abstract uint GetDamage();
+
+    public static Vector2 rotate(Vector2 v, float delta)
+    {
+        return new Vector2(
+            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
+            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
+        );
+    }
 
     public static Weapon GetDefaultWeapon()
     {
@@ -55,16 +62,25 @@ public abstract class Weapon : MonoBehaviour
     private static float tempDebugOrientation = 0f;
     private static Vector2 tempDebugPosition = Vector2.zero;
 
-
     public CanFight[] GetFightablesInDamageArea(Vector2 position, float orientation)
     {
         // orientation is in radians
         tempDebugOrientation = orientation;
         tempDebugPosition = position;
         Debug.Log(new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)));
-        Debug.Log($"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians");
-        Vector2 boxCenter = position + new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation));
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, GetSize() * 0.85f, orientation);
+        Debug.Log(
+            $"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians"
+        );
+        Vector2 rotatedBox = rotate(GetSize() * 0.85f, orientation);
+        // if you're looking at this
+        // please note that the center offset doesn't work completely but it does enough to hit the enemies intended
+        // up to 2 enemies long, at least
+        Vector2 centerOffset = new Vector2(
+            Mathf.Cos(orientation) * GetSize().x * 0.5f,
+            Mathf.Sin(orientation) * GetSize().x * 0.5f
+        );
+        Vector2 boxCenter = position + centerOffset;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, rotatedBox, 0f);
         List<CanFight> fightables = new List<CanFight>();
         foreach (Collider2D collider in colliders)
         {
@@ -79,10 +95,28 @@ public abstract class Weapon : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector3 rotatedSize = Quaternion.AngleAxis(tempDebugOrientation, Vector3.forward) * (GetSize() * 0.85f);
-        Gizmos.DrawWireCube(tempDebugPosition + new Vector2(Mathf.Cos(tempDebugOrientation), Mathf.Sin(tempDebugOrientation)), rotatedSize);
+        Vector2 centerOffset = new Vector2(
+            Mathf.Cos(tempDebugOrientation) * GetSize().x * 0.5f,
+            Mathf.Sin(tempDebugOrientation) * GetSize().x * 0.5f
+        );
+        Vector3 boxCenter = tempDebugPosition + centerOffset;
+
+        // Draw rotated wire cube using matrix transformation
+        Matrix4x4 oldMatrix = Gizmos.matrix;
+        Gizmos.matrix = Matrix4x4.TRS(
+            boxCenter,
+            Quaternion.Euler(0, 0, tempDebugOrientation * Mathf.Rad2Deg),
+            Vector3.one
+        );
+        Gizmos.DrawWireCube(Vector3.zero, GetSize() * 0.85f);
+        Gizmos.matrix = oldMatrix;
+
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(tempDebugPosition, tempDebugPosition + new Vector2(Mathf.Cos(tempDebugOrientation), Mathf.Sin(tempDebugOrientation)));
+        Gizmos.DrawLine(
+            tempDebugPosition,
+            tempDebugPosition
+                + new Vector2(Mathf.Cos(tempDebugOrientation), Mathf.Sin(tempDebugOrientation))
+        );
     }
 
     public bool AttackEnemies(CanFight[] enemies, Vector2 direction)
@@ -97,7 +131,9 @@ public abstract class Weapon : MonoBehaviour
         {
             return false; // No enemies to attack
         }
-        Controller.main.animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
+        Controller.main.animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID(
+            "AttackerLayer"
+        );
         Controller.main.sfxPlayer.PlayAttackSound();
         Controller.main.PlayAnimation("attack", direction);
         foreach (CanFight enemy in enemies)

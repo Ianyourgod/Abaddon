@@ -1,29 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 //using UnityEditor;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Pathfinding2D))]
 [RequireComponent(typeof(EnemySfx))]
 [RequireComponent(typeof(ItemDropper))]
-
 public class EnemyMovement : MonoBehaviour, CanFight
 {
     [Header("References")]
-    [SerializeField] LayerMask collideLayers;
-    [SerializeField] Animator animator;
-    [SerializeField] Pathfinding2D pathfinding;
-    [SerializeField] string animation_prefix = "Goblin";
-    [SerializeField] BaseAttack attack;
-    [SerializeField] SfxPlayer walkingSfxPlayer;
-    [SerializeField] SfxPlayer hurtSfxPlayer;
+    [SerializeField]
+    LayerMask collideLayers;
+
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    Pathfinding2D pathfinding;
+
+    [SerializeField]
+    string animation_prefix = "Goblin";
+
+    [SerializeField]
+    BaseAttack attack;
+
+    [SerializeField]
+    SfxPlayer walkingSfxPlayer;
+
+    [SerializeField]
+    SfxPlayer hurtSfxPlayer;
 
     [Header("Attributes")]
-    [SerializeField] int detectionDistance = 4;
-    [SerializeField] float followDistance = 3f;
-    [SerializeField] float enemyDecisionDelay;
-    [SerializeField] EnemyType enemyType;
+    [SerializeField]
+    int detectionDistance = 4;
+
+    [SerializeField]
+    float followDistance = 3f;
+
+    [SerializeField]
+    float enemyDecisionDelay;
+
+    [SerializeField]
+    EnemyType enemyType;
 
     public uint health = 10;
     private Vector2 direction = Vector2.zero;
@@ -59,12 +79,16 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     bool CheckPlayerIsInDetectionRange()
     {
-        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position) <= detectionDistance;
+        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position)
+            <= detectionDistance;
     }
 
     bool CheckPlayerIsInFollowRange()
     {
-        float distance = UnityEngine.Vector2.Distance(Controller.main.transform.position, StartPosition);
+        float distance = UnityEngine.Vector2.Distance(
+            Controller.main.transform.position,
+            StartPosition
+        );
         return distance <= followDistance;
     }
 
@@ -161,12 +185,17 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private static float Clamp(float value, float min, float max)
     {
-        return (value < min) ? min : (value > max) ? max : value;
+        return (value < min) ? min
+            : (value > max) ? max
+            : value;
     }
 
     private Vector2 ToPlayer()
     {
-        List<Node2D> path = pathfinding.FindPath(transform.position, Controller.main.transform.position);
+        List<Node2D> path = pathfinding.FindPath(
+            transform.position,
+            Controller.main.transform.position
+        );
 
         if (path == null)
         {
@@ -231,19 +260,27 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private Collider2D IsValidMove(Vector2 direction)
     {
-        return Physics2D.OverlapCircle(transform.position + new Vector3(direction.x, direction.y, 0), 0.1f, collideLayers);
+        return Physics2D.OverlapCircle(
+            transform.position + new Vector3(direction.x, direction.y, 0),
+            0.1f,
+            collideLayers
+        );
     }
 
     string DirectionToString(Vector2 direction)
     {
         direction = direction.normalized;
 
-        if (direction == Vector2.up) return "back";
-        else if (direction == Vector2.down) return "front";
-        else if (direction == Vector2.left) return "left";
-        else if (direction == Vector2.right) return "right";
-
-        else throw new System.Exception("Invalid direction to be converted to string: " + direction);
+        if (direction == Vector2.up)
+            return "back";
+        else if (direction == Vector2.down)
+            return "front";
+        else if (direction == Vector2.left)
+            return "left";
+        else if (direction == Vector2.right)
+            return "right";
+        else
+            throw new System.Exception("Invalid direction to be converted to string: " + direction);
     }
 
     private void PlayAnimation(Vector2 direction, string action)
@@ -298,7 +335,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
         health += amount;
         return health;
     }
-
 
     public void Die()
     {

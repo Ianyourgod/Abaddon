@@ -3,7 +3,7 @@ using UnityEngine;
 public class Sledgehammer : Weapon
 {
     public static new uint baseDamage = 2;
-    public static new Vector2 baseSize = new Vector2(3f, 1f); // three wide, one long
+    public static new Vector2 baseSize = new Vector2(1f, 3f); // one long, three wide
 
     public override Vector2 GetSize()
     {

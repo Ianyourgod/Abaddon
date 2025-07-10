@@ -4,29 +4,44 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
-    [SerializeField] uint lastingTime = 2;
-    [SerializeField] uint damage = 8;
+    [SerializeField]
+    uint lastingTime = 2;
+
+    [SerializeField]
+    uint damage = 8;
 
     private uint timeAlive = 0;
 
-    void Awake() {
+    void Awake()
+    {
+        if (Controller.main == null)
+            return;
+
         Controller.OnTick += CustomUpdate;
-        if (transform.position == Controller.main.transform.position) {
+        if (transform.position == Controller.main.transform.position)
+        {
             Controller.main.DamagePlayer(damage, false);
         }
     }
 
-    void OnDestroy() {
+    void OnDestroy()
+    {
         Controller.OnTick -= CustomUpdate;
     }
 
-    void CustomUpdate() {
+    void CustomUpdate()
+    {
         timeAlive++;
-        if (timeAlive > lastingTime) {
+        if (timeAlive > lastingTime)
+        {
             Destroy(gameObject);
         }
 
-        if (transform.position == Controller.main.transform.position) {
+        if (Controller.main == null)
+            return;
+
+        if (transform.position == Controller.main.transform.position)
+        {
             Controller.main.DamagePlayer(damage, false);
         }
     }

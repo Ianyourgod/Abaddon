@@ -12,6 +12,9 @@ public class Sledgehammer : Weapon
 
     public override uint GetDamage()
     {
+        if (Controller.main == null)
+            return baseDamage;
+
         return baseDamage + Controller.main.GetDamageModifier();
     }
 }

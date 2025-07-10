@@ -127,6 +127,8 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+        if (UIStateManager.singleton == null)
+            return;
         if (UIStateManager.singleton.mostRecentState == UIState.Pause)
             return;
         if (Input.GetKeyDown(KeyCode.Tab))

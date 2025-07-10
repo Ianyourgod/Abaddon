@@ -32,6 +32,9 @@ public class Door : MonoBehaviour, CanBeInteractedWith
     {
         const int key_ID = 1;
 
+        if (Controller.main == null)
+            return;
+
         bool hasKey = Controller.main.inventory.CheckIfItemExists(key_ID);
         if ((NeedsKey && hasKey) || !NeedsKey)
         {

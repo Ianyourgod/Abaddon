@@ -27,6 +27,9 @@ public abstract class Weapon : MonoBehaviour
     {
         if (defaultWeapon == null)
         {
+            if (Controller.main == null)
+                return new Sword(); // unity yells at us for this but it's better than null reference exceptions
+
             Debug.Log("Default weapon is not set, setting to Sword.");
             defaultWeapon = Controller.main.GetComponent<Sword>();
         }
@@ -35,6 +38,9 @@ public abstract class Weapon : MonoBehaviour
 
     public static Weapon GetCurrentWeapon()
     {
+        if (Controller.main == null)
+            return GetDefaultWeapon(); // Return default weapon if Controller is not available
+
         Slot slot = Controller.main.inventory.equipSlots[3];
         if (slot == null)
         {
@@ -119,8 +125,12 @@ public abstract class Weapon : MonoBehaviour
         );
     }
 
+    // Retrusn true if attack was successful, false otherwise
     public bool AttackEnemies(CanFight[] enemies, Vector2 direction)
     {
+        if (Controller.main == null)
+            return false; // if controller is null we can assume that no enemies were attacked
+
         uint calculatedDamage = GetDamage() + Controller.main.GetDamageModifier();
         Debug.Log($"Attacking with damage: {calculatedDamage}");
         if (enemies.Length == 0)

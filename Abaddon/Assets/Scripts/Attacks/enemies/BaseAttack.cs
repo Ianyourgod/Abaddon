@@ -26,6 +26,9 @@ public class BaseAttack : MonoBehaviour
 
     public virtual void Attack(Vector2 direction)
     {
+        if (Controller.main == null)
+            return;
+
         if (sfxPlayer.playAttackOnDamagePlayer)
         {
             sfxPlayer.PlayAttackSound();

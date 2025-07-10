@@ -79,12 +79,18 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     bool CheckPlayerIsInDetectionRange()
     {
+        if (Controller.main == null)
+            return false;
+
         return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position)
             <= detectionDistance;
     }
 
     bool CheckPlayerIsInFollowRange()
     {
+        if (Controller.main == null)
+            return false;
+
         float distance = UnityEngine.Vector2.Distance(
             Controller.main.transform.position,
             StartPosition
@@ -122,6 +128,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private void callNextEnemy()
     {
+        if (Controller.main == null)
+            return;
+
         Controller.main.NextEnemy();
     }
 
@@ -129,6 +138,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (CheckPlayerIsInDetectionRange())
         {
+            if (Controller.main == null)
+                return;
+
             followingPlayer = true;
             movementTarget = Controller.main.transform.position;
         }
@@ -192,6 +204,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void Attack()
     {
+        if (Controller.main == null)
+            return;
+
         // GetComponent<CanFight>().Attack();
         Controller.main.enabled = false;
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
@@ -207,6 +222,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private Vector2 ToPlayer()
     {
+        if (Controller.main == null)
+            return Vector2.zero;
+
         List<Node2D> path = pathfinding.FindPath(
             transform.position,
             Controller.main.transform.position
@@ -334,6 +352,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (damage >= health)
         {
+            if (Controller.main == null)
+                return;
+
             Controller.main.KilledEnemy(enemyType);
             Controller.OnTick -= MakeDecision;
             health = 0;
@@ -372,6 +393,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void AttackEnd(Vector2 direction)
     {
+        if (Controller.main == null)
+            return;
+
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");

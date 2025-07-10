@@ -12,6 +12,9 @@ public class Spear : Weapon
 
     public override uint GetDamage()
     {
+        if (Controller.main == null)
+            return baseDamage;
+
         return baseDamage + Controller.main.GetDamageModifier();
     }
 }

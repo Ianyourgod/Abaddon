@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FloorTrap : MonoBehaviour, CanBeInteractedWith
 {
-    [SerializeField] uint damage = 2;
+    [SerializeField]
+    uint damage = 2;
 
     void Awake()
     {
@@ -18,15 +19,25 @@ public class FloorTrap : MonoBehaviour, CanBeInteractedWith
 
     void CustomUpdate()
     {
-        if (!this) return;
+        if (!this)
+            return;
+
+        if (Controller.main == null)
+            return;
+
         if (transform.position == Controller.main.transform.position)
         {
             Controller.main.DamagePlayer(damage, false);
         }
     }
 
+    // lmao
+    // if the player is facing a spike and interacts with it, they basically instantly die because it interacts hundreds of times
     public void Interact()
     {
+        if (Controller.main == null)
+            return;
+
         Controller.main.DamagePlayer(damage, false);
     }
 }

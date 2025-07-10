@@ -1,29 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using System.Runtime.Versioning;
+using UnityEditor;
+using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-
 public class SfxPlayer : MonoBehaviour
 {
     [Header("SfxPlayer References")]
     [Tooltip("The audio source on the object that will play the sound effects")]
-    [HideInInspector] public AudioSource audSource;
+    [HideInInspector]
+    public AudioSource audSource;
 
     private SpriteRenderer sprRend;
 
     [Header("SfxPlayer Attributes")]
-    [Tooltip("(If the object is a player, ignore this) Determines whether the sound effects can be heard when the object is off screen")]
+    [Tooltip(
+        "(If the object is a player, ignore this) Determines whether the sound effects can be heard when the object is off screen"
+    )]
     public bool playableOffScreen = false;
 
     private int randomGenerator;
 
-    void Awake(){
+    void Awake()
+    {
         audSource = GetComponent<AudioSource>();
 
-        if (GetComponent<SpriteRenderer>()) {
+        if (GetComponent<SpriteRenderer>())
+        {
             sprRend = GetComponent<SpriteRenderer>();
         }
         else
@@ -39,19 +43,25 @@ public class SfxPlayer : MonoBehaviour
         }
     }
 
-    public void PlaySfx(AudioClip soundFx, float addedSound = 0f){
+    public void PlaySfx(AudioClip soundFx, float addedSound = 0f)
+    {
         if (soundFx == null)
             return;
 
         if (playableOffScreen || sprRend.isVisible)
         {
-            if (AudioManager.main.sfxVolume == 0) addedSound = 0;
+            if (AudioManager.main == null)
+                return;
+
+            if (AudioManager.main.sfxVolume == 0)
+                addedSound = 0;
 
             audSource.PlayOneShot(soundFx, AudioManager.main.sfxVolume + addedSound);
         }
     }
 
-    public void PlayRandomSound(AudioClip[] audioClips, float addedSound = 0f){
+    public void PlayRandomSound(AudioClip[] audioClips, float addedSound = 0f)
+    {
         randomGenerator = Random.Range(0, audioClips.Length);
 
         PlaySfx(audioClips[randomGenerator], addedSound);

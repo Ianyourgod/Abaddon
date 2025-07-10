@@ -179,16 +179,21 @@ public class EnemyMovement : MonoBehaviour, CanFight
             }
         }
         bool can_move = true;
+        bool hitting_only_player = will_attack;
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject.name != this.name)
             {
                 can_move = false;
-                break;
+                if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
+                {
+                    hitting_only_player = false;
+                    break;
+                }
             }
         }
 
-        if (will_attack)
+        if (hitting_only_player)
         {
             Attack();
         }

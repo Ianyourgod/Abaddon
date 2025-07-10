@@ -141,8 +141,6 @@ public abstract class Weapon : MonoBehaviour
         Controller.main.animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID(
             "AttackerLayer"
         );
-        Controller.main.sfxPlayer.PlayAttackSound();
-        Controller.main.PlayAnimation("attack", direction);
         foreach (CanBeDamaged enemy in enemies)
             enemy.Hurt(calculatedDamage);
 

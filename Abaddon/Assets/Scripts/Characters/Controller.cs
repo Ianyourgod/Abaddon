@@ -459,8 +459,9 @@ public class Controller : MonoBehaviour
             bool attackWorked = Weapon
                 .GetCurrentWeapon()
                 .AttackEnemies(enemies, current_player_direction);
-            // TODO: do animation + sfx
-            if (attackWorked)
+            sfxPlayer.PlayAttackSound();
+            PlayAnimation("attack", current_player_direction);
+            // if (attackWorked)
             {
                 did_something = true;
             }

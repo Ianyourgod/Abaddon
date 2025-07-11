@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [SerializeField]
+    private LayerMask hinderAttacksLayerMask;
     public static Weapon defaultWeapon;
     public static int baseDamage = 2;
     public static Vector2 baseSize = new Vector2(1f, 1f); // length, width
@@ -73,13 +76,39 @@ public abstract class Weapon : MonoBehaviour
         // orientation is in radians
         tempDebugOrientation = orientation;
         tempDebugPosition = position;
-        Vector2 rotatedBox = rotate(GetSize() * 0.85f, orientation);
+        // Debug.Log(new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)));
+        // Debug.Log(
+        //     $"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians"
+        // );
+        Vector2 rotatedBox = rotate(GetSize() * 0.85f, orientation); // 0.85 is to stop the tiles from overflowing into neighboring tiles
+
+        // if you're looking at this
+        // please note that the center offset doesn't work completely but it does enough to hit the enemies intended
+        // up to 2 enemies long, at least
+        // the getsize() x is the length of the weapon, and the y is the width
         Vector2 centerOffset = new Vector2(
             Mathf.Cos(orientation) * (GetSize().x + 1) * 0.5f,
             Mathf.Sin(orientation) * (GetSize().x + 1) * 0.5f
         );
         Vector2 boxCenter = position + centerOffset;
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, rotatedBox, 0f);
+        Collider2D[] colliders = Physics2D
+            .OverlapBoxAll(boxCenter, rotatedBox, 0f)
+            .ToList()
+            // Loop over all hits and run a raycast on them to see if an obstructable object is in the way.
+            .Where(collider =>
+            {
+                RaycastHit2D hit = Physics2D.Raycast(
+                    position,
+                    new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)),
+                    GetSize().x + 1,
+                    hinderAttacksLayerMask
+                );
+                // Check if the collider either has nothing infront of it that can block the attack or if the object itself is a wall type
+                return hit.collider == null || hit.collider == collider;
+            })
+            .ToArray();
+        ;
+
         List<CanBeDamaged> fightables = new List<CanBeDamaged>();
         foreach (Collider2D collider in colliders)
         {

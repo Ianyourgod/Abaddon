@@ -43,7 +43,7 @@ public class GoldItem : MonoBehaviour
     private void Start()
     {
         SetGoldCount(gold_count);
-        Controller.OnTick += CheckIfGoldShouldBeCollected;
+        Controller.OnMoved += CheckIfGoldShouldBeCollected;
     }
 
     void CheckIfGoldShouldBeCollected()

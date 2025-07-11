@@ -138,7 +138,9 @@ public class Shop : MonoBehaviour
         current_item = prefab;
         current_cost = s_item.cost;
 
-        purchase.enabled = Controller.main.goldCount >= current_cost;
+        bool canBuy = Controller.main.goldCount >= current_cost;
+        purchase.enabled = canBuy;
+        costText.color = canBuy ? Color.white : Color.red;
     }
 
     public void PurchaseCurrentItem()

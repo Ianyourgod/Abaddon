@@ -115,7 +115,7 @@ public class Item : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Pickup();
+                Pickup(true);
             }
         }
         else
@@ -141,7 +141,7 @@ public class Item : MonoBehaviour
         player.AddItem(item, null);
     }
 
-    public void Pickup()
+    public void Pickup(bool fromGround)
     {
         int possibleAmount = 0;
 
@@ -196,8 +196,14 @@ public class Item : MonoBehaviour
         }
         else
         {
-            // TODO just make this drop on the ground nearby
-            return; // No space in inventory
+            if (Controller.main == null)
+                return;
+
+            if (!fromGround)
+            {
+                Instantiate(gameObject, player.transform.position, Quaternion.identity);
+            }
+            Controller.main.AddTextToQueue("Inventory full");
         }
     }
 

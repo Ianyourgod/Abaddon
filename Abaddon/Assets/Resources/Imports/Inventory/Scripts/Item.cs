@@ -179,6 +179,11 @@ public class Item : MonoBehaviour
                     clone.amountInStack = possibleAmount;
                     amountInStack -= possibleAmount;
                     player.AddItem(clone);
+                    if (!fromGround)
+                    {
+                        Instantiate(gameObject, player.transform.position, Quaternion.identity);
+                    }
+                    Controller.main.AddTextToQueue("Inventory full");
                 }
             }
             else

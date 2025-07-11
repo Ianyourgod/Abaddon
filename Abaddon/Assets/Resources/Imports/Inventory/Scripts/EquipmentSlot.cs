@@ -37,7 +37,7 @@ public class EquipmentSlot : MonoBehaviour
 
     [HideInInspector]
     int searchID;
-    private int[] savedStats = new int[4];
+    private StatModifier stats;
 
     void Awake()
     {
@@ -89,18 +89,12 @@ public class EquipmentSlot : MonoBehaviour
             searchID = item.ItemID;
             if (item.TryGetComponent(out StatModifier slotModifier))
             {
-                // Debug.Log("Equipping item with ID and slotmodifiers: " + searchID);
-                Controller.main.UpdateConstitutionModifier(slotModifier.constitution);
-                Controller.main.UpdateDexterityModifier(slotModifier.dexterity);
-                Controller.main.UpdateStrengthModifier(slotModifier.strength);
-                Controller.main.UpdateWisdomModifier(slotModifier.wisdom);
-                savedStats = new int[]
-                {
-                    slotModifier.dexterity,
-                    slotModifier.constitution,
-                    slotModifier.strength,
-                    slotModifier.wisdom,
-                };
+                stats = slotModifier;
+                Debug.Log($"Equipping item with stats: {stats}");
+                Controller.main.UpdateConstitutionModifier(stats.constitution);
+                Controller.main.UpdateDexterityModifier(stats.dexterity);
+                Controller.main.UpdateStrengthModifier(stats.strength);
+                Controller.main.UpdateWisdomModifier(stats.wisdom);
             }
             //for (int i = 0; i < possibleEqips.Length; i++)
             //{
@@ -125,11 +119,11 @@ public class EquipmentSlot : MonoBehaviour
             return;
 
         // var item = GetComponent<Slot>().slotsItem;
-        Debug.Log("Unequipping item with ID and slotmodifiers: " + searchID);
-        Controller.main.UpdateConstitutionModifier(-savedStats[0]);
-        Controller.main.UpdateDexterityModifier(-savedStats[1]);
-        Controller.main.UpdateStrengthModifier(-savedStats[2]);
-        Controller.main.UpdateWisdomModifier(-savedStats[3]);
+        Debug.Log($"Unequipping item with stats: {stats}");
+        Controller.main.UpdateConstitutionModifier(-stats.constitution);
+        Controller.main.UpdateDexterityModifier(-stats.dexterity);
+        Controller.main.UpdateStrengthModifier(-stats.strength);
+        Controller.main.UpdateWisdomModifier(-stats.wisdom);
         foreach (EqippableItem eqippableItem in possibleEqips)
         {
             if (eqippableItem.ItemID == searchID)

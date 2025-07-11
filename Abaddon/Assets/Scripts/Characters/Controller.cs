@@ -465,9 +465,8 @@ public class Controller : MonoBehaviour
             FinishTick();
     }
 
-    public void UpdateConstitutionModifier(int conDiff)
+    public void UpdateHealthBar()
     {
-        conModifier += conDiff;
         double health_percentage = (double)health / (double)max_health;
         max_health = (constitution + conModifier) * 2;
         if (healthBarVisual)
@@ -478,21 +477,42 @@ public class Controller : MonoBehaviour
         HealPlayer(0);
     }
 
+    public void UpdateConstitutionModifier(int conDiff)
+    {
+        if (conDiff == 0)
+            return;
+        Debug.Log($"Updating constitution modifier by {conDiff}. Current modifier: {conModifier}");
+        conModifier += conDiff;
+        Debug.Log($"New constitution modifier: {conModifier}");
+    }
+
     public void UpdateDexterityModifier(int dexDiff)
     {
+        if (dexDiff == 0)
+            return;
+        Debug.Log($"Updating dexterity modifier by {dexDiff}. Current modifier: {dexModifier}");
         dexModifier += dexDiff;
+        Debug.Log($"New dexterity modifier: {dexModifier}");
         // No need to update anything else, since dexterity is only used for dodge chance
     }
 
     public void UpdateStrengthModifier(int strDiff)
     {
+        if (strDiff == 0)
+            return;
+        Debug.Log($"Updating strength modifier by {strDiff}. Current modifier: {strModifier}");
         strModifier += strDiff;
+        Debug.Log($"New strength modifier: {strModifier}");
         // No need to update anything else, since strength is only used for damage
     }
 
     public void UpdateWisdomModifier(int wisDiff)
     {
+        if (wisDiff == 0)
+            return;
+        Debug.Log($"Updating wisdom modifier by {wisDiff}. Current modifier: {wisModifier}");
         wisModifier += wisDiff;
+        Debug.Log($"New wisdom modifier: {wisModifier}");
         // No need to update anything else, since wisdom is only used for ability damage
     }
 

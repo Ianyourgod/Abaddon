@@ -336,6 +336,7 @@ public class Controller : MonoBehaviour
         }
 
         // rotation buttons
+        // TODO make more advanced, look at other games that do this
         if (Input.GetKeyDown(KeyCode.Z))
         {
             current_player_direction = new Vector2(
@@ -435,7 +436,7 @@ public class Controller : MonoBehaviour
             did_something = true;
         }
 
-        // Debug.Log(objectsAhead.Length + " objects ahead");
+        // Debug.Log($"{objectsAhead.Length} objects ahead");
         if (Input.GetKeyDown(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
@@ -461,10 +462,7 @@ public class Controller : MonoBehaviour
                 .AttackEnemies(enemies, current_player_direction);
             sfxPlayer.PlayAttackSound();
             PlayAnimation("attack", current_player_direction);
-            // if (attackWorked)
-            {
-                did_something = true;
-            }
+            did_something = true;
         }
         if (!did_something)
             FinishTick();

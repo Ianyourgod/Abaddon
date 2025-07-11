@@ -81,21 +81,16 @@ public class Shop : MonoBehaviour
         Item item = prefab.GetComponent<Item>();
         string item_name = s_item.name;
         StatModifier statModifier = prefab.GetComponent<StatModifier>();
-        string num_to_stat(int n)
+        static string num_to_stat(int n)
         {
-            switch (n)
+            return n switch
             {
-                case 0:
-                    return "str.";
-                case 1:
-                    return "dex.";
-                case 2:
-                    return "const.";
-                case 3:
-                    return "wisd.";
-                default:
-                    return "unkn.";
-            }
+                0 => "str",
+                1 => "dex",
+                2 => "con",
+                3 => "wis",
+                _ => "unkn.",
+            };
         }
 
         costText.text = $"{s_item.cost}";
@@ -143,17 +138,26 @@ public class Shop : MonoBehaviour
         current_item = prefab;
         current_cost = s_item.cost;
 
-        purchase.enabled = true;
+        purchase.enabled = Controller.main.goldCount >= current_cost;
     }
 
     public void PurchaseCurrentItem()
     {
         if (Controller.main.goldCount >= current_cost)
         {
+            // TODO! play sfx
             Debug.Log("buybuybuy");
+            Controller.main.goldCount -= current_cost;
+            var item_maybe = Instantiate(current_item);
+            GameObject item = item_maybe == null ? throw new Exception("AAAAHHHHH") : item_maybe;
+            Item i = item.GetComponent<Item>();
+            i.player = Controller.main.inventory;
+            i.Pickup();
+            clearFields();
         }
         else
         {
+            // this shouldn't happen, but just in case...
             Debug.Log("you aint nothin but a broke boy boy boy boy");
         }
     }

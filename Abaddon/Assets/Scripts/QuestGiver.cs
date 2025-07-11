@@ -13,9 +13,6 @@ public class QuestGiver : GenericNPC
     [SerializeField]
     private Item reward;
 
-    [SerializeField]
-    private Inventory inventory;
-
     public override void StartConversation()
     {
         if (Controller.main == null)
@@ -30,7 +27,7 @@ public class QuestGiver : GenericNPC
             base.StartConversation();
             messages = m;
             Item r = Instantiate(reward);
-            inventory.AddItem(r);
+            Controller.main.inventory.AddItem(r);
         }
         else if (!Controller.main.current_quests.Contains(questID))
         {

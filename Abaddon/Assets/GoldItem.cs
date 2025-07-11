@@ -5,7 +5,7 @@ public class GoldItem : MonoBehaviour
 {
     private void Start()
     {
-        Controller.OnTick += CheckIfGoldShouldBeCollected;
+        Controller.OnMoved += CheckIfGoldShouldBeCollected;
     }
 
     void CheckIfGoldShouldBeCollected()

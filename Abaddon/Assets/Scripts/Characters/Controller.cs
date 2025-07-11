@@ -421,18 +421,27 @@ public class Controller : MonoBehaviour
         }
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
-        bool canMove = CanMove(objectsAhead);
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
         bool did_something = false;
-        if (canMove && stickMoved)
+        if (stickMoved)
         {
-            transform.Translate(direction);
-            sfxPlayer.PlayWalkSound();
-            OnMoved?.Invoke();
-            FinishTick();
-            did_something = true;
+            // If the player is trying to move and can, move them
+            if (CanMove(objectsAhead))
+            {
+                transform.Translate(direction);
+                sfxPlayer.PlayWalkSound();
+                OnMoved?.Invoke();
+                FinishTick();
+                did_something = true;
+            }
+            // If the player is trying to move but can't, cancel the turn
+            else
+            {
+                done_with_tick = true;
+                return;
+            }
         }
 
         // Debug.Log(objectsAhead.Length + " objects ahead");
@@ -466,6 +475,9 @@ public class Controller : MonoBehaviour
                 did_something = true;
             }
         }
+
+        print("running the area that I want to");
+
         if (!did_something)
             FinishTick();
     }

@@ -73,15 +73,7 @@ public abstract class Weapon : MonoBehaviour
         // orientation is in radians
         tempDebugOrientation = orientation;
         tempDebugPosition = position;
-        // Debug.Log(new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)));
-        // Debug.Log(
-        //     $"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians"
-        // );
         Vector2 rotatedBox = rotate(GetSize() * 0.85f, orientation);
-        // if you're looking at this
-        // please note that the center offset doesn't work completely but it does enough to hit the enemies intended
-        // up to 2 enemies long, at least
-        // the getsize() x is the length of the weapon, and the y is the width
         Vector2 centerOffset = new Vector2(
             Mathf.Cos(orientation) * (GetSize().x + 1) * 0.5f,
             Mathf.Sin(orientation) * (GetSize().x + 1) * 0.5f

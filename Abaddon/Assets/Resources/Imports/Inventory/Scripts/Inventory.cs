@@ -131,6 +131,9 @@ public class Inventory : MonoBehaviour
             return;
         if (UIStateManager.singleton.mostRecentState == UIState.Pause)
             return;
+        if (Controller.main != null)
+            Controller.main.UIFloatText();
+
         if (Input.GetKeyDown(KeyCode.Tab))
             UIStateManager.singleton.ToggleUIPage(UIState.Inventory);
 

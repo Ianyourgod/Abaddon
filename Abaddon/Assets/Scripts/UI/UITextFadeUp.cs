@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RealTextFadeUp : MonoBehaviour
+public class UITextFadeUp : MonoBehaviour
 {
     [SerializeField]
     public TMP_Text textObject;
 
     public float minimum = 0f;
-    public float maximum = 1f;
-    public float speed = 0.5f;
+    public float maximum = 50f;
     public float timeLimit = 2f;
 
     [HideInInspector]
@@ -65,7 +64,7 @@ public class RealTextFadeUp : MonoBehaviour
     public void SetText(string set_text, Color color, Color borderColor, float borderWidth)
     {
         SetColor(color);
-        SetBorderColor(borderColor, borderWidth);
+        // SetBorderColor(borderColor, borderWidth);
         textObject.text = set_text;
     }
 

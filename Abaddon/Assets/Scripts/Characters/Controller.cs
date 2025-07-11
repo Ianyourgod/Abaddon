@@ -135,6 +135,12 @@ public class Controller : MonoBehaviour
     [SerializeField]
     Item baseRespawnSword;
 
+    [SerializeField]
+    public GameObject uiObject;
+
+    [SerializeField]
+    public GameObject textFadePrefab;
+
     [HideInInspector]
     public PlayerSfx sfxPlayer;
 
@@ -159,7 +165,7 @@ public class Controller : MonoBehaviour
             _goldCount = value;
         }
     }
-    private (bool, bool) god_mode_keys = (false, false);
+    private bool god_mode_keys_prev = false;
     #endregion
 
     #region Movement Controls
@@ -316,26 +322,33 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        UpdateConstitutionModifier(0);
+        UpdateHealthBar();
+        UIFloatText();
 
-        bool god_mode_keys_prev = god_mode_keys.Item1;
-        bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
-        god_mode_keys = (god_mode_keys_pressed, god_mode_keys_prev);
+        bool god_mode_keys_down = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
 
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && god_mode)
+        if (god_mode_keys_down && !god_mode_keys_prev)
         {
-            print("God mode deactivated");
-            god_mode = false;
-            god_mode_keys = (true, true);
-            // round to nearest tile
-            transform.position = new Vector3(
-                Mathf.Round(transform.position.x - 0.5f) + 0.5f,
-                Mathf.Round(transform.position.y - 0.5f) + 0.5f,
-                transform.position.z
-            );
+            if (god_mode)
+            {
+                print("God mode deactivated");
+                god_mode = false;
+                // round to nearest tile
+                transform.position = new Vector3(
+                    Mathf.Round(transform.position.x - 0.5f) + 0.5f,
+                    Mathf.Round(transform.position.y - 0.5f) + 0.5f,
+                    transform.position.z
+                );
+            }
+            else
+            {
+                god_mode = true;
+            }
         }
+        god_mode_keys_prev = god_mode_keys_down;
 
         // rotation buttons
+        // TODO make more advanced, look at other games that do this
         if (Input.GetKeyDown(KeyCode.Z))
         {
             current_player_direction = new Vector2(
@@ -356,14 +369,6 @@ public class Controller : MonoBehaviour
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
             return;
-
-        // Debug.Log("Done with tick, processing input");
-
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
-        {
-            god_mode = true;
-            print("God mode activated");
-        }
 
         if (god_mode)
         {
@@ -435,7 +440,7 @@ public class Controller : MonoBehaviour
             did_something = true;
         }
 
-        // Debug.Log(objectsAhead.Length + " objects ahead");
+        // Debug.Log($"{objectsAhead.Length} objects ahead");
         if (Input.GetKeyDown(KeyCode.E))
         {
             foreach (GameObject obj in objectsAhead)
@@ -461,18 +466,14 @@ public class Controller : MonoBehaviour
                 .AttackEnemies(enemies, current_player_direction);
             sfxPlayer.PlayAttackSound();
             PlayAnimation("attack", current_player_direction);
-            // if (attackWorked)
-            {
-                did_something = true;
-            }
+            did_something = true;
         }
         if (!did_something)
             FinishTick();
     }
 
-    public void UpdateConstitutionModifier(int conDiff)
+    public void UpdateHealthBar()
     {
-        conModifier += conDiff;
         double health_percentage = (double)health / (double)max_health;
         max_health = (constitution + conModifier) * 2;
         if (healthBarVisual)
@@ -483,22 +484,83 @@ public class Controller : MonoBehaviour
         HealPlayer(0);
     }
 
+    public void UpdateConstitutionModifier(int conDiff)
+    {
+        if (conDiff == 0)
+            return;
+        conModifier += conDiff;
+        AddTextToQueue($"{(conDiff < 0 ? "" : "+")}{conDiff} CON");
+    }
+
     public void UpdateDexterityModifier(int dexDiff)
     {
+        if (dexDiff == 0)
+            return;
         dexModifier += dexDiff;
+        AddTextToQueue($"{(dexDiff < 0 ? "" : "+")}{dexDiff} DEX");
         // No need to update anything else, since dexterity is only used for dodge chance
     }
 
     public void UpdateStrengthModifier(int strDiff)
     {
+        if (strDiff == 0)
+            return;
         strModifier += strDiff;
+        AddTextToQueue($"{(strDiff < 0 ? "" : "+")}{strDiff} STR");
         // No need to update anything else, since strength is only used for damage
     }
 
     public void UpdateWisdomModifier(int wisDiff)
     {
+        if (wisDiff == 0)
+            return;
         wisModifier += wisDiff;
+        AddTextToQueue($"{(wisDiff < 0 ? "" : "+")}{wisDiff} WIS");
         // No need to update anything else, since wisdom is only used for ability damage
+    }
+
+    public List<string> textQueue = new List<string>();
+    private UITextFadeUp? lastTextFadeUp;
+
+    public void AddTextToQueue(string text)
+    {
+        textQueue.Add(text);
+    }
+
+    public void UIFloatText()
+    {
+        if (textQueue.Count == 0)
+            return;
+        if (lastTextFadeUp != null)
+        {
+            if (lastTextFadeUp.transform.localPosition.y < 20)
+            {
+                return;
+            }
+        }
+        string text = textQueue[0];
+        if (text == null || text == "")
+        {
+            textQueue.RemoveAt(0);
+            return;
+        }
+        Color color = Color.red;
+        if (text.StartsWith("+"))
+        {
+            color = new Color(0.7764705882352941f, 0.7764705882352941f, 0.8745098039215686f); // #c8c8e0
+        }
+        else if (text.StartsWith("-"))
+        {
+            color = new Color(0.9607843137254902f, 0.28627450980392155f, 0.1607843137254902f); // #f54929
+        }
+        UITextFadeUp floatText = Instantiate(textFadePrefab, uiObject.transform)
+            .GetComponent<UITextFadeUp>();
+        floatText.transform.localPosition = new Vector3(-350, 0, 50);
+        floatText.gameObject.layer = LayerMask.NameToLayer("Walls");
+        floatText.SetText(textQueue[0], color, Color.white, 0.4f);
+        floatText.SetFontSize(24);
+        lastTextFadeUp = floatText;
+        textQueue.RemoveAt(0);
     }
 
     public int GetDamageModifier()

@@ -15,4 +15,9 @@ public class StatModifier : MonoBehaviour
 
     [SerializeField]
     public int wisdom;
+
+    public override string ToString()
+    {
+        return $"Constitution: {constitution}, Dexterity: {dexterity}, Strength: {strength}, Wisdom: {wisdom}";
+    }
 }

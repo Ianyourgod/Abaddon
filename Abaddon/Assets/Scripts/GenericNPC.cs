@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenericNPC : MonoBehaviour, CanCommunicateWith
+public class GenericNPC : MonoBehaviour, CanCommunicateWith, CanBeInteractedWith
 {
     [SerializeField]
     public string npcName;
@@ -18,6 +18,11 @@ public class GenericNPC : MonoBehaviour, CanCommunicateWith
         Debug.Log("Starting conversation");
         UIStateManager.singleton.OpenUIPage(UIState.Dialogue);
         DialogueVisualiser.singleton.SetQueueAndPlayFirst(onFinish, messages);
+    }
+
+    public void Interact()
+    {
+        StartConversation();
     }
 }
 

@@ -154,12 +154,17 @@ public class Item : MonoBehaviour
                 possibleAmount += maxStackSize;
             }
 
-            if (slot.slotsItem && slot.slotsItem.ItemID == ItemID)
+            if (
+                !slot.gameObject.GetComponent<EquipmentSlot>()
+                && slot.slotsItem
+                && slot.slotsItem.ItemID == ItemID
+            )
             {
                 possibleAmount += slot.slotsItem.maxStackSize - slot.slotsItem.amountInStack;
             }
         }
 
+        // possibleAmount is the number of items that the inventory has space for
         if (possibleAmount > 0)
         {
             if (player.readyToAdd)
@@ -188,6 +193,11 @@ public class Item : MonoBehaviour
                     StartCoroutine(WaitUntilReady(clone));
                 }
             }
+        }
+        else
+        {
+            // TODO just make this drop on the ground nearby
+            return; // No space in inventory
         }
     }
 

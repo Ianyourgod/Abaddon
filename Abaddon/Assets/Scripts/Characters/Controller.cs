@@ -159,7 +159,7 @@ public class Controller : MonoBehaviour
             _goldCount = value;
         }
     }
-    private (bool, bool) god_mode_keys = (false, false);
+    private bool god_mode_keys_prev = false;
     #endregion
 
     #region Movement Controls
@@ -318,22 +318,27 @@ public class Controller : MonoBehaviour
     {
         UpdateConstitutionModifier(0);
 
-        bool god_mode_keys_prev = god_mode_keys.Item1;
-        bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
-        god_mode_keys = (god_mode_keys_pressed, god_mode_keys_prev);
+        bool god_mode_keys_down = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
 
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && god_mode)
+        if (god_mode_keys_down && !god_mode_keys_prev)
         {
-            print("God mode deactivated");
-            god_mode = false;
-            god_mode_keys = (true, true);
-            // round to nearest tile
-            transform.position = new Vector3(
-                Mathf.Round(transform.position.x - 0.5f) + 0.5f,
-                Mathf.Round(transform.position.y - 0.5f) + 0.5f,
-                transform.position.z
-            );
+            if (god_mode)
+            {
+                print("God mode deactivated");
+                god_mode = false;
+                // round to nearest tile
+                transform.position = new Vector3(
+                    Mathf.Round(transform.position.x - 0.5f) + 0.5f,
+                    Mathf.Round(transform.position.y - 0.5f) + 0.5f,
+                    transform.position.z
+                );
+            }
+            else
+            {
+                god_mode = true;
+            }
         }
+        god_mode_keys_prev = god_mode_keys_down;
 
         // rotation buttons
         // TODO make more advanced, look at other games that do this
@@ -357,14 +362,6 @@ public class Controller : MonoBehaviour
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
             return;
-
-        // Debug.Log("Done with tick, processing input");
-
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
-        {
-            god_mode = true;
-            print("God mode activated");
-        }
 
         if (god_mode)
         {

@@ -335,7 +335,7 @@ PrefabInstance:
       objectReference: {fileID: 6148610868119937922, guid: b46503ee362c87c49bc8d6143a8f0427, type: 3}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: npcName
-      value: Old Ass Man
+      value: Little Girl
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: tokenID
@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.size
-      value: 
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].time
@@ -363,24 +363,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].usingCPS
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].profileImage
       value: 
-      objectReference: {fileID: 21300000, guid: 1ef753b41944e2f0f99e1fbac24ca594, type: 3}
+      objectReference: {fileID: 21300000, guid: cb0cb339a49821743be040fc57ae025c, type: 3}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].time
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].message
-      value: YAAAAY FUCK THOSE KIDS
+      value: YAAAAY I HATE THOSE GNOMES
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].usingCPS
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: completionMessages.Array.data[0].profileImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cb0cb339a49821743be040fc57ae025c, type: 3}
     - target: {fileID: 6008026295858031786, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: m_Name
       value: QuestGiver
@@ -388,7 +392,7 @@ PrefabInstance:
     - target: {fileID: 8535724161748770385, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1ef753b41944e2f0f99e1fbac24ca594, type: 3}
+      objectReference: {fileID: 21300000, guid: d4ce35884dc78db5a809644b537b7f67, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
 --- !u!114 &51370678 stripped
@@ -18710,7 +18714,7 @@ GameObject:
   - component: {fileID: 395810660}
   - component: {fileID: 395810659}
   m_Layer: 5
-  m_Name: Image
+  m_Name: text box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18725,7 +18729,7 @@ RectTransform:
   m_GameObject: {fileID: 395810656}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.273767}
-  m_LocalScale: {x: 8.30361, y: 1.225625, z: 1.225625}
+  m_LocalScale: {x: 1, y: 1, z: 1.225625}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1432934392}
@@ -18733,8 +18737,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 119.11122, y: -102.06738}
-  m_SizeDelta: {x: 67.0681, y: 199.0008}
+  m_AnchoredPosition: {x: 0, y: -125}
+  m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395810659
 MonoBehaviour:
@@ -18756,7 +18760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 977e510ee3a3db3fd8913a9983ffa954, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21443,7 +21447,7 @@ GameObject:
   - component: {fileID: 1002113275}
   - component: {fileID: 1002113274}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: profile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21458,7 +21462,7 @@ RectTransform:
   m_GameObject: {fileID: 1002113272}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.273767}
-  m_LocalScale: {x: 8.30361, y: 1.225625, z: 1.225625}
+  m_LocalScale: {x: 1, y: 1, z: 1.225625}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1411000191}
@@ -21467,8 +21471,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -280.85883, y: -79}
-  m_SizeDelta: {x: 28.6096, y: 239.2577}
+  m_AnchoredPosition: {x: -303.6, y: -125}
+  m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1002113274
 MonoBehaviour:
@@ -21490,7 +21494,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cb4e8ab0d0894915d877aa60fba8f936, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1940dbb7369dca35fa6744a24c554d39, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -41435,7 +41439,7 @@ RectTransform:
   m_GameObject: {fileID: 1411000190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.0392795}
-  m_LocalScale: {x: 0.12042955, y: 0.81591016, z: 0.81591016}
+  m_LocalScale: {x: 1, y: 1, z: 0.81591016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1002113273}
@@ -41443,8 +41447,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48.17034, y: -15.2384}
-  m_SizeDelta: {x: 534.97327, y: 209.6706}
+  m_AnchoredPosition: {x: 387.21674, y: 1.474}
+  m_SizeDelta: {x: 550, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1411000192
 MonoBehaviour:
@@ -41466,7 +41470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad9c603c0ab49a84397cc29ef638b47e, type: 2}
   m_sharedMaterial: {fileID: 7176619730181003497, guid: ad9c603c0ab49a84397cc29ef638b47e, type: 2}
@@ -41475,8 +41479,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -41844,63 +41848,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432934391}
   m_CullTransparentMesh: 1
---- !u!1 &1434177934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1434177936}
-  - component: {fileID: 1434177935}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1434177935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434177934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7285e27388d246d590826226db7454a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messages:
-  - profileImage: {fileID: 21300000, guid: f09eae8c0ea04254b90c5386a034a225, type: 3}
-    message: Hi senpai
-    time: 0.1
-    usingCPS: 1
-  - profileImage: {fileID: 21300000, guid: 33c51cc1ce379684787e1c33aacbaa75, type: 3}
-    message: Heh.... im  a helmtg
-    time: 0.1
-    usingCPS: 1
-  - profileImage: {fileID: -1161344815, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
-    message: DIE DIE DIE DIE DIE!!!!!
-    time: 0.1
-    usingCPS: 1
---- !u!4 &1434177936
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434177934}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.129469, y: 39.43165, z: -0.6664983}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1444122942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73932,12 +73879,12 @@ MonoBehaviour:
   messages:
   - profileImage: {fileID: 21300000, guid: 33c51cc1ce379684787e1c33aacbaa75, type: 3}
     message: This is a test
-    time: 4
-    usingCPS: 1
+    time: 0.1
+    usingCPS: 2
   - profileImage: {fileID: 21300000, guid: 458c471d567af8147a8a5754fe41baec, type: 3}
     message: Hmmmmm
-    time: 10
-    usingCPS: 1
+    time: 0.1
+    usingCPS: 2
 --- !u!212 &1845679426
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74003,7 +73950,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1845679428
 BoxCollider2D:

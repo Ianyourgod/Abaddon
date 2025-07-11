@@ -3,24 +3,59 @@ using UnityEngine;
 
 public class GoldItem : MonoBehaviour
 {
+    [SerializeField]
+    int gold_count = 1;
+
+    [SerializeField]
+    Sprite small_image;
+
+    [SerializeField]
+    Sprite mid_image;
+
+    [SerializeField]
+    Sprite big_image;
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
+
+    public void SetGoldCount(int count)
+    {
+        gold_count = count;
+        if (gold_count <= 3)
+        {
+            spriteRenderer.sprite = small_image;
+        }
+        else if (gold_count <= 6)
+        {
+            spriteRenderer.sprite = mid_image;
+        }
+        else
+        {
+            spriteRenderer.sprite = big_image;
+        }
+    }
+
+    public int GetGoldCount()
+    {
+        return gold_count;
+    }
+
     private void Start()
     {
+        SetGoldCount(gold_count);
         Controller.OnTick += CheckIfGoldShouldBeCollected;
     }
 
     void CheckIfGoldShouldBeCollected()
     {
-        if (
-            Vector2.Distance(transform.position, Controller.main.transform.position)
-            < GetComponent<CircleCollider2D>().radius
-        )
+        if (WithinBox(Controller.main.transform.position, transform.position, 0.5f))
             CollectGold();
     }
 
     void CollectGold()
     {
         Controller.OnTick -= CheckIfGoldShouldBeCollected;
-        Controller.main.goldCount++;
+        Controller.main.goldCount += gold_count;
         //TODO: Add a sound effect for collecting gold
         Destroy(gameObject);
     }

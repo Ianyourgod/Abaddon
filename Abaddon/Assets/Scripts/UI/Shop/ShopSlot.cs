@@ -12,23 +12,35 @@ public class ShopSlot : MonoBehaviour
     Shop shop;
 
     [SerializeField]
-    Item item;
+    ShopItem? shop_item;
+
+    string item_name;
+
     ImageComponent image;
+
+    public void SetShopItem(ShopItem s_item)
+    {
+        shop_item = s_item;
+        var item_prefab = s_item.prefab;
+        Item item = item_prefab.GetComponent<Item>();
+        image = GetComponent<ImageComponent>();
+        image.sprite = item.GetComponent<SpriteRenderer>().sprite;
+        item_name = s_item.name;
+    }
 
     void Awake()
     {
-        if (item)
+        if (shop_item != null)
         {
-            image = GetComponent<ImageComponent>();
-            image.sprite = item.GetComponent<SpriteRenderer>().sprite;
+            SetShopItem(shop_item.Value);
         }
     }
 
     public void OnClick()
     {
-        if (item)
+        if (shop_item != null)
         {
-            shop.ItemSelected(item);
+            shop.ItemSelected(shop_item.Value);
         }
     }
 }

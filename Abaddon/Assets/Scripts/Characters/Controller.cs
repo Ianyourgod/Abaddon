@@ -323,6 +323,7 @@ public class Controller : MonoBehaviour
     void Update()
     {
         UpdateHealthBar();
+        UIFloatText();
 
         bool god_mode_keys_down = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
 
@@ -488,7 +489,7 @@ public class Controller : MonoBehaviour
         if (conDiff == 0)
             return;
         conModifier += conDiff;
-        UIFloatText($"{(conDiff < 0 ? "" : "+")}{conDiff} CON");
+        AddTextToQueue($"{(conDiff < 0 ? "" : "+")}{conDiff} CON");
     }
 
     public void UpdateDexterityModifier(int dexDiff)
@@ -496,7 +497,7 @@ public class Controller : MonoBehaviour
         if (dexDiff == 0)
             return;
         dexModifier += dexDiff;
-        UIFloatText($"{(dexDiff < 0 ? "" : "+")}{dexDiff} DEX");
+        AddTextToQueue($"{(dexDiff < 0 ? "" : "+")}{dexDiff} DEX");
         // No need to update anything else, since dexterity is only used for dodge chance
     }
 
@@ -505,7 +506,7 @@ public class Controller : MonoBehaviour
         if (strDiff == 0)
             return;
         strModifier += strDiff;
-        UIFloatText($"{(strDiff < 0 ? "" : "+")}{strDiff} STR");
+        AddTextToQueue($"{(strDiff < 0 ? "" : "+")}{strDiff} STR");
         // No need to update anything else, since strength is only used for damage
     }
 
@@ -514,18 +515,52 @@ public class Controller : MonoBehaviour
         if (wisDiff == 0)
             return;
         wisModifier += wisDiff;
-        UIFloatText($"{(wisDiff < 0 ? "" : "+")}{wisDiff} WIS");
+        AddTextToQueue($"{(wisDiff < 0 ? "" : "+")}{wisDiff} WIS");
         // No need to update anything else, since wisdom is only used for ability damage
     }
 
-    public void UIFloatText(string text)
+    public List<string> textQueue = new List<string>();
+    private UITextFadeUp? lastTextFadeUp;
+
+    public void AddTextToQueue(string text)
     {
+        textQueue.Add(text);
+    }
+
+    public void UIFloatText()
+    {
+        if (textQueue.Count == 0)
+            return;
+        if (lastTextFadeUp != null)
+        {
+            if (lastTextFadeUp.transform.localPosition.y < 20)
+            {
+                return;
+            }
+        }
+        string text = textQueue[0];
+        if (text == null || text == "")
+        {
+            textQueue.RemoveAt(0);
+            return;
+        }
+        Color color = Color.red;
+        if (text.StartsWith("+"))
+        {
+            color = new Color(0.7764705882352941f, 0.7764705882352941f, 0.8745098039215686f); // #c8c8e0
+        }
+        else if (text.StartsWith("-"))
+        {
+            color = new Color(0.9607843137254902f, 0.28627450980392155f, 0.1607843137254902f); // #f54929
+        }
         UITextFadeUp floatText = Instantiate(textFadePrefab, uiObject.transform)
             .GetComponent<UITextFadeUp>();
-        floatText.transform.localPosition = new Vector3(-330, 0, 50);
+        floatText.transform.localPosition = new Vector3(-350, 0, 50);
         floatText.gameObject.layer = LayerMask.NameToLayer("Walls");
-        floatText.SetText(text, Color.red, Color.white, 0.4f);
+        floatText.SetText(textQueue[0], color, Color.white, 0.4f);
         floatText.SetFontSize(24);
+        lastTextFadeUp = floatText;
+        textQueue.RemoveAt(0);
     }
 
     public int GetDamageModifier()

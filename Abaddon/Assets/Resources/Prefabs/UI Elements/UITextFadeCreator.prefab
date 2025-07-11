@@ -54,9 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textObject: {fileID: 4485447934142895988}
   minimum: 0
-  maximum: 1
-  speed: 0.5
-  timeLimit: 2
+  maximum: 50
+  timeLimit: 0.5
   t: 0
 --- !u!23 &668759036672483720
 MeshRenderer:
@@ -162,8 +161,8 @@ MonoBehaviour:
   m_fontSizeMin: 0
   m_fontSizeMax: 0
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

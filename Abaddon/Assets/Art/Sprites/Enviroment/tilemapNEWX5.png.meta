@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -2531,15 +2531,15 @@ TextureImporter:
       tilemapNEWX5_73: -1935752271
       tilemapNEWX5_0: 974120471
       tilemapNEWX5_21: 2100197302
+      tilemapNEWX5_100: -88993336
       tilemapNEWX5_35: 1076968969
       tilemapNEWX5_88: -1164259504
       tilemapNEWX5_82: -1820534127
       tilemapNEWX5_17: 278710145
       tilemapNEWX5_56: 288898215
-      tilemapNEWX5_70: 1402445057
-      tilemapNEWX5_2: 1207310487
       tilemapNEWX5_61: 944715568
-      tilemapNEWX5_100: -88993336
+      tilemapNEWX5_2: 1207310487
+      tilemapNEWX5_70: 1402445057
       tilemapNEWX5_31: -289891857
       tilemapNEWX5_109: -2141881808
       tilemapNEWX5_24: -1955956452
@@ -2584,9 +2584,9 @@ TextureImporter:
       tilemapNEWX5_10: 274816208
       tilemapNEWX5_71: 1371948631
       tilemapNEWX5_34: -1811100460
-      tilemapNEWX5_41: -1303225450
       tilemapNEWX5_57: 374539110
       tilemapNEWX5_111: -62505175
+      tilemapNEWX5_41: -1303225450
       tilemapNEWX5_27: 451371014
       tilemapNEWX5_49: -1821170418
       tilemapNEWX5_43: 408296746

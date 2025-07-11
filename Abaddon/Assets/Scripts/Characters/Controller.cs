@@ -203,7 +203,7 @@ public class Controller : MonoBehaviour
         }
 
         GameObject boss = GameObject.FindGameObjectWithTag("Boss");
-        Transform targetPosition = boss.transform;
+        //Transform targetPosition = boss.transform;
 
         mainCamera.ResetTarget(null, false, null);
 

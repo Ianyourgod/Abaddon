@@ -524,6 +524,8 @@ public class Controller : MonoBehaviour
 
     public void AddTextToQueue(string text)
     {
+        if (textQueue.Count > 0 && textQueue[textQueue.Count - 1] == text)
+            return; // don't add the same text twice in a row
         textQueue.Add(text);
     }
 

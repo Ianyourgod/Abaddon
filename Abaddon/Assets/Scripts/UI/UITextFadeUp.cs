@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RealTextFadeUp : MonoBehaviour
+public class UITextFadeUp : MonoBehaviour
 {
     [SerializeField]
     public TMP_Text textObject;

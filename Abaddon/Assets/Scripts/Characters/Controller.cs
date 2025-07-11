@@ -135,6 +135,12 @@ public class Controller : MonoBehaviour
     [SerializeField]
     Item baseRespawnSword;
 
+    [SerializeField]
+    public GameObject uiObject;
+
+    [SerializeField]
+    public GameObject textFadePrefab;
+
     [HideInInspector]
     public PlayerSfx sfxPlayer;
 
@@ -316,7 +322,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        UpdateConstitutionModifier(0);
+        UpdateHealthBar();
 
         bool god_mode_keys_down = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
 
@@ -481,18 +487,16 @@ public class Controller : MonoBehaviour
     {
         if (conDiff == 0)
             return;
-        Debug.Log($"Updating constitution modifier by {conDiff}. Current modifier: {conModifier}");
         conModifier += conDiff;
-        Debug.Log($"New constitution modifier: {conModifier}");
+        UIFloatText($"{(conDiff < 0 ? "" : "+")}{conDiff} CON");
     }
 
     public void UpdateDexterityModifier(int dexDiff)
     {
         if (dexDiff == 0)
             return;
-        Debug.Log($"Updating dexterity modifier by {dexDiff}. Current modifier: {dexModifier}");
         dexModifier += dexDiff;
-        Debug.Log($"New dexterity modifier: {dexModifier}");
+        UIFloatText($"{(dexDiff < 0 ? "" : "+")}{dexDiff} DEX");
         // No need to update anything else, since dexterity is only used for dodge chance
     }
 
@@ -500,9 +504,8 @@ public class Controller : MonoBehaviour
     {
         if (strDiff == 0)
             return;
-        Debug.Log($"Updating strength modifier by {strDiff}. Current modifier: {strModifier}");
         strModifier += strDiff;
-        Debug.Log($"New strength modifier: {strModifier}");
+        UIFloatText($"{(strDiff < 0 ? "" : "+")}{strDiff} STR");
         // No need to update anything else, since strength is only used for damage
     }
 
@@ -510,10 +513,19 @@ public class Controller : MonoBehaviour
     {
         if (wisDiff == 0)
             return;
-        Debug.Log($"Updating wisdom modifier by {wisDiff}. Current modifier: {wisModifier}");
         wisModifier += wisDiff;
-        Debug.Log($"New wisdom modifier: {wisModifier}");
+        UIFloatText($"{(wisDiff < 0 ? "" : "+")}{wisDiff} WIS");
         // No need to update anything else, since wisdom is only used for ability damage
+    }
+
+    public void UIFloatText(string text)
+    {
+        UITextFadeUp floatText = Instantiate(textFadePrefab, uiObject.transform)
+            .GetComponent<UITextFadeUp>();
+        floatText.transform.localPosition = new Vector3(-330, 0, 50);
+        floatText.gameObject.layer = LayerMask.NameToLayer("Walls");
+        floatText.SetText(text, Color.red, Color.white, 0.4f);
+        floatText.SetFontSize(24);
     }
 
     public int GetDamageModifier()

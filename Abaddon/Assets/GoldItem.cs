@@ -54,7 +54,7 @@ public class GoldItem : MonoBehaviour
 
     void CollectGold()
     {
-        Controller.OnTick -= CheckIfGoldShouldBeCollected;
+        Controller.OnMoved -= CheckIfGoldShouldBeCollected;
         Controller.main.goldCount += gold_count;
         //TODO: Add a sound effect for collecting gold
         Destroy(gameObject);

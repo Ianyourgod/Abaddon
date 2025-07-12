@@ -189,6 +189,9 @@ public class Inventory : MonoBehaviour
         return wasEmpty;
     }
 
+    const float FADE_IN_TIME = 10f; // the higher, the faster. multed by dt so doesn't need to be an exact science.
+    const float DARK_VAL = 0.75f; // how dark you want it.
+
     public void OpenInventory()
     {
         invSfxPlayer.PlayOpenSound(); //play the open sound effect on the parent of the inventory object (the inventory ui)
@@ -201,6 +204,8 @@ public class Inventory : MonoBehaviour
         //Cursor.visible = true;
         //Cursor.lockState = CursorLockMode.None;
 
+        UIStateManager.singleton.FadeInDarkener(FADE_IN_TIME, DARK_VAL);
+
         playerMovement.enabled = false;
         if (shadow)
             shadow.SetActive(true);
@@ -212,6 +217,8 @@ public class Inventory : MonoBehaviour
 
         CloseAllTabs();
         HideButtons();
+
+        UIStateManager.singleton.FadeOutDarkener(FADE_IN_TIME, DARK_VAL);
 
         isInventoryOpen = false;
         //Cursor.visible = false;

@@ -57,7 +57,6 @@ public class PauseMenu : MonoBehaviour
         bool going_to_paused = false;
         if (pauseState == PauseState.TravelingToUnpause)
         {
-            print(startingPosition);
             endingPosition = startingPosition;
         }
         else if (pauseState == PauseState.TravelingToPause)

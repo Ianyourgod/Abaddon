@@ -140,7 +140,7 @@ public class Shop : MonoBehaviour
 
         bool canBuy = Controller.main.goldCount >= current_cost;
         purchase.enabled = canBuy;
-        costText.color = canBuy ? Color.white : Color.red;
+        costText.color = canBuy ? Color.white : new Color(0xff / 255f, 0x15 / 255f, 0x15 / 255f);
     }
 
     public void PurchaseCurrentItem()

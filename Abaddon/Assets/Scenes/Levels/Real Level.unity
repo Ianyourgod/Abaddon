@@ -344,14 +344,14 @@ PrefabInstance:
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 51370678}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].time
-      value: 0.1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.size
@@ -363,7 +363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].usingCPS
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: messages.Array.data[0].profileImage
@@ -371,7 +371,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: cb0cb339a49821743be040fc57ae025c, type: 3}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].time
-      value: 0.1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].message
@@ -379,12 +379,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].usingCPS
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4657808858763527364, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: completionMessages.Array.data[0].profileImage
       value: 
       objectReference: {fileID: 21300000, guid: cb0cb339a49821743be040fc57ae025c, type: 3}
+    - target: {fileID: 5266369697497976033, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266369697497976033, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6008026295858031786, guid: 737498c1d568a770c92a6ee17d3c66b3, type: 3}
       propertyPath: m_Name
       value: QuestGiver
@@ -18786,6 +18794,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395810656}
   m_CullTransparentMesh: 1
+--- !u!1 &397039210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397039211}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397039211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397039210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 538.3358, y: 250.65884, z: -55.551575}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &432300811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 791338427558568810, guid: c7c92d28fa60a0d42b9a97e321e44704, type: 3}
@@ -21479,7 +21518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -303.6, y: -125}
+  m_AnchoredPosition: {x: -299, y: -125}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1002113274
@@ -22350,6 +22389,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f566a2a9948166f478f269f84df622b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hinderAttacksLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1193124218
 PrefabInstance:
   m_ObjectHideFlags: 0

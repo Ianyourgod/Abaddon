@@ -358,6 +358,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public int Hurt(int damage)
     {
+        Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
         if (damage >= health)
         {
             Controller.main.KilledEnemy(enemyType);
@@ -371,7 +372,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
         }
         else
         {
-            Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
             PlayAnimation(direction, "hurt");
             sfxPlayer.PlayHurtSound();
             health -= damage;

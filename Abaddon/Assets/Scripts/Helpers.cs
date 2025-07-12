@@ -29,6 +29,7 @@ public class Helpers : MonoBehaviour
         RealTextFadeUp damageAmount = Instantiate(textFadePrefab, position, Quaternion.identity)
             .GetComponent<RealTextFadeUp>();
 
+        // TODO! use the red defined in the hex codes document
         damageAmount.SetText(text, Color.red, Color.white, 0.4f);
     }
 }

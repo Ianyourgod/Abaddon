@@ -53,44 +53,37 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        Vector3 endingPosition;
+        bool going_to_paused = false;
         if (pauseState == PauseState.TravelingToUnpause)
         {
-            Vector3 endingPosition = startingPosition;
-            transform.position = Vector3.Lerp(
-                transform.position,
-                endingPosition,
-                timeToEnter * Time.deltaTime
-            );
-
-            if (Vector2.Distance(transform.position, endingPosition) <= 1f)
-            {
-                pauseState = PauseState.Unpaused;
-                transform.position = new Vector3(
-                    endingPosition.x,
-                    endingPosition.y,
-                    transform.position.z
-                );
-            }
+            print(startingPosition);
+            endingPosition = startingPosition;
+        }
+        else if (pauseState == PauseState.TravelingToPause)
+        {
+            endingPosition = targetPosition.position;
+            going_to_paused = true;
+        }
+        else
+        {
+            return;
         }
 
-        if (pauseState == PauseState.TravelingToPause)
-        {
-            Vector3 endingPosition = targetPosition.position;
-            transform.position = Vector3.Lerp(
-                transform.position,
-                endingPosition,
-                timeToEnter * Time.deltaTime
-            );
+        transform.position = Vector3.Lerp(
+            transform.position,
+            endingPosition,
+            timeToEnter * Time.deltaTime
+        );
 
-            if (Vector2.Distance(transform.position, endingPosition) <= 1f)
-            {
-                pauseState = PauseState.Paused;
-                transform.position = new Vector3(
-                    endingPosition.x,
-                    endingPosition.y,
-                    transform.position.z
-                );
-            }
+        if (Vector2.Distance(transform.position, endingPosition) <= 1f)
+        {
+            pauseState = going_to_paused ? PauseState.Paused : PauseState.Unpaused;
+            transform.position = new Vector3(
+                endingPosition.x,
+                endingPosition.y,
+                transform.position.z
+            );
         }
     }
 }

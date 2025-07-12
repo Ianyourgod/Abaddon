@@ -47,6 +47,9 @@ public struct UIScreen
 
     [Tooltip("Close the screen when ESC is pressed.")]
     public bool closeOnEsc;
+
+    [Tooltip("If you'd like the screen object to get disabled when it is not open")]
+    public bool disableOnClose;
 }
 
 public class UIStateManager : MonoBehaviour
@@ -92,16 +95,23 @@ public class UIStateManager : MonoBehaviour
 
     private void Update()
     {
+        bool ran_close_on_esc = false;
         screens.ForEach(screen =>
         {
-            if (Input.GetKeyDown(screen.defaultKey))
+            if (
+                Input.GetKeyDown(screen.defaultKey)
+                && !(ran_close_on_esc && screen.defaultKey == KeyCode.Escape) // prevent the pause screen from appearing if we closed, lets say, the inventory, with escape
+            )
                 ToggleUIPage(screen.state);
             else if (
                 screen.closeOnEsc
                 && mostRecentState == screen.state
                 && Input.GetKeyDown(KeyCode.Escape)
             )
+            {
                 CloseUIPage(screen.state);
+                ran_close_on_esc = true;
+            }
         });
 
         if (isBeingAltered && lerpSpeed != 0)
@@ -186,7 +196,7 @@ public class UIStateManager : MonoBehaviour
         foreach (var screen in screens.Where(screen => screen.state == newState))
         {
             screen.onDisable?.Invoke();
-            if (screen.screenObject)
+            if (screen.screenObject && screen.disableOnClose)
                 screen.screenObject.SetActive(false);
         }
     }

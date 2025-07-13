@@ -17,6 +17,9 @@ public class Breakable : MonoBehaviour, CanBeKilled
     private SfxPlayerBetter sfxPlayer;
     private ItemDropper dropper;
 
+    [SerializeField]
+    private GameObject breakSprite;
+
     public void Start()
     {
         sfxPlayer = GetComponent<SfxPlayerBetter>();
@@ -44,6 +47,8 @@ public class Breakable : MonoBehaviour, CanBeKilled
     public void Die()
     {
         dropper.DropRandomItem();
+        print("spawning break sprite");
+        Instantiate(breakSprite, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

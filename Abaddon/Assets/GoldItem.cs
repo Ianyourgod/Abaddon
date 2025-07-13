@@ -1,4 +1,3 @@
-using TreeEditor;
 using UnityEngine;
 
 public class GoldItem : MonoBehaviour

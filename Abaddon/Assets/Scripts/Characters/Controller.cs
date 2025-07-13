@@ -452,15 +452,13 @@ public class Controller : MonoBehaviour
         // Debug.Log($"{objectsAhead.Length} objects ahead");
         if (Input.GetKeyDown(KeyCode.E))
         {
-            foreach (GameObject obj in objectsAhead)
+            CanBeInteractedWith? interactable = FindInteractable(objectsAhead);
+            if (interactable != null)
             {
-                if (obj.TryGetComponent(out CanBeInteractedWith interactable))
-                {
-                    interactable.Interact();
-                    FinishTick();
-                    // TODO: do animation + sfx
-                    did_something = true;
-                }
+                interactable.Interact();
+                FinishTick();
+                // TODO: do animation + sfx. maybe do that in the interactable's interact function? since we might want different sfx depending on the thing
+                did_something = true;
             }
         }
         if (Input.GetKeyDown(KeyCode.V))
@@ -477,8 +475,6 @@ public class Controller : MonoBehaviour
             PlayAnimation("attack", current_player_direction);
             did_something = true;
         }
-
-        print("running the area that I want to");
 
         if (!did_something)
             FinishTick();
@@ -791,7 +787,7 @@ public class Controller : MonoBehaviour
     }
 
 #nullable enable
-    public GenericNPC? CanStartConversation()
+    private GenericNPC? CanStartConversation()
     {
         // do initial check for nearness
         Collider2D npc = Physics2D
@@ -800,6 +796,27 @@ public class Controller : MonoBehaviour
         if (npc == null)
             return null;
         return npc.GetComponent<GenericNPC>();
+    }
+
+#nullable enable
+    private CanBeInteractedWith? FindInteractable(GameObject[] objectsAhead)
+    {
+        foreach (GameObject obj in objectsAhead)
+        {
+            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
+                return interactable;
+        }
+        return null;
+    }
+
+    public bool ShouldShowInteractionButton()
+    {
+        bool can_talk_to_npc = CanStartConversation() != null;
+
+        GameObject[] objectsAhead = SendRaycast(current_player_direction);
+        bool interactable_ahead = FindInteractable(objectsAhead) != null;
+
+        return can_talk_to_npc || interactable_ahead;
     }
 
     private void OnDrawGizmos()

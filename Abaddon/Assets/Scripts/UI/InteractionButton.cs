@@ -18,6 +18,6 @@ public class InteractionButton : MonoBehaviour
         if (Controller.main == null)
             return;
 
-        image.enabled = Controller.main.enabled && (Controller.main.CanStartConversation() != null);
+        image.enabled = Controller.main.enabled && Controller.main.ShouldShowInteractionButton();
     }
 }

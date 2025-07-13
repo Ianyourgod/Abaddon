@@ -48,8 +48,8 @@ public struct UIScreen
     [Tooltip("Close the screen when ESC is pressed.")]
     public bool closeOnEsc;
 
-    [Tooltip("If you'd like the screen object to get disabled when it is not open")]
-    public bool disableOnClose;
+    [Tooltip("If you wouldn't like the screen object to get disabled when it's not open")]
+    public bool dontDisableOnClose;
 }
 
 public class UIStateManager : MonoBehaviour
@@ -196,7 +196,7 @@ public class UIStateManager : MonoBehaviour
         foreach (var screen in screens.Where(screen => screen.state == newState))
         {
             screen.onDisable?.Invoke();
-            if (screen.screenObject && screen.disableOnClose)
+            if (screen.screenObject && !screen.dontDisableOnClose)
                 screen.screenObject.SetActive(false);
         }
     }

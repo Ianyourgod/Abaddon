@@ -21593,7 +21593,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     closeOnEsc: 1
-    disableOnClose: 0
+    dontDisableOnClose: 0
   - state: 0
     overrides: 
     inhibits: 
@@ -21630,7 +21630,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     closeOnEsc: 0
-    disableOnClose: 0
+    dontDisableOnClose: 1
   - state: 4
     overrides: 030000000200000000000000
     inhibits: 
@@ -21691,7 +21691,7 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
     closeOnEsc: 0
-    disableOnClose: 0
+    dontDisableOnClose: 0
   - state: 3
     overrides: 010000000200000000000000
     inhibits: 
@@ -21752,7 +21752,7 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
     closeOnEsc: 0
-    disableOnClose: 0
+    dontDisableOnClose: 0
   - state: 1
     overrides: 
     inhibits: 02000000
@@ -21765,7 +21765,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     closeOnEsc: 0
-    disableOnClose: 0
+    dontDisableOnClose: 0
   - state: 5
     overrides: 00000000
     inhibits: 02000000
@@ -21802,7 +21802,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     closeOnEsc: 1
-    disableOnClose: 0
+    dontDisableOnClose: 0
   MainMenuScene: Main Menu
 --- !u!114 &1061819241 stripped
 MonoBehaviour:

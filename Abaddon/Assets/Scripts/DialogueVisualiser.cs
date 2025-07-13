@@ -47,6 +47,8 @@ public class DialogueVisualiser : MonoBehaviour
 
     void Awake()
     {
+        if (!singleton)
+            singleton = this;
         print($"{profileImage.gameObject.name} {textbox.gameObject.name}");
     }
 

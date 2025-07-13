@@ -48,7 +48,7 @@ public class SfxPlayer : MonoBehaviour
         if (soundFx == null)
             return;
 
-        if (playableOffScreen || sprRend.isVisible)
+        if (playableOffScreen || (sprRend != null && sprRend.isVisible))
         {
             if (AudioManager.main == null)
                 return;

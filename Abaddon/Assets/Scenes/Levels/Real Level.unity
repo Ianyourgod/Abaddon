@@ -78815,8 +78815,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1590986715, guid: 0071235ddfdbba54a9229ad41d3b8104, type: 3}
-        m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
+      - m_Target: {fileID: 1045434974}
+        m_TargetAssemblyTypeName: UIStateManager, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:

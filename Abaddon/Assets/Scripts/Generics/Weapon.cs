@@ -18,6 +18,11 @@ public abstract class Weapon : MonoBehaviour
     public abstract Vector2 GetSize();
     public abstract int GetDamage();
 
+    void Awake()
+    {
+        hinderAttacksLayerMask = 1 << LayerMask.NameToLayer("Obstructions");
+    }
+
     public static Vector2 rotate(Vector2 v, float delta)
     {
         return new Vector2(

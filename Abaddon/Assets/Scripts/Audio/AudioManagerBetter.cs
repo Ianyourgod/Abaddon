@@ -36,6 +36,8 @@ public class AudioManagerBetter : MonoBehaviour
     AudioClip[] songValues;
 
     Dictionary<string, AudioClip> songs;
+
+    [SerializeField]
     List<SfxSource> sfxSources;
 
     void Awake()

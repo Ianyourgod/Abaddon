@@ -28,7 +28,8 @@ public class Breakable : MonoBehaviour, CanBeKilled
 
     public int Hurt(int damage)
     {
-        sfxPlayer.PlaySound("break");
+        int num = Random.Range(1, 4);
+        sfxPlayer.PlaySound($"break{num}");
         health -= damage;
         if (health <= 0)
         {

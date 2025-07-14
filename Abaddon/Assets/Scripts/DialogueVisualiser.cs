@@ -19,6 +19,9 @@ public class DialogueVisualiser : MonoBehaviour
 
     [Header("References To Important Objects")]
     [SerializeField]
+    private GameObject flashingArrow;
+
+    [SerializeField]
     private TextMeshProUGUI textbox;
 
     [SerializeField]
@@ -80,6 +83,10 @@ public class DialogueVisualiser : MonoBehaviour
             if (timeLeftToType <= 0)
                 timeLeftToType = 0;
         }
+        else
+        {
+            flashingArrow.SetActive(true);
+        }
     }
 
     public void WriteMessage(Message msg) =>
@@ -92,6 +99,7 @@ public class DialogueVisualiser : MonoBehaviour
         Sprite img = null
     )
     {
+        flashingArrow.SetActive(false);
         switch (usingCPS)
         {
             case TimeSettings.TotalTime:

@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 90, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1917218567319362845
 MonoBehaviour:
@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textObject: {fileID: 4485447934142895988}
   minimum: 0
-  maximum: 50
-  timeLimit: 0.5
+  maximum: 100
+  timeLimit: 1
   t: 0
 --- !u!23 &668759036672483720
 MeshRenderer:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_text: 3.5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aab9d363981a4ad438a0609027df48c3, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: 7029800129240152067, guid: aab9d363981a4ad438a0609027df48c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -149,17 +149,17 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 275
+  m_fontSize: 72
   m_fontSizeBase: 275
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 0
-  m_fontSizeMax: 0
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -180,7 +180,7 @@ MonoBehaviour:
   checkPaddingRequired: 0
   m_isRichText: 1
   m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
+  m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0

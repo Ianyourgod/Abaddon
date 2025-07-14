@@ -183,7 +183,7 @@ public class Item : MonoBehaviour
                     {
                         Instantiate(gameObject, player.transform.position, Quaternion.identity);
                     }
-                    Controller.main.AddTextToQueue("Inventory full");
+                    Controller.main.AddTextToQueue("Inventory\nfull", Controller.TextTypes.Other);
                 }
             }
             else
@@ -208,7 +208,7 @@ public class Item : MonoBehaviour
             {
                 Instantiate(gameObject, player.transform.position, Quaternion.identity);
             }
-            Controller.main.AddTextToQueue("Inventory full");
+            Controller.main.AddTextToQueue("Inventory\nfull", Controller.TextTypes.Other);
         }
     }
 

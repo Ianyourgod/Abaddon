@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -394,6 +395,7 @@ public class Controller : MonoBehaviour
         {
 #nullable enable
             GenericNPC? npc = CanStartConversation();
+#nullable disable
 
             if (npc != null)
             {
@@ -466,7 +468,9 @@ public class Controller : MonoBehaviour
         // Debug.Log($"{objectsAhead.Length} objects ahead");
         if (Input.GetKeyDown(KeyCode.E))
         {
+#nullable enable
             CanBeInteractedWith? interactable = FindInteractable(objectsAhead);
+#nullable disable
             if (interactable != null)
             {
                 interactable.Interact();
@@ -511,7 +515,8 @@ public class Controller : MonoBehaviour
         if (conDiff == 0)
             return;
         conModifier += conDiff;
-        AddTextToQueue($"{(conDiff < 0 ? "" : "+")}{conDiff} CON");
+        TextTypes type = conDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{conDiff} CON", type);
     }
 
     public void UpdateDexterityModifier(int dexDiff)
@@ -519,7 +524,8 @@ public class Controller : MonoBehaviour
         if (dexDiff == 0)
             return;
         dexModifier += dexDiff;
-        AddTextToQueue($"{(dexDiff < 0 ? "" : "+")}{dexDiff} DEX");
+        TextTypes type = dexDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{dexDiff} DEX", type);
         // No need to update anything else, since dexterity is only used for dodge chance
     }
 
@@ -528,7 +534,8 @@ public class Controller : MonoBehaviour
         if (strDiff == 0)
             return;
         strModifier += strDiff;
-        AddTextToQueue($"{(strDiff < 0 ? "" : "+")}{strDiff} STR");
+        TextTypes type = strDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{strDiff} STR", type);
         // No need to update anything else, since strength is only used for damage
     }
 
@@ -537,18 +544,46 @@ public class Controller : MonoBehaviour
         if (wisDiff == 0)
             return;
         wisModifier += wisDiff;
-        AddTextToQueue($"{(wisDiff < 0 ? "" : "+")}{wisDiff} WIS");
+        TextTypes type = wisDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{wisDiff} WIS", type);
         // No need to update anything else, since wisdom is only used for ability damage
     }
 
-    public List<string> textQueue = new List<string>();
-    private UITextFadeUp? lastTextFadeUp;
-
-    public void AddTextToQueue(string text)
+    [Serializable]
+    public enum TextTypes
     {
-        if (textQueue.Count > 0 && textQueue[textQueue.Count - 1] == text)
+        StatLoss,
+        StatGain,
+        Other,
+    }
+
+    [Serializable]
+    public readonly struct TextPopupData
+    {
+        public TextPopupData(string text, TextTypes type)
+        {
+            this.text = text;
+            this.type = type;
+        }
+
+        public string text { get; }
+        public TextTypes type { get; }
+    }
+
+    #region Text Popup Stuff
+    [SerializeField]
+    [Header("Text Popup")]
+    public List<TextPopupData> textQueue = new List<TextPopupData>();
+#nullable enable
+    private UITextFadeUp? lastTextFadeUp;
+#nullable disable
+    #endregion
+
+    public void AddTextToQueue(string text, TextTypes type)
+    {
+        if (textQueue.Count > 0 && textQueue[textQueue.Count - 1].text == text)
             return; // don't add the same text twice in a row
-        textQueue.Add(text);
+        textQueue.Add(new TextPopupData(text, type));
     }
 
     public void UIFloatText()
@@ -557,31 +592,49 @@ public class Controller : MonoBehaviour
             return;
         if (lastTextFadeUp != null)
         {
-            if (lastTextFadeUp.transform.localPosition.y < 20)
+            if (
+                lastTextFadeUp.transform.localPosition.y
+                < lastTextFadeUp.textObject.mesh.bounds.size.y * 1.1f
+            )
             {
                 return;
             }
         }
-        string text = textQueue[0];
-        if (text == null || text == "")
+        TextPopupData popupData = textQueue[0];
+        if (popupData.text == null || popupData.text == "")
         {
             textQueue.RemoveAt(0);
             return;
         }
+
+        string popupText = popupData.text;
+
         Color color = Color.red;
-        if (text.StartsWith("+"))
+        bool failedToParse = false;
+        switch (popupData.type)
         {
-            color = new Color(0.7764705882352941f, 0.7764705882352941f, 0.8745098039215686f); // #c8c8e0
+            case TextTypes.StatLoss:
+                failedToParse = !ColorUtility.TryParseHtmlString("#f54929", out color);
+                // popupText = $"-{popupText}";
+                break;
+            case TextTypes.StatGain:
+                failedToParse = !ColorUtility.TryParseHtmlString("#c8c8e0", out color);
+                popupText = $"+{popupText}";
+                break;
+            case TextTypes.Other:
+                failedToParse = !ColorUtility.TryParseHtmlString("#ff1515", out color);
+                break;
         }
-        else if (text.StartsWith("-"))
+        if (failedToParse)
         {
-            color = new Color(0.9607843137254902f, 0.28627450980392155f, 0.1607843137254902f); // #f54929
+            Debug.LogError($"Failed to parse color for text: {popupData.text}");
+            color = Color.red; // fallback color
         }
         UITextFadeUp floatText = Instantiate(textFadePrefab, uiObject.transform)
             .GetComponent<UITextFadeUp>();
         floatText.transform.localPosition = new Vector3(-350, 0, 50);
         floatText.gameObject.layer = LayerMask.NameToLayer("Walls");
-        floatText.SetText(textQueue[0], color, Color.white, 0.4f);
+        floatText.SetText(popupText, color, Color.white, 0.4f);
         floatText.SetFontSize(24);
         lastTextFadeUp = floatText;
         textQueue.RemoveAt(0);
@@ -813,6 +866,8 @@ public class Controller : MonoBehaviour
         return npc.GetComponent<GenericNPC>();
     }
 
+#nullable disable
+
 #nullable enable
     private CanBeInteractedWith? FindInteractable(GameObject[] objectsAhead)
     {
@@ -823,6 +878,8 @@ public class Controller : MonoBehaviour
         }
         return null;
     }
+
+#nullable disable
 
     public bool ShouldShowInteractionButton()
     {

@@ -22398,7 +22398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hinderAttacksLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!1001 &1193124218
 PrefabInstance:
   m_ObjectHideFlags: 0

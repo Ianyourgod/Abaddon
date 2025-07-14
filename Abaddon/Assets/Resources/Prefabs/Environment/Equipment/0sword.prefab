@@ -201,5 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f566a2a9948166f478f269f84df622b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 0, y: 0}
-  size: {x: 0, y: 0}
+  hinderAttacksLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024

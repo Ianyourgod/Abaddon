@@ -27,9 +27,6 @@ public class EquipmentSlot : MonoBehaviour
     public EqippableItem[] possibleEqips;
 
     [SerializeField]
-    public GameObject curItemObj;
-
-    [SerializeField]
     public bool wasEquipped;
 
     [SerializeField]
@@ -96,6 +93,10 @@ public class EquipmentSlot : MonoBehaviour
                 Controller.main.UpdateStrengthModifier(stats.strength);
                 Controller.main.UpdateWisdomModifier(stats.wisdom);
             }
+            if (equipmentType == Pet.petString)
+            {
+                Pet.main.setPetItem(item);
+            }
             //for (int i = 0; i < possibleEqips.Length; i++)
             //{
             //if (possibleEqips[i].ItemID == searchID)
@@ -131,6 +132,10 @@ public class EquipmentSlot : MonoBehaviour
                 eqippableItem.gameObject.SetActive(false);
                 curItem = GetComponent<Slot>().slotsItem;
             }
+        }
+        if (equipmentType == Pet.petString)
+        {
+            Pet.main.setPetItem(null);
         }
     }
 }

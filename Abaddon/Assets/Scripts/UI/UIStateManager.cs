@@ -15,6 +15,7 @@ public enum UIState
     Death,
     Win,
     Shop,
+    Settings,
 }
 
 [Serializable]
@@ -201,6 +202,15 @@ public class UIStateManager : MonoBehaviour
         }
     }
 
+    public void CloseOpenUIPages()
+    {
+        if (activeScreens == null)
+            return;
+
+        while (activeScreens.Count > 0)
+            CloseUIPage(activeScreens.Peek());
+    }
+
     UIScreen GetScreen(UIState state) => screens.First(screen => screen.state == state);
 
     void CloseSubordinatePages(UIState newState)
@@ -223,5 +233,11 @@ public class UIStateManager : MonoBehaviour
     public void Quit()
     {
         SceneManager.LoadScene(MainMenuScene);
+    }
+
+    public void OpenSettingsPage()
+    {
+        CloseOpenUIPages();
+        OpenUIPage(UIState.Settings);
     }
 }

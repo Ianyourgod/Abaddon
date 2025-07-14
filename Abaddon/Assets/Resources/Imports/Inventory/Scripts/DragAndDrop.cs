@@ -114,7 +114,11 @@ public class DragAndDrop : MonoBehaviour
 
             followMouseImage.transform.position = Input.mousePosition;
 
-            if (Input.GetKey(KeyCode.Q) && timer <= 0 && !Input.GetKey(KeyCode.LeftControl))
+            if (
+                Input.GetKey(SettingsMenu.singleton.dropKeybind.key)
+                && timer <= 0
+                && !Input.GetKey(KeyCode.LeftControl)
+            )
             {
                 GameObject obj = GetObjectUnderMouse(true);
                 if (obj)
@@ -132,7 +136,11 @@ public class DragAndDrop : MonoBehaviour
                     }
                 }
             }
-            else if (Input.GetKey(KeyCode.LeftControl) && timer <= 0 && Input.GetKey(KeyCode.Q))
+            else if (
+                Input.GetKey(KeyCode.LeftControl)
+                && timer <= 0
+                && Input.GetKey(SettingsMenu.singleton.dropKeybind.key)
+            )
             {
                 GameObject obj = GetObjectUnderMouse(true);
                 if (obj)

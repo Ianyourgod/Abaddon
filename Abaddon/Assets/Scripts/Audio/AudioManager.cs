@@ -17,12 +17,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     float maxVolume = 1f;
 
-    [SerializeField]
-    KeyCode increaseKey;
-
-    [SerializeField]
-    KeyCode decreaseKey;
-
     [HideInInspector]
     public MusicManager musicManager;
 
@@ -43,11 +37,17 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(increaseKey) && (musicVolume + 0.01f) <= maxVolume)
+        if (
+            Input.GetKeyDown(SettingsMenu.singleton.increaseVolumeKeybind.key)
+            && (musicVolume + 0.01f) <= maxVolume
+        )
         {
             IncreaseVolume(0.01f);
         }
-        if (Input.GetKeyDown(decreaseKey) && (musicVolume - 0.01f) >= 0f)
+        if (
+            Input.GetKeyDown(SettingsMenu.singleton.decreaseVolumeKeybind.key)
+            && (musicVolume - 0.01f) >= 0f
+        )
         {
             DecreaseVolume(0.01f);
         }

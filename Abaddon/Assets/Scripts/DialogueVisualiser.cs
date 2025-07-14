@@ -24,16 +24,6 @@ public class DialogueVisualiser : MonoBehaviour
     [SerializeField]
     private ImageComponent profileImage;
 
-    [Header("Key Binds for Traversing Messages")]
-    [SerializeField]
-    private KeyCode nextMessage;
-
-    [SerializeField]
-    private KeyCode previousMessage;
-
-    [SerializeField]
-    private KeyCode skipTyping;
-
     private List<Message> messageQueue = new List<Message>();
     private string currentMessage = "";
     private float timeLeftToType = 0;
@@ -70,11 +60,11 @@ public class DialogueVisualiser : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(nextMessage))
+        if (Input.GetKeyDown(SettingsMenu.singleton.nextDialogueKeybind.key))
             PlayNextMessage();
-        if (Input.GetKeyDown(previousMessage))
+        if (Input.GetKeyDown(SettingsMenu.singleton.previousDialogueKeybind.key))
             PlayPreviousMessage();
-        if (Input.GetKeyDown(skipTyping))
+        if (Input.GetKeyDown(SettingsMenu.singleton.skipDialogueKeybind.key))
             SkipTyping();
 
         //Typewriter Effect

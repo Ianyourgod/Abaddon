@@ -113,7 +113,7 @@ public class Item : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
             {
                 Pickup(true);
             }

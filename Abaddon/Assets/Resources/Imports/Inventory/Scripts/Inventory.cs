@@ -134,7 +134,7 @@ public class Inventory : MonoBehaviour
         if (Controller.main != null)
             Controller.main.UIFloatText();
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab)) // TODO: make this a rebindable key
             UIStateManager.singleton.ToggleUIPage(UIState.Inventory);
 
         foreach (Slot i in slots)

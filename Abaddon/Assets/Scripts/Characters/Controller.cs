@@ -349,7 +349,7 @@ public class Controller : MonoBehaviour
 
         // rotation buttons
         // TODO make more advanced, look at other games that do this
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(SettingsMenu.singleton.rotateLeftKeybind.key))
         {
             current_player_direction = new Vector2(
                 -current_player_direction.y,
@@ -357,7 +357,7 @@ public class Controller : MonoBehaviour
             ); // rotate left
             PlayAnimation("idle", current_player_direction);
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(SettingsMenu.singleton.rotateRightKeybind.key))
         {
             current_player_direction = new Vector2(
                 current_player_direction.y,
@@ -376,7 +376,7 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
         {
 #nullable enable
             GenericNPC? npc = CanStartConversation();
@@ -410,7 +410,8 @@ public class Controller : MonoBehaviour
 
     bool playerPressingButtons()
     {
-        return Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.V);
+        return Input.GetKey(SettingsMenu.singleton.interactKeybind.key)
+            || Input.GetKey(SettingsMenu.singleton.attackKeybind.key);
     }
 
     void Move()
@@ -450,7 +451,7 @@ public class Controller : MonoBehaviour
         }
 
         // Debug.Log($"{objectsAhead.Length} objects ahead");
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
         {
             CanBeInteractedWith? interactable = FindInteractable(objectsAhead);
             if (interactable != null)
@@ -461,7 +462,7 @@ public class Controller : MonoBehaviour
                 did_something = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(SettingsMenu.singleton.attackKeybind.key))
         {
             // Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
@@ -659,10 +660,10 @@ public class Controller : MonoBehaviour
 
         // todo: allow people to rebind movement keys
 
-        bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-        bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
-        bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        bool up = Input.GetKey(SettingsMenu.singleton.moveUpwardKeybind.key);
+        bool down = Input.GetKey(SettingsMenu.singleton.moveDownwardKeybind.key);
+        bool left = Input.GetKey(SettingsMenu.singleton.moveLeftKeybind.key);
+        bool right = Input.GetKey(SettingsMenu.singleton.moveRightKeybind.key);
 
         up = ShouldMove(MovementDirection.Up, up);
         down = ShouldMove(MovementDirection.Down, down);

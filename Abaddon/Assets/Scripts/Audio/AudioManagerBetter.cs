@@ -25,12 +25,6 @@ public class AudioManagerBetter : MonoBehaviour
     [SerializeField]
     float volumeInterval = 0.01f;
 
-    [SerializeField]
-    KeyCode increaseVolumeKey;
-
-    [SerializeField]
-    KeyCode decreaseVolumeKey;
-
     [Header("Music Dictionary")]
     [Tooltip(
         "Keys and values must be at same indexes, and keys and values lists must be the same length"
@@ -59,11 +53,17 @@ public class AudioManagerBetter : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(increaseVolumeKey) && (musicVolume + volumeInterval) <= maxVolume)
+        if (
+            Input.GetKeyDown(SettingsMenu.singleton.increaseVolumeKeybind.key)
+            && (musicVolume + volumeInterval) <= maxVolume
+        )
         {
             IncreaseVolume(volumeInterval);
         }
-        if (Input.GetKeyDown(decreaseVolumeKey) && (musicVolume - volumeInterval) >= 0f)
+        if (
+            Input.GetKeyDown(SettingsMenu.singleton.decreaseVolumeKeybind.key)
+            && (musicVolume - volumeInterval) >= 0f
+        )
         {
             DecreaseVolume(volumeInterval);
         }
@@ -84,6 +84,18 @@ public class AudioManagerBetter : MonoBehaviour
         sfxVolume += interval;
         musicVolume += interval;
 
+        UpdateAudioSourcesVolume();
+    }
+
+    public void SetMusicVolume(float newVolume)
+    {
+        musicVolume = newVolume;
+        UpdateAudioSourcesVolume();
+    }
+
+    public void SetSfxVolume(float newVolume)
+    {
+        sfxVolume = newVolume;
         UpdateAudioSourcesVolume();
     }
 

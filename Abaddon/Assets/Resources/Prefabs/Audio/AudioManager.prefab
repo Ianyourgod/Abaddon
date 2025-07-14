@@ -86,14 +86,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 5175779184006085023}
-  sfxVolume: 0.02
-  musicVolume: 0.02
+  sfxVolume: 0.45
+  musicVolume: 0.45
   maxVolume: 0.5
   volumeInterval: 0.01
   increaseVolumeKey: 61
   decreaseVolumeKey: 45
   songKeys: []
   songValues: []
+  sfxSources: []
 --- !u!82 &7659419828651813425
 AudioSource:
   m_ObjectHideFlags: 0

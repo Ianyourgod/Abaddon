@@ -25,8 +25,6 @@ public class SettingsMenu : MonoBehaviour
     public Keybind skipDialogueKeybind;
     public Keybind nextDialogueKeybind;
     public Keybind previousDialogueKeybind;
-    public Keybind increaseVolumeKeybind;
-    public Keybind decreaseVolumeKeybind;
 
     public void Awake()
     {

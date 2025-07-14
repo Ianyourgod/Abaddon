@@ -37,20 +37,20 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (
-            Input.GetKeyDown(SettingsMenu.singleton.increaseVolumeKeybind.key)
-            && (musicVolume + 0.01f) <= maxVolume
-        )
-        {
-            IncreaseVolume(0.01f);
-        }
-        if (
-            Input.GetKeyDown(SettingsMenu.singleton.decreaseVolumeKeybind.key)
-            && (musicVolume - 0.01f) >= 0f
-        )
-        {
-            DecreaseVolume(0.01f);
-        }
+        // if (
+        //     Input.GetKeyDown(SettingsMenu.singleton.increaseVolumeKeybind.key)
+        //     && (musicVolume + 0.01f) <= maxVolume
+        // )
+        // {
+        //     IncreaseVolume(0.01f);
+        // }
+        // if (
+        //     Input.GetKeyDown(SettingsMenu.singleton.decreaseVolumeKeybind.key)
+        //     && (musicVolume - 0.01f) >= 0f
+        // )
+        // {
+        //     DecreaseVolume(0.01f);
+        // }
     }
 
     public void IncreaseVolume(float amount)

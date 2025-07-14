@@ -53,23 +53,7 @@ public class AudioManagerBetter : MonoBehaviour
         sfxSources = new List<SfxSource>();
     }
 
-    void Update()
-    {
-        if (
-            Input.GetKeyDown(SettingsMenu.singleton.increaseVolumeKeybind.key)
-            && (musicVolume + volumeInterval) <= maxVolume
-        )
-        {
-            IncreaseVolume(volumeInterval);
-        }
-        if (
-            Input.GetKeyDown(SettingsMenu.singleton.decreaseVolumeKeybind.key)
-            && (musicVolume - volumeInterval) >= 0f
-        )
-        {
-            DecreaseVolume(volumeInterval);
-        }
-    }
+    void Update() { }
 
     public AudioClip GetSong(string key)
     {

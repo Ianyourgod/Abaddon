@@ -21543,6 +21543,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002113272}
   m_CullTransparentMesh: 1
+--- !u!1 &1032448801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4577299031533860270, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
+  m_PrefabInstance: {fileID: 885363301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1032448804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032448801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83918e7808b63fb4b8d4eb9b7c8dda2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1045434974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73879,10 +73896,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songKeys.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songValues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songKeys.Array.data[0]
+      value: level1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songValues.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: aa470a1d7f71ed946a737ca4f2b7dd1b, type: 3}
+    - target: {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7659419828651813426, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1192153404}
+    - target: {fileID: 7659419828651813426, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7659419828651813427, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_RootOrder
       value: 14

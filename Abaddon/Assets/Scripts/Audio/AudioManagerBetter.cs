@@ -42,6 +42,8 @@ public class AudioManagerBetter : MonoBehaviour
     AudioClip[] songValues;
 
     Dictionary<string, AudioClip> songs;
+
+    [SerializeField]
     List<SfxSource> sfxSources;
 
     void Awake()
@@ -106,8 +108,11 @@ public class AudioManagerBetter : MonoBehaviour
 
     public void PlaySong(string songName)
     {
+        Debug.Log($"Playing song: {songName}");
         musicSource.clip = songs[songName];
+        Debug.Log($"Clip: {musicSource.clip.name}");
         musicSource.Play();
+        Debug.Log($"{musicSource.isPlaying} - {musicSource.volume}");
     }
 
     public void StopSong(AudioSource musicPlayer)

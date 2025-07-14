@@ -108,11 +108,8 @@ public class AudioManagerBetter : MonoBehaviour
 
     public void PlaySong(string songName)
     {
-        Debug.Log($"Playing song: {songName}");
         musicSource.clip = songs[songName];
-        Debug.Log($"Clip: {musicSource.clip.name}");
         musicSource.Play();
-        Debug.Log($"{musicSource.isPlaying} - {musicSource.volume}");
     }
 
     public void StopSong(AudioSource musicPlayer)

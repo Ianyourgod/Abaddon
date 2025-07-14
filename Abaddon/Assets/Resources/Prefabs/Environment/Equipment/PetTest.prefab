@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8956186374661559891}
   - component: {fileID: 8956186374661559888}
   - component: {fileID: 8797630982188822369}
-  - component: {fileID: 3328651420969874007}
   m_Layer: 0
   m_Name: PetTest
   m_TagString: Untagged
@@ -189,17 +188,3 @@ MonoBehaviour:
   - pickup
   soundValues:
   - {fileID: 8300000, guid: 25cbfa3311471ad43acad70c6e6da6ae, type: 3}
---- !u!114 &3328651420969874007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8956186374661559889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a726c2f5b72814e866d99eaa4ef5dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemComponent: {fileID: 8956186374661559890}
-  petSprite: {fileID: 0}

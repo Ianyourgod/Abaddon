@@ -110,6 +110,7 @@ public class DialogueVisualiser : MonoBehaviour
         Sprite img = null
     )
     {
+        flashingArrow.SetActive(false);
         switch (usingCPS)
         {
             case TimeSettings.TotalTime:
@@ -236,7 +237,6 @@ public class DialogueVisualiser : MonoBehaviour
 
     public void PlayNextMessage()
     {
-        flashingArrow.SetActive(false);
         if (CurrentlyTyping())
         {
             SkipTyping();

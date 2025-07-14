@@ -378,7 +378,7 @@ public class Controller : MonoBehaviour
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
         {
-            if (Time.time - turnEndStart < 5f)
+            if (Time.time - turnEndStart < 15f)
                 return;
 
             done_with_tick = true;

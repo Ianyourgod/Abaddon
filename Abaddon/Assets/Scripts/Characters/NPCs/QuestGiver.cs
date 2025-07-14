@@ -5,13 +5,13 @@ using UnityEngine;
 public class QuestGiver : GenericNPC
 {
     [SerializeField]
-    private Message[] completionMessages;
+    protected Message[] completionMessages;
 
     [SerializeField]
     public Controller.Quest questID;
 
     [SerializeField]
-    private Item reward;
+    protected Item reward;
 
     public override void StartConversation()
     {

@@ -9,7 +9,7 @@ public class GenericNPC : MonoBehaviour, CanCommunicateWith, CanBeInteractedWith
     public string npcName;
 
     [SerializeField]
-    public Message[] messages;
+    protected Message[] messages;
 
     protected Action onFinish = null;
 

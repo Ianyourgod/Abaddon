@@ -26,13 +26,16 @@ public class DialogueVisualiser : MonoBehaviour
 
     [Header("Key Binds for Traversing Messages")]
     [SerializeField]
-    private KeyCode nextMessage;
+    private KeyCode[] nextMessage;
 
     [SerializeField]
     private KeyCode previousMessage;
 
     [SerializeField]
     private KeyCode skipTyping;
+
+    [SerializeField]
+    private GameObject flashingArrow;
 
     private List<Message> messageQueue = new List<Message>();
     private string currentMessage = "";
@@ -70,8 +73,9 @@ public class DialogueVisualiser : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(nextMessage))
-            PlayNextMessage();
+        foreach (KeyCode keyCode in nextMessage)
+            if (Input.GetKeyDown(keyCode))
+                PlayNextMessage();
         if (Input.GetKeyDown(previousMessage))
             PlayPreviousMessage();
         if (Input.GetKeyDown(skipTyping))
@@ -89,6 +93,10 @@ public class DialogueVisualiser : MonoBehaviour
             // Could be an event but have no reason for it yet
             if (timeLeftToType <= 0)
                 timeLeftToType = 0;
+        }
+        else
+        {
+            flashingArrow.SetActive(true);
         }
     }
 
@@ -228,6 +236,7 @@ public class DialogueVisualiser : MonoBehaviour
 
     public void PlayNextMessage()
     {
+        flashingArrow.SetActive(false);
         if (CurrentlyTyping())
         {
             SkipTyping();

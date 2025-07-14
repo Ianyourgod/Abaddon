@@ -47,8 +47,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public int health = 10;
     private Vector2 direction = Vector2.zero;
-
-    private Vector2 movementTarget;
     private bool followingPlayer = false;
 
     private Vector3 StartPosition;
@@ -139,7 +137,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
                 return;
 
             followingPlayer = true;
-            movementTarget = Controller.main.transform.position;
         }
         else if (followingPlayer && !CheckPlayerIsInFollowRange())
         {

@@ -91,10 +91,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return false;
 
-        float distance = UnityEngine.Vector2.Distance(
-            Controller.main.transform.position,
-            StartPosition
-        );
+        float distance = Vector2.Distance(Controller.main.transform.position, StartPosition);
         return distance <= followDistance;
     }
 

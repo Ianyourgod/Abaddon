@@ -101,6 +101,8 @@ public class Controller : MonoBehaviour
 
     [Space]
     Vector2 current_player_direction = new Vector2(0, -1);
+
+    float turnEndStart = Mathf.Infinity;
     #endregion
 
     #region Player Update System
@@ -195,14 +197,19 @@ public class Controller : MonoBehaviour
 
     #endregion
 
+    #region Quests
+
     public enum Quest
     {
         Kill15Gnomes,
+        SaveEmoBoy,
     }
 
-    private class QuestState
+    public class QuestState
     {
         public int Kill15Gnomes;
+
+        public bool EmoBoySaved;
     }
 
     private QuestState quest_state;
@@ -212,6 +219,8 @@ public class Controller : MonoBehaviour
 
     [HideInInspector]
     public List<Quest> completed_quests;
+
+    #endregion
 
     #endregion
 
@@ -368,7 +377,12 @@ public class Controller : MonoBehaviour
 
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
-            return;
+        {
+            if (Time.time - turnEndStart < 5f)
+                return;
+
+            done_with_tick = true;
+        }
 
         if (god_mode)
         {
@@ -580,6 +594,7 @@ public class Controller : MonoBehaviour
 
     public void FinishTick()
     {
+        turnEndStart = Time.time;
         OnTick?.Invoke();
         NextEnemy();
     }
@@ -822,5 +837,10 @@ public class Controller : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, 2);
+    }
+
+    public QuestState GetQuestState()
+    {
+        return quest_state;
     }
 }

@@ -10,7 +10,7 @@ public class Pathfinding2D : MonoBehaviour
     Node2D seekerNode,
         targetNode;
 
-    public List<Node2D> FindPath(Vector3 startPos, Vector3 targetPos)
+    public (int, List<Node2D>) FindPath(Vector3 startPos, Vector3 targetPos)
     {
         grid.CreateGrid();
 
@@ -43,7 +43,7 @@ public class Pathfinding2D : MonoBehaviour
             if (node == targetNode)
             {
                 RetracePath(seekerNode, targetNode);
-                return grid.path;
+                return (node.gCost, grid.path);
             }
 
             //adds neighbor nodes to openSet
@@ -67,7 +67,7 @@ public class Pathfinding2D : MonoBehaviour
             }
         }
 
-        return null;
+        return (0, null);
     }
 
     //reverses calculated path so first node is closest to seeker

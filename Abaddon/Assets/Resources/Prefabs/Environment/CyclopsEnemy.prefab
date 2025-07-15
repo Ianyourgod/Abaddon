@@ -276,8 +276,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 73792
   worldBottomLeft: {x: -7.811322, y: -4.661658, z: 0}
-  gridSizeX: 9
-  gridSizeY: 9
+  gridSizeX: 20
+  gridSizeY: 20
 --- !u!114 &756127580436248588
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,15 +19,19 @@ public class Grid2D : MonoBehaviour
     public Vector3 worldBottomLeft;
 
     float nodeDiameter;
-    public int gridSizeX,
-        gridSizeY = 0;
+
+    [SerializeField]
+    public int gridSizeX = 0;
+
+    [SerializeField]
+    public int gridSizeY = 0;
 
     void Awake()
     {
         if (gridSizeX == 0)
         {
-            gridSizeX = Mathf.RoundToInt(9);
-            gridSizeY = Mathf.RoundToInt(9);
+            gridSizeX = Mathf.RoundToInt(20);
+            gridSizeY = Mathf.RoundToInt(20);
         }
         CreateGrid();
     }

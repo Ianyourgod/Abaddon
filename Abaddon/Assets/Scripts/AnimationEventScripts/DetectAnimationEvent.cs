@@ -42,6 +42,11 @@ public class DetectAnimationEvent : MonoBehaviour
         enemyMovement.AttackEnd(GetDirectionVector(direction));
     }
 
+    public void HoldAttackEnd()
+    {
+        enemyMovement.HoldAttackEnd();
+    }
+
     public void Die()
     {
         enemyMovement.Die();

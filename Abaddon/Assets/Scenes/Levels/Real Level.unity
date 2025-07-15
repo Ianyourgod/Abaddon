@@ -20086,12 +20086,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 2066041832}
     m_Modifications:
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: gridSizeX
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: gridSizeY
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: worldBottomLeft.x
       value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: worldBottomLeft.y
       value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: worldBottomLeft.z
+      value: 9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: collideLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: obstaclemaps.Array.size
@@ -20148,6 +20164,14 @@ PrefabInstance:
     - target: {fileID: 6462628820561290989, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: enemyType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462628820561290990, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: detectionDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: m_Name
@@ -26174,12 +26198,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 2066041832}
     m_Modifications:
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: gridSizeX
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: gridSizeY
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: worldBottomLeft.x
       value: -53
       objectReference: {fileID: 0}
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: worldBottomLeft.y
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+      propertyPath: worldBottomLeft.z
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 2650337504027634204, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
       propertyPath: obstaclemaps.Array.data[0]

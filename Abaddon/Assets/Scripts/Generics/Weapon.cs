@@ -12,6 +12,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     private LayerMask hinderAttacksLayerMask;
     public static Weapon defaultWeapon;
+    public abstract string AnimationName { get; }
     public static int baseDamage = 2;
     public static Vector2 baseSize = new Vector2(1f, 1f); // length, width
 

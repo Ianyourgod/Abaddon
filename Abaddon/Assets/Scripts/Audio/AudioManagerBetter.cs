@@ -105,6 +105,7 @@ public class AudioManagerBetter : MonoBehaviour
     public void PlaySong(string songName)
     {
         musicSource.clip = songs[songName];
+        // it plays the song from here (and in one other spot) search for this comment
         musicSource.Play();
     }
 

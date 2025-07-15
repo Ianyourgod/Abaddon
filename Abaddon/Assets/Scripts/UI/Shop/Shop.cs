@@ -172,7 +172,7 @@ public class Shop : MonoBehaviour
             GameObject item = item_maybe == null ? throw new Exception("AAAAHHHHH") : item_maybe;
             Item i = item.GetComponent<Item>();
             i.player = Controller.main.inventory;
-            i.Pickup(false);
+            i.Pickup(false, false);
             ClearFields();
         }
         else

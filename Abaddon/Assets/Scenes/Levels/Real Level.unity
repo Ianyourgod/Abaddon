@@ -84065,10 +84065,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f116a0fc6332fae46b4f78b03b4a346c, type: 3}
   randomPlaceSound: 0
   openSfx:
-  - {fileID: 8300000, guid: 187386ba88531d344b25cb5c455ee01b, type: 3}
+  - {fileID: 8300000, guid: 4d13718163e91dfd59219d57af8f51ba, type: 3}
   randomOpenSound: 0
   closeSfx:
-  - {fileID: 8300000, guid: c92f729096c5d8947addff88cc1f9ecf, type: 3}
+  - {fileID: 8300000, guid: 0f6d8afad0ee8c2c08cc8bb8a2f2f09a, type: 3}
   randomCloseSound: 0
   equipSfx:
   - {fileID: 8300000, guid: 12b14e5c4da0904498c81bfe3a3c0890, type: 3}
@@ -84077,8 +84077,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
   addedPickupVolume: 0.01
   addedPlaceVolume: 0.02
-  addedOpenVolume: 0.01
-  addedCloseVolume: 0.01
+  addedOpenVolume: 1
+  addedCloseVolume: 1
   addedEquipVolume: 0.02
   addedUseVolume: 0
 --- !u!114 &6319183062605247523

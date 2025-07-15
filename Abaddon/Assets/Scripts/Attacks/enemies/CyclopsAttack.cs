@@ -9,8 +9,7 @@ public class CyclopsAttack : BaseAttack
         Attack,
     }
 
-    [SerializeField]
-    public AttackStage attackStage = AttackStage.WindUp;
+    AttackStage attackStage = AttackStage.WindUp;
 
     public override bool WillAttack(Vector2 position, Vector2 direction)
     {

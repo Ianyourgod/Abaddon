@@ -44,6 +44,7 @@ public class Controller : MonoBehaviour
     [SerializeField, Tooltip("Sum of starting stats")]
     public int sum_of_starting_stats = 40;
 
+    [Space]
     [SerializeField]
     public int conModifier;
 
@@ -56,9 +57,13 @@ public class Controller : MonoBehaviour
     [SerializeField]
     public int wisModifier;
 
+    [HideInInspector]
     public int exp = 0;
-    private int ticksSinceDash = 0;
-    public int ticksBetweenDashes;
+    private int ticksUntilDash = 0;
+
+    [Space]
+    [SerializeField]
+    private int ticksBetweenDashes;
 
     [SerializeField]
     Slider expBarVisual;
@@ -233,7 +238,7 @@ public class Controller : MonoBehaviour
     {
         main = this;
         onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
-        OnMoved += () => ticksSinceDash++;
+        OnMoved += () => ticksUntilDash--;
         onDie += () =>
         {
             var tombstone = Instantiate(
@@ -399,21 +404,19 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             print("Space pressed, dashing");
-            if (
-                CanMove(SendLongRaycast(current_player_direction))
-                && ticksSinceDash >= ticksBetweenDashes
-            )
+            if (CanMove(SendLongRaycast(current_player_direction)) && ticksUntilDash <= 0)
             {
                 transform.Translate(current_player_direction * 2);
                 SpawnDashTrail(current_player_direction);
                 // sfxPlayer.PlayWalkSound();
                 OnMoved?.Invoke();
-                ticksSinceDash = 0;
+                ticksUntilDash = ticksBetweenDashes;
+                current_enemy = 0;
                 FinishTick();
             }
             else
             {
-                print("Couldn't dash, something in the way");
+                print("Couldn't dash, something in the way or not enough ticks");
             }
         }
 

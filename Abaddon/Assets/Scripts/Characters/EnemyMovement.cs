@@ -45,6 +45,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     [SerializeField]
     EnemyType enemyType;
 
+    [HideInInspector]
+    public bool forceAttackNextTurn = false;
+
     public int health = 10;
     private Vector2 direction = Vector2.zero;
     private bool followingPlayer = false;
@@ -95,6 +98,13 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void MakeDecision()
     {
+        if (forceAttackNextTurn)
+        {
+            forceAttackNextTurn = false;
+            Attack();
+            return;
+        }
+
         bool inFollowRange = CheckPlayerIsInFollowRange();
         bool inDetectionRange = CheckPlayerIsInDetectionRange();
         bool atHome = transform.position == StartPosition;
@@ -163,15 +173,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
         RaycastHit2D[] hits = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
-        bool will_attack = false;
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (attack.WillAttack(hit, direction))
-            {
-                will_attack = true;
-                break;
-            }
-        }
+        bool will_attack = attack.WillAttack(transform.position, hits, direction);
+
         bool can_move = true;
         bool hitting_only_player = will_attack;
         foreach (RaycastHit2D hit in hits)

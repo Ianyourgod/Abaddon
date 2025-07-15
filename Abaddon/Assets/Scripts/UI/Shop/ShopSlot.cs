@@ -14,8 +14,6 @@ public class ShopSlot : MonoBehaviour
     [SerializeField]
     ShopItem? shop_item;
 
-    string item_name;
-
     ImageComponent image;
 
     public void SetShopItem(ShopItem s_item)
@@ -25,7 +23,6 @@ public class ShopSlot : MonoBehaviour
         Item item = item_prefab.GetComponent<Item>();
         image = GetComponent<ImageComponent>();
         image.sprite = item.GetComponent<SpriteRenderer>().sprite;
-        item_name = s_item.name;
     }
 
     void Awake()

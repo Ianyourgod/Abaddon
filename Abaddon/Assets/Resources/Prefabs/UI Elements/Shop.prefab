@@ -671,6 +671,7 @@ MonoBehaviour:
   - prefab: {fileID: 7753488132812357902, guid: aa80a6545973d5644abc7c6dc1464b8e, type: 3}
     name: Bad Helmet
     cost: 0
+  shopkeeper_image: {fileID: 5699517446026526786}
 --- !u!1 &7001801663369194347
 GameObject:
   m_ObjectHideFlags: 0

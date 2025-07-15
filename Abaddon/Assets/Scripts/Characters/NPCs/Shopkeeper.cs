@@ -8,10 +8,13 @@ public class Shopkeeper : GenericNPC
     private Message[] purchaseMessages;
 
     [SerializeField]
-    private Item[] shopContents;
+    private ShopItem[] shopContents;
 
     [SerializeField]
     private Inventory inventory;
+
+    [SerializeField]
+    private Sprite image;
 
     /*
     Message[] m = messages;
@@ -28,6 +31,8 @@ public class Shopkeeper : GenericNPC
         {
             print("opening ui");
             UIStateManager.singleton.OpenUIPage(UIState.Shop);
+            Shop.singleton.SetItems(shopContents);
+            Shop.singleton.SetShopkeeperImage(image);
         };
         base.StartConversation();
     }

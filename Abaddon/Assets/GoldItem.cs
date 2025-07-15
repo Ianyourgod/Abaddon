@@ -47,6 +47,9 @@ public class GoldItem : MonoBehaviour
 
     void CheckIfGoldShouldBeCollected()
     {
+        if (!this)
+            return;
+
         if (WithinBox(Controller.main.transform.position, transform.position, 0.5f))
             CollectGold();
     }

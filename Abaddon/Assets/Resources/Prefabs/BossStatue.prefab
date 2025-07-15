@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646a71de377eaa0edbf5c46204c438d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
   boss: {fileID: 0}
   health: 20
   animator: {fileID: 8561130896970507404}
@@ -147,8 +146,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1401633483
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5bd5c31fef660443e8727a9d9a5e642a, type: 3}
   m_Color: {r: 0.764151, g: 0.68124783, b: 0.68124783, a: 1}

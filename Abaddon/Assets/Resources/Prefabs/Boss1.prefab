@@ -72,9 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1489757d820f5448dedf3cf0cf231d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
   statuePrefab: {fileID: 4903596350638405677, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
-  enemyPrefab: {fileID: 6462628820561290991, guid: 6b490dfbfcb771e76b15653e1c804ba3, type: 3}
+  baseEnemy: {fileID: 0}
   spriteRenderer: {fileID: 435642702979050185}
   animator: {fileID: 8160346232297714436}
   AllowedAttackTicks: 7
@@ -156,8 +155,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1401633483
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 53ebf5c73623c4a058f38c1d0797651c, type: 3}
   m_Color: {r: 0.745283, g: 0.5189699, b: 0.38318795, a: 1}

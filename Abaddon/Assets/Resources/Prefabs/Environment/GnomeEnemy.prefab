@@ -183,8 +183,8 @@ MonoBehaviour:
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
+  enemyType: 0
   health: 10
-  textFadePrefab: {fileID: 8585363338278044273, guid: 4aa10794c0c072df5bf351a8b951c69a, type: 3}
 --- !u!114 &3913921436897795758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,8 +197,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTable: 0
-  forceDropPath: 
+  dropTable: []
+  goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
+  minGoldDropAmmount: 1
+  maxGoldDropAmmount: 1
 --- !u!114 &2067440025226379969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +303,8 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: cd28fc8a7c7cd6d408fc1d489edf17a2, type: 3}
   randomAttackSound: 0
+  swooshSfx: []
+  randomSwooshSound: 0
   deathSfx:
   - {fileID: 8300000, guid: 9a30404f9d3a20a4da50bffcd9f305ed, type: 3}
   - {fileID: 8300000, guid: ecd0ed764eaf7e54ab4bd7ef41627d4d, type: 3}

@@ -7,6 +7,9 @@ public class BaseAttack : MonoBehaviour
     [SerializeField]
     public uint damage = 1;
 
+    [SerializeField]
+    public EnemyMovement enemyMovement;
+
     [HideInInspector]
     public EnemySfx sfxPlayer;
 
@@ -15,13 +18,29 @@ public class BaseAttack : MonoBehaviour
         sfxPlayer = GetComponent<EnemySfx>();
     }
 
-    public virtual bool WillAttack(RaycastHit2D hit, Vector2 direction)
+    public virtual bool WillAttack(Vector2 position, RaycastHit2D[] hits, Vector2 direction)
     {
         // we just check if the collider is the player, and if it is, we return true - direction is for if children of this need it
-        if (hit.collider == null)
-            return false;
+        bool res = false;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+            {
+                continue;
+            }
 
-        return hit.collider.gameObject.layer == LayerMask.NameToLayer("Player");
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                res = true;
+            }
+            else if (hit.collider.gameObject != this.gameObject)
+            {
+                res = false;
+                return res;
+            }
+        }
+
+        return res;
     }
 
     public virtual void Attack(Vector2 direction)
@@ -33,6 +52,22 @@ public class BaseAttack : MonoBehaviour
         {
             sfxPlayer.PlayAttackSound();
         }
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(
+            transform.position,
+            direction,
+            1f,
+            LayerMask.GetMask("Player")
+        );
+        if (hits.Length == 0)
+        {
+            return;
+        }
         Controller.main.DamagePlayer(damage);
+    }
+
+    public virtual string GetAttackAnimationName()
+    {
+        return "attack";
     }
 }

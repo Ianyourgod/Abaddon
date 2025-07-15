@@ -45,6 +45,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     [SerializeField]
     EnemyType enemyType;
 
+    [HideInInspector]
+    public bool forceAttackNextTurn = false;
+
     public int health = 10;
     private Vector2 direction = Vector2.zero;
     private bool followingPlayer = false;
@@ -80,7 +83,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return false;
 
-        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position)
+        return Vector2.Distance(Controller.main.transform.position, transform.position)
             <= detectionDistance;
     }
 
@@ -89,12 +92,19 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return false;
 
-        float distance = Vector2.Distance(Controller.main.transform.position, StartPosition);
-        return distance <= followDistance;
+        return Vector2.Distance(Controller.main.transform.position, StartPosition)
+            <= followDistance;
     }
 
     public void MakeDecision()
     {
+        if (forceAttackNextTurn)
+        {
+            forceAttackNextTurn = false;
+            Attack();
+            return;
+        }
+
         bool inFollowRange = CheckPlayerIsInFollowRange();
         bool inDetectionRange = CheckPlayerIsInDetectionRange();
         bool atHome = transform.position == StartPosition;
@@ -133,9 +143,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (CheckPlayerIsInDetectionRange())
         {
-            if (Controller.main == null)
-                return;
-
             followingPlayer = true;
         }
         else if (followingPlayer && !CheckPlayerIsInFollowRange())
@@ -163,31 +170,19 @@ public class EnemyMovement : MonoBehaviour, CanFight
         RaycastHit2D[] hits = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
-        bool will_attack = false;
+        bool will_attack = attack.WillAttack(transform.position, hits, direction);
+
+        bool can_move = true;
         foreach (RaycastHit2D hit in hits)
         {
-            if (attack.WillAttack(hit, direction))
+            if (hit.collider.gameObject != this.gameObject)
             {
-                will_attack = true;
+                can_move = false;
                 break;
             }
         }
-        bool can_move = true;
-        bool hitting_only_player = will_attack;
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider.gameObject.name != this.name)
-            {
-                can_move = false;
-                if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
-                {
-                    hitting_only_player = false;
-                    break;
-                }
-            }
-        }
 
-        if (hitting_only_player)
+        if (will_attack)
         {
             Attack();
         }

@@ -141,11 +141,12 @@ public class Item : MonoBehaviour
         player.AddItem(item, null);
     }
 
-    public void Pickup(bool fromGround)
+    public void Pickup(bool fromGround, bool playAudio = true)
     {
         int possibleAmount = 0;
 
-        sfxPlayer.PlaySound("pickup");
+        if (playAudio)
+            sfxPlayer.PlaySound("pickup");
 
         foreach (Slot slot in player.slots)
         {

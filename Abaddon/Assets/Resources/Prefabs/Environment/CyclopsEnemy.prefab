@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 6462628818639776133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6462628820561290989}
   m_RootOrder: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 6462628818639776133}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1df4e71e02d8893fc8b07b9332eef39a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7eb540b3f3df83e41ad403fa496668d0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -176,14 +176,14 @@ MonoBehaviour:
     m_Bits: 212416
   animator: {fileID: 18587455}
   pathfinding: {fileID: 3445834741458170001}
-  animation_prefix: Goblin
+  animation_prefix: Cyclops
   attack: {fileID: 4107131594145436823}
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
-  enemyType: 0
+  enemyType: 3
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758
@@ -215,8 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  enemyMovement: {fileID: 0}
+  enemyMovement: {fileID: 6462628820561290990}
   sfxPlayer: {fileID: 0}
+  shockwavePrefab: {fileID: 1572553225976764284, guid: df01ca7c44ba9624eb01084e8c507643, type: 3}
   attackStage: 1
 --- !u!61 &6613495682198188706
 BoxCollider2D:

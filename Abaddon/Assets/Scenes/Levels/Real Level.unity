@@ -19739,10 +19739,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 18587455, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 7eb540b3f3df83e41ad403fa496668d0, type: 2}
     - target: {fileID: 2650337504027634204, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
       propertyPath: obstaclemaps.Array.data[0]
       value: 
@@ -19751,26 +19747,6 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[1]
       value: 
       objectReference: {fileID: 1302471205}
-    - target: {fileID: 4107131594145436823, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: enemyMovement
-      value: 
-      objectReference: {fileID: 1752184328}
-    - target: {fileID: 6462628818639776132, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628818639776132, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628818639776132, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628818639776132, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290989, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -19814,14 +19790,6 @@ PrefabInstance:
     - target: {fileID: 6462628820561290989, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628820561290990, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: enemyType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462628820561290990, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-      propertyPath: animation_prefix
-      value: Cyclops
       objectReference: {fileID: 0}
     - target: {fileID: 6462628820561290991, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
       propertyPath: m_Name
@@ -77653,17 +77621,6 @@ Transform:
   m_Father: {fileID: 492820800}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1752184328 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6462628820561290990, guid: 5fbab38a86342a14d9aed11bb6b8edff, type: 3}
-  m_PrefabInstance: {fileID: 378213721}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a109f15ddfaac4a40b84913bd29e9308, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1754108708
 PrefabInstance:
   m_ObjectHideFlags: 0

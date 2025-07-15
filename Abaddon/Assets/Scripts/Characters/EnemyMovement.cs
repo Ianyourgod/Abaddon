@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 //using UnityEditor;
@@ -170,7 +172,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         RaycastHit2D[] hits = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
-        bool will_attack = attack.WillAttack(transform.position, hits, direction);
+        bool will_attack = attack.WillAttack(transform.position, direction);
 
         bool can_move = true;
         foreach (RaycastHit2D hit in hits)
@@ -207,7 +209,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         // GetComponent<CanFight>().Attack();
         Controller.main.enabled = false;
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-        PlayAnimation(direction, "attack");
+        PlayAnimation(direction, attack.GetAttackAnimationName());
     }
 
     private static float Clamp(float value, float min, float max)
@@ -222,10 +224,57 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return Vector2.zero;
 
-        List<Node2D> path = pathfinding.FindPath(
-            transform.position,
-            Controller.main.transform.position
-        );
+        int cost = 0;
+        List<Node2D> path = new List<Node2D>();
+        if (enemyType == EnemyType.WeepingEye)
+        {
+            Vector3 playerPos = Controller.main.transform.position;
+            List<Vector2> potentialPositions = new List<Vector2>();
+            if (playerPos.x >= transform.position.x)
+            {
+                potentialPositions.Add(playerPos + 2 * Vector3.left);
+            }
+            if (playerPos.x <= transform.position.x)
+            {
+                potentialPositions.Add(playerPos + 2 * Vector3.right);
+            }
+            if (playerPos.y >= transform.position.y)
+            {
+                potentialPositions.Add(playerPos + 2 * Vector3.down);
+            }
+            if (playerPos.y <= transform.position.y)
+            {
+                potentialPositions.Add(playerPos + 2 * Vector3.up);
+            }
+
+            int bestCost = int.MaxValue;
+            List<Node2D> bestPath = null;
+
+            foreach (Vector2 pos in potentialPositions)
+            {
+                (int c, List<Node2D> p) = pathfinding.FindPath(transform.position, pos);
+                if (p != null && p.Count > 0 && c < bestCost)
+                {
+                    bestCost = c;
+                    bestPath = p;
+                }
+            }
+
+            if (bestPath == null)
+            {
+                return Vector2.zero;
+            }
+
+            cost = bestCost;
+            path = bestPath;
+        }
+        else
+        {
+            (cost, path) = pathfinding.FindPath(
+                transform.position,
+                Controller.main.transform.position
+            );
+        }
 
         if (path == null)
         {
@@ -257,7 +306,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         pathfinding.grid.gridSizeX = (int)(followDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int)(followDistance * 2 + 1);
-        List<Node2D> path = pathfinding.FindPath(transform.position, StartPosition);
+        (int cost, List<Node2D> path) = pathfinding.FindPath(transform.position, StartPosition);
 
         pathfinding.grid.gridSizeX = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeY = (int)(detectionDistance * 2 + 1);
@@ -394,6 +443,16 @@ public class EnemyMovement : MonoBehaviour, CanFight
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");
+        Invoke(nameof(callNextEnemy), 0f);
+    }
+
+    public void HoldAttackEnd()
+    {
+        if (Controller.main == null)
+            return;
+
+        animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
+        Controller.main.enabled = true;
         Invoke(nameof(callNextEnemy), 0f);
     }
 }

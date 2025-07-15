@@ -18,9 +18,10 @@ public class BaseAttack : MonoBehaviour
         sfxPlayer = GetComponent<EnemySfx>();
     }
 
-    public virtual bool WillAttack(Vector2 position, RaycastHit2D[] hits, Vector2 direction)
+    public virtual bool WillAttack(Vector2 position, Vector2 direction)
     {
         // we just check if the collider is the player, and if it is, we return true - direction is for if children of this need it
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, direction, 1f);
         bool res = false;
         foreach (RaycastHit2D hit in hits)
         {

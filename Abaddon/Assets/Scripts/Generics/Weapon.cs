@@ -39,7 +39,7 @@ public abstract class Weapon : MonoBehaviour
             if (Controller.main == null)
                 return new Sword(); // unity yells at us for this but it's better than null reference exceptions
 
-            Debug.Log("Default weapon is not set, setting to Sword.");
+            // Debug.Log("Default weapon is not set, setting to Sword.");
             defaultWeapon = Controller.main.GetComponent<Sword>();
         }
         return defaultWeapon;
@@ -53,14 +53,14 @@ public abstract class Weapon : MonoBehaviour
         Slot slot = Controller.main.inventory.equipSlots[3];
         if (slot == null)
         {
-            Debug.LogWarning("No weapon slot found, returning default.");
+            // Debug.LogWarning("No weapon slot found, returning default.");
             return GetDefaultWeapon(); // Default to Sword if no slot is found
         }
         if (slot.TryGetComponent(out EquipmentSlot equipmentSlot))
         {
             if (!equipmentSlot.isEquipped())
             {
-                Debug.Log("Weapon slot is not equipped, returning default.");
+                // Debug.Log("Weapon slot is not equipped, returning default.");
                 return GetDefaultWeapon();
             }
             Item currentItem = slot.GetComponent<Slot>().slotsItem;
@@ -68,7 +68,7 @@ public abstract class Weapon : MonoBehaviour
             {
                 return weapon; // Return the weapon associated with the current item
             }
-            Debug.LogWarning("Current item does not have a weapon association, returning default.");
+            // Debug.LogWarning("Current item does not have a weapon association, returning default.");
             return GetDefaultWeapon();
         }
         return GetDefaultWeapon();

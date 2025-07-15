@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CyclopsAttack : BaseAttack
+public class WeepingEyeAttack : BaseAttack
 {
     public enum AttackStage
     {
@@ -10,25 +10,39 @@ public class CyclopsAttack : BaseAttack
     }
 
     [SerializeField]
-    public AttackStage attackStage = AttackStage.WindUp;
+    public AttackStage attackStage = AttackStage.Attack;
 
     public override bool WillAttack(Vector2 position, Vector2 direction)
     {
-        // we check in a radius for the cyclops, don't care about raycast hits
-        Collider2D[] h = Physics2D.OverlapBoxAll(
-            position,
-            new Vector2(1f, 1f),
-            0f,
-            LayerMask.GetMask("Player")
-        );
+        // we check in a line for the weeping eye, but it's longer than the one provided
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, direction, 3f);
+        bool res = false;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+            {
+                continue;
+            }
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                res = true;
+            }
+            else if (hit.collider.gameObject != this.gameObject)
+            {
+                res = false;
+                return res;
+            }
+        }
         // mask only returns player
-        return h.Length > 0;
+        return hits.Length > 0;
     }
 
     public override void Attack(Vector2 direction)
     {
         if (Controller.main == null)
             return;
+
         switch (attackStage)
         {
             case AttackStage.WindUp:
@@ -38,7 +52,10 @@ public class CyclopsAttack : BaseAttack
             case AttackStage.Attack:
                 if (WillAttack(transform.position, direction))
                 {
-                    Controller.main.DamagePlayer(damage);
+                    if (WillAttack(transform.position, direction))
+                    {
+                        Controller.main.DamagePlayer(damage);
+                    }
                 }
                 enemyMovement.forceAttackNextTurn = false;
                 attackStage = AttackStage.WindUp;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 18587455}
   - component: {fileID: 4503870971181943354}
   m_Layer: 0
-  m_Name: GnomeSprite
+  m_Name: CyclopsSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1401633483
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -462487305, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
+  m_Sprite: {fileID: 1171106608, guid: 46b11a48215b30f47bebba7bf1d2400c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,14 +130,14 @@ GameObject:
   - component: {fileID: 6462628820561290989}
   - component: {fileID: 6462628820561290990}
   - component: {fileID: 3913921436897795758}
-  - component: {fileID: 2067440025226379969}
+  - component: {fileID: 4107131594145436823}
   - component: {fileID: 6613495682198188706}
   - component: {fileID: 3445834741458170001}
   - component: {fileID: 2650337504027634204}
   - component: {fileID: 756127580436248588}
   - component: {fileID: 1790465982330262463}
   m_Layer: 6
-  m_Name: GnomeEnemy
+  m_Name: CyclopsEnemy
   m_TagString: first_enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   animator: {fileID: 18587455}
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Goblin
-  attack: {fileID: 2067440025226379969}
+  attack: {fileID: 4107131594145436823}
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
@@ -185,7 +185,6 @@ MonoBehaviour:
   enemyDecisionDelay: 0.075
   enemyType: 0
   forceAttackNextTurn: 0
-  enemyType: 0
   health: 10
 --- !u!114 &3913921436897795758
 MonoBehaviour:
@@ -200,10 +199,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable: []
-  goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
+  goldCoinPrefab: {fileID: 0}
   minGoldDropAmmount: 1
   maxGoldDropAmmount: 1
---- !u!114 &2067440025226379969
+--- !u!114 &4107131594145436823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,12 +211,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6462628820561290991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af1f3be3c8a4cd6eac2ec7c8b0e9f14, type: 3}
+  m_Script: {fileID: 11500000, guid: e5ab75529dc73434daf4d3e4f3285f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   enemyMovement: {fileID: 0}
   sfxPlayer: {fileID: 0}
+  attackStage: 1
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-  worldBottomLeft: {x: -4, y: -4, z: 0}
+  worldBottomLeft: {x: -7.811322, y: -4.661658, z: 0}
   gridSizeX: 20
   gridSizeY: 20
 --- !u!114 &756127580436248588

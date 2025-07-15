@@ -29,6 +29,8 @@ public enum EnemyType
     Gnome,
     Boss1,
     Statue,
+    Cyclops,
+    WeepingEye,
 }
 
 public interface CanFight : CanBeKilled

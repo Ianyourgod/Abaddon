@@ -83,7 +83,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return false;
 
-        return UnityEngine.Vector2.Distance(Controller.main.transform.position, transform.position)
+        return Vector2.Distance(Controller.main.transform.position, transform.position)
             <= detectionDistance;
     }
 
@@ -92,8 +92,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return false;
 
-        float distance = Vector2.Distance(Controller.main.transform.position, StartPosition);
-        return distance <= followDistance;
+        return Vector2.Distance(Controller.main.transform.position, StartPosition)
+            <= followDistance;
     }
 
     public void MakeDecision()
@@ -143,9 +143,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (CheckPlayerIsInDetectionRange())
         {
-            if (Controller.main == null)
-                return;
-
             followingPlayer = true;
         }
         else if (followingPlayer && !CheckPlayerIsInFollowRange())
@@ -176,21 +173,16 @@ public class EnemyMovement : MonoBehaviour, CanFight
         bool will_attack = attack.WillAttack(transform.position, hits, direction);
 
         bool can_move = true;
-        bool hitting_only_player = will_attack;
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.gameObject.name != this.name)
+            if (hit.collider.gameObject != this.gameObject)
             {
                 can_move = false;
-                if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
-                {
-                    hitting_only_player = false;
-                    break;
-                }
+                break;
             }
         }
 
-        if (hitting_only_player)
+        if (will_attack)
         {
             Attack();
         }

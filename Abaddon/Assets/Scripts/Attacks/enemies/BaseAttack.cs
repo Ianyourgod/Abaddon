@@ -21,6 +21,7 @@ public class BaseAttack : MonoBehaviour
     public virtual bool WillAttack(Vector2 position, RaycastHit2D[] hits, Vector2 direction)
     {
         // we just check if the collider is the player, and if it is, we return true - direction is for if children of this need it
+        bool res = false;
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider == null)
@@ -30,11 +31,16 @@ public class BaseAttack : MonoBehaviour
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                return true;
+                res = true;
+            }
+            else if (hit.collider.gameObject != this.gameObject)
+            {
+                res = false;
+                return res;
             }
         }
 
-        return false;
+        return res;
     }
 
     public virtual void Attack(Vector2 direction)

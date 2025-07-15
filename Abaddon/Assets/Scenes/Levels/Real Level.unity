@@ -24341,43 +24341,6 @@ MonoBehaviour:
           m_CallState: 2
     closeOnEsc: 1
     dontDisableOnClose: 0
-  - state: 0
-    overrides: 
-    inhibits: 
-    screenObject: {fileID: 1715716650575989856}
-    defaultKey: 27
-    onEnable:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2136322168268651356}
-          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-          m_MethodName: Pause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    onDisable:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2136322168268651356}
-          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-          m_MethodName: Unpause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    closeOnEsc: 0
-    dontDisableOnClose: 1
   - state: 4
     overrides: 030000000200000000000000
     inhibits: 
@@ -24517,17 +24480,17 @@ MonoBehaviour:
     overrides: 00000000
     inhibits: 02000000
     screenObject: {fileID: 717580322}
-    defaultKey: 264
+    defaultKey: 0
     onEnable:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 717580322}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+        - m_Target: {fileID: 1402642066}
+          m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+          m_MethodName: OnEnable
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -24536,13 +24499,13 @@ MonoBehaviour:
     onDisable:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 717580322}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+        - m_Target: {fileID: 1402642066}
+          m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+          m_MethodName: OnDisable
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -24554,7 +24517,7 @@ MonoBehaviour:
     overrides: 
     inhibits: 
     screenObject: {fileID: 1873114222}
-    defaultKey: 117
+    defaultKey: 0
     onEnable:
       m_PersistentCalls:
         m_Calls:
@@ -24586,6 +24549,43 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
     closeOnEsc: 1
+    dontDisableOnClose: 1
+  - state: 0
+    overrides: 
+    inhibits: 
+    screenObject: {fileID: 1715716650575989856}
+    defaultKey: 27
+    onEnable:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2136322168268651356}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: Pause
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onDisable:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2136322168268651356}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: Unpause
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    closeOnEsc: 0
     dontDisableOnClose: 1
   MainMenuScene: Main Menu
 --- !u!1001 &1053864795
@@ -25303,7 +25303,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.044555455, g: 0.03804736, b: 0.084905684, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -45223,6 +45223,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5574912101336230554, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
   m_PrefabInstance: {fileID: 1402642064}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1402642066 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5913457844737581165, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
+  m_PrefabInstance: {fileID: 1402642064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717580322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93e4bff4752365e98d3f9348a7bc932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1406482864
 PrefabInstance:
   m_ObjectHideFlags: 0

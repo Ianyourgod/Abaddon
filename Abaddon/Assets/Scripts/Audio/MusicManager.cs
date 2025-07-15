@@ -9,7 +9,9 @@ public class MusicManager : MonoBehaviour
     [Header("References")]
     public AudioClip[] songs;
     public AudioSource musicAudSource;
-    [HideInInspector] public GameObject player;
+
+    [HideInInspector]
+    public GameObject player;
 
     private void Awake()
     {
@@ -28,7 +30,8 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        if (musicAudSource == null || AudioManager.main == null) return;
+        if (musicAudSource == null || AudioManager.main == null)
+            return;
 
         musicAudSource.volume = AudioManager.main.musicVolume;
     }

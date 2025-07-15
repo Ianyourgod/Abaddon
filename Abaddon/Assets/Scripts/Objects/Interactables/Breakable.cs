@@ -4,43 +4,52 @@ using UnityEngine;
 
 [RequireComponent(typeof(ItemDropper))]
 [RequireComponent(typeof(SfxPlayerBetter))]
-
-public class Breakable : MonoBehaviour, CanBeInteractedWith
+public class Breakable : MonoBehaviour, CanBeKilled
 {
     public enum BreakableType
     {
         Pot,
-        Barrel
+        Barrel,
     }
 
-    [SerializeField] BreakableType type = BreakableType.Pot;
-    [SerializeField] float health = 1;
-    SfxPlayerBetter sfxPlayer;
+    [SerializeField]
+    int health = 1;
+    private SfxPlayerBetter sfxPlayer;
+    private ItemDropper dropper;
+
+    [SerializeField]
+    private GameObject breakSprite;
 
     public void Start()
     {
         sfxPlayer = GetComponent<SfxPlayerBetter>();
+        dropper = GetComponent<ItemDropper>();
     }
 
-    public void Interact()
+    public int Hurt(int damage)
     {
-        sfxPlayer.PlaySound("break");
-        health -= 1;
-        if (health <= 0) Die();
+        int num = Random.Range(1, 4);
+        sfxPlayer.PlaySound($"break{num}");
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+        return health; // No healing overflow, as breakables do not heal.
+    }
+
+    public int Heal(int amount)
+    {
+        // Breakables cannot be healed, so this method does nothing.
+        Debug.LogWarning("Breakables cannot be healed.");
+        return health; // Return current health without changes.
     }
 
     public void Die()
     {
-        switch (type)
-        {
-            case BreakableType.Pot:
-                Instantiate((GameObject)Resources.Load("Prefabs/Environment/PotBreak"), transform.position, Quaternion.identity);
-                break;
-            case BreakableType.Barrel:
-                Instantiate((GameObject)Resources.Load("Prefabs/Environment/BarrelBreak"), transform.position, Quaternion.identity);
-                break;
-        }
-        GetComponent<ItemDropper>().Die();
+        dropper.DropRandomItem();
+        print("spawning break sprite");
+        Instantiate(breakSprite, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

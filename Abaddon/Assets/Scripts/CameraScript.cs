@@ -1,19 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
+//using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] private Transform defaultFollowTarget;
-    [SerializeField] private float default_seconds;
-    [SerializeField] private float default_wait_time;
-    [SerializeField] private float default_lerp_speed = 0.25f;
-    [SerializeField] private bool default_useSmoothMovement = true;
-    [SerializeField] private AnimationCurve camera_moveto_curve;
+    [SerializeField]
+    private Transform defaultFollowTarget;
+
+    [SerializeField]
+    private float default_seconds;
+
+    [SerializeField]
+    private float default_wait_time;
+
+    [SerializeField]
+    private float default_lerp_speed = 0.25f;
+
+    [SerializeField]
+    private bool default_useSmoothMovement = true;
+
+    [SerializeField]
+    private AnimationCurve camera_moveto_curve;
     private bool useSmoothMovement = true;
     private float seconds;
     private float wait_time = 0;
@@ -24,11 +35,12 @@ public class CameraScript : MonoBehaviour
     private Vector2 start_position;
     private readonly float thresholdDistance = 0.01f;
     private CameraState currentState = CameraState.MovingToTarget;
+
     private enum CameraState
     {
         MovingToTarget,
         Waiting,
-        FollowingTarget
+        FollowingTarget,
     }
 
     private Action onWidenFOVComplete;
@@ -60,16 +72,25 @@ public class CameraScript : MonoBehaviour
         {
             time = camera_moveto_curve.Evaluate(time);
             if (currentTarget != null)
-                return Vector3.Lerp(start_position, currentTarget.position + new Vector3(0, 0, -10), time);
+                return Vector3.Lerp(
+                    start_position,
+                    currentTarget.position + new Vector3(0, 0, -10),
+                    time
+                );
             else
                 return transform.position;
         }
-        return Vector3.Lerp(transform.position, currentTarget.position + new Vector3(0, 0, -10), default_lerp_speed * Time.deltaTime * 60f);
+        return Vector3.Lerp(
+            transform.position,
+            currentTarget.position + new Vector3(0, 0, -10),
+            default_lerp_speed * Time.deltaTime * 60f
+        );
     }
 
     void Update()
     {
-        if (Controller.main == null) return;
+        if (Controller.main == null)
+            return;
 
         void onReachedTarget()
         {
@@ -80,7 +101,11 @@ public class CameraScript : MonoBehaviour
         if (timeToWidenFOV > 0)
         {
             timeSpentWideningFOV += Time.deltaTime;
-            Camera.main.orthographicSize = Mathf.Lerp(initial_fov, target_fov, timeSpentWideningFOV / timeToWidenFOV);
+            Camera.main.orthographicSize = Mathf.Lerp(
+                initial_fov,
+                target_fov,
+                timeSpentWideningFOV / timeToWidenFOV
+            );
             if (timeSpentWideningFOV >= timeToWidenFOV)
             {
                 timeToWidenFOV = 0;
@@ -94,28 +119,46 @@ public class CameraScript : MonoBehaviour
         switch (currentState)
         {
             case CameraState.MovingToTarget:
-                transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
-                if (Vector2.Distance(transform.position, currentTarget.position) < thresholdDistance)
+                transform.position = new Vector3(
+                    newPosition.x,
+                    newPosition.y,
+                    transform.position.z
+                );
+                if (
+                    Vector2.Distance(transform.position, currentTarget.position) < thresholdDistance
+                )
                 {
                     if (wait_time > 0)
                     {
                         currentState = CameraState.Waiting;
                         current_wait_time = 0;
                     }
-                    else onReachedTarget();
+                    else
+                        onReachedTarget();
                 }
                 break;
             case CameraState.Waiting:
                 current_wait_time += Time.deltaTime;
-                if (current_wait_time > wait_time) onReachedTarget();
+                if (current_wait_time > wait_time)
+                    onReachedTarget();
                 break;
             case CameraState.FollowingTarget:
-                transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+                transform.position = new Vector3(
+                    newPosition.x,
+                    newPosition.y,
+                    transform.position.z
+                );
                 break;
         }
     }
 
-    public void ChangeTarget(Transform target, float seconds, float wait_time = 0, bool useSmoothMovement = true, System.Action onComplete = null)
+    public void ChangeTarget(
+        Transform target,
+        float seconds,
+        float wait_time = 0,
+        bool useSmoothMovement = true,
+        System.Action onComplete = null
+    )
     {
         this.seconds = seconds;
         this.wait_time = wait_time;
@@ -127,10 +170,20 @@ public class CameraScript : MonoBehaviour
         start_position = transform.position;
         current_movement_time = 0;
         current_movement_time = 0;
-
     }
 
-    public void ResetTarget(float? seconds = null, bool? useSmoothMovement = null, System.Action onComplete = null) => ChangeTarget(defaultFollowTarget, seconds ?? default_seconds, 0, useSmoothMovement ?? default_useSmoothMovement, onComplete);
+    public void ResetTarget(
+        float? seconds = null,
+        bool? useSmoothMovement = null,
+        System.Action onComplete = null
+    ) =>
+        ChangeTarget(
+            defaultFollowTarget,
+            seconds ?? default_seconds,
+            0,
+            useSmoothMovement ?? default_useSmoothMovement,
+            onComplete
+        );
 
     public void UpdateFOV(float size, float seconds = 0, Action onComplete = null)
     {

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class UITesting : MonoBehaviour
 {
-    [SerializeField] private Message[] messages;
+    [SerializeField]
+    private Message[] messages;
     private UIStateManager uiManager;
 
     void Awake()
@@ -15,7 +16,7 @@ public class UITesting : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             print("#1");
-            DialogueVisualiser.singleton.SetQueue(messages);
+            DialogueVisualiser.singleton.SetQueue(null, messages);
             print("#2");
             DialogueVisualiser.singleton.PlayCurrentMessage();
             print("#3");

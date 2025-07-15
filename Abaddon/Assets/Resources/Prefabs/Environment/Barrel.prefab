@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11867d949e110242a366902ab9c085f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   health: 1
+  breakSprite: {fileID: 5921584980013508696, guid: 776420a6aa120db4a9332b2b79a1e853, type: 3}
 --- !u!61 &2844499466063138201
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,8 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTable: 0
-  forceDropPath: 
+  dropTable: []
+  goldCoinPrefab: {fileID: 0}
+  minGoldDropAmmount: 1
+  maxGoldDropAmmount: 1
 --- !u!114 &5550557964091436495
 MonoBehaviour:
   m_ObjectHideFlags: 0

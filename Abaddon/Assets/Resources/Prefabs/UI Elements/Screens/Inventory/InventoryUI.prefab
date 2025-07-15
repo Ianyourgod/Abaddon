@@ -114,8 +114,8 @@ MonoBehaviour:
   curItem: {fileID: 0}
   possibleEqips: []
   curItemObj: {fileID: 0}
-  equipped: 0
-  currentEquippedItemID: 0
+  wasEquipped: 0
+  pastEquippedItemID: 0
 --- !u!1 &1027775238
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,8 +230,8 @@ MonoBehaviour:
   curItem: {fileID: 0}
   possibleEqips: []
   curItemObj: {fileID: 0}
-  equipped: 0
-  currentEquippedItemID: 0
+  wasEquipped: 0
+  pastEquippedItemID: 0
 --- !u!1 &1414205507
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,8 +346,8 @@ MonoBehaviour:
   curItem: {fileID: 0}
   possibleEqips: []
   curItemObj: {fileID: 0}
-  equipped: 0
-  currentEquippedItemID: 0
+  wasEquipped: 0
+  pastEquippedItemID: 0
 --- !u!1 &2099203078
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,8 +463,8 @@ MonoBehaviour:
   possibleEqips:
   - {fileID: 0}
   curItemObj: {fileID: 0}
-  equipped: 0
-  currentEquippedItemID: 0
+  wasEquipped: 0
+  pastEquippedItemID: 0
 --- !u!1 &2029997075455507481
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,10 +556,9 @@ GameObject:
   - component: {fileID: 4244016840743525301}
   - component: {fileID: 4244016840743525300}
   - component: {fileID: 4244016840743525303}
-  - component: {fileID: 1590986715}
-  - component: {fileID: 803041209}
   - component: {fileID: 2060924228515691888}
   - component: {fileID: 9132350090770761206}
+  - component: {fileID: 1371470825899218632}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: Untagged
@@ -609,7 +608,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
@@ -714,42 +713,6 @@ MonoBehaviour:
   itemAmountsAscending: []
   positiveItems: []
   shouldCheck: 0
---- !u!114 &1590986715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4244016840743525302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2307fcc57344723b68ff463c63d42d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visibleComponents: []
-  visibleObjects: []
-  pausedObjects: []
-  pausedComponents: []
-  pauseMenu: {fileID: 0}
-  transitionIntoHandler: {fileID: 0}
---- !u!114 &803041209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4244016840743525302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2307fcc57344723b68ff463c63d42d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visibleComponents: []
-  visibleObjects: []
-  pausedObjects: []
-  pausedComponents: []
-  pauseMenu: {fileID: 0}
-  transitionIntoHandler: {fileID: 0}
 --- !u!82 &2060924228515691888
 AudioSource:
   m_ObjectHideFlags: 0
@@ -877,6 +840,21 @@ MonoBehaviour:
   addedCloseVolume: 0
   addedEquipVolume: 0
   addedUseVolume: 0
+--- !u!114 &1371470825899218632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4244016840743525302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be03c4e7bf6854779979173b08124013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPlayScene: Level1
+  background: {fileID: 0}
+  fadeSpeed: 10
 --- !u!1001 &4022204837827668574
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorTrap : MonoBehaviour, CanBeInteractedWith
+public class FloorTrap : MonoBehaviour
 {
-    [SerializeField] uint damage = 2;
+    [SerializeField]
+    uint damage = 2;
 
     void Awake()
     {
@@ -18,15 +19,12 @@ public class FloorTrap : MonoBehaviour, CanBeInteractedWith
 
     void CustomUpdate()
     {
-        if (!this) return;
-        if (transform.position == Controller.main.transform.position)
+        if (!this || Controller.main == null)
+            return;
+
+        if (Vector2.Distance(transform.position, Controller.main.transform.position) < 0.5f)
         {
             Controller.main.DamagePlayer(damage, false);
         }
-    }
-
-    public void Interact()
-    {
-        Controller.main.DamagePlayer(damage, false);
     }
 }

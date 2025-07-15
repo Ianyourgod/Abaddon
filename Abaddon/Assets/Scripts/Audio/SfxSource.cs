@@ -7,7 +7,8 @@ public class SfxSource : MonoBehaviour
     private int index;
     private AudioSource source;
 
-    public SfxSource(AudioClip clip, int index, float volume){
+    public SfxSource(AudioClip clip, int index, float volume)
+    {
         this.index = index;
         source = new AudioSource();
         source.loop = false;
@@ -17,53 +18,63 @@ public class SfxSource : MonoBehaviour
         Play();
     }
 
-	void Awake()
-	{
+    void Awake()
+    {
         source = gameObject.AddComponent<AudioSource>();
         source.loop = false;
-	}
+    }
 
-	void Update()
-	{
-		if(!source.isPlaying){
+    void Update()
+    {
+        if (!source.isPlaying)
+        {
             AudioManagerBetter.main.PopSfxSource(index);
         }
-	}
+    }
 
-	public int Index(){
+    public int Index()
+    {
         return index;
     }
 
-    public void SetIndex(int index){
+    public void SetIndex(int index)
+    {
         this.index = index;
     }
 
-    public AudioSource Source(){
+    public AudioSource Source()
+    {
         return source;
     }
 
-    public void SetAudioClip(AudioClip clip){
+    public void SetAudioClip(AudioClip clip)
+    {
         source.clip = clip;
     }
 
-    public void Play(){
+    public void Play()
+    {
         source.Play();
     }
 
-    public void Play(AudioClip clip){
+    public void Play(AudioClip clip)
+    {
         SetAudioClip(clip);
         source.Play();
     }
 
-    public void Pause(){
+    public void Pause()
+    {
         source.Pause();
     }
 
-    public void UnPause(){
+    public void UnPause()
+    {
         source.UnPause();
     }
 
-    public void SetVolume(float volume){
+    public void SetVolume(float volume)
+    {
         source.volume = volume;
     }
 }

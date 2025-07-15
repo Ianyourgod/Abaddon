@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class TransitionIntoHandler : MonoBehaviour
 {
-    [SerializeField] TransistionScriptableObject transistionScriptableObject;
-    [SerializeField] UnityEngine.UI.Image panel;
-    [SerializeField] string StartPlayScene = "Level 0";
+    [SerializeField]
+    TransistionScriptableObject transistionScriptableObject;
+
+    [SerializeField]
+    UnityEngine.UI.Image panel;
+
+    [SerializeField]
+    string StartPlayScene = "Level 0";
     private bool startFadingOut;
     private float timeElapsed;
 
@@ -20,7 +25,6 @@ public class TransitionIntoHandler : MonoBehaviour
             float t = timeElapsed / transistionScriptableObject.timeToFade;
             panel.color = new Color(start.r, start.g, start.b, t);
             timeElapsed += Time.deltaTime;
-
 
             if (panel.color.a > 0.95f)
             {

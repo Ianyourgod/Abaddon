@@ -26,7 +26,6 @@
 //         damageAmount.GetComponent<RealTextFadeUp>().SetText(damage.ToString(), Color.red, Color.white, 0.4f);
 //     }
 
-
 //     public virtual void Die()
 //     {
 //         Debug.Log("Die");

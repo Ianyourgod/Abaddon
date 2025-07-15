@@ -1,14 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using System.Linq;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerSfx)), RequireComponent(typeof(Inventory)), RequireComponent(typeof(BoxCollider2D))]
-
+[
+    RequireComponent(typeof(PlayerSfx)),
+    RequireComponent(typeof(Inventory)),
+    RequireComponent(typeof(BoxCollider2D))
+]
 public class Controller : MonoBehaviour
 {
     #region Variables
@@ -16,33 +21,61 @@ public class Controller : MonoBehaviour
 
     #region Stats
     [Header("Base Stats")]
-    [SerializeField, Tooltip("Constitution (maximum health)")] public int constitution = 9;
-    [SerializeField, Tooltip("Dexterity (dodge chance)")] public int dexterity = 9;
-    [SerializeField, Tooltip("Strength (attack damage)")] public int strength = 9;
-    [SerializeField, Tooltip("Wisdom (ability damage)")] public int wisdom = 9;
-    [SerializeField, Tooltip("Minimum stat roll")] public int minimum_stat_roll = 1;
-    [SerializeField, Tooltip("Maximum stat roll")] public int maximum_stat_roll = 7;
-    [SerializeField, Tooltip("Sum of starting stats")] public int sum_of_starting_stats = 40;
+    [SerializeField, Tooltip("Constitution (maximum health)")]
+    public int constitution = 9;
 
-    [SerializeField] public int conModifier;
-    [SerializeField] public int dexModifier;
-    [SerializeField] public int strModifier;
-    [SerializeField] public int wisModifier;
+    [SerializeField, Tooltip("Dexterity (dodge chance)")]
+    public int dexterity = 9;
+
+    [SerializeField, Tooltip("Strength (attack damage)")]
+    public int strength = 9;
+
+    [SerializeField, Tooltip("Wisdom (ability damage)")]
+    public int wisdom = 9;
+
+    [SerializeField, Tooltip("Minimum stat roll")]
+    public int minimum_stat_roll = 1;
+
+    [SerializeField, Tooltip("Maximum stat roll")]
+    public int maximum_stat_roll = 7;
+
+    [SerializeField, Tooltip("Sum of starting stats")]
+    public int sum_of_starting_stats = 40;
+
+    [SerializeField]
+    public int conModifier;
+
+    [SerializeField]
+    public int dexModifier;
+
+    [SerializeField]
+    public int strModifier;
+
+    [SerializeField]
+    public int wisModifier;
 
     public int exp = 0;
 
-    [SerializeField] Slider expBarVisual;
+    [SerializeField]
+    Slider expBarVisual;
 
     [Space]
     #endregion
 
     #region Health
     [Header("Health")]
-    [SerializeField] Slider healthBarVisual;
-    [SerializeField] Transform respawnPoint;
+    [SerializeField]
+    Slider healthBarVisual;
+
+    [SerializeField]
+    Transform respawnPoint;
+
     [Space]
-    [HideInInspector] public Action onDie;
-    [HideInInspector] public int max_health;
+    [HideInInspector]
+    public Action onDie;
+
+    [HideInInspector]
+    public int max_health;
     public int health
     {
         get => _health;
@@ -50,7 +83,8 @@ public class Controller : MonoBehaviour
         {
             _health = value;
             _health = Math.Clamp(_health, 0, max_health);
-            if (healthBarVisual) healthBarVisual.value = health;
+            if (healthBarVisual)
+                healthBarVisual.value = health;
             if (_health <= 0)
             {
                 onDie?.Invoke();
@@ -63,37 +97,78 @@ public class Controller : MonoBehaviour
 
     #region Movement
     [Header("Movement")]
-    [SerializeField] LayerMask collideLayers;
+    [SerializeField]
+    LayerMask collideLayers;
+
     [Space]
     Vector2 current_player_direction = new Vector2(0, -1);
+
+    float turnEndStart = Mathf.Infinity;
     #endregion
 
-    #region Player Update System 
-    [HideInInspector] public static Action OnTick;
-    [HideInInspector] public static Action OnMoved;
-    [HideInInspector] public EnemyMovement[] enemies;
-    [HideInInspector] public bool done_with_tick = true;
+    #region Player Update System
+    [HideInInspector]
+    public static Action OnTick;
+
+    [HideInInspector]
+    public static Action OnMoved;
+
+    [HideInInspector]
+    public EnemyMovement[] enemies;
+
+    [HideInInspector]
+    public bool done_with_tick = true;
     int current_enemy = 0;
     #endregion
 
-    #region Other 
+    #region Other
     [Header("Other")]
-    [SerializeField] public Animator animator;
-    [SerializeField] CameraScript mainCamera;
-    [SerializeField] GameObject tombstonePrefab;
-    [SerializeField] Item baseRespawnSword;
-    [HideInInspector] public PlayerSfx sfxPlayer;
-    [HideInInspector] public Inventory inventory;
+    [SerializeField]
+    private TextMeshProUGUI goldIndicator;
+
+    [SerializeField]
+    public Animator animator;
+
+    [SerializeField]
+    CameraScript mainCamera;
+
+    [SerializeField]
+    GameObject tombstonePrefab;
+
+    [SerializeField]
+    Item baseRespawnSword;
+
+    [SerializeField]
+    public GameObject uiObject;
+
+    [SerializeField]
+    public GameObject textFadePrefab;
+
+    [HideInInspector]
+    public PlayerSfx sfxPlayer;
+
+    [HideInInspector]
+    public Inventory inventory;
 
     #endregion
 
-    #region Constants 
+    #region Constants
     const int KeyID = 1;
     #endregion
 
     #region Local Things
     private bool god_mode = false;
-    private (bool, bool) god_mode_keys = (false, false);
+    private int _goldCount = 0;
+    public int goldCount
+    {
+        get => _goldCount;
+        set
+        {
+            goldIndicator.text = $"Gold: {value}";
+            _goldCount = value;
+        }
+    }
+    private bool god_mode_keys_prev = false;
     #endregion
 
     #region Movement Controls
@@ -109,31 +184,44 @@ public class Controller : MonoBehaviour
         Up,
         Down,
         Left,
-        Right
+        Right,
     }
 
-    private Dictionary<MovementDirection, MoveState> movementStates = new Dictionary<MovementDirection, MoveState>();
+    private Dictionary<MovementDirection, MoveState> movementStates =
+        new Dictionary<MovementDirection, MoveState>();
 
-    [SerializeField] float initialMovementDelay = 0.3f;
-    [SerializeField] float holdDelay = 0.03f;
+    [SerializeField]
+    float initialMovementDelay = 0.3f;
+
+    [SerializeField]
+    float holdDelay = 0.03f;
 
     #endregion
 
+    #region Quests
+
     public enum Quest
     {
-        Kill15Gnomes
+        Kill15Gnomes,
+        SaveEmoBoy,
     }
 
-    private class QuestState
+    public class QuestState
     {
         public int Kill15Gnomes;
+
+        public bool EmoBoySaved;
     }
 
     private QuestState quest_state;
 
+    [HideInInspector]
+    public List<Quest> current_quests;
 
-    [HideInInspector] public List<Quest> current_quests;
-    [HideInInspector] public List<Quest> completed_quests;
+    [HideInInspector]
+    public List<Quest> completed_quests;
+
+    #endregion
 
     #endregion
 
@@ -143,10 +231,26 @@ public class Controller : MonoBehaviour
         onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
         onDie += () =>
         {
-            var tombstone = Instantiate(tombstonePrefab, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity).GetComponent<Tombstone>();
+            var tombstone = Instantiate(
+                    tombstonePrefab,
+                    new Vector3(transform.position.x, transform.position.y, -5),
+                    Quaternion.identity
+                )
+                .GetComponent<Tombstone>();
             var unioned = inventory.slots.Union(inventory.equipSlots);
-            print(string.Join(", ", unioned.Select(slot => slot.name + (slot.slotsItem != null ? $"({slot.slotsItem.name})" : "(empty)"))));
-            Item[] items = unioned.Where(slot => slot.slotsItem != null).Select(slot => slot.slotsItem).ToArray();
+            print(
+                string.Join(
+                    ", ",
+                    unioned.Select(slot =>
+                        slot.name
+                        + (slot.slotsItem != null ? $"({slot.slotsItem.name})" : "(empty)")
+                    )
+                )
+            );
+            Item[] items = unioned
+                .Where(slot => slot.slotsItem != null)
+                .Select(slot => slot.slotsItem)
+                .ToArray();
             tombstone.SetItems(items);
             inventory.ClearInventory();
         };
@@ -170,10 +274,13 @@ public class Controller : MonoBehaviour
             newStats[i] = newStats[i] / total;
         }
 
-        var results = newStats.Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats)).ToArray();
+        var results = newStats
+            .Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats))
+            .ToArray();
 
         int diff = results.Sum() - sum_of_starting_stats;
-        if (diff != 0) results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
+        if (diff != 0)
+            results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
 
         strength = results[0];
         dexterity = results[1];
@@ -225,46 +332,57 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        UpdateConstitutionModifier(0);
+        UpdateHealthBar();
+        UIFloatText();
 
-        bool god_mode_keys_prev = god_mode_keys.Item1;
-        bool god_mode_keys_pressed = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
-        god_mode_keys = (god_mode_keys_pressed, god_mode_keys_prev);
+        bool god_mode_keys_down = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
 
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && god_mode)
+        if (god_mode_keys_down && !god_mode_keys_prev)
         {
-            print("God mode deactivated");
-            god_mode = false;
-            god_mode_keys = (true, true);
-            // round to nearest tile
-            transform.position = new Vector3(
-                Mathf.Round(transform.position.x - 0.5f) + 0.5f,
-                Mathf.Round(transform.position.y - 0.5f) + 0.5f,
-                transform.position.z
-            );
+            if (god_mode)
+            {
+                print("God mode deactivated");
+                god_mode = false;
+                // round to nearest tile
+                transform.position = new Vector3(
+                    Mathf.Round(transform.position.x - 0.5f) + 0.5f,
+                    Mathf.Round(transform.position.y - 0.5f) + 0.5f,
+                    transform.position.z
+                );
+            }
+            else
+            {
+                god_mode = true;
+            }
         }
+        god_mode_keys_prev = god_mode_keys_down;
 
         // rotation buttons
-        if (Input.GetKeyDown(KeyCode.Z))
+        // TODO make more advanced, look at other games that do this
+        if (Input.GetKeyDown(SettingsMenu.singleton.rotateLeftKeybind.key))
         {
-            current_player_direction = new Vector2(-current_player_direction.y, current_player_direction.x); // rotate left
+            current_player_direction = new Vector2(
+                -current_player_direction.y,
+                current_player_direction.x
+            ); // rotate left
             PlayAnimation("idle", current_player_direction);
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(SettingsMenu.singleton.rotateRightKeybind.key))
         {
-            current_player_direction = new Vector2(current_player_direction.y, -current_player_direction.x); // rotate right
+            current_player_direction = new Vector2(
+                current_player_direction.y,
+                -current_player_direction.x
+            ); // rotate right
             PlayAnimation("idle", current_player_direction);
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick) return;
-
-        // Debug.Log("Done with tick, processing input");
-
-        if (god_mode_keys.Item1 && !god_mode_keys.Item2 && !god_mode)
+        if (!done_with_tick)
         {
-            god_mode = true;
-            print("God mode activated");
+            if (Time.time - turnEndStart < 15f)
+                return;
+
+            done_with_tick = true;
         }
 
         if (god_mode)
@@ -273,10 +391,11 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
         {
 #nullable enable
             GenericNPC? npc = CanStartConversation();
+#nullable disable
 
             if (npc != null)
             {
@@ -287,8 +406,10 @@ public class Controller : MonoBehaviour
 
         Move();
 
-        if (Input.GetKeyDown(KeyCode.J) && Input.GetKey(KeyCode.LeftShift)) health += 1;
-        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift)) DamagePlayer(10, false);
+        if (Input.GetKeyDown(KeyCode.J) && Input.GetKey(KeyCode.LeftShift))
+            health += 1;
+        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift))
+            DamagePlayer(10, false);
     }
 
     void GodModeMove()
@@ -305,8 +426,8 @@ public class Controller : MonoBehaviour
 
     bool playerPressingButtons()
     {
-        return Input.GetKey(KeyCode.E) ||
-               Input.GetKey(KeyCode.V);
+        return Input.GetKey(SettingsMenu.singleton.interactKeybind.key)
+            || Input.GetKey(SettingsMenu.singleton.attackKeybind.key);
     }
 
     void Move()
@@ -314,60 +435,72 @@ public class Controller : MonoBehaviour
         // Debug.Log("Starting player movement");
         Vector2 direction = GetAxis();
         bool stickMoved = direction.magnitude != 0;
-        if (!stickMoved && !playerPressingButtons()) return; // if the player is not pressing a movement key, do nothing
+        if (!stickMoved && !playerPressingButtons())
+            return; // if the player is not pressing a movement key, do nothing
         if (stickMoved)
         {
             current_player_direction = direction;
         }
-
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
-        bool canMove = CanMove(objectsAhead);
         current_enemy = 0;
         PlayAnimation("idle", direction);
 
-        if (canMove && stickMoved)
-        {
-
-            transform.Translate(direction);
-            sfxPlayer.PlayWalkSound();
-            OnMoved?.Invoke();
-            FinishTick();
-        }
-
         bool did_something = false;
-        Debug.Log(objectsAhead.Length + " objects ahead");
-        if (Input.GetKey(KeyCode.E))
+        if (stickMoved)
         {
-            foreach (GameObject obj in objectsAhead)
+            // If the player is trying to move and can, move them
+            if (CanMove(objectsAhead))
             {
-                if (obj.TryGetComponent(out CanBeInteractedWith interactable))
-                {
-                    interactable.Interact();
-                    FinishTick();
-                    // TODO: do animation + sfx
-                    did_something = true;
-                }
+                transform.Translate(direction);
+                sfxPlayer.PlayWalkSound();
+                OnMoved?.Invoke();
+                FinishTick();
+                did_something = true;
+            }
+            // If the player is trying to move but can't, cancel the turn
+            else
+            {
+                done_with_tick = true;
+                return;
             }
         }
-        if (Input.GetKey(KeyCode.V))
+
+        // Debug.Log($"{objectsAhead.Length} objects ahead");
+        if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
         {
-            Debug.Log("V pressed, checking for enemies to attack");
-            float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
-            CanFight[] enemies = Weapon.GetCurrentWeapon().GetFightablesInDamageArea(transform.position, angle);
-            bool attackWorked = Weapon.GetCurrentWeapon().AttackEnemies(enemies, current_player_direction);
-            // TODO: do animation + sfx
-            if (attackWorked)
+#nullable enable
+            CanBeInteractedWith? interactable = FindInteractable(objectsAhead);
+#nullable disable
+            if (interactable != null)
             {
+                interactable.Interact();
+                FinishTick();
+                // TODO: do animation + sfx. maybe do that in the interactable's interact function? since we might want different sfx depending on the thing
                 did_something = true;
             }
         }
-        if (!did_something) FinishTick();
+        if (Input.GetKeyDown(SettingsMenu.singleton.attackKeybind.key))
+        {
+            // Debug.Log("V pressed, checking for enemies to attack");
+            float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
+            CanBeDamaged[] enemies = Weapon
+                .GetCurrentWeapon()
+                .GetFightablesInDamageArea(transform.position, angle);
+            bool attackWorked = Weapon
+                .GetCurrentWeapon()
+                .AttackEnemies(enemies, current_player_direction);
+            sfxPlayer.PlayAttackSound();
+            PlayAnimation("attack", current_player_direction);
+            did_something = true;
+        }
+
+        if (!did_something)
+            FinishTick();
     }
 
-    public void UpdateConstitutionModifier(int conDiff)
+    public void UpdateHealthBar()
     {
-        conModifier += conDiff;
         double health_percentage = (double)health / (double)max_health;
         max_health = (constitution + conModifier) * 2;
         if (healthBarVisual)
@@ -378,31 +511,144 @@ public class Controller : MonoBehaviour
         HealPlayer(0);
     }
 
+    public void UpdateConstitutionModifier(int conDiff)
+    {
+        if (conDiff == 0)
+            return;
+        conModifier += conDiff;
+        TextTypes type = conDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{conDiff} CON", type);
+    }
+
     public void UpdateDexterityModifier(int dexDiff)
     {
+        if (dexDiff == 0)
+            return;
         dexModifier += dexDiff;
+        TextTypes type = dexDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{dexDiff} DEX", type);
         // No need to update anything else, since dexterity is only used for dodge chance
     }
 
     public void UpdateStrengthModifier(int strDiff)
     {
+        if (strDiff == 0)
+            return;
         strModifier += strDiff;
+        TextTypes type = strDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{strDiff} STR", type);
         // No need to update anything else, since strength is only used for damage
     }
 
     public void UpdateWisdomModifier(int wisDiff)
     {
+        if (wisDiff == 0)
+            return;
         wisModifier += wisDiff;
+        TextTypes type = wisDiff < 0 ? TextTypes.StatLoss : TextTypes.StatGain;
+        AddTextToQueue($"{wisDiff} WIS", type);
         // No need to update anything else, since wisdom is only used for ability damage
     }
 
-    public uint GetDamageModifier()
+    [Serializable]
+    public enum TextTypes
     {
-        return (uint)(strength + strModifier - 10) / 2;
+        StatLoss,
+        StatGain,
+        Other,
+    }
+
+    [Serializable]
+    public readonly struct TextPopupData
+    {
+        public TextPopupData(string text, TextTypes type)
+        {
+            this.text = text;
+            this.type = type;
+        }
+
+        public string text { get; }
+        public TextTypes type { get; }
+    }
+
+    #region Text Popup Stuff
+    [SerializeField]
+    [Header("Text Popup")]
+    public List<TextPopupData> textQueue = new List<TextPopupData>();
+#nullable enable
+    private UITextFadeUp? lastTextFadeUp;
+#nullable disable
+    #endregion
+
+    public void AddTextToQueue(string text, TextTypes type)
+    {
+        if (textQueue.Count > 0 && textQueue[textQueue.Count - 1].text == text)
+            return; // don't add the same text twice in a row
+        textQueue.Add(new TextPopupData(text, type));
+    }
+
+    public void UIFloatText()
+    {
+        if (textQueue.Count == 0)
+            return;
+        if (lastTextFadeUp != null)
+        {
+            if (
+                lastTextFadeUp.transform.localPosition.y
+                < lastTextFadeUp.textObject.mesh.bounds.size.y * 1.1f
+            )
+            {
+                return;
+            }
+        }
+        TextPopupData popupData = textQueue[0];
+        if (popupData.text == null || popupData.text == "")
+        {
+            textQueue.RemoveAt(0);
+            return;
+        }
+
+        string popupText = popupData.text;
+
+        Color color = Color.red;
+        bool failedToParse = false;
+        switch (popupData.type)
+        {
+            case TextTypes.StatLoss:
+                failedToParse = !ColorUtility.TryParseHtmlString("#f54929", out color);
+                // popupText = $"-{popupText}";
+                break;
+            case TextTypes.StatGain:
+                failedToParse = !ColorUtility.TryParseHtmlString("#c8c8e0", out color);
+                popupText = $"+{popupText}";
+                break;
+            case TextTypes.Other:
+                failedToParse = !ColorUtility.TryParseHtmlString("#ff1515", out color);
+                break;
+        }
+        if (failedToParse)
+        {
+            Debug.LogError($"Failed to parse color for text: {popupData.text}");
+            color = Color.red; // fallback color
+        }
+        UITextFadeUp floatText = Instantiate(textFadePrefab, uiObject.transform)
+            .GetComponent<UITextFadeUp>();
+        floatText.transform.localPosition = new Vector3(-350, 0, 50);
+        floatText.gameObject.layer = LayerMask.NameToLayer("Walls");
+        floatText.SetText(popupText, color, Color.white, 0.4f);
+        floatText.SetFontSize(24);
+        lastTextFadeUp = floatText;
+        textQueue.RemoveAt(0);
+    }
+
+    public int GetDamageModifier()
+    {
+        return (strength + strModifier - 10) / 2;
     }
 
     public void FinishTick()
     {
+        turnEndStart = Time.time;
         OnTick?.Invoke();
         NextEnemy();
     }
@@ -418,41 +664,27 @@ public class Controller : MonoBehaviour
         enemies[current_enemy - 1].MakeDecision();
     }
 
-    // private void Attack(CanFight enemy, Vector2 direction)
-    // {
-    //     BaseAbility attack = AbilitySwapper.getAbility(main); // Get current attack. Useful if we add more abilities later.
-
-    //     if (attack.CanUse(enemy, direction))
-    //     {
-    //         print($"attacking {enemy.GetType().Name} with {attack.GetType().Name}");
-    //         attack.Attack(enemy, direction, animator, sfxPlayer);
-    //     }
-    //     else
-    //     {
-    //         FinishTick();
-    //     }
-    // }
-
     public void KilledEnemy(EnemyType enemy)
     {
         switch (enemy)
         {
             case EnemyType.Gnome:
+            {
+                if (current_quests.Contains(Quest.Kill15Gnomes))
                 {
-                    if (current_quests.Contains(Quest.Kill15Gnomes))
+                    quest_state.Kill15Gnomes += 1;
+                    print(quest_state.Kill15Gnomes);
+                    if (quest_state.Kill15Gnomes >= 2)
                     {
-                        quest_state.Kill15Gnomes += 1;
-                        print(quest_state.Kill15Gnomes);
-                        if (quest_state.Kill15Gnomes >= 2)
-                        {
-                            print("COMPLETED COMPLETED COMPLETED COMLPETED COMPLERTERD");
-                            current_quests.Remove(Quest.Kill15Gnomes);
-                            completed_quests.Add(Quest.Kill15Gnomes);
-                        }
+                        print("COMPLETED COMPLETED COMPLETED COMLPETED COMPLERTERD");
+                        current_quests.Remove(Quest.Kill15Gnomes);
+                        completed_quests.Add(Quest.Kill15Gnomes);
                     }
-                    break;
                 }
-            default: break;
+                break;
+            }
+            default:
+                break;
         }
     }
 
@@ -496,11 +728,10 @@ public class Controller : MonoBehaviour
 
         // todo: allow people to rebind movement keys
 
-
-        bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-        bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
-        bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        bool up = Input.GetKey(SettingsMenu.singleton.moveUpwardKeybind.key);
+        bool down = Input.GetKey(SettingsMenu.singleton.moveDownwardKeybind.key);
+        bool left = Input.GetKey(SettingsMenu.singleton.moveLeftKeybind.key);
+        bool right = Input.GetKey(SettingsMenu.singleton.moveRightKeybind.key);
 
         up = ShouldMove(MovementDirection.Up, up);
         down = ShouldMove(MovementDirection.Down, down);
@@ -522,8 +753,11 @@ public class Controller : MonoBehaviour
     GameObject[] SendRaycast(Vector2 direction)
     {
         Vector2 world_position = (Vector2)transform.position + (direction * .51f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
-        Debug.DrawLine(new Vector3(world_position.x, world_position.y, 0), new Vector3(world_position.x + direction.x * .5f, world_position.y + direction.y * .5f, 0), Color.green, 0.2f, false);
-        return Physics2D.RaycastAll(world_position, direction, .5f).Select(hit => hit.collider.gameObject).ToArray();
+        Debug.DrawRay(world_position, direction, Color.green, 0.2f, false);
+        return Physics2D
+            .RaycastAll(world_position, direction, .5f)
+            .Select(hit => hit.collider.gameObject)
+            .ToArray();
     }
 
     string DirectionToAnimationLabel(Vector2 direction)
@@ -536,15 +770,21 @@ public class Controller : MonoBehaviour
         {
             return "back";
         }
-        else if (direction == Vector2.left ||
-                 direction == new Vector2(-1, -1) || // diagonal left down
-                 direction == new Vector2(-1, 1)) // diagonal left up
+        else if (
+            direction == Vector2.left
+            || direction == new Vector2(-1, -1)
+            || // diagonal left down
+            direction == new Vector2(-1, 1)
+        ) // diagonal left up
         {
             return "left";
         }
-        else if (direction == Vector2.right ||
-                 direction == new Vector2(1, -1) || // diagonal right down
-                 direction == new Vector2(1, 1)) // diagonal right up
+        else if (
+            direction == Vector2.right
+            || direction == new Vector2(1, -1)
+            || // diagonal right down
+            direction == new Vector2(1, 1)
+        ) // diagonal right up
         {
             return "right";
         }
@@ -554,8 +794,10 @@ public class Controller : MonoBehaviour
 
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
-        if (facingDirection == null || facingDirection == Vector2.zero) facingDirection = current_player_direction;
-        string animation = $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
+        if (facingDirection == null || facingDirection == Vector2.zero)
+            facingDirection = current_player_direction;
+        string animation =
+            $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
         animator.Play(animation);
     }
 
@@ -614,33 +856,49 @@ public class Controller : MonoBehaviour
     }
 
 #nullable enable
-    public GenericNPC? CanStartConversation()
+    private GenericNPC? CanStartConversation()
     {
         // do initial check for nearness
-        Collider2D[] npcs = Physics2D.OverlapCircleAll(transform.position, 1.2f, collideLayers);
+        Collider2D npc = Physics2D
+            .Raycast(transform.position, current_player_direction, 1f, collideLayers)
+            .collider;
+        if (npc == null)
+            return null;
+        return npc.GetComponent<GenericNPC>();
+    }
 
-        (GenericNPC?, float) npc = (null, 9999f);
-        foreach (Collider2D col in npcs)
+#nullable disable
+
+#nullable enable
+    private CanBeInteractedWith? FindInteractable(GameObject[] objectsAhead)
+    {
+        foreach (GameObject obj in objectsAhead)
         {
-            if (col.TryGetComponent(out GenericNPC possible_npc))
-            {
-                float dist = Vector2.Distance(possible_npc.transform.position, transform.position);
-                if (dist < npc.Item2)
-                    npc = (possible_npc, dist);
-                break;
-            }
+            if (obj.TryGetComponent(out CanBeInteractedWith interactable))
+                return interactable;
         }
+        return null;
+    }
 
-        if (npc.Item1 == null) return null;
+#nullable disable
 
-        // real check
-        return npc.Item2 <= 1.1f ?
-            npc.Item1 :
-            null;
+    public bool ShouldShowInteractionButton()
+    {
+        bool can_talk_to_npc = CanStartConversation() != null;
+
+        GameObject[] objectsAhead = SendRaycast(current_player_direction);
+        bool interactable_ahead = FindInteractable(objectsAhead) != null;
+
+        return can_talk_to_npc || interactable_ahead;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, 2);
+    }
+
+    public QuestState GetQuestState()
+    {
+        return quest_state;
     }
 }

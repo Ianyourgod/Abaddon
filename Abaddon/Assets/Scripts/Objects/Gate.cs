@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
-    [SerializeField] public bool open = true;
+    [SerializeField]
+    public bool open = true;
 
     private Animator animator;
 

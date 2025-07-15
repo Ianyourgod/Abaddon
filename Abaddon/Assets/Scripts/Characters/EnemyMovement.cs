@@ -170,7 +170,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         RaycastHit2D[] hits = IsValidMove(direction);
         PlayAnimation(direction, "idle");
 
-        bool will_attack = attack.WillAttack(transform.position, hits, direction);
+        bool will_attack = attack.WillAttack(transform.position, direction);
 
         bool can_move = true;
         foreach (RaycastHit2D hit in hits)
@@ -207,7 +207,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         // GetComponent<CanFight>().Attack();
         Controller.main.enabled = false;
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("AttackerLayer");
-        PlayAnimation(direction, "attack");
+        PlayAnimation(direction, attack.GetAttackAnimationName());
     }
 
     private static float Clamp(float value, float min, float max)

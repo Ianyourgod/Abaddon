@@ -45216,6 +45216,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7164104640409682867, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
+      propertyPath: playableOffScreen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d95ed3fb0651895adaa97d2c6a9823d9, type: 3}
 --- !u!4 &1402642065 stripped

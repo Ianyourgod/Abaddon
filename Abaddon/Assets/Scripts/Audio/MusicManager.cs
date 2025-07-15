@@ -39,6 +39,7 @@ public class MusicManager : MonoBehaviour
     public void PlaySong(int song)
     {
         musicAudSource.clip = songs[song];
+        // it plays the song from here (and in one other spot) search for this comment
         musicAudSource.Play();
     }
 }

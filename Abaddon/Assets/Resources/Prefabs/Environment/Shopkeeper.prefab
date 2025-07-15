@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4648201129942092910}
   m_LocalRotation: {x: 0.008726558, y: 0, z: 0, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.125, y: 3.125, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,10 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1401633483
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3534af82bdf9befd0b9262f4813d457d, type: 3}
+  m_Sprite: {fileID: -2053826933, guid: 58e1e3c93826d91b0948b41cb179d48a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,10 +99,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: Lizzie
-  messages: []
-  purchaseMessages: []
-  shopContents: []
+  messages:
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: im so gerchy
+    time: 8
+    usingCPS: 1
+  purchaseMessages:
+  - profileImage: {fileID: 21300000, guid: 1940dbb7369dca35fa6744a24c554d39, type: 3}
+    message: yaaay
+    time: 8
+    usingCPS: 1
+  shopContents:
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
+  - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+    name: God Sword
+    cost: 1
   inventory: {fileID: 0}
+  image: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
 --- !u!61 &2621176004537065321
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -120,12 +153,12 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0

@@ -8,6 +8,8 @@ using ImageComponent = UnityEngine.UI.Image; //To make the Image class be the co
 
 public class Shop : MonoBehaviour
 {
+    public static Shop singleton;
+
     [SerializeField]
     float timeToEnter;
 
@@ -32,12 +34,27 @@ public class Shop : MonoBehaviour
     [SerializeField]
     ShopItem[] items;
 
+    [SerializeField]
+    ImageComponent shopkeeper_image;
+
 #nullable enable
     GameObject? current_item = null;
     int current_cost = 0;
 
     public void Awake()
     {
+        singleton = this;
+        SetItems(items);
+    }
+
+    public void SetShopkeeperImage(Sprite sprite)
+    {
+        shopkeeper_image.sprite = sprite;
+    }
+
+    public void SetItems(ShopItem[] items)
+    {
+        this.items = items;
         Transform UIHolder = gameObject.transform.GetChild(0);
         Transform slots_obj = UIHolder.GetChild(2);
 
@@ -50,9 +67,10 @@ public class Shop : MonoBehaviour
             slots[c] = slots_obj.GetChild(c).gameObject.GetComponent<ShopSlot>();
             slots[c].SetShopItem(items[c]);
         }
+        ClearFields();
     }
 
-    void clearFields()
+    void ClearFields()
     {
         purchase.enabled = false;
         costText.text = "";
@@ -65,7 +83,7 @@ public class Shop : MonoBehaviour
     {
         Controller.main.enabled = false;
         UIStateManager.singleton.FadeInDarkener(timeToEnter, shopDarknessLevel);
-        clearFields();
+        ClearFields();
     }
 
     public void OnDisable()
@@ -155,7 +173,7 @@ public class Shop : MonoBehaviour
             Item i = item.GetComponent<Item>();
             i.player = Controller.main.inventory;
             i.Pickup(false);
-            clearFields();
+            ClearFields();
         }
         else
         {

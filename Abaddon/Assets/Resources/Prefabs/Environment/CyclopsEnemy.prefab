@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 18587455}
   - component: {fileID: 4503870971181943354}
   m_Layer: 0
-  m_Name: GnomeSprite
+  m_Name: CyclopsSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1401633483
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -462487305, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
+  m_Sprite: {fileID: 1171106608, guid: 46b11a48215b30f47bebba7bf1d2400c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-  worldBottomLeft: {x: -4, y: -4, z: 0}
+  worldBottomLeft: {x: -7.811322, y: -4.661658, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3002031079680072061}
   - component: {fileID: 33823228511099800}
   - component: {fileID: 5589953954207541434}
+  - component: {fileID: 1192153430}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -56,10 +57,14 @@ MonoBehaviour:
   constitution: 9
   dexterity: 9
   strength: 9
-  attackDamage: 3
   wisdom: 9
-  minimum_stat_roll: 1
-  maximum_stat_roll: 7
+  minimum_stat_roll: 10
+  maximum_stat_roll: 40
+  sum_of_starting_stats: 100
+  conModifier: 0
+  dexModifier: 0
+  strModifier: 0
+  wisModifier: 0
   exp: 0
   expBarVisual: {fileID: 0}
   healthBarVisual: {fileID: 0}
@@ -67,14 +72,23 @@ MonoBehaviour:
   max_health: 0
   collideLayers:
     serializedVersion: 2
-    m_Bits: 212288
-  movementDelay: 0
+    m_Bits: 3392
   enemies: []
   done_with_tick: 1
+  goldIndicator: {fileID: 0}
   animator: {fileID: 7842820053772704081}
   mainCamera: {fileID: 0}
+  tombstonePrefab: {fileID: 6662185457682643381, guid: c93b7e06fe2c74d49a7cb9f2897e4cb3, type: 3}
+  baseRespawnSword: {fileID: 4887135980581437040, guid: 24284c4de03da404a9cff3f2f752a574, type: 3}
+  uiObject: {fileID: 0}
+  textFadePrefab: {fileID: 7692794043199409446, guid: f6798e53a991657429ee921ee99db843, type: 3}
   sfxPlayer: {fileID: 0}
   inventory: {fileID: 0}
+  initialMovementDelay: 0.3
+  holdDelay: 0.1
+  current_quests: 
+  completed_quests: 
+  textQueue: []
 --- !u!61 &6429215519232914106
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,7 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf572ae3739e2e48b38d887ecc10ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryKey: 9
   inventoryObject: {fileID: 0}
   equipmentObject: {fileID: 0}
   statObject: {fileID: 0}
@@ -142,8 +155,8 @@ MonoBehaviour:
   shadow: {fileID: 0}
   hotbarParent: {fileID: 0}
   font: {fileID: 11400000, guid: ad9c603c0ab49a84397cc29ef638b47e, type: 2}
-  throwPosition: {fileID: 0}
-  pickupRange: 0
+  throwPosition: {fileID: 7842820053425721010}
+  pickupRange: 0.42
   throwForceUp: 0
   throwForceForward: 0
   playerMovement: {fileID: 7842820053425721011}
@@ -164,6 +177,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   equipSlots:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -357,6 +371,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7f7024290ca5f17be1edbfdad70d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1192153430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842820053425721020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f566a2a9948166f478f269f84df622b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hinderAttacksLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &7842820053772704083
 GameObject:
   m_ObjectHideFlags: 0

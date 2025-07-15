@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class TransitionOutOfHandler : MonoBehaviour
 {
-    [SerializeField] TransistionScriptableObject transistionScriptableObject;
-    [SerializeField] Image panel;
+    [SerializeField]
+    TransistionScriptableObject transistionScriptableObject;
+
+    [SerializeField]
+    Image panel;
     private float timeElapsed = 0;
 
     void Start()

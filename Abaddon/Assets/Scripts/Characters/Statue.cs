@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Statue : MonoBehaviour, CanFight
 {
-    [HideInInspector] public Boss1 boss;
-    [SerializeField] uint health = 20;
-    [SerializeField] Animator animator;
+    [HideInInspector]
+    public Boss1 boss;
+
+    [SerializeField]
+    int health = 20;
+
+    [SerializeField]
+    Animator animator;
 
     public void Attack()
     {
@@ -18,15 +23,15 @@ public class Statue : MonoBehaviour, CanFight
         return EnemyType.Statue;
     }
 
-    public uint Heal(uint amount)
+    public int Heal(int amount)
     {
         health += amount;
         Debug.Log("statue health " + health);
         PlayAnimation("heal");
-        return 0; // the statue does not have max health 
+        return 0; // the statue does not have max health
     }
 
-    public void Hurt(uint damage)
+    public int Hurt(int damage)
     {
         if (damage >= health)
         {
@@ -36,13 +41,13 @@ public class Statue : MonoBehaviour, CanFight
         health -= damage;
         Debug.Log("statue health " + health);
 
-        int damage_level = health < (20 / 3) ?
-                            3
-                            : health < (2 * 20 / 3) ?
-                                2
-                                : 1;
+        int damage_level =
+            health < (20 / 3) ? 3
+            : health < (2 * 20 / 3) ? 2
+            : 1;
 
         PlayAnimation($"damage{damage_level}");
+        return health; // Return remaining health
     }
 
     public void Die()

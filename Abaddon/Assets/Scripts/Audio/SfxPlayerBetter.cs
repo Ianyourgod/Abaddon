@@ -5,9 +5,14 @@ using UnityEngine;
 public class SfxPlayerBetter : MonoBehaviour
 {
     [Header("References")]
-    [Tooltip("Keys and values must be at same indexes, and keys and values lists must be the same length")]
-    [SerializeField] string[] soundKeys;
-    [SerializeField] AudioClip[] soundValues;
+    [Tooltip(
+        "Keys and values must be at same indexes, and keys and values lists must be the same length"
+    )]
+    [SerializeField]
+    string[] soundKeys;
+
+    [SerializeField]
+    AudioClip[] soundValues;
 
     Dictionary<string, AudioClip> soundEffects;
 
@@ -22,13 +27,13 @@ public class SfxPlayerBetter : MonoBehaviour
 
     public void PlaySound(string key)
     {
-        if (soundEffects.ContainsKey(key) && AudioManagerBetter.main)
+        if (soundEffects.ContainsKey(key) && AudioManagerBetter.main != null)
         {
             AudioManagerBetter.main.PlaySfx(soundEffects[key]);
         }
         else
         {
-            print("invalid sound byte key: " + key);
+            print($"gameobject {gameObject.name} invalid sound byte key: {key}");
         }
     }
 

@@ -9,22 +9,17 @@ public class PlayerAnimationPlayer : MonoBehaviour
         Up,
         Down,
         Left,
-        Right
+        Right,
     }
 
-    [SerializeField] Animator animator;
+    [SerializeField]
+    Animator animator;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start() { }
 
     // Update is called once per frame
-    void Update()
-    {
-
-    }
+    void Update() { }
 
     public void PlayIdleAnimation(Direction direction)
     {
@@ -47,6 +42,9 @@ public class PlayerAnimationPlayer : MonoBehaviour
 
     public void AttackAnimationFinishHandler()
     {
+        if (Controller.main == null)
+            return;
+
         Controller.main.AttackAnimationFinishHandler();
     }
 }

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class InteractionButton : MonoBehaviour
 {
-    [SerializeField] Image image;
-    
+    [SerializeField]
+    Image image;
+
     void Start()
     {
         image.enabled = false;
@@ -14,6 +15,9 @@ public class InteractionButton : MonoBehaviour
 
     void Update()
     {
-        image.enabled = Controller.main.CanStartConversation();
+        if (Controller.main == null)
+            return;
+
+        image.enabled = Controller.main.enabled && Controller.main.ShouldShowInteractionButton();
     }
 }

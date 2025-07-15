@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2285804620536235841}
   - component: {fileID: 964688453007807293}
   - component: {fileID: 1505603100342510588}
+  - component: {fileID: 5550557964091436495}
   m_Layer: 16
   m_Name: Pot
   m_TagString: Untagged
@@ -101,8 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11867d949e110242a366902ab9c085f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   health: 1
+  breakSprite: {fileID: 2844499466063138181, guid: 28972c4a733314773901ddc5f57fb6ec, type: 3}
 --- !u!61 &2844499466063138201
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,8 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTable: 3
-  forceDropPath: 
+  dropTable: []
+  goldCoinPrefab: {fileID: 0}
+  minGoldDropAmmount: 1
+  maxGoldDropAmmount: 1
 --- !u!82 &964688453007807293
 AudioSource:
   m_ObjectHideFlags: 0
@@ -259,3 +262,23 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7ff01b4177a73474eb035a47e8613910, type: 3}
   randomBreakSound: 1
   addedBreakVolume: 0
+--- !u!114 &5550557964091436495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844499466063138181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fb8b86fd3a6b4ea9bfbb16a2730ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundKeys:
+  - break1
+  - break2
+  - break3
+  soundValues:
+  - {fileID: 8300000, guid: 87c25f4ebc419494fa4ab1e28e939cf6, type: 3}
+  - {fileID: 8300000, guid: bc8c2e3648103614db01ce3e0bc03be7, type: 3}
+  - {fileID: 8300000, guid: 7ff01b4177a73474eb035a47e8613910, type: 3}

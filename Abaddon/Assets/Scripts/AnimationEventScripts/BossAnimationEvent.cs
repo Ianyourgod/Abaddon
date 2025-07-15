@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BossAnimationEvent : MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    [SerializeField]
+    Animator animator;
 
-    public void FinishAnimation() {
+    public void FinishAnimation()
+    {
         animator.Play("BOSS1_animation_idle");
     }
 }

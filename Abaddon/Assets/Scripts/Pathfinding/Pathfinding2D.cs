@@ -1,13 +1,14 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(Grid2D))]
-
 public class Pathfinding2D : MonoBehaviour
 {
-    [SerializeField] public Grid2D grid;
-    Node2D seekerNode, targetNode;
+    [SerializeField]
+    public Grid2D grid;
+    Node2D seekerNode,
+        targetNode;
 
     public List<Node2D> FindPath(Vector3 startPos, Vector3 targetPos)
     {
@@ -20,11 +21,10 @@ public class Pathfinding2D : MonoBehaviour
         List<Node2D> openSet = new List<Node2D>();
         HashSet<Node2D> closedSet = new HashSet<Node2D>();
         openSet.Add(seekerNode);
-        
+
         //calculates path for pathfinding
         while (openSet.Count > 0)
         {
-
             //iterates through openSet and finds lowest FCost
             Node2D node = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
@@ -45,7 +45,7 @@ public class Pathfinding2D : MonoBehaviour
                 RetracePath(seekerNode, targetNode);
                 return grid.path;
             }
-            
+
             //adds neighbor nodes to openSet
             foreach (Node2D neighbour in grid.GetNeighbors(node))
             {
@@ -84,7 +84,6 @@ public class Pathfinding2D : MonoBehaviour
         path.Reverse();
 
         grid.path = path;
-
     }
 
     //gets distance between 2 nodes for calculating cost

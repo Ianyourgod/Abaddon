@@ -1,31 +1,48 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShortcutManagement;
+//using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 public class Boss1 : MonoBehaviour, CanFight
 {
-    [SerializeField] GameObject statuePrefab;
-    [SerializeField] GameObject baseEnemy;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] Animator animator;
-    [SerializeField] int AllowedAttackTicks = 7;
-    [SerializeField] int Stages = 3;
-    [SerializeField] int enemiesPerStage = 2;
-    [SerializeField] Vector2Int roomSize = new Vector2Int(21, 11);
-    [SerializeField] int maxHealth = 15;
+    [SerializeField]
+    GameObject statuePrefab;
 
-    [HideInInspector] public bool inFight = false;
-    [HideInInspector] public int stage = 0;
+    [SerializeField]
+    GameObject baseEnemy;
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    int AllowedAttackTicks = 7;
+
+    [SerializeField]
+    int Stages = 3;
+
+    [SerializeField]
+    int enemiesPerStage = 2;
+
+    [SerializeField]
+    Vector2Int roomSize = new Vector2Int(21, 11);
+
+    [SerializeField]
+    int maxHealth = 15;
+
+    [HideInInspector]
+    public bool inFight = false;
+
+    [HideInInspector]
+    public int stage = 0;
     private int _health = 15;
     public int health
     {
         get { return _health; }
-        set
-        {
-            _health = (int)Mathf.Clamp(value, 0, maxHealth);
-        }
+        set { _health = Mathf.Clamp(value, 0, maxHealth); }
     }
 
     private int ticks_till_move_back = 0;
@@ -35,7 +52,8 @@ public class Boss1 : MonoBehaviour, CanFight
         Controller.OnTick += CustomUpdate;
     }
 
-    public EnemyType GetEnemyType() {
+    public EnemyType GetEnemyType()
+    {
         return EnemyType.Boss1;
     }
 
@@ -52,13 +70,29 @@ public class Boss1 : MonoBehaviour, CanFight
     {
         Vector2 bossPosition = transform.position;
         // man i hate unity
-        Vector2 random_position = new Vector2(UnityEngine.Random.Range(-roomSize.x / 2, roomSize.x / 2), UnityEngine.Random.Range(-roomSize.y / 2, roomSize.y / 2));
+        Vector2 random_position = new Vector2(
+            UnityEngine.Random.Range(-roomSize.x / 2, roomSize.x / 2),
+            UnityEngine.Random.Range(-roomSize.y / 2, roomSize.y / 2)
+        );
         // also check that theres no enemies or statues already there
-        while (Mathf.Abs(random_position.x) < 2 || Mathf.Abs(random_position.y) < 2 || Physics2D.OverlapCircle(new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition, 0.5f, LayerMask.GetMask("Enemy")))
+        while (
+            Mathf.Abs(random_position.x) < 2
+            || Mathf.Abs(random_position.y) < 2
+            || Physics2D.OverlapCircle(
+                new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y))
+                    + bossPosition,
+                0.5f,
+                LayerMask.GetMask("Enemy")
+            )
+        )
         {
-            random_position = new Vector2(UnityEngine.Random.Range(-roomSize.x / 2, roomSize.x / 2), UnityEngine.Random.Range(-roomSize.y / 2, roomSize.y / 2));
+            random_position = new Vector2(
+                UnityEngine.Random.Range(-roomSize.x / 2, roomSize.x / 2),
+                UnityEngine.Random.Range(-roomSize.y / 2, roomSize.y / 2)
+            );
         }
-        return new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y)) + bossPosition;
+        return new Vector2(Mathf.Round(random_position.x), Mathf.Round(random_position.y))
+            + bossPosition;
     }
 
     public void Attack() => SpawnStatue();
@@ -95,6 +129,9 @@ public class Boss1 : MonoBehaviour, CanFight
 
     public void Die()
     {
+        if (Controller.main == null)
+            return;
+
         Controller.main.KilledEnemy(GetEnemyType());
         inFight = false;
         stage = 0;
@@ -134,22 +171,28 @@ public class Boss1 : MonoBehaviour, CanFight
         animator.Play(animation);
     }
 
-    public void Hurt(uint _damage)
+    public int Hurt(int damage)
     {
-        int damage = (int)_damage;
-
         print(health);
-        
+
         if (inFight && stage % 2 == 0)
         {
             health -= damage;
-            Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im taking damage (" + damage + ", " + health + ")");
+            Debug.Log(
+                "i am 1ssoB, and i hate (but i also love 👅) and im taking damage ("
+                    + damage
+                    + ", "
+                    + health
+                    + ")"
+            );
             PlayAnimation("damage");
             if (health == 0)
             {
                 health = maxHealth;
                 stage++;
-                Debug.Log("i am 1ssoB, and i am dead but maybe not potentially stage is now " + stage);
+                Debug.Log(
+                    "i am 1ssoB, and i am dead but maybe not potentially stage is now " + stage
+                );
                 if (stage > Stages * 2)
                 {
                     Die();
@@ -161,13 +204,13 @@ public class Boss1 : MonoBehaviour, CanFight
                 }
             }
         }
+        return health;
     }
 
-    public uint Heal(uint _amount)
+    public int Heal(int amount)
     {
-        int amount = (int)_amount;
         health += amount;
-        return (uint)health;
+        return health;
     }
 
     void OnDrawGizmosSelected()

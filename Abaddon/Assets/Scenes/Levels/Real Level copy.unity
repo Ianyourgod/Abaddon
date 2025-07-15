@@ -2509,6 +2509,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1968768230}
     - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: dashTrailPrefab
+      value: 
+      objectReference: {fileID: 3465949172128493608, guid: bbaed22863ebf47f1b85305e005d7a50, type: 3}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: healthBarVisual
       value: 
       objectReference: {fileID: 2129418986670962874}
@@ -2518,6 +2522,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721020, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842820053772704082, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842820053772704082, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

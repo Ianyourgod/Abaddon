@@ -2516,6 +2516,10 @@ PrefabInstance:
       propertyPath: healthBarVisual
       value: 
       objectReference: {fileID: 2129418986670962874}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: ticksBetweenDashes
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721020, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_Name
       value: Player

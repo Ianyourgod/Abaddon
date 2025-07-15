@@ -10,7 +10,7 @@ public class CyclopsAttack : BaseAttack
     }
 
     [SerializeField]
-    public AttackStage attackStage = AttackStage.Attack;
+    public AttackStage attackStage = AttackStage.WindUp;
 
     public override bool WillAttack(Vector2 position, Vector2 direction)
     {
@@ -29,7 +29,6 @@ public class CyclopsAttack : BaseAttack
     {
         if (Controller.main == null)
             return;
-
         switch (attackStage)
         {
             case AttackStage.WindUp:

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -18,6 +19,7 @@ public class Controller : MonoBehaviour
 {
     #region Variables
     public static Controller main;
+    public DashTrailPrefab dashTrailPrefab;
 
     #region Stats
     [Header("Base Stats")]
@@ -55,6 +57,8 @@ public class Controller : MonoBehaviour
     public int wisModifier;
 
     public int exp = 0;
+    private int ticksSinceDash = 0;
+    public int ticksBetweenDashes;
 
     [SerializeField]
     Slider expBarVisual;
@@ -229,6 +233,7 @@ public class Controller : MonoBehaviour
     {
         main = this;
         onDie += () => UIStateManager.singleton.OpenUIPage(UIState.Death);
+        OnMoved += () => ticksSinceDash++;
         onDie += () =>
         {
             var tombstone = Instantiate(
@@ -365,7 +370,7 @@ public class Controller : MonoBehaviour
                 -current_player_direction.y,
                 current_player_direction.x
             ); // rotate left
-            PlayAnimation("idle", current_player_direction);
+            PlayAnimation("Idle", current_player_direction);
         }
         if (Input.GetKeyDown(SettingsMenu.singleton.rotateRightKeybind.key))
         {
@@ -373,7 +378,7 @@ public class Controller : MonoBehaviour
                 current_player_direction.y,
                 -current_player_direction.x
             ); // rotate right
-            PlayAnimation("idle", current_player_direction);
+            PlayAnimation("Idle", current_player_direction);
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
@@ -389,6 +394,32 @@ public class Controller : MonoBehaviour
         {
             GodModeMove();
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            print("Space pressed, dashing");
+            if (
+                CanMove(SendLongRaycast(current_player_direction))
+                && ticksSinceDash >= ticksBetweenDashes
+            )
+            {
+                transform.Translate(current_player_direction * 2);
+                SpawnDashTrail(current_player_direction);
+                // sfxPlayer.PlayWalkSound();
+                OnMoved?.Invoke();
+                ticksSinceDash = 0;
+                FinishTick();
+            }
+            else
+            {
+                print("Couldn't dash, something in the way");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            animator.Play("Hammer Attack left");
         }
 
         if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
@@ -410,6 +441,31 @@ public class Controller : MonoBehaviour
             health += 1;
         if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift))
             DamagePlayer(10, false);
+    }
+
+    void SpawnDashTrail(Vector2 direction)
+    {
+        direction = direction.normalized;
+        Vector3 start = transform.position - (Vector3)direction * 2f;
+        Vector3 end = transform.position;
+        int numTrails = 3;
+        for (int i = 0; i < numTrails; i++)
+        {
+            float offset = 1 / (float)(numTrails + 1f);
+            float t = offset + (i / (float)(numTrails + 1f));
+            Vector3 position = Vector3.Lerp(start, end, t);
+            Vector2 noise = UnityEngine.Random.insideUnitCircle * 0.1f;
+            position += (Vector3)noise;
+            var dashTrail = Instantiate(dashTrailPrefab, position, Quaternion.identity);
+            dashTrail.GetComponent<SpriteRenderer>().sprite = transform
+                .GetChild(0)
+                .GetComponent<SpriteRenderer>()
+                .sprite;
+            dashTrail.transform.position = position;
+            dashTrail.direction = direction;
+            dashTrail.scaler = 1f;
+            dashTrail.lifetime = 0.5f;
+        }
     }
 
     void GodModeMove()
@@ -444,7 +500,7 @@ public class Controller : MonoBehaviour
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
         current_enemy = 0;
-        PlayAnimation("idle", direction);
+        PlayAnimation("Idle", direction);
 
         bool did_something = false;
         if (stickMoved)
@@ -466,7 +522,6 @@ public class Controller : MonoBehaviour
             }
         }
 
-        // Debug.Log($"{objectsAhead.Length} objects ahead");
         if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
         {
 #nullable enable
@@ -482,18 +537,20 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(SettingsMenu.singleton.attackKeybind.key))
         {
-            // Debug.Log("V pressed, checking for enemies to attack");
+            Debug.Log("V pressed, checking for enemies to attack");
             float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
-            CanBeDamaged[] enemies = Weapon
-                .GetCurrentWeapon()
-                .GetFightablesInDamageArea(transform.position, angle);
-            bool attackWorked = Weapon
-                .GetCurrentWeapon()
-                .AttackEnemies(enemies, current_player_direction);
+            var weapon = Weapon.GetCurrentWeapon();
+            CanBeDamaged[] enemies = weapon.GetFightablesInDamageArea(transform.position, angle);
+            bool attackWorked = weapon.AttackEnemies(enemies, current_player_direction);
             sfxPlayer.PlayAttackSound();
-            PlayAnimation("attack", current_player_direction);
+            var anim = weapon.AnimationName + "Attack";
+            PlayAnimation(anim, current_player_direction);
+            // animator.Play("Hammer Attack left");
             did_something = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+            animator.Play("Hammer Attack left");
 
         if (!did_something)
             FinishTick();
@@ -615,15 +672,15 @@ public class Controller : MonoBehaviour
         switch (popupData.type)
         {
             case TextTypes.StatLoss:
-                failedToParse = !ColorUtility.TryParseHtmlString("#f54929", out color);
+                failedToParse = !UnityEngine.ColorUtility.TryParseHtmlString("#f54929", out color);
                 // popupText = $"-{popupText}";
                 break;
             case TextTypes.StatGain:
-                failedToParse = !ColorUtility.TryParseHtmlString("#c8c8e0", out color);
+                failedToParse = !UnityEngine.ColorUtility.TryParseHtmlString("#c8c8e0", out color);
                 popupText = $"+{popupText}";
                 break;
             case TextTypes.Other:
-                failedToParse = !ColorUtility.TryParseHtmlString("#ff1515", out color);
+                failedToParse = !UnityEngine.ColorUtility.TryParseHtmlString("#ff1515", out color);
                 break;
         }
         if (failedToParse)
@@ -760,15 +817,25 @@ public class Controller : MonoBehaviour
             .ToArray();
     }
 
+    GameObject[] SendLongRaycast(Vector2 direction)
+    {
+        Vector2 world_position = (Vector2)transform.position + (direction * .51f); // convert direction to relative position (ex: up = (0, 1)), then add it to the current position
+        Debug.DrawRay(world_position, direction, Color.green, 0.2f, false);
+        return Physics2D
+            .RaycastAll(world_position, direction, 1.5f)
+            .Select(hit => hit.collider.gameObject)
+            .ToArray();
+    }
+
     string DirectionToAnimationLabel(Vector2 direction)
     {
         if (direction == Vector2.down)
         {
-            return "front";
+            return "Down";
         }
         else if (direction == Vector2.up)
         {
-            return "back";
+            return "Up";
         }
         else if (
             direction == Vector2.left
@@ -777,7 +844,7 @@ public class Controller : MonoBehaviour
             direction == new Vector2(-1, 1)
         ) // diagonal left up
         {
-            return "left";
+            return "Left";
         }
         else if (
             direction == Vector2.right
@@ -786,7 +853,7 @@ public class Controller : MonoBehaviour
             direction == new Vector2(1, 1)
         ) // diagonal right up
         {
-            return "right";
+            return "Right";
         }
 
         throw new Exception("Invalid direction");
@@ -796,8 +863,8 @@ public class Controller : MonoBehaviour
     {
         if (facingDirection == null || facingDirection == Vector2.zero)
             facingDirection = current_player_direction;
-        string animation =
-            $"Player_animation_{DirectionToAnimationLabel((Vector2)facingDirection)}_level_0_{action}";
+        string animation = $"Player{DirectionToAnimationLabel((Vector2)facingDirection)}{action}"; // Changing this line
+        print($"Playing animation: {animation}");
         animator.Play(animation);
     }
 
@@ -846,8 +913,10 @@ public class Controller : MonoBehaviour
 
     public void AttackAnimationFinishHandler()
     {
+        print("Attack animation finished, resetting sorting layer");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();
+        PlayAnimation("Idle", current_player_direction);
     }
 
     public void add_exp(int exp)

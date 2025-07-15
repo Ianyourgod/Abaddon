@@ -11,20 +11,44 @@ public class SettingsMenu : MonoBehaviour
     [Space(10)]
     [Header("Keybinds")]
     [Header("Movement Keybinds")]
+    [SerializeField]
     public Keybind moveUpwardKeybind;
+
+    [SerializeField]
     public Keybind moveRightKeybind;
+
+    [SerializeField]
     public Keybind moveDownwardKeybind;
+
+    [SerializeField]
     public Keybind moveLeftKeybind;
+
+    [SerializeField]
     public Keybind rotateLeftKeybind;
+
+    [SerializeField]
     public Keybind rotateRightKeybind;
 
     [Header("Gameplay Keybinds")]
+    [SerializeField]
     public Keybind interactKeybind;
     public Keybind dropKeybind;
+
+    [SerializeField]
     public Keybind attackKeybind;
+
+    [SerializeField]
     public Keybind skipDialogueKeybind;
+
+    [SerializeField]
     public Keybind nextDialogueKeybind;
+
+    [SerializeField]
     public Keybind previousDialogueKeybind;
+
+    [Header("Important objects")]
+    [SerializeField]
+    private GameObject backGround;
 
     public void Awake()
     {
@@ -34,6 +58,19 @@ public class SettingsMenu : MonoBehaviour
             return;
         }
         singleton = this;
+        Disable();
+    }
+
+    public void Enable()
+    {
+        backGround.SetActive(true);
+        Controller.main.enabled = false;
+    }
+
+    public void Disable()
+    {
+        backGround.SetActive(false);
+        Controller.main.enabled = true;
     }
 
     public void ChangeMasterAudioLevel(float newLevel)

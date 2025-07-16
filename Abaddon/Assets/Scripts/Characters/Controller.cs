@@ -993,3 +993,8 @@ public class Controller : MonoBehaviour
         return quest_state;
     }
 }
+
+// we boldly go where no man has gone before
+// not because it is difficult, but because it is easy
+// and we are lazy
+// 1000 lines hell yeah

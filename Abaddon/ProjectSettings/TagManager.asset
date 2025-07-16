@@ -57,6 +57,9 @@ TagManager:
   - name: Doors
     uniqueID: 2328773513
     locked: 0
+  - name: Items
+    uniqueID: 3776933359
+    locked: 0
   - name: Characters
     uniqueID: 1401633483
     locked: 0

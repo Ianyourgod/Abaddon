@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab0361a34be4ca4f9075ebeba72b887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashTrailPrefab: {fileID: 0}
   constitution: 9
   dexterity: 9
   strength: 9
@@ -66,6 +67,7 @@ MonoBehaviour:
   strModifier: 0
   wisModifier: 0
   exp: 0
+  ticksBetweenDashes: 0
   expBarVisual: {fileID: 0}
   healthBarVisual: {fileID: 0}
   respawnPoint: {fileID: 0}
@@ -459,8 +461,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 5
-  m_SortingOrder: 999
+  m_SortingLayer: 6
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1279200398, guid: 3e89ea96c5596ad49801c9864a4931f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

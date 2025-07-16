@@ -47,7 +47,7 @@ public class DialogueVisualiser : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0.25f;
+        audioSource.volume = 0.45f;
         if (!singleton)
             singleton = this;
         print($"{profileImage.gameObject.name} {textbox.gameObject.name}");

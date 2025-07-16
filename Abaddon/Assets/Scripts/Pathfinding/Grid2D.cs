@@ -28,6 +28,10 @@ public class Grid2D : MonoBehaviour
     void Start()
     {
         obstaclemaps = new List<Tilemap>();
+
+        if (EnemyMapPropagator.main == null)
+            return;
+
         obstaclemaps.AddRange(EnemyMapPropagator.GetObstacleMaps());
         if (gridSizeX == 0)
         {

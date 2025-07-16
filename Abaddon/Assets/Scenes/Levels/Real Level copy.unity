@@ -85488,7 +85488,7 @@ PrefabInstance:
       propertyPath: songValues.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: aa470a1d7f71ed946a737ca4f2b7dd1b, type: 3}
-    - target: {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -85557,7 +85557,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+    - {fileID: 7659419828651813426, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+    - {fileID: 8767317562532271969, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
 --- !u!114 &1840516255 stripped
 MonoBehaviour:

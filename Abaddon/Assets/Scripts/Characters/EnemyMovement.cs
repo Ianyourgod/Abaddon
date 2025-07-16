@@ -58,6 +58,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private EnemySfx sfxPlayer;
 
+    private bool dead = false;
+
     public EnemyType GetEnemyType()
     {
         return enemyType;
@@ -100,6 +102,11 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void MakeDecision()
     {
+        if (dead)
+        {
+            return;
+        }
+
         if (forceAttackNextTurn)
         {
             forceAttackNextTurn = false;
@@ -373,7 +380,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (action == "death")
         {
-            //print($"playing animation {animation_prefix}_animation_death");
+            print($"playing animation death");
+            print($"{animation_prefix}_animation_death");
             animator.Play($"{animation_prefix}_animation_death");
             return;
         }
@@ -407,6 +415,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().DropRandomItem();
             PlayAnimation(direction, "death");
+            dead = true;
         }
         else
         {
@@ -425,6 +434,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void Die()
     {
+        print("hiiii");
         Invoke(nameof(callNextEnemy), 0f);
         Destroy(gameObject);
     }

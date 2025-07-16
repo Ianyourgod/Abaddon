@@ -49,6 +49,7 @@ public class DetectAnimationEvent : MonoBehaviour
 
     public void Die()
     {
+        print("DYING DYING DYING");
         enemyMovement.Die();
     }
 }

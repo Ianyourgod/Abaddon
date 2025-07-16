@@ -6,4 +6,16 @@ public class DieAfterAnimation : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void KillParent()
+    {
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("DieAfterAnimation: No parent to destroy.");
+        }
+    }
 }

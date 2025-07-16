@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6462628818639776139}
   - component: {fileID: 18587455}
   - component: {fileID: 4503870971181943354}
+  - component: {fileID: 1571497891}
   m_Layer: 0
   m_Name: WeepingEyeSprite
   m_TagString: Untagged
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 6462628820561290990}
+--- !u!114 &1571497891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462628818639776133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdec66f6111a8984aa89be0e4c8c7e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weepingEyeAttack: {fileID: 5839526993926736556}
 --- !u!1 &6462628820561290991
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +144,7 @@ GameObject:
   - component: {fileID: 6462628820561290989}
   - component: {fileID: 6462628820561290990}
   - component: {fileID: 3913921436897795758}
-  - component: {fileID: 4107131594145436823}
+  - component: {fileID: 5839526993926736556}
   - component: {fileID: 6613495682198188706}
   - component: {fileID: 3445834741458170001}
   - component: {fileID: 2650337504027634204}
@@ -175,10 +189,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 212416
   animator: {fileID: 18587455}
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Weepingeye
-  attack: {fileID: 4107131594145436823}
+  attack: {fileID: 5839526993926736556}
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
@@ -203,7 +217,7 @@ MonoBehaviour:
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
   minGoldDropAmmount: 1
   maxGoldDropAmmount: 1
---- !u!114 &4107131594145436823
+--- !u!114 &5839526993926736556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,13 +226,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6462628820561290991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5ab75529dc73434daf4d3e4f3285f46, type: 3}
+  m_Script: {fileID: 11500000, guid: f826fc547c315f848b3e27f608620b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
   enemyMovement: {fileID: 6462628820561290990}
   sfxPlayer: {fileID: 0}
-  shockwavePrefab: {fileID: 1572553225976764284, guid: df01ca7c44ba9624eb01084e8c507643, type: 3}
+  beamObject: {fileID: 7250217862652373946, guid: a3764ba81bc299744a697204fe430eeb, type: 3}
+  windUpDirection: {x: 0, y: 0}
+  attackStage: 0
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -275,7 +291,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-  worldBottomLeft: {x: -4, y: -4, z: 0}
+  worldBottomLeft: {x: -4, y: 7, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588

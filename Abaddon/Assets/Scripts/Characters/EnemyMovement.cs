@@ -394,6 +394,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             direction = Vector2.down;
         }
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
+        // Debug.Log($"Playing animation: {animation}");
         animator.Play(animation);
     }
 

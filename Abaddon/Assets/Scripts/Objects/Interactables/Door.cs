@@ -21,12 +21,14 @@ public class Door : MonoBehaviour, CanBeInteractedWith
     GameObject lockPrefab;
     DoorSfx sfxPlayer;
 
+    [SerializeField]
+    private LayerMask nonInteractableLayer;
+
     [Space(10)]
     [Header("Appearance")]
     public Sprite openSprite;
     public Sprite closedSprite;
-
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     void Awake()
     {
@@ -79,7 +81,8 @@ public class Door : MonoBehaviour, CanBeInteractedWith
             }
 
             // door is opened
-            Destroy(gameObject);
+            spriteRenderer.sprite = openSprite;
+            gameObject.layer = nonInteractableLayer;
         }
         else
         {

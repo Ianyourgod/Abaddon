@@ -6,11 +6,18 @@ using UnityEngine.UI;
 public class InteractionButton : MonoBehaviour
 {
     [SerializeField]
-    Image image;
+    private float lerpSpeed = 0.05f;
+
+    private Vector2 onScreenPosition;
+    private Vector2 offScreenPosition;
+    private bool shouldBeOnScreen = false;
 
     void Start()
     {
-        image.enabled = false;
+        // image.enabled = false;
+        onScreenPosition = transform.position;
+        offScreenPosition = onScreenPosition + new Vector2(0, -100);
+        transform.position = offScreenPosition;
     }
 
     void Update()
@@ -18,6 +25,15 @@ public class InteractionButton : MonoBehaviour
         if (Controller.main == null)
             return;
 
-        image.enabled = Controller.main.enabled && Controller.main.ShouldShowInteractionButton();
+        shouldBeOnScreen = Controller.main.enabled && Controller.main.ShouldShowInteractionButton();
+
+        if (shouldBeOnScreen)
+        {
+            transform.position = Vector2.Lerp(transform.position, onScreenPosition, lerpSpeed);
+        }
+        else
+        {
+            transform.position = Vector2.Lerp(transform.position, offScreenPosition, lerpSpeed);
+        }
     }
 }

@@ -9,6 +9,9 @@ public class GenericNPC : MonoBehaviour, CanCommunicateWith, CanBeInteractedWith
     public string npcName;
 
     [SerializeField]
+    float voiceFrequency = 440f;
+
+    [SerializeField]
     protected Message[] messages;
 
     protected Action onFinish = null;
@@ -17,7 +20,7 @@ public class GenericNPC : MonoBehaviour, CanCommunicateWith, CanBeInteractedWith
     {
         Debug.Log("Starting conversation");
         UIStateManager.singleton.OpenUIPage(UIState.Dialogue);
-        DialogueVisualiser.singleton.SetQueueAndPlayFirst(onFinish, messages);
+        DialogueVisualiser.singleton.SetQueueAndPlayFirst(voiceFrequency, onFinish, messages);
     }
 
     public void Interact()

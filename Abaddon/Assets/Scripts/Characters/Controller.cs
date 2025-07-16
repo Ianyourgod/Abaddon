@@ -148,7 +148,7 @@ public class Controller : MonoBehaviour
     Item baseRespawnSword;
 
     [SerializeField]
-    public GameObject uiObject;
+    public GameObject UIObject;
 
     [SerializeField]
     public GameObject textFadePrefab;
@@ -696,7 +696,7 @@ public class Controller : MonoBehaviour
             Debug.LogError($"Failed to parse color for text: {popupData.text}");
             color = Color.red; // fallback color
         }
-        UITextFadeUp floatText = Instantiate(textFadePrefab, uiObject.transform)
+        UITextFadeUp floatText = Instantiate(textFadePrefab, UIObject.transform)
             .GetComponent<UITextFadeUp>();
         floatText.transform.localPosition = new Vector3(-350, 0, 50);
         floatText.gameObject.layer = LayerMask.NameToLayer("Walls");

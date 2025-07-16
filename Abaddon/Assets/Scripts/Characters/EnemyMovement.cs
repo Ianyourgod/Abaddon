@@ -234,57 +234,10 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return Vector2.zero;
 
-        int cost = 0;
-        List<Node2D> path = new List<Node2D>();
-        if (enemyType == EnemyType.WeepingEye)
-        {
-            Vector3 playerPos = Controller.main.transform.position;
-            List<Vector2> potentialPositions = new List<Vector2>();
-            if (playerPos.x >= transform.position.x)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.left);
-            }
-            if (playerPos.x <= transform.position.x)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.right);
-            }
-            if (playerPos.y >= transform.position.y)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.down);
-            }
-            if (playerPos.y <= transform.position.y)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.up);
-            }
-
-            int bestCost = int.MaxValue;
-            List<Node2D> bestPath = null;
-
-            foreach (Vector2 pos in potentialPositions)
-            {
-                (int c, List<Node2D> p) = pathfinding.FindPath(transform.position, pos);
-                if (p != null && p.Count > 0 && c < bestCost)
-                {
-                    bestCost = c;
-                    bestPath = p;
-                }
-            }
-
-            if (bestPath == null)
-            {
-                return Vector2.zero;
-            }
-
-            cost = bestCost;
-            path = bestPath;
-        }
-        else
-        {
-            (cost, path) = pathfinding.FindPath(
-                transform.position,
-                Controller.main.transform.position
-            );
-        }
+        (int cost, List<Node2D> path) = pathfinding.FindPath(
+            transform.position,
+            Controller.main.transform.position
+        );
 
         if (path == null)
         {
@@ -394,6 +347,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             direction = Vector2.down;
         }
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
+        // Debug.Log($"Playing animation: {animation}");
         animator.Play(animation);
     }
 

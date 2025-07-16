@@ -3,39 +3,54 @@ using UnityEngine;
 
 public class WeepingEyeAttack : BaseAttack
 {
+    [Header("References")]
+    [SerializeField]
+    GameObject beamObject;
+
     public enum AttackStage
     {
         WindUp,
         Attack,
     }
 
-    [SerializeField]
-    public AttackStage attackStage = AttackStage.Attack;
+    [HideInInspector]
+    public Vector2 windUpDirection = Vector2.zero;
+
+    [HideInInspector]
+    public AttackStage attackStage = AttackStage.WindUp;
 
     public override bool WillAttack(Vector2 position, Vector2 direction)
     {
         // we check in a line for the weeping eye, but it's longer than the one provided
-        RaycastHit2D[] hits = Physics2D.RaycastAll(position, direction, 3f);
-        bool res = false;
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider == null)
-            {
-                continue;
-            }
+        RaycastHit2D hit = Physics2D.Raycast(
+            position,
+            direction,
+            3f, // we check 3 tiles in front of us
+            LayerMask.GetMask("Player")
+        );
+        return hit.collider != null;
+        // RaycastHit2D[] hits = Physics2D.RaycastAll(position, direction, 3f);
+        // Debug.DrawRay(position, direction * 3f, Color.green, 1f);
+        // bool res = false;
+        // foreach (RaycastHit2D hit in hits)
+        // {
+        //     if (hit.collider == null)
+        //     {
+        //         continue;
+        //     }
 
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                res = true;
-            }
-            else if (hit.collider.gameObject != this.gameObject)
-            {
-                res = false;
-                return res;
-            }
-        }
-        // mask only returns player
-        return hits.Length > 0;
+        //     if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+        //     {
+        //         res = true;
+        //     }
+        //     else if (hit.collider.gameObject != this.gameObject)
+        //     {
+        //         res = false;
+        //         return res;
+        //     }
+        // }
+        // // mask only returns player
+        // return hits.Length > 0;
     }
 
     public override void Attack(Vector2 direction)
@@ -48,14 +63,16 @@ public class WeepingEyeAttack : BaseAttack
             case AttackStage.WindUp:
                 enemyMovement.forceAttackNextTurn = true;
                 attackStage = AttackStage.Attack;
+                windUpDirection = direction;
                 break;
             case AttackStage.Attack:
-                if (WillAttack(transform.position, direction))
+                // create beam no matter what
+                // CreateBeam(transform.position, windUpDirection);
+                if (WillAttack(transform.position, windUpDirection))
                 {
-                    if (WillAttack(transform.position, direction))
-                    {
-                        Controller.main.DamagePlayer(damage);
-                    }
+                    // only actually damage player if we hit them
+                    Debug.Log("Weeping Eye hit player");
+                    Controller.main.DamagePlayer(damage);
                 }
                 enemyMovement.forceAttackNextTurn = false;
                 attackStage = AttackStage.WindUp;
@@ -68,12 +85,34 @@ public class WeepingEyeAttack : BaseAttack
         }
     }
 
+    public void CreateBeam(Vector2 position, Vector2 direction)
+    {
+        // create the beam
+        GameObject beam = Instantiate(beamObject, position, Quaternion.identity);
+        GameObject beamChild = beam.transform.GetChild(0).gameObject;
+        if (beamChild.TryGetComponent(out SpriteRenderer spriteRenderer))
+        {
+            spriteRenderer.sortingOrder =
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder - 1;
+        }
+        else
+        {
+            Debug.LogError("Beam child does not have a SpriteRenderer component.");
+        }
+        beam.transform.rotation = Quaternion.Euler(
+            0,
+            0,
+            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f
+        );
+        // todo set rotation
+    }
+
     public override string GetAttackAnimationName()
     {
         switch (attackStage)
         {
             case AttackStage.WindUp:
-                return "windup";
+                return "winduptransition";
             case AttackStage.Attack:
                 return "attack";
             default:

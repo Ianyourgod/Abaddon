@@ -154,7 +154,19 @@ public class Grid2D : MonoBehaviour
         int x = Mathf.FloorToInt(relativePosition.x);
         int y = Mathf.FloorToInt(relativePosition.y);
 
-        return Grid[x, y];
+        Node2D node;
+        try
+        {
+            node = Grid[x, y];
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Debug.LogError(
+                $"Node at ({x}, {y}) is out of bounds for grid size ({gridSizeX}, {gridSizeY}), returning (0, 0) node."
+            );
+            node = new Node2D(false, worldPosition, 0, 0);
+        }
+        return node;
     }
 
     public void DrawGizmos()

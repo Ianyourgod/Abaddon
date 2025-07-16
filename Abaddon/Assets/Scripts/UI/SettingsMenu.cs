@@ -65,12 +65,14 @@ public class SettingsMenu : MonoBehaviour
     {
         backGround.SetActive(true);
         Controller.main.enabled = false;
+        UIStateManager.singleton.FadeInDarkener(5f, 0.75f);
     }
 
     public void Disable()
     {
         backGround.SetActive(false);
         Controller.main.enabled = true;
+        UIStateManager.singleton.FadeOutDarkener(5f);
     }
 
     public void ChangeMasterAudioLevel(float newLevel)

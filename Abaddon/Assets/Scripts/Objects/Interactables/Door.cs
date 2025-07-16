@@ -74,6 +74,7 @@ public class Door : MonoBehaviour, CanBeInteractedWith
                 Controller.main.inventory.RemoveItemAmount(key_ID, 1);
                 Instantiate(keyPrefab, transform.position, Quaternion.identity);
                 sfxPlayer.PlayUnlockLockedSound();
+                Destroy(this);
             }
             else
             {

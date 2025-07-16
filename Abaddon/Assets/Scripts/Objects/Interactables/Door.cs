@@ -22,7 +22,7 @@ public class Door : MonoBehaviour, CanBeInteractedWith
     DoorSfx sfxPlayer;
 
     [SerializeField]
-    private LayerMask nonInteractableLayer;
+    private LayerMask nonInteractableLayer = 0;
 
     [Space(10)]
     [Header("Appearance")]

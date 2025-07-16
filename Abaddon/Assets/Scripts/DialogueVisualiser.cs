@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using ImageComponent = UnityEngine.UI.Image; //To make the Image class be the correct image component and not some weird microsoft stuff
 
 [RequireComponent(typeof(TextMeshProUGUI))]
+[RequireComponent(typeof(AudioSource))]
 public class DialogueVisualiser : MonoBehaviour
 {
     public static DialogueVisualiser singleton;
@@ -33,6 +34,11 @@ public class DialogueVisualiser : MonoBehaviour
     private float startAmount = 0;
     private int qIndex = 0;
     public Action onDoneTalking;
+    private float sample_rate = 44100f;
+
+    private float current_npc_freq = 440f;
+
+    private AudioSource audioSource;
 
     public bool CurrentlyTyping() => timeLeftToType != 0;
 
@@ -40,6 +46,8 @@ public class DialogueVisualiser : MonoBehaviour
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 0.25f;
         if (!singleton)
             singleton = this;
         print($"{profileImage.gameObject.name} {textbox.gameObject.name}");
@@ -89,6 +97,65 @@ public class DialogueVisualiser : MonoBehaviour
         }
     }
 
+    AudioClip CreateToneAudioClip(float frequency, float length_seconds, float pulse_rate)
+    {
+        int sampleLength = (int)(sample_rate * length_seconds);
+        float[] samples = new float[sampleLength];
+
+        float pulsePeriod = 1f / pulse_rate;
+        float halfPulseSamples = pulsePeriod * sample_rate / 2f;
+
+        float current_sample_diff = UnityEngine.Random.Range(-50f, 50f);
+        bool on_last = false;
+
+        float fadeTime = 0.01f; // 10 ms fade time
+        float fadeSamples = fadeTime * sample_rate;
+
+        for (int i = 0; i < sampleLength; i++)
+        {
+            float t = i / sample_rate;
+            bool isOn = (i / halfPulseSamples % 2) < 1;
+
+            if (isOn)
+            {
+                if (!on_last)
+                {
+                    current_sample_diff = UnityEngine.Random.Range(-50f, 50f);
+                }
+
+                // Determine sample position within the current pulse
+                float pulseSample = i % (int)(pulsePeriod * sample_rate);
+                float fadeMultiplier = 1f;
+
+                // Fade in
+                if (pulseSample < fadeSamples)
+                {
+                    fadeMultiplier = pulseSample / fadeSamples;
+                }
+                // Fade out
+                else if (pulseSample > (pulsePeriod * sample_rate / 2f - fadeSamples))
+                {
+                    float samplesIntoFade =
+                        pulseSample - (pulsePeriod * sample_rate / 2f - fadeSamples);
+                    fadeMultiplier = 1f - (samplesIntoFade / fadeSamples);
+                }
+
+                float wave = Mathf.Sin(2 * Mathf.PI * (frequency + current_sample_diff) * t);
+                samples[i] = wave * fadeMultiplier;
+            }
+            else
+            {
+                samples[i] = 0f;
+            }
+
+            on_last = isOn;
+        }
+
+        AudioClip clip = AudioClip.Create("SineWave", sampleLength, 1, (int)sample_rate, false);
+        clip.SetData(samples, 0);
+        return clip;
+    }
+
     public void WriteMessage(Message msg) =>
         WriteMessage(msg.message, msg.time, msg.usingCPS, msg.profileImage);
 
@@ -119,6 +186,11 @@ public class DialogueVisualiser : MonoBehaviour
             }
         }
         timeLeftToType = startAmount;
+
+        AudioClip clip = CreateToneAudioClip(current_npc_freq, startAmount, 10);
+        audioSource.clip = clip;
+        audioSource.Play();
+
         currentMessage = message;
         if (img && profileImage)
             profileImage.sprite = img;
@@ -165,8 +237,13 @@ public class DialogueVisualiser : MonoBehaviour
         messageQueue.AddRange(messages);
     }
 
-    public void SetQueueAndPlayFirst(System.Action onFinish = null, params Message[] messages)
+    public void SetQueueAndPlayFirst(
+        float voiceFrequency,
+        System.Action onFinish = null,
+        params Message[] messages
+    )
     {
+        current_npc_freq = voiceFrequency;
         onDoneTalking = onFinish;
         messageQueue.Clear();
         messageQueue.AddRange(messages);
@@ -241,6 +318,7 @@ public class DialogueVisualiser : MonoBehaviour
     {
         textbox.text = currentMessage;
         timeLeftToType = 0;
+        audioSource.Stop();
     }
 }
 

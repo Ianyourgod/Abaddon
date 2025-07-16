@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable: []
-  goldCoinPrefab: {fileID: 0}
+  goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
   minGoldDropAmmount: 1
   maxGoldDropAmmount: 1
 --- !u!114 &4107131594145436823
@@ -218,7 +218,6 @@ MonoBehaviour:
   enemyMovement: {fileID: 6462628820561290990}
   sfxPlayer: {fileID: 0}
   shockwavePrefab: {fileID: 1572553225976764284, guid: df01ca7c44ba9624eb01084e8c507643, type: 3}
-  attackStage: 1
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -272,13 +271,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclemaps:
   - {fileID: 0}
-  - {fileID: 0}
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-  worldBottomLeft: {x: -7.811322, y: -4.661658, z: 0}
-  gridSizeX: 20
-  gridSizeY: 20
+  worldBottomLeft: {x: -4, y: -4, z: 0}
+  gridSizeX: 9
+  gridSizeY: 9
 --- !u!114 &756127580436248588
 MonoBehaviour:
   m_ObjectHideFlags: 0

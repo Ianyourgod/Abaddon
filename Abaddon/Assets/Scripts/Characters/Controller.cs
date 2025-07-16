@@ -153,6 +153,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     public GameObject textFadePrefab;
 
+    [SerializeField]
+    SpriteRenderer sprite;
+
     [HideInInspector]
     public PlayerSfx sfxPlayer;
 
@@ -868,8 +871,22 @@ public class Controller : MonoBehaviour
     {
         if (facingDirection == null || facingDirection == Vector2.zero)
             facingDirection = current_player_direction;
+
+        if (action == "Hurt")
+        {
+            int color = 0xf54929;
+            int blue = color & 0xff;
+            int green = color & 0xff00 >> 0b10000;
+            int red = (color & 0xff0000) >> 0b10000;
+            sprite.color = new Color(red / 255f, green / 255f, blue / 255f);
+        }
+        else
+        {
+            sprite.color = Color.white;
+        }
+
         string animation = $"Player{DirectionToAnimationLabel((Vector2)facingDirection)}{action}"; // Changing this line
-        print($"Playing animation: {animation}");
+        //print($"Playing animation: {animation}");
         animator.Play(animation);
     }
 
@@ -884,7 +901,7 @@ public class Controller : MonoBehaviour
         {
             health -= (int)damage;
             sfxPlayer.PlayHurtSound();
-            PlayAnimation("hurt");
+            PlayAnimation("Hurt");
             Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
         }
     }

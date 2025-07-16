@@ -1962,6 +1962,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6980783896419146677, guid: a9fe85e15f1a2f22f91004c2e0aaaa8d, type: 3}
   m_PrefabInstance: {fileID: 1924213000}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &272724054 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7842820053772704080, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+  m_PrefabInstance: {fileID: 337119507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &277160052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6382604692729912246, guid: db65c775020d93e44bb22c24a2a91e4f, type: 3}
@@ -2488,6 +2493,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 272724054}
     - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: uiObject
       value: 

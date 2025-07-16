@@ -383,7 +383,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (action == "death")
         {
-            print($"playing animation death");
+            //print($"playing animation death");
             print($"{animation_prefix}_animation_death");
             animator.Play($"{animation_prefix}_animation_death");
             return;

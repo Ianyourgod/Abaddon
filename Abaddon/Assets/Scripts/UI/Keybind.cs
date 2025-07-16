@@ -6,6 +6,10 @@ public class Keybind : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI buttonLabel;
+
+    [SerializeField]
+    private string keybindLabel = "Move Up";
+
     public KeyCode key = KeyCode.None;
     private bool listeningForKey = false;
 
@@ -13,7 +17,7 @@ public class Keybind : MonoBehaviour
     {
         if (key != KeyCode.None)
         {
-            buttonLabel.text = key.ToString();
+            buttonLabel.text = $"{key} - {keybindLabel}";
         }
     }
 
@@ -25,7 +29,7 @@ public class Keybind : MonoBehaviour
             {
                 if (Input.GetKeyDown(kcode))
                 {
-                    buttonLabel.text = kcode.ToString();
+                    buttonLabel.text = $"{kcode} - {keybindLabel}";
                     key = kcode;
                     listeningForKey = false;
                     break;
@@ -37,6 +41,11 @@ public class Keybind : MonoBehaviour
     public void StartListeningForKey()
     {
         listeningForKey = true;
-        buttonLabel.text = "...";
+        buttonLabel.text = $"... - {keybindLabel}";
+    }
+
+    void OnValidate()
+    {
+        buttonLabel.text = $"{key} - {keybindLabel}";
     }
 }

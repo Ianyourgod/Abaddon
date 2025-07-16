@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class CyclopsAttack : BaseAttack
 {
+    [SerializeField]
+    GameObject shockwavePrefab;
+
     public enum AttackStage
     {
         WindUp,
@@ -41,6 +44,15 @@ public class CyclopsAttack : BaseAttack
                 }
                 enemyMovement.forceAttackNextTurn = false;
                 attackStage = AttackStage.WindUp;
+                GameObject shockwave = Instantiate(
+                    shockwavePrefab,
+                    transform.position,
+                    Quaternion.identity
+                );
+                if (shockwave.TryGetComponent(out Animator animator))
+                {
+                    animator.Play("Shockwave_animation");
+                }
                 break;
         }
 

@@ -20,6 +20,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     Animator animator;
 
     [SerializeField]
+    GameObject explosionPrefab;
+
+    [SerializeField]
     Pathfinding2D pathfinding;
 
     [SerializeField]
@@ -231,57 +234,10 @@ public class EnemyMovement : MonoBehaviour, CanFight
         if (Controller.main == null)
             return Vector2.zero;
 
-        int cost = 0;
-        List<Node2D> path = new List<Node2D>();
-        if (enemyType == EnemyType.WeepingEye)
-        {
-            Vector3 playerPos = Controller.main.transform.position;
-            List<Vector2> potentialPositions = new List<Vector2>();
-            if (playerPos.x >= transform.position.x)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.left);
-            }
-            if (playerPos.x <= transform.position.x)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.right);
-            }
-            if (playerPos.y >= transform.position.y)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.down);
-            }
-            if (playerPos.y <= transform.position.y)
-            {
-                potentialPositions.Add(playerPos + 2 * Vector3.up);
-            }
-
-            int bestCost = int.MaxValue;
-            List<Node2D> bestPath = null;
-
-            foreach (Vector2 pos in potentialPositions)
-            {
-                (int c, List<Node2D> p) = pathfinding.FindPath(transform.position, pos);
-                if (p != null && p.Count > 0 && c < bestCost)
-                {
-                    bestCost = c;
-                    bestPath = p;
-                }
-            }
-
-            if (bestPath == null)
-            {
-                return Vector2.zero;
-            }
-
-            cost = bestCost;
-            path = bestPath;
-        }
-        else
-        {
-            (cost, path) = pathfinding.FindPath(
-                transform.position,
-                Controller.main.transform.position
-            );
-        }
+        (int cost, List<Node2D> path) = pathfinding.FindPath(
+            transform.position,
+            Controller.main.transform.position
+        );
 
         if (path == null)
         {
@@ -380,7 +336,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (action == "death")
         {
-            print($"playing animation death");
+            //print($"playing animation death");
             print($"{animation_prefix}_animation_death");
             animator.Play($"{animation_prefix}_animation_death");
             return;
@@ -391,6 +347,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             direction = Vector2.down;
         }
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
+        // Debug.Log($"Playing animation: {animation}");
         animator.Play(animation);
     }
 
@@ -410,11 +367,12 @@ public class EnemyMovement : MonoBehaviour, CanFight
             Controller.main.KilledEnemy(enemyType);
             Controller.OnTick -= MakeDecision;
             health = 0;
-            sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
+            sfxPlayer.audSource = AudioManagerBetter.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
             Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().DropRandomItem();
-            PlayAnimation(direction, "death");
+            // PlayAnimation(direction, "death");
+            Die();
             dead = true;
         }
         else
@@ -435,6 +393,16 @@ public class EnemyMovement : MonoBehaviour, CanFight
     public void Die()
     {
         print("hiiii");
+        GameObject explosion = Instantiate(
+            explosionPrefab,
+            transform.position,
+            Quaternion.identity
+        );
+        if (explosion.TryGetComponent(out Animator animator))
+        {
+            Debug.Log("Playing explosion animation");
+            animator.Play("explosion");
+        }
         Invoke(nameof(callNextEnemy), 0f);
         Destroy(gameObject);
     }

@@ -50,13 +50,13 @@ public class SfxPlayer : MonoBehaviour
 
         if (playableOffScreen || (sprRend != null && sprRend.isVisible))
         {
-            if (AudioManager.main == null)
+            if (AudioManagerBetter.main == null)
                 return;
 
-            if (AudioManager.main.sfxVolume == 0)
+            if (AudioManagerBetter.main.sfxVolume == 0)
                 addedSound = 0;
 
-            audSource.PlayOneShot(soundFx, AudioManager.main.sfxVolume + addedSound);
+            audSource.PlayOneShot(soundFx, AudioManagerBetter.main.sfxVolume + addedSound);
         }
     }
 

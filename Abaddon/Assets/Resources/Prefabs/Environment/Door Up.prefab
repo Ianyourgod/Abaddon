@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1966193783
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4c63b1ee08392b34c9c49b8e6ae01382, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3595206b9a4d08d488131797b8891c02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,8 +133,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NeedsKey: 0
+  specialKeyID: -1
   keyPrefab: {fileID: 9101486308413122340, guid: cdbd0ef58e81c3649a4a8b26b9f7f687, type: 3}
   lockPrefab: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
+  openSprite: {fileID: 21300000, guid: 3923ee98df97c8440a6265c1bce23cd3, type: 3}
+  closedSprite: {fileID: 21300000, guid: 3595206b9a4d08d488131797b8891c02, type: 3}
+  spriteRenderer: {fileID: 2355098126172793058}
 --- !u!61 &2355098126803883068
 BoxCollider2D:
   m_ObjectHideFlags: 0

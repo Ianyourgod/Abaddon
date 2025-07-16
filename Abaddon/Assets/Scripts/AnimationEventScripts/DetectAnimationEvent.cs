@@ -15,7 +15,7 @@ public class DetectAnimationEvent : MonoBehaviour
         Right,
     }
 
-    private Vector2 GetDirectionVector(Direction direction)
+    public static Vector2 GetDirectionVector(Direction direction)
     {
         switch (direction)
         {

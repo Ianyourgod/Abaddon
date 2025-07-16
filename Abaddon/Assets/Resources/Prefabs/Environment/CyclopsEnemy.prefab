@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingLayer: 6
+  m_SortingOrder: 100
   m_Sprite: {fileID: 1171106608, guid: 46b11a48215b30f47bebba7bf1d2400c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -175,15 +175,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 212416
   animator: {fileID: 18587455}
+  explosionPrefab: {fileID: 0}
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Cyclops
   attack: {fileID: 4107131594145436823}
-  walkingSfxPlayer: {fileID: 0}
-  hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
-  enemyType: 3
+  enemyType: 4
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758

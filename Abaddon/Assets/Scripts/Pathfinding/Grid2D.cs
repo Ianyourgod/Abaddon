@@ -10,7 +10,7 @@ public class Grid2D : MonoBehaviour
     public Node2D[,] Grid;
 
     [SerializeField]
-    Tilemap[] obstaclemaps;
+    List<Tilemap> obstaclemaps;
 
     [SerializeField]
     LayerMask collideLayers;
@@ -28,6 +28,7 @@ public class Grid2D : MonoBehaviour
 
     void Awake()
     {
+        obstaclemaps.AddRange(EnemyMapPropagator.getObstacleMaps());
         if (gridSizeX == 0)
         {
             gridSizeX = Mathf.RoundToInt(20);

@@ -3377,6 +3377,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2650337504027634204, guid: d8dc96969271a4d4d92b907d23c6a4f7, type: 3}
+      propertyPath: obstaclemaps.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650337504027634204, guid: d8dc96969271a4d4d92b907d23c6a4f7, type: 3}
       propertyPath: obstaclemaps.Array.data[0]
       value: 
       objectReference: {fileID: 729259479}
@@ -3496,6 +3500,71 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6292113678228931642, guid: cda9cfbec4f158f4ab50e40213d1defb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cda9cfbec4f158f4ab50e40213d1defb, type: 3}
+--- !u!1001 &515604790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -3581560548101731982, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: obstacleMaps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3581560548101731982, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: obstacleMaps.Array.data[0]
+      value: 
+      objectReference: {fileID: 729259479}
+    - target: {fileID: 2194689796087316713, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_Name
+      value: EnemyMapPropagator
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388994715473579112, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c9f253b069aeb314ab1d6bd6526e1460, type: 3}
 --- !u!4 &527301375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2161739694323559846, guid: 470b86b8a61463aa4a1bbd42556b3b54, type: 3}
@@ -82878,7 +82947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2650337504027634204, guid: 17da97e79cc558fb6be27589420b3ddd, type: 3}
       propertyPath: obstaclemaps.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2650337504027634204, guid: 17da97e79cc558fb6be27589420b3ddd, type: 3}
       propertyPath: obstaclemaps.Array.data[0]

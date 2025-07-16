@@ -20,6 +20,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     Animator animator;
 
     [SerializeField]
+    GameObject explosionPrefab;
+
+    [SerializeField]
     Pathfinding2D pathfinding;
 
     [SerializeField]
@@ -414,7 +417,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.PlayDeathSound();
             Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().DropRandomItem();
-            PlayAnimation(direction, "death");
+            // PlayAnimation(direction, "death");
+            Die();
             dead = true;
         }
         else
@@ -435,6 +439,16 @@ public class EnemyMovement : MonoBehaviour, CanFight
     public void Die()
     {
         print("hiiii");
+        GameObject explosion = Instantiate(
+            explosionPrefab,
+            transform.position,
+            Quaternion.identity
+        );
+        if (explosion.TryGetComponent(out Animator animator))
+        {
+            Debug.Log("Playing explosion animation");
+            animator.Play("explosion");
+        }
         Invoke(nameof(callNextEnemy), 0f);
         Destroy(gameObject);
     }

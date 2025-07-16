@@ -82812,6 +82812,10 @@ PrefabInstance:
       propertyPath: obstaclemaps.Array.data[0]
       value: 
       objectReference: {fileID: 729259479}
+    - target: {fileID: 6462628820561290990, guid: 17da97e79cc558fb6be27589420b3ddd, type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17da97e79cc558fb6be27589420b3ddd, type: 3}
 --- !u!1001 &1434762123
@@ -83908,7 +83912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonLabel: {fileID: 1204707148}
-  key: 323
+  key: 118
 --- !u!114 &1570055027
 MonoBehaviour:
   m_ObjectHideFlags: 0

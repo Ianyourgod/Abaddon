@@ -540,7 +540,7 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(SettingsMenu.singleton.attackKeybind.key))
         {
-            Debug.Log("V pressed, checking for enemies to attack");
+            // Debug.Log("V pressed, checking for enemies to attack");
             var weapon = Weapon.GetCurrentWeapon();
             CanBeDamaged[] enemies = weapon.GetFightablesInDamageArea(
                 transform.position,
@@ -869,7 +869,7 @@ public class Controller : MonoBehaviour
         if (facingDirection == null || facingDirection == Vector2.zero)
             facingDirection = current_player_direction;
         string animation = $"Player{DirectionToAnimationLabel((Vector2)facingDirection)}{action}"; // Changing this line
-        print($"Playing animation: {animation}");
+        // print($"Playing animation: {animation}");
         animator.Play(animation);
     }
 
@@ -918,7 +918,7 @@ public class Controller : MonoBehaviour
 
     public void AttackAnimationFinishHandler()
     {
-        print("Attack animation finished, resetting sorting layer");
+        // print("Attack animation finished, resetting sorting layer");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();
         PlayAnimation("Idle", current_player_direction);

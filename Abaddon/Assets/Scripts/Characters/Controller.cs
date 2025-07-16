@@ -541,9 +541,11 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(SettingsMenu.singleton.attackKeybind.key))
         {
             Debug.Log("V pressed, checking for enemies to attack");
-            float angle = Mathf.Atan2(current_player_direction.y, current_player_direction.x); // used for animation determination
             var weapon = Weapon.GetCurrentWeapon();
-            CanBeDamaged[] enemies = weapon.GetFightablesInDamageArea(transform.position, angle);
+            CanBeDamaged[] enemies = weapon.GetFightablesInDamageArea(
+                transform.position,
+                current_player_direction
+            );
             bool attackWorked = weapon.AttackEnemies(enemies, current_player_direction);
             sfxPlayer.PlayAttackSound();
             var anim = weapon.AnimationName + "Attack";

@@ -24,12 +24,26 @@ public abstract class Weapon : MonoBehaviour
         hinderAttacksLayerMask = 1 << LayerMask.NameToLayer("Obstructions");
     }
 
-    public static Vector2 rotate(Vector2 v, float delta)
+    static Vector2 FlipVector(Vector2 v)
     {
-        return new Vector2(
-            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
-            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
-        );
+        return new Vector2(v.y, v.x);
+    }
+
+    public static (Vector2, Vector2) Rotate(Vector2 v, Vector2 dir)
+    {
+        // Default dimensions
+        Vector2 dimensions = v;
+        Vector2 offset = new Vector2(0, (0.5f + dimensions.y / 2) * dir.y);
+
+        bool horizontal = Mathf.Abs(dir.x) > 0.5f;
+
+        if (horizontal)
+        {
+            dimensions = FlipVector(dimensions);
+            offset = FlipVector(offset);
+        }
+
+        return (dimensions, offset);
     }
 
     public static Weapon GetDefaultWeapon()
@@ -38,6 +52,7 @@ public abstract class Weapon : MonoBehaviour
         {
             if (Controller.main == null)
                 return new Sword(); // unity yells at us for this but it's better than null reference exceptions
+            // alternatively you could just do it correctly..........
 
             // Debug.Log("Default weapon is not set, setting to Sword.");
             defaultWeapon = Controller.main.GetComponent<Sword>();
@@ -74,28 +89,13 @@ public abstract class Weapon : MonoBehaviour
         return GetDefaultWeapon();
     }
 
-    private static float tempDebugOrientation = 0f;
-    private static Vector2 tempDebugPosition = Vector2.zero;
-
-    public CanBeDamaged[] GetFightablesInDamageArea(Vector2 position, float orientation)
+    public CanBeDamaged[] GetFightablesInDamageArea(Vector2 position, Vector2 direction)
     {
-        // orientation is in radians
-        tempDebugOrientation = orientation;
-        tempDebugPosition = position;
-        // Debug.Log(new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)));
-        // Debug.Log(
-        //     $"{new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)).magnitude} at {orientation} radians"
-        // );
-        Vector2 rotatedBox = rotate(GetSize() * 0.85f, orientation); // 0.85 is to stop the tiles from overflowing into neighboring tiles
+        (Vector2 _rotatedBox, Vector2 centerOffset) = Rotate(GetSize(), direction); // 0.85 is to stop the tiles from overflowing into neighboring tiles
+        Vector2 rotatedBox = _rotatedBox * 0.85f;
 
-        // if you're looking at this
-        // please note that the center offset doesn't work completely but it does enough to hit the enemies intended
-        // up to 2 enemies long, at least
-        // the getsize() x is the length of the weapon, and the y is the width
-        Vector2 centerOffset = new Vector2(
-            Mathf.Cos(orientation) * (GetSize().x + 1) * 0.5f,
-            Mathf.Sin(orientation) * (GetSize().x + 1) * 0.5f
-        );
+        float biggest_side = Mathf.Max(rotatedBox.x, rotatedBox.y);
+
         Vector2 boxCenter = position + centerOffset;
         Collider2D[] colliders = Physics2D
             .OverlapBoxAll(boxCenter, rotatedBox, 0f)
@@ -105,8 +105,8 @@ public abstract class Weapon : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(
                     position,
-                    new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation)),
-                    GetSize().x + 1,
+                    direction,
+                    biggest_side,
                     hinderAttacksLayerMask
                 );
                 // Check if the collider either has nothing infront of it that can block the attack or if the object itself is a wall type
@@ -126,6 +126,7 @@ public abstract class Weapon : MonoBehaviour
         return fightables.ToArray();
     }
 
+    /*
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -152,6 +153,7 @@ public abstract class Weapon : MonoBehaviour
                 + new Vector2(Mathf.Cos(tempDebugOrientation), Mathf.Sin(tempDebugOrientation))
         );
     }
+    */
 
     // Retrusn true if attack was successful, false otherwise
     public bool AttackEnemies(CanBeDamaged[] enemies, Vector2 direction)

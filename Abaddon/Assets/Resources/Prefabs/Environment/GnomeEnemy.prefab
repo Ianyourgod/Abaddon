@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -462487305, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -175,6 +175,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 212416
   animator: {fileID: 18587455}
+  explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Goblin
   attack: {fileID: 2067440025226379969}
@@ -185,7 +186,6 @@ MonoBehaviour:
   enemyDecisionDelay: 0.075
   enemyType: 0
   forceAttackNextTurn: 0
-  enemyType: 0
   health: 10
 --- !u!114 &3913921436897795758
 MonoBehaviour:
@@ -269,15 +269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055fe4027667eafec85e7f9fe215bd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclemaps:
-  - {fileID: 0}
-  - {fileID: 0}
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
   worldBottomLeft: {x: -4, y: -4, z: 0}
-  gridSizeX: 20
-  gridSizeY: 20
+  gridSizeX: 9
+  gridSizeY: 9
 --- !u!114 &756127580436248588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +296,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b09f9e29eb6ec1c49a73dcf08659cfc6, type: 3}
   - {fileID: 8300000, guid: 4db6591c6fd1fcb49a3e9d959c2d223e, type: 3}
   - {fileID: 8300000, guid: db7ffc64e66500945aebe8685e449e09, type: 3}
+  dashSound: {fileID: 0}
   randomWalkingSound: 1
   hurtSfx:
   - {fileID: 8300000, guid: 9b67dccd3ed94f440b05d8b60cd97e2f, type: 3}

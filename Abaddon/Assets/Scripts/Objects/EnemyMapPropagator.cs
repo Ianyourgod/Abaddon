@@ -5,7 +5,7 @@ public class EnemyMapPropagator : MonoBehaviour
 {
     [SerializeField]
     private Tilemap[] obstacleMaps;
-    private static EnemyMapPropagator main;
+    private static EnemyMapPropagator main = null;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class EnemyMapPropagator : MonoBehaviour
         }
     }
 
-    public static Tilemap[] getObstacleMaps()
+    public static Tilemap[] GetObstacleMaps()
     {
         return main.obstacleMaps;
     }

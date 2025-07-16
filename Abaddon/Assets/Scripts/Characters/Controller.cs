@@ -488,7 +488,7 @@ public class Controller : MonoBehaviour
 
     bool playerPressingButtons()
     {
-        return Input.GetKey(SettingsMenu.singleton.interactKeybind.key)
+        return Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key)
             || Input.GetKey(SettingsMenu.singleton.attackKeybind.key);
     }
 
@@ -541,7 +541,7 @@ public class Controller : MonoBehaviour
                 did_something = true;
             }
         }
-        if (Input.GetKeyDown(SettingsMenu.singleton.attackKeybind.key))
+        if (Input.GetKey(SettingsMenu.singleton.attackKeybind.key))
         {
             // Debug.Log("V pressed, checking for enemies to attack");
             var weapon = Weapon.GetCurrentWeapon();

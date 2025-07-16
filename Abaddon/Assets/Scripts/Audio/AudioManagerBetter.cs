@@ -10,20 +10,15 @@ public class AudioManagerBetter : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    AudioSource musicSource;
+    public AudioSource deathSfxPlayer;
+    public AudioSource musicSource;
 
     [Header("Attributes")]
     [SerializeField]
-    float sfxVolume = 0.02f;
+    public float sfxVolume = 0.02f;
 
     [SerializeField]
-    float musicVolume = 0.02f;
-
-    [SerializeField]
-    float maxVolume = 1f;
-
-    [SerializeField]
-    float volumeInterval = 0.01f;
+    public float musicVolume = 0.02f;
 
     [Header("Music Dictionary")]
     [Tooltip(

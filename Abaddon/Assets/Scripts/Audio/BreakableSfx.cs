@@ -23,7 +23,7 @@ public class BreakableSfx : SfxPlayer
 
     void Start()
     {
-        audSource = AudioManager.main.deathSfxPlayer;
+        audSource = AudioManagerBetter.main.deathSfxPlayer;
     }
 
     public void PlayBreakSound()

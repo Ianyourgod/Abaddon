@@ -413,7 +413,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             Controller.main.KilledEnemy(enemyType);
             Controller.OnTick -= MakeDecision;
             health = 0;
-            sfxPlayer.audSource = AudioManager.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
+            sfxPlayer.audSource = AudioManagerBetter.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
             Controller.main.add_exp(Random.Range(1, 4));
             GetComponent<ItemDropper>().DropRandomItem();

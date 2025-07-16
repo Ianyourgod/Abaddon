@@ -175,6 +175,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 212416
   animator: {fileID: 18587455}
+  explosionPrefab: {fileID: 0}
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Cyclops
   attack: {fileID: 4107131594145436823}
@@ -298,19 +299,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b09f9e29eb6ec1c49a73dcf08659cfc6, type: 3}
   - {fileID: 8300000, guid: 4db6591c6fd1fcb49a3e9d959c2d223e, type: 3}
   - {fileID: 8300000, guid: db7ffc64e66500945aebe8685e449e09, type: 3}
+  dashSound: {fileID: 0}
   randomWalkingSound: 1
   hurtSfx:
   - {fileID: 8300000, guid: 9b67dccd3ed94f440b05d8b60cd97e2f, type: 3}
   randomHurtSound: 0
   attackSfx:
-  - {fileID: 8300000, guid: cd28fc8a7c7cd6d408fc1d489edf17a2, type: 3}
+  - {fileID: 8300000, guid: 084cc2799655d49c2bc25c1fdf3de856, type: 3}
+  - {fileID: 8300000, guid: 9ba2c426f1c8a4f6f95c65c69de19846, type: 3}
   randomAttackSound: 0
   swooshSfx: []
   randomSwooshSound: 0
   deathSfx:
-  - {fileID: 8300000, guid: 9a30404f9d3a20a4da50bffcd9f305ed, type: 3}
-  - {fileID: 8300000, guid: ecd0ed764eaf7e54ab4bd7ef41627d4d, type: 3}
-  - {fileID: 8300000, guid: a3e09c5f0cb35714fbf0888e82057647, type: 3}
+  - {fileID: 8300000, guid: 60ff88d1c5a7648e1b504412a2bd3f35, type: 3}
   randomDeathSound: 0
   addedWalkVolume: 0
   addedHurtVolume: 0.02

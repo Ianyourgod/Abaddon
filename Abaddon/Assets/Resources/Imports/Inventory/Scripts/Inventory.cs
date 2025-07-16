@@ -12,6 +12,9 @@ using UnityEngine;
 [RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
 {
+    AudioClip openingSfx;
+    AudioClip closingSfx;
+
     [Header("Inventory Settings")]
     [Tooltip("Put your whole inventory object inside here.")]
     public GameObject inventoryObject;
@@ -29,8 +32,6 @@ public class Inventory : MonoBehaviour
     public GameObject levelUpObject;
 
     [Tooltip("level up object.")]
-    public GameObject InventoryTabButton;
-    public GameObject LevelUpTabButton;
     public GameObject shadow;
 
     [Tooltip(
@@ -120,9 +121,6 @@ public class Inventory : MonoBehaviour
         }
 
         CloseAllTabs();
-        HideButtons();
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -199,7 +197,6 @@ public class Inventory : MonoBehaviour
         isInventoryOpen = true;
 
         ReloadInventory();
-        ShowButtons();
 
         //Cursor.visible = true;
         //Cursor.lockState = CursorLockMode.None;
@@ -216,7 +213,6 @@ public class Inventory : MonoBehaviour
         invSfxPlayer.PlayCloseSound(); //play the close sound on the parent of the inventory object (the inventory ui)
 
         CloseAllTabs();
-        HideButtons();
 
         UIStateManager.singleton.FadeOutDarkener(FADE_IN_TIME, DARK_VAL);
 
@@ -292,19 +288,6 @@ public class Inventory : MonoBehaviour
         equipmentObject.SetActive(false);
         statObject.SetActive(false);
         craftObject.SetActive(false);
-        levelUpObject.SetActive(false);
-    }
-
-    public void HideButtons()
-    {
-        InventoryTabButton.SetActive(false);
-        LevelUpTabButton.SetActive(false);
-    }
-
-    public void ShowButtons()
-    {
-        InventoryTabButton.SetActive(true);
-        LevelUpTabButton.SetActive(true);
     }
 
     public void ReloadInventory()

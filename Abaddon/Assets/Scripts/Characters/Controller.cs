@@ -411,7 +411,7 @@ public class Controller : MonoBehaviour
             {
                 transform.Translate(current_player_direction * 2);
                 SpawnDashTrail(current_player_direction);
-                // sfxPlayer.PlayWalkSound();
+                sfxPlayer.PlayDashSound();
                 OnMoved?.Invoke();
                 ticksUntilDash = ticksBetweenDashes;
                 current_enemy = 0;

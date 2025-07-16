@@ -18,7 +18,7 @@ public class AudioManagerBetter : MonoBehaviour
     public float sfxVolume = 0.02f;
 
     [SerializeField]
-    public float musicVolume = 0.02f;
+    public float musicVolume = 0.005f;
 
     [Header("Music Dictionary")]
     [Tooltip(

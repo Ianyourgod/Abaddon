@@ -101,4 +101,6 @@ MonoBehaviour:
   small_image: {fileID: 21300000, guid: 137e412303670f192adf8995840ec026, type: 3}
   mid_image: {fileID: 21300000, guid: 47857f50b921b2a948e31396521c61aa, type: 3}
   big_image: {fileID: 21300000, guid: 75ea4b7f76707e5e4918e0b7d50250e7, type: 3}
+  collectSounds:
+  - {fileID: 8300000, guid: 3332b8ff0015b454bb121736caeb3d59, type: 3}
   spriteRenderer: {fileID: 2404969428711074707}

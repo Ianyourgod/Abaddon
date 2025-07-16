@@ -9,6 +9,8 @@ public class CharacterSfx : SfxPlayer
     [SerializeField]
     AudioClip[] walkingSfx;
 
+    public AudioClip dashSound;
+
     [Tooltip("Whether the action will play a random sound effect from the list or not")]
     [SerializeField]
     bool randomWalkingSound = true;
@@ -75,15 +77,20 @@ public class CharacterSfx : SfxPlayer
     [SerializeField]
     float addedDeathVolume = 0;
 
+    public void PlayDashSound()
+    {
+        if (dashSound != null)
+        {
+            PlaySfx(dashSound, 0);
+        }
+    }
+
     public void PlayWalkSound()
     {
         if (randomWalkingSound)
-        {
             PlayRandomSound(walkingSfx, addedWalkVolume);
-            return;
-        }
-
-        PlaySfx(walkingSfx[0], addedWalkVolume);
+        else
+            PlaySfx(walkingSfx[0], addedWalkVolume);
     }
 
     public void PlayHurtSound()
@@ -97,15 +104,16 @@ public class CharacterSfx : SfxPlayer
         PlaySfx(hurtSfx[0], addedHurtVolume);
     }
 
-    public void PlayAttackSound()
+    public void PlayAttackSound(int? index = null)
     {
-        if (randomAttackSound)
+        if (index == null)
         {
             PlayRandomSound(attackSfx, addedAttackVolume);
-            return;
         }
-
-        PlaySfx(attackSfx[0], addedAttackVolume);
+        else
+        {
+            PlaySfx(attackSfx[index.Value], addedAttackVolume);
+        }
     }
 
     public void PlayDeathSound()

@@ -165,7 +165,7 @@ public class Shop : MonoBehaviour
     {
         if (Controller.main.goldCount >= current_cost)
         {
-            // TODO! play sfx
+            // AudioManagerBetter.main.PlaySfx("buy_item");
             Debug.Log("buybuybuy");
             Controller.main.goldCount -= current_cost;
             var item_maybe = Instantiate(current_item);

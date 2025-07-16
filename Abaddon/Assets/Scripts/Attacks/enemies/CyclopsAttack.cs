@@ -58,7 +58,7 @@ public class CyclopsAttack : BaseAttack
 
         if (sfxPlayer.playAttackOnDamagePlayer)
         {
-            sfxPlayer.PlayAttackSound();
+            sfxPlayer.PlayAttackSound(attackStage == AttackStage.WindUp ? 0 : 1);
         }
     }
 

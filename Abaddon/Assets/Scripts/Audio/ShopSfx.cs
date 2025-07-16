@@ -61,11 +61,11 @@ public class ShopSfx : SfxPlayer
 
     public void PlayPurchaseSound()
     {
-        PlaySfx(purchaseSFX, 1);
+        AudioManagerBetter.main.PlaySfx(purchaseSFX);
     }
 
     public void PlaySelectSound()
     {
-        PlaySfx(selectSFX, 2);
+        AudioManagerBetter.main.PlaySfx(selectSFX);
     }
 }

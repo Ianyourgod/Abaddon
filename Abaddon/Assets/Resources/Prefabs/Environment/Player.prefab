@@ -214,6 +214,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 26ea142bf6830d14d9435c2663c4505e, type: 3}
   - {fileID: 8300000, guid: 47cc4893b1d571b42a1bc5de5bdfbfa6, type: 3}
   - {fileID: 8300000, guid: dcb8b80c283a7fc46bb3b8b93d247a55, type: 3}
+  dashSound: {fileID: 8300000, guid: 1c93657b8a49a432cbf60945f4bcf5e4, type: 3}
   randomWalkingSound: 1
   hurtSfx:
   - {fileID: 8300000, guid: 66ca707695a2b1943ac23e3f9b24f7b3, type: 3}

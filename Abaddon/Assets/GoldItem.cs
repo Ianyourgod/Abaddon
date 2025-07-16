@@ -14,6 +14,8 @@ public class GoldItem : MonoBehaviour
     [SerializeField]
     Sprite big_image;
 
+    public AudioClip[] collectSounds;
+
     [SerializeField]
     SpriteRenderer spriteRenderer;
 
@@ -59,6 +61,7 @@ public class GoldItem : MonoBehaviour
         Controller.OnMoved -= CheckIfGoldShouldBeCollected;
         Controller.main.goldCount += gold_count;
         //TODO: Add a sound effect for collecting gold
+        AudioManagerBetter.main.PlaySfx(collectSounds[Random.Range(0, collectSounds.Length)]);
         Destroy(gameObject);
     }
 

@@ -85469,6 +85469,10 @@ PrefabInstance:
       value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: deathSfxPlayer
+      value: 
+      objectReference: {fileID: 1643267568}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songKeys.Array.size
       value: 1
       objectReference: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(DoorSfx))]
 public class Door : MonoBehaviour, CanBeInteractedWith
 {
+    [Header("Door Settings")]
     [SerializeField]
     public bool NeedsKey;
 
@@ -19,6 +20,11 @@ public class Door : MonoBehaviour, CanBeInteractedWith
     [SerializeField]
     GameObject lockPrefab;
     DoorSfx sfxPlayer;
+
+    [Space(10)]
+    [Header("Appearance")]
+    public Sprite openSprite;
+    public Sprite closedSprite;
 
     private SpriteRenderer spriteRenderer;
 
@@ -72,6 +78,7 @@ public class Door : MonoBehaviour, CanBeInteractedWith
                 sfxPlayer.PlayUnlockedSound();
             }
 
+            // door is opened
             Destroy(gameObject);
         }
         else

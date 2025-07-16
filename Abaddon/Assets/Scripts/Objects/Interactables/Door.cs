@@ -74,7 +74,6 @@ public class Door : MonoBehaviour, CanBeInteractedWith
                 Controller.main.inventory.RemoveItemAmount(key_ID, 1);
                 Instantiate(keyPrefab, transform.position, Quaternion.identity);
                 sfxPlayer.PlayUnlockLockedSound();
-                Destroy(this);
             }
             else
             {
@@ -84,6 +83,7 @@ public class Door : MonoBehaviour, CanBeInteractedWith
             // door is opened
             spriteRenderer.sprite = openSprite;
             gameObject.layer = nonInteractableLayer;
+            Destroy(this); // remove script to get rid of CanBeInteractedWith interface
         }
         else
         {

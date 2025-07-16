@@ -184,7 +184,7 @@ MonoBehaviour:
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
-  enemyType: 4
+  enemyType: 3
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758

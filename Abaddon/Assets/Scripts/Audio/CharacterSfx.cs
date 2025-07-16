@@ -29,10 +29,6 @@ public class CharacterSfx : SfxPlayer
     [SerializeField]
     AudioClip[] attackSfx;
 
-    [Tooltip("Whether the action will play a random sound effect from the list or not")]
-    [SerializeField]
-    bool randomAttackSound = false;
-
     [Space]
     [Tooltip("Include all swoosh sound effects for this character")]
     [SerializeField]

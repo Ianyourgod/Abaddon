@@ -24,6 +24,7 @@ public class CyclopsAttack : BaseAttack
             LayerMask.GetMask("Player")
         );
         // mask only returns player
+        Debug.Log($"WillAttack: {h.Length} hits found");
         return h.Length > 0;
     }
 

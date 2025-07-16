@@ -179,10 +179,12 @@ MonoBehaviour:
   pathfinding: {fileID: 3445834741458170001}
   animation_prefix: Cyclops
   attack: {fileID: 4107131594145436823}
+  walkingSfxPlayer: {fileID: 0}
+  hurtSfxPlayer: {fileID: 0}
   detectionDistance: 4
   followDistance: 10
   enemyDecisionDelay: 0.075
-  enemyType: 4
+  enemyType: 3
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758
@@ -268,8 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055fe4027667eafec85e7f9fe215bd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclemaps:
-  - {fileID: 0}
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
@@ -305,7 +305,6 @@ MonoBehaviour:
   attackSfx:
   - {fileID: 8300000, guid: 084cc2799655d49c2bc25c1fdf3de856, type: 3}
   - {fileID: 8300000, guid: 9ba2c426f1c8a4f6f95c65c69de19846, type: 3}
-  randomAttackSound: 0
   swooshSfx: []
   randomSwooshSound: 0
   deathSfx:

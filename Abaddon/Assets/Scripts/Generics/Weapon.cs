@@ -33,9 +33,10 @@ public abstract class Weapon : MonoBehaviour
     {
         // Default dimensions
         Vector2 dimensions = v;
-        Vector2 offset = new Vector2(0, (0.5f + dimensions.y / 2) * dir.y);
 
         bool horizontal = Mathf.Abs(dir.x) > 0.5f;
+        float d = horizontal ? dir.x : dir.y;
+        Vector2 offset = new Vector2(0, (0.5f + dimensions.y / 2) * d);
 
         if (horizontal)
         {
@@ -93,6 +94,13 @@ public abstract class Weapon : MonoBehaviour
     {
         (Vector2 _rotatedBox, Vector2 centerOffset) = Rotate(GetSize(), direction); // 0.85 is to stop the tiles from overflowing into neighboring tiles
         Vector2 rotatedBox = _rotatedBox * 0.85f;
+
+        print(GetSize());
+        print(position);
+        print(direction);
+        print("NEXT");
+        print(rotatedBox);
+        print(centerOffset);
 
         float biggest_side = Mathf.Max(rotatedBox.x, rotatedBox.y);
 

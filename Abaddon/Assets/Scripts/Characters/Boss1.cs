@@ -7,7 +7,9 @@ using UnityEngine;
 public class Boss1 : MonoBehaviour, CanFight
 {
     [SerializeField]
-    GameObject statuePrefab;
+    List<Statue> statues = new List<Statue>();
+
+    public bool vulnerable = false;
 
     [SerializeField]
     GameObject baseEnemy;
@@ -19,37 +21,27 @@ public class Boss1 : MonoBehaviour, CanFight
     Animator animator;
 
     [SerializeField]
-    int AllowedAttackTicks = 7;
+    int enemiesPerStage = 5;
 
     [SerializeField]
-    int Stages = 3;
-
-    [SerializeField]
-    int enemiesPerStage = 2;
+    int increasePerStage = 2;
 
     [SerializeField]
     Vector2Int roomSize = new Vector2Int(21, 11);
 
     [SerializeField]
-    int maxHealth = 15;
+    int damagePerRound = 15;
 
     [HideInInspector]
     public bool inFight = false;
 
-    [HideInInspector]
-    public int stage = 0;
-    private int _health = 15;
-    public int health
-    {
-        get { return _health; }
-        set { _health = Mathf.Clamp(value, 0, maxHealth); }
-    }
-
-    private int ticks_till_move_back = 0;
+    private int damageTakenThisRound = 0;
+    private int maxStages = 0;
 
     void Awake()
     {
         Controller.OnTick += CustomUpdate;
+        maxStages = statues.Count;
     }
 
     public EnemyType GetEnemyType()
@@ -59,9 +51,7 @@ public class Boss1 : MonoBehaviour, CanFight
 
     public void StartFight()
     {
-        health = maxHealth;
         inFight = true;
-        stage = 1;
         Debug.Log("i am 1ssoB, and i hate");
         SpawnStatue();
     }
@@ -95,36 +85,22 @@ public class Boss1 : MonoBehaviour, CanFight
             + bossPosition;
     }
 
-    public void Attack() => SpawnStatue();
-
     private void SpawnStatue()
     {
         // generate statue position
-        Vector2 statuePosition = GenerateRandomPosition();
+        vulnerable = false;
 
-        GameObject statue = Instantiate(statuePrefab, statuePosition, Quaternion.identity);
-
-        statue.GetComponent<Statue>().boss = this;
+        print("Activating the next statue at stage " + (maxStages - statues.Count));
+        statues.Pop().Activate();
+        print("done activating the statue");
 
         // also spawn enemies
-        for (int i = 0; i < (enemiesPerStage + (stage / 2)); i++)
+        for (int i = 0; i < (enemiesPerStage + increasePerStage * (maxStages - statues.Count)); i++)
         {
             Vector2 enemyPosition = GenerateRandomPosition();
             // make a copy of the base enemy
             GameObject enemy = Instantiate(baseEnemy, enemyPosition, Quaternion.identity);
         }
-    }
-
-    public void StatueDestroyed()
-    {
-        stage++;
-        Debug.Log("i am 1ssoB, and i hate (but i also love 👅) and im on stage " + stage);
-        if (stage > Stages * 2)
-        {
-            Die();
-        }
-
-        ticks_till_move_back = AllowedAttackTicks;
     }
 
     public void Die()
@@ -134,7 +110,6 @@ public class Boss1 : MonoBehaviour, CanFight
 
         Controller.main.KilledEnemy(GetEnemyType());
         inFight = false;
-        stage = 0;
         Debug.Log("i am 1ssoB, and i hate (but im also dead so)");
         PlayAnimation("die");
         // set color to dark red
@@ -152,16 +127,20 @@ public class Boss1 : MonoBehaviour, CanFight
 
     private void CustomUpdate()
     {
-        if (stage % 2 == 0 && stage != 0)
         {
-            ticks_till_move_back--;
-            Debug.Log("uh oh im running out of ticks! " + ticks_till_move_back);
-            if (ticks_till_move_back <= 0)
-            {
-                stage--;
-                SpawnStatue();
-            }
+            // Debug.Log("uh oh im running out of ticks! " + ticks_till_move_back);
+            // if (ticks_till_move_back <= 0)
+            // {
+            //     stage--;
+            //     SpawnStatue();
+            // }
         }
+    }
+
+    public void OnStatueDestroyed()
+    {
+        print("Statue destroyed");
+        vulnerable = true;
     }
 
     private void PlayAnimation(string action)
@@ -173,27 +152,15 @@ public class Boss1 : MonoBehaviour, CanFight
 
     public int Hurt(int damage)
     {
-        print(health);
-
-        if (inFight && stage % 2 == 0)
+        if (vulnerable)
         {
-            health -= damage;
-            Debug.Log(
-                "i am 1ssoB, and i hate (but i also love 👅) and im taking damage ("
-                    + damage
-                    + ", "
-                    + health
-                    + ")"
-            );
+            damageTakenThisRound += damage;
             PlayAnimation("damage");
-            if (health == 0)
+            if (damageTakenThisRound >= damagePerRound)
             {
-                health = maxHealth;
-                stage++;
-                Debug.Log(
-                    "i am 1ssoB, and i am dead but maybe not potentially stage is now " + stage
-                );
-                if (stage > Stages * 2)
+                damageTakenThisRound = 0;
+                print("Took enough daamge to end round");
+                if (statues.Count == 0)
                 {
                     Die();
                 }
@@ -204,13 +171,14 @@ public class Boss1 : MonoBehaviour, CanFight
                 }
             }
         }
-        return health;
+        return damageTakenThisRound;
     }
+
+    public void Attack() => SpawnStatue();
 
     public int Heal(int amount)
     {
-        health += amount;
-        return health;
+        return -1;
     }
 
     void OnDrawGizmosSelected()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Statue : MonoBehaviour, CanFight
 {
-    [HideInInspector]
     public Boss1 boss;
 
     [SerializeField]
@@ -12,6 +11,8 @@ public class Statue : MonoBehaviour, CanFight
 
     [SerializeField]
     Animator animator;
+
+    private bool isActive = false;
 
     public void Attack()
     {
@@ -33,17 +34,22 @@ public class Statue : MonoBehaviour, CanFight
 
     public int Hurt(int damage)
     {
+        if (!isActive)
+        {
+            Debug.LogWarning("Statue is not active, cannot take damage.");
+            return health; // Return current health without taking damage
+        }
+
         if (damage >= health)
         {
-            boss.StatueDestroyed();
             Die();
         }
         health -= damage;
         Debug.Log("statue health " + health);
 
         int damage_level =
-            health < (20 / 3) ? 3
-            : health < (2 * 20 / 3) ? 2
+            health < (health / 3) ? 3
+            : health < (2 * health / 3) ? 2
             : 1;
 
         PlayAnimation($"damage{damage_level}");
@@ -52,6 +58,7 @@ public class Statue : MonoBehaviour, CanFight
 
     public void Die()
     {
+        boss.OnStatueDestroyed();
         Destroy(gameObject);
     }
 
@@ -60,5 +67,18 @@ public class Statue : MonoBehaviour, CanFight
         string animation = $"statue_animation_{action}";
 
         animator.Play(animation);
+    }
+
+    public void Activate()
+    {
+        print("Activating statue");
+        isActive = true;
+        print("Statue activated at position " + transform.position);
+        var child = transform.GetChild(0);
+        print("child: " + child.name);
+        var sprite = child.GetComponent<SpriteRenderer>();
+        print("sprite: " + sprite.name);
+        sprite.color = new Color(1, 1, 1, 0.5f);
+        print("Statue activated");
     }
 }

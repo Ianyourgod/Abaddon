@@ -98,7 +98,7 @@ public class Controller : MonoBehaviour
             _health = value;
             _health = Math.Clamp(_health, 0, max_health);
             if (healthBarVisual)
-                healthBarVisual.value = health;
+                healthBarVisual.value = MathF.Round(health / (float)max_health * 113f);
             if (_health <= 0)
             {
                 onDie?.Invoke();
@@ -181,7 +181,7 @@ public class Controller : MonoBehaviour
         get => _goldCount;
         set
         {
-            goldIndicator.text = $"Gold: {value}";
+            goldIndicator.text = $"{value}";
             _goldCount = value;
         }
     }
@@ -256,15 +256,6 @@ public class Controller : MonoBehaviour
                 )
                 .GetComponent<Tombstone>();
             var unioned = inventory.slots.Union(inventory.equipSlots);
-            print(
-                string.Join(
-                    ", ",
-                    unioned.Select(slot =>
-                        slot.name
-                        + (slot.slotsItem != null ? $"({slot.slotsItem.name})" : "(empty)")
-                    )
-                )
-            );
             Item[] items = unioned
                 .Where(slot => slot.slotsItem != null)
                 .Select(slot => slot.slotsItem)
@@ -313,12 +304,6 @@ public class Controller : MonoBehaviour
         max_health = constitution * 2;
         health = max_health;
 
-        if (healthBarVisual)
-        {
-            healthBarVisual.maxValue = max_health;
-            healthBarVisual.minValue = 0;
-        }
-
         if (expBarVisual)
         {
             expBarVisual.maxValue = 100;
@@ -350,10 +335,15 @@ public class Controller : MonoBehaviour
         // ));
 
         quest_state = new QuestState();
+        print("health: " + health);
     }
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.Semicolon))
+        {
+            done_with_tick = true;
+        }
         UpdateHealthBar();
         UIFloatText();
 
@@ -575,13 +565,9 @@ public class Controller : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        double health_percentage = (double)health / (double)max_health;
+        double health_percentage = (double)health / max_health;
         max_health = (constitution + conModifier) * 2;
-        if (healthBarVisual)
-        {
-            healthBarVisual.maxValue = max_health;
-        }
-        health = (int)((double)max_health * health_percentage);
+        health = (int)(max_health * health_percentage);
         HealPlayer(0);
     }
 

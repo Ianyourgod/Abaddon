@@ -1324,7 +1324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4692,7 +4692,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &268079135
 PrefabInstance:
@@ -5352,6 +5352,7 @@ MonoBehaviour:
     message: PLEASE SAVE HIM!!!!
     time: 14
     usingCPS: 1
+  beforeCompletion: []
   completionMessages:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: THANK YOU SO MUCH FOR SAVING MY SON!
@@ -90552,30 +90553,80 @@ MonoBehaviour:
   messages: []
   beforeEnemiesDead:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: WHAT ARE YOU DOING!!! KILL THEM ALREADY!!!!!
+    message: get away from me, creep
     time: 12
     usingCPS: 1
   whenEnemiesDead:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: Took you long enough...
-    time: 9
+    message: "\u2018When I was a young boy, my father took me into the city, to see
+      a play,  wild\u2019 mm mm\u2026"
+    time: 12
     usingCPS: 1
-  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: I swear if my dad sent you I'll mess you up
-    time: 9
-    usingCPS: 1
-  afterEnemiesBeforeQuestComplete:
-  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: Get away from me creep...
-    time: 9
-    usingCPS: 1
-  afterQuestComplete:
-  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: Did you actually talk to my dad!?!?
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: Excuse me?
     time: 12
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: I didn't need your help anyways...
+    message: "Who are you? Let me be, I must rot in this darkness\u2026"
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: I'm here to take you home?
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: I have no home
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: Your dad sent me. Come on.
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: "I have no family. I'm alone. All\u2026alone\u2026"
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: Your dad cared enough to offer an award for you. I did the work. Go
+      back.
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: ...fine. You know capes aren't in style anymore, right?
+    time: 12
+    usingCPS: 1
+  afterEnemiesBeforeQuestComplete:
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: Eugh, you again...
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: Yep.
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: whatever.
+    time: 12
+    usingCPS: 1
+  afterQuestComplete:
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: "My dad told me what he did. Thanks\u2026 or whatever. "
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: No problem?
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: "Do you, um\u2026 listen to MCR?"
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: Huh?
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
+    message: "Like\u2026 my chemical romantics?"
     time: 12
     usingCPS: 1
   enemies:
@@ -94683,7 +94734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 26
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -98245,7 +98296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 27
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -98781,7 +98832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -102753,7 +102804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -103814,14 +103865,33 @@ MonoBehaviour:
     message: ... fine.
     time: 9
     usingCPS: 1
-  completionMessages:
+  beforeCompletion:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
-    message: THANK YOU SO MUCH FOR SAVING MY SON!
-    time: 14
+    message: Well, have you found him? Please, I'm worried.
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: "Uh\u2026 working on it."
+    time: 12
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
-    message: Here you go!
-    time: 9
+    message: "Oh, please do hurry! That boy always hides himself away in the darkest
+      corners, I hope he has food\u2026"
+    time: 12
+    usingCPS: 1
+  completionMessages:
+  - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
+    message: "Oh, I can\u2019t thank you enough, thank you, thank you for finding
+      my son, I'm so relieved. As promised, your reward!"
+    time: 14
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: 'Thanks. '
+    time: 12
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
+    message: Come visit whenever, you'll always be welcome at our tent!
+    time: 14
     usingCPS: 1
   questID: 1
   reward: {fileID: 8956186374661559890, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
@@ -103936,7 +104006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1695967454
 PrefabInstance:

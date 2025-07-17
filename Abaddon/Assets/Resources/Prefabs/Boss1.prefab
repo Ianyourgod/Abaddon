@@ -72,17 +72,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1489757d820f5448dedf3cf0cf231d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statuePrefab: {fileID: 4903596350638405677, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
+  statues: []
+  vulnerable: 0
   baseEnemy: {fileID: 0}
   spriteRenderer: {fileID: 435642702979050185}
   animator: {fileID: 8160346232297714436}
-  AllowedAttackTicks: 7
-  Stages: 3
   enemiesPerStage: 2
+  increasePerStage: 2
   roomSize: {x: 21, y: 11}
-  maxHealth: 15
+  damagePerRound: 15
   inFight: 0
-  stage: 0
 --- !u!1 &4186379011150645085
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,9 +155,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 53ebf5c73623c4a058f38c1d0797651c, type: 3}
+  m_Sprite: {fileID: -449822794, guid: 7665daa76cdbd41fcbabf15fc50d2cc7, type: 3}
   m_Color: {r: 0.745283, g: 0.5189699, b: 0.38318795, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1471304386553776886}
   - component: {fileID: 6300894327041951603}
   - component: {fileID: 1012845310925873939}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: Door Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +52,9 @@ MonoBehaviour:
   specialKeyID: -1
   keyPrefab: {fileID: 9101486308413122340, guid: cdbd0ef58e81c3649a4a8b26b9f7f687, type: 3}
   lockPrefab: {fileID: 3073162580929011317, guid: 1f606c54bd0ee2d4d9566c8c437e7638, type: 3}
+  nonInteractableLayer:
+    serializedVersion: 2
+    m_Bits: 0
   openSprite: {fileID: 21300000, guid: 6f37c19b501049d4d887df76280584da, type: 3}
   closedSprite: {fileID: 21300000, guid: 26ab71c82e2373c42957651f3b7f8c1f, type: 3}
   spriteRenderer: {fileID: 1471304387205920296}
@@ -213,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1471304387205920297}
   - component: {fileID: 1471304387205920296}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: Door Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

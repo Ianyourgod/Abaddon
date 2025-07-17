@@ -81,7 +81,7 @@ public class WeepingEyeAttack : BaseAttack
 
         if (sfxPlayer.playAttackOnDamagePlayer)
         {
-            sfxPlayer.PlayAttackSound();
+            sfxPlayer.PlayAttackSound(attackStage == AttackStage.WindUp ? 1 : 0);
         }
     }
 

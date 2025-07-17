@@ -57,6 +57,11 @@ public class Controller : MonoBehaviour
     [SerializeField]
     public int wisModifier;
 
+    [Space(5)]
+    [SerializeField]
+    private bool randomizeStats = false;
+
+    [Space(10)]
     [HideInInspector]
     public int exp = 0;
     private int ticksUntilDash = 0;
@@ -272,33 +277,37 @@ public class Controller : MonoBehaviour
         inventory = FindObjectOfType<Inventory>();
 
         #region Generate Stats
-        float minPercentage = (float)minimum_stat_roll / sum_of_starting_stats;
-        float maxPercentage = (float)maximum_stat_roll / sum_of_starting_stats;
 
-        float[] newStats = new float[4];
-        for (int i = 0; i < newStats.Length; i++)
+        if (randomizeStats)
         {
-            newStats[i] = UnityEngine.Random.Range(minPercentage, maxPercentage);
+            float minPercentage = (float)minimum_stat_roll / sum_of_starting_stats;
+            float maxPercentage = (float)maximum_stat_roll / sum_of_starting_stats;
+
+            float[] newStats = new float[4];
+            for (int i = 0; i < newStats.Length; i++)
+            {
+                newStats[i] = UnityEngine.Random.Range(minPercentage, maxPercentage);
+            }
+
+            float total = newStats.Sum();
+            for (int i = 0; i < newStats.Length; i++)
+            {
+                newStats[i] = newStats[i] / total;
+            }
+
+            var results = newStats
+                .Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats))
+                .ToArray();
+
+            int diff = results.Sum() - sum_of_starting_stats;
+            if (diff != 0)
+                results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
+
+            strength = results[0];
+            dexterity = results[1];
+            constitution = results[2];
+            wisdom = results[3];
         }
-
-        float total = newStats.Sum();
-        for (int i = 0; i < newStats.Length; i++)
-        {
-            newStats[i] = newStats[i] / total;
-        }
-
-        var results = newStats
-            .Select(stat => Mathf.RoundToInt(stat * sum_of_starting_stats))
-            .ToArray();
-
-        int diff = results.Sum() - sum_of_starting_stats;
-        if (diff != 0)
-            results[Array.IndexOf(results, diff < 0 ? results.Min() : results.Max())] -= diff; // If the rounding messed up, adjust the highest or lowest stat accordingly
-
-        strength = results[0];
-        dexterity = results[1];
-        constitution = results[2];
-        wisdom = results[3];
         #endregion
 
         max_health = constitution * 2;

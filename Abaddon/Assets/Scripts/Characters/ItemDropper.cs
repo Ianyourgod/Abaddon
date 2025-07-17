@@ -84,19 +84,21 @@ public class ItemDropper : MonoBehaviour
     public void DropRandomItem()
     {
         // Drop a random item from the drop table
+        print("dropping items");
         var item = GetRandomItem();
         if (item)
             Instantiate(item, transform.position, Quaternion.identity);
 
         // Drop a random amount of gold
-        if (goldCoinPrefab == null)
-            return;
-
-        int randomCointCount = Random.Range(minGoldDropAmmount, maxGoldDropAmmount + 1);
-        for (int i = 0; i < randomCointCount; i++)
+        if (goldCoinPrefab == null || minGoldDropAmmount <= 0 || maxGoldDropAmmount <= 0)
         {
-            Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
+            print("No gold to drop");
+            return;
         }
+
+        var gold = Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
+        gold.GetComponent<GoldItem>()
+            .SetGoldCount(Random.Range(minGoldDropAmmount, maxGoldDropAmmount + 1));
     }
 
     public void UpdateProbabilities(DropTableEntry[] newDropTable) => dropTable = newDropTable;

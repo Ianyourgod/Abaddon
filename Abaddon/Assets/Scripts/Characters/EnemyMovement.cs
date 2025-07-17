@@ -399,6 +399,22 @@ public class EnemyMovement : MonoBehaviour, CanFight
             transform.position,
             Quaternion.identity
         );
+        if (explosion.TryGetComponent(out ExplosionEvents explosionEvents))
+        {
+            var currentItemDropper = GetComponent<ItemDropper>();
+            explosionEvents.gameObject.AddComponent<ItemDropper>();
+            explosionEvents.GetComponent<ItemDropper>().dropTable = currentItemDropper.dropTable;
+            explosionEvents.GetComponent<ItemDropper>().minGoldDropAmmount =
+                currentItemDropper.minGoldDropAmmount;
+            explosionEvents.GetComponent<ItemDropper>().maxGoldDropAmmount =
+                currentItemDropper.maxGoldDropAmmount;
+            explosionEvents.GetComponent<ItemDropper>().goldCoinPrefab =
+                currentItemDropper.goldCoinPrefab;
+        }
+        else
+        {
+            Debug.LogWarning("Explosion prefab does not have ExplosionEvents component.");
+        }
         if (explosion.TryGetComponent(out Animator animator))
         {
             Debug.Log("Playing explosion animation");

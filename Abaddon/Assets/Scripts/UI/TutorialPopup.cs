@@ -12,11 +12,11 @@ public class TutorialPopup : MonoBehaviour
     private Vector2 offScreenPosition;
     protected bool shouldBeOnScreen = false;
 
-    void Start()
+    protected void Start()
     {
         // image.enabled = false;
         onScreenPosition = transform.position;
-        offScreenPosition = onScreenPosition + new Vector2(0, 100);
+        offScreenPosition = onScreenPosition + new Vector2(0, 150);
         transform.position = offScreenPosition;
     }
 

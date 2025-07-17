@@ -143,6 +143,8 @@ public class Item : MonoBehaviour
 
     public void Pickup(bool fromGround, bool playAudio = true)
     {
+        Controller.main.hasPickedUp = true;
+
         int possibleAmount = 0;
 
         if (playAudio)

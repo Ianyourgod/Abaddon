@@ -244,6 +244,30 @@ public class Controller : MonoBehaviour
     [HideInInspector]
     public bool hasMoved = false;
 
+    private struct MovementKeys
+    {
+        public bool up;
+        public bool down;
+        public bool left;
+        public bool right;
+        public bool rotate_x;
+        public bool rotate_y;
+    }
+
+    private MovementKeys movementKeys;
+
+    [HideInInspector]
+    public bool hasRotated = false;
+
+    [HideInInspector]
+    public bool hasAttacked = false;
+
+    [HideInInspector]
+    public bool hasOpenedInventory = false;
+
+    [HideInInspector]
+    public bool hasPickedUp = false;
+
     #endregion
 
     #endregion
@@ -389,6 +413,7 @@ public class Controller : MonoBehaviour
         // TODO make more advanced, look at other games that do this
         if (Input.GetKeyDown(SettingsMenu.singleton.rotateLeftKeybind.key))
         {
+            SetMovementKeys(Vector2.zero);
             current_player_direction = new Vector2(
                 -current_player_direction.y,
                 current_player_direction.x
@@ -397,6 +422,7 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(SettingsMenu.singleton.rotateRightKeybind.key))
         {
+            SetMovementKeys(Vector2.zero);
             current_player_direction = new Vector2(
                 current_player_direction.y,
                 -current_player_direction.x
@@ -507,6 +533,52 @@ public class Controller : MonoBehaviour
             || Input.GetKey(SettingsMenu.singleton.attackKeybind.key);
     }
 
+    void CheckMK()
+    {
+        if (movementKeys.up && movementKeys.down && movementKeys.left && movementKeys.right)
+        {
+            hasMoved = true;
+        }
+        if (movementKeys.rotate_x && movementKeys.rotate_y)
+        {
+            hasRotated = true;
+        }
+    }
+
+    void SetMovementKeys(Vector2 dir)
+    {
+        if (dir == Vector2.up)
+        {
+            movementKeys.up = true;
+            CheckMK();
+        }
+        if (dir == Vector2.down)
+        {
+            movementKeys.down = true;
+            CheckMK();
+        }
+        if (dir == Vector2.left)
+        {
+            movementKeys.left = true;
+            CheckMK();
+        }
+        if (dir == Vector2.right)
+        {
+            movementKeys.right = true;
+            CheckMK();
+        }
+        if (Input.GetKey(SettingsMenu.singleton.rotateLeftKeybind.key))
+        {
+            movementKeys.rotate_y = true;
+            CheckMK();
+        }
+        if (Input.GetKey(SettingsMenu.singleton.rotateRightKeybind.key))
+        {
+            movementKeys.rotate_x = true;
+            CheckMK();
+        }
+    }
+
     void Move()
     {
         // Debug.Log("Starting player movement");
@@ -529,7 +601,7 @@ public class Controller : MonoBehaviour
             // If the player is trying to move and can, move them
             if (CanMove(objectsAhead))
             {
-                hasMoved = true;
+                SetMovementKeys(direction);
                 transform.Translate(direction);
                 sfxPlayer.PlayWalkSound();
                 OnMoved?.Invoke();
@@ -571,6 +643,8 @@ public class Controller : MonoBehaviour
                 current_player_direction
             );
             bool attackWorked = weapon.AttackEnemies(enemies, current_player_direction);
+            if (attackWorked)
+                hasAttacked = true;
             sfxPlayer.PlayAttackSound();
             var anim = weapon.AnimationName + "Attack";
             PlayAnimation(anim, current_player_direction);

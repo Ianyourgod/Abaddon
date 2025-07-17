@@ -402,9 +402,15 @@ public class EnemyMovement : MonoBehaviour, CanFight
         );
         if (explosion.TryGetComponent(out ExplosionEvents explosionEvents))
         {
-            explosionEvents.AddComponent<ItemDropper>();
-            explosionEvents.GetComponent<ItemDropper>().dropTable =
-                GetComponent<ItemDropper>().dropTable;
+            var currentItemDropper = GetComponent<ItemDropper>();
+            explosionEvents.gameObject.AddComponent<ItemDropper>();
+            explosionEvents.GetComponent<ItemDropper>().dropTable = currentItemDropper.dropTable;
+            explosionEvents.GetComponent<ItemDropper>().minGoldDropAmmount =
+                currentItemDropper.minGoldDropAmmount;
+            explosionEvents.GetComponent<ItemDropper>().maxGoldDropAmmount =
+                currentItemDropper.maxGoldDropAmmount;
+            explosionEvents.GetComponent<ItemDropper>().goldCoinPrefab =
+                currentItemDropper.goldCoinPrefab;
         }
         else
         {

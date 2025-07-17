@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3371079913364271516}
   - component: {fileID: 9222173408828336144}
   - component: {fileID: 3371079913364271517}
-  - component: {fileID: 7959199398456734224}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -131,4 +130,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2907c78f42322f458e848c0cc17dd53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMovement: {fileID: 0}
+  goldItem: {fileID: 2404969428711074711, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}

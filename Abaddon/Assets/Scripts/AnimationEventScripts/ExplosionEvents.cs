@@ -4,6 +4,8 @@ public class ExplosionEvents : MonoBehaviour
 {
     public void TriggerDrop()
     {
-        GetComponent<ItemDropper>().DropRandomItem();
+        print("Triggering item drop");
+        var itemDropper = GetComponent<ItemDropper>();
+        itemDropper.DropRandomItem();
     }
 }

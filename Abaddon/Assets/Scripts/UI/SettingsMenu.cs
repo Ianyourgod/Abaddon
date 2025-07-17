@@ -71,8 +71,10 @@ public class SettingsMenu : MonoBehaviour
     public void Disable()
     {
         backGround.SetActive(false);
-        Controller.main.enabled = true;
-        UIStateManager.singleton.FadeOutDarkener(5f);
+        if (Controller.main)
+            Controller.main.enabled = true;
+        if (UIStateManager.singleton)
+            UIStateManager.singleton.FadeOutDarkener(5f);
     }
 
     public void ChangeMasterAudioLevel(float newLevel)

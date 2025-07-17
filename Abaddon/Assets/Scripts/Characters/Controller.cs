@@ -401,7 +401,7 @@ public class Controller : MonoBehaviour
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
         {
-            if (Time.time - turnEndStart < 15f)
+            if (Time.time - turnEndStart < 15f || Input.GetKey(KeyCode.Semicolon))
                 return;
 
             done_with_tick = true;

@@ -142,7 +142,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTable: []
+  dropTable:
+  - item: {fileID: 9061713491536200824, guid: 51983207e6c7b4d08b38dc9c0a7f460f, type: 3}
+    chance: 0.3
+  - item: {fileID: 9061713491536200824, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
+    chance: 0.3
+  - item: {fileID: 7753488132812357937, guid: aa80a6545973d5644abc7c6dc1464b8e, type: 3}
+    chance: 0.2
+  - item: {fileID: 0}
+    chance: 0.2
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
   minGoldDropAmmount: 1
   maxGoldDropAmmount: 1

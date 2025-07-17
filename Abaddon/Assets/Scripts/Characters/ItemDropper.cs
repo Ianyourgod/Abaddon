@@ -52,6 +52,9 @@ public class ItemDropper : MonoBehaviour
 
     private float DecayedChance(DropTableEntry entry)
     {
+        if (entry.item == null)
+            return entry.chance;
+
         // Take the base chance and subtract the decay based on the decay rate and # of those items in the player's inventory (with a minimum of 0)
         return Mathf.Max(
             entry.chance - Controller.main.inventory.GetItemAmount(entry.item.ItemID) * DECAY_RATE,
@@ -68,7 +71,7 @@ public class ItemDropper : MonoBehaviour
 
         foreach (var entry in dropTable)
         {
-            cumulativeChance += entry.chance;
+            cumulativeChance += DecayedChance(entry);
             if (randomValue <= cumulativeChance)
             {
                 return entry.item;

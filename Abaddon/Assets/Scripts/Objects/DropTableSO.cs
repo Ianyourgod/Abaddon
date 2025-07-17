@@ -5,10 +5,11 @@ using UnityEngine;
 [Serializable]
 public struct DropTableEntry
 {
-    public Item item;
+#nullable enable
+    public Item? item;
     public float chance;
 
-    public DropTableEntry(Item item, float chance)
+    public DropTableEntry(Item? item, float chance)
     {
         this.item = item;
         this.chance = chance;
@@ -25,7 +26,7 @@ public struct DropTableEntry
 public class DropTableSO : ScriptableObject
 {
     [SerializeField]
-    public DropTableEntry[] dropTable;
+    public DropTableEntry[] dropTable = new DropTableEntry[0];
 
     public Dictionary<Item, float> ConvertToDictionary()
     {

@@ -13,7 +13,6 @@ public abstract class Weapon : MonoBehaviour
     private LayerMask hinderAttacksLayerMask;
     public static Weapon defaultWeapon;
     public abstract string AnimationName { get; }
-    public static int baseDamage = 2;
     public static Vector2 baseSize = new Vector2(1f, 1f); // length, width
 
     public abstract Vector2 GetSize();
@@ -95,6 +94,13 @@ public abstract class Weapon : MonoBehaviour
         (Vector2 _rotatedBox, Vector2 centerOffset) = Rotate(GetSize(), direction); // 0.85 is to stop the tiles from overflowing into neighboring tiles
         Vector2 rotatedBox = _rotatedBox * 0.85f;
 
+        tempDebugPosition = position;
+        tempDebugOffset = centerOffset;
+        tempDebugDimensions = rotatedBox;
+        Debug.Log(
+            $"GetFightablesInDamageArea: position={position}, direction={direction}, rotatedBox={rotatedBox}, centerOffset={centerOffset}"
+        );
+
         // print(GetSize());
         // print(position);
         // print(direction);
@@ -134,36 +140,22 @@ public abstract class Weapon : MonoBehaviour
         return fightables.ToArray();
     }
 
-    /*
+    Vector2 tempDebugPosition = Vector2.zero;
+    Vector2 tempDebugOffset = Vector2.zero;
+    Vector2 tempDebugDimensions = Vector2.zero;
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector2 centerOffset = new Vector2(
-            Mathf.Cos(tempDebugOrientation) * (GetSize().x + 1) * 0.5f,
-            Mathf.Sin(tempDebugOrientation) * (GetSize().x + 1) * 0.5f
+        Gizmos.DrawWireCube(
+            tempDebugPosition + tempDebugOffset,
+            new Vector3(tempDebugDimensions.x, tempDebugDimensions.y, 0.1f)
         );
-        Vector3 boxCenter = tempDebugPosition + centerOffset;
-
-        // Draw rotated wire cube using matrix transformation
-        Matrix4x4 oldMatrix = Gizmos.matrix;
-        Gizmos.matrix = Matrix4x4.TRS(
-            boxCenter,
-            Quaternion.Euler(0, 0, tempDebugOrientation * Mathf.Rad2Deg),
-            Vector3.one
-        );
-        Gizmos.DrawWireCube(Vector3.zero, GetSize() * 0.85f);
-        Gizmos.matrix = oldMatrix;
-
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(
-            tempDebugPosition,
-            tempDebugPosition
-                + new Vector2(Mathf.Cos(tempDebugOrientation), Mathf.Sin(tempDebugOrientation))
-        );
+        Gizmos.DrawLine(tempDebugPosition, tempDebugPosition + tempDebugOffset);
     }
-    */
 
-    // Retrusn true if attack was successful, false otherwise
+    // Returns true if attack was successful, false otherwise
     public bool AttackEnemies(CanBeDamaged[] enemies, Vector2 direction)
     {
         if (Controller.main == null)

@@ -23,7 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menus/Credits.unity
     guid: 874900290d8a438858c57cfbdc6e7e36
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Levels/Real Level.unity
     guid: 62160863522ac484da1a2642c2558e5c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Real Level copy.unity
+    guid: 4fc90bdb73db9978ab878965c9432edf
   m_configObjects: {}

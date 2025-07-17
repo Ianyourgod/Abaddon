@@ -6,29 +6,19 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
-    Transform targetPosition;
-
-    [SerializeField]
-    float timeToEnter;
+    float timeToEnter = 2f;
 
     [SerializeField, Range(0, 1)]
     float pausedDarknessLevel;
 
-    private Vector3 startingPosition;
+    public Vector3 onScreenPosition = new Vector3(0, 0, 0);
+    public Vector3 offScreenPosition = new Vector3(0, -100, 0);
 
-    private enum PauseState
+    public bool shouldBePaused = false;
+
+    void Awake()
     {
-        Paused,
-        Unpaused,
-        TravelingToPause,
-        TravelingToUnpause,
-    }
-
-    private PauseState pauseState = PauseState.Unpaused;
-
-    private void Awake()
-    {
-        startingPosition = transform.position;
+        transform.localPosition = offScreenPosition;
     }
 
     public void Pause()
@@ -36,7 +26,7 @@ public class PauseMenu : MonoBehaviour
         if (Controller.main == null)
             return;
 
-        pauseState = PauseState.TravelingToPause;
+        shouldBePaused = true;
         UIStateManager.singleton.FadeInDarkener(timeToEnter, pausedDarknessLevel);
         Controller.main.enabled = false;
     }
@@ -46,42 +36,27 @@ public class PauseMenu : MonoBehaviour
         if (Controller.main == null)
             return;
 
-        pauseState = PauseState.TravelingToUnpause;
+        shouldBePaused = false;
         UIStateManager.singleton.FadeOutDarkener(timeToEnter);
         Controller.main.enabled = true;
     }
 
     void Update()
     {
-        Vector3 endingPosition;
-        bool going_to_paused = false;
-        if (pauseState == PauseState.TravelingToUnpause)
+        if (shouldBePaused)
         {
-            endingPosition = startingPosition;
-        }
-        else if (pauseState == PauseState.TravelingToPause)
-        {
-            endingPosition = targetPosition.position;
-            going_to_paused = true;
+            transform.localPosition = Vector3.Lerp(
+                transform.localPosition,
+                onScreenPosition,
+                timeToEnter * Time.deltaTime * 4f
+            );
         }
         else
         {
-            return;
-        }
-
-        transform.position = Vector3.Lerp(
-            transform.position,
-            endingPosition,
-            timeToEnter * Time.deltaTime
-        );
-
-        if (Vector2.Distance(transform.position, endingPosition) <= 1f)
-        {
-            pauseState = going_to_paused ? PauseState.Paused : PauseState.Unpaused;
-            transform.position = new Vector3(
-                endingPosition.x,
-                endingPosition.y,
-                transform.position.z
+            transform.localPosition = Vector3.Lerp(
+                transform.localPosition,
+                offScreenPosition,
+                timeToEnter * Time.deltaTime / 8f
             );
         }
     }

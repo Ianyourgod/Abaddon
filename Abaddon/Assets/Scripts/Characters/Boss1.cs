@@ -101,6 +101,8 @@ public class Boss1 : MonoBehaviour, CanFight
             // make a copy of the base enemy
             GameObject enemy = Instantiate(baseEnemy, enemyPosition, Quaternion.identity);
         }
+
+        PlayAnimation("boss idle");
     }
 
     public void Die()
@@ -140,6 +142,7 @@ public class Boss1 : MonoBehaviour, CanFight
     public void OnStatueDestroyed()
     {
         print("Statue destroyed");
+        PlayAnimation("boss exposed");
         vulnerable = true;
     }
 

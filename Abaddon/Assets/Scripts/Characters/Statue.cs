@@ -80,5 +80,6 @@ public class Statue : MonoBehaviour, CanFight
         print("sprite: " + sprite.name);
         sprite.color = new Color(1, 1, 1, 0.5f);
         print("Statue activated");
+        PlayAnimation("activating");
     }
 }

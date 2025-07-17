@@ -51,6 +51,9 @@ public class EnemyMovement : MonoBehaviour, CanFight
     [SerializeField]
     EnemyType enemyType;
 
+    [SerializeField]
+    public Vector3 damageNumberOffset = Vector3.up * 0.5f;
+
     [HideInInspector]
     public bool forceAttackNextTurn = false;
 
@@ -363,7 +366,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public int Hurt(int damage)
     {
-        Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+        Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position + damageNumberOffset);
         if (damage >= health)
         {
             Controller.main.KilledEnemy(enemyType);

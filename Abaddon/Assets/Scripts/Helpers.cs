@@ -31,6 +31,8 @@ public class Helpers : MonoBehaviour
 
         // TODO! use the red defined in the hex codes document
         damageAmount.SetText(text, Color.red, Color.white, 0.4f);
+        damageAmount.SetBorderColor(Color.white, 0.0f);
+        damageAmount.timeLimit = 1f;
     }
 }
 

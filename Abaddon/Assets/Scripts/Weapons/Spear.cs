@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Spear : Weapon
 {
-    public static new int baseDamage = 2;
+    [SerializeField]
+    public int baseDamage = 4;
     public static new Vector2 baseSize = new Vector2(1f, 2f); // one wide, two long
     public override string AnimationName => "Spear";
 

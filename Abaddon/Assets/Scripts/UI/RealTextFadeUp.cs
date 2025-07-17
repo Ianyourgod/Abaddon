@@ -11,7 +11,6 @@ public class RealTextFadeUp : MonoBehaviour
 
     public float minimum = 0f;
     public float maximum = 1f;
-    public float speed = 0.5f;
     public float timeLimit = 2f;
 
     [HideInInspector]
@@ -51,12 +50,12 @@ public class RealTextFadeUp : MonoBehaviour
         }
     }
 
-    void SetColor(Color color)
+    public void SetColor(Color color)
     {
         textObject.color = color;
     }
 
-    void SetBorderColor(Color color, float width)
+    public void SetBorderColor(Color color, float width)
     {
         textObject.outlineWidth = width;
         textObject.outlineColor = color;

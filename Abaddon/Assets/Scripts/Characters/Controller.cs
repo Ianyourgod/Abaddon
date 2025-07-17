@@ -161,6 +161,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     SpriteRenderer sprite;
 
+    [SerializeField]
+    public Vector3 damageNumberOffset = Vector3.up * 0.5f;
+
     [HideInInspector]
     public PlayerSfx sfxPlayer;
 
@@ -906,18 +909,20 @@ public class Controller : MonoBehaviour
 
     public void DamagePlayer(uint damage, bool dodgeable = true)
     {
+        string text = "";
         if (dodgeable && DodgedAttack())
         {
             sfxPlayer.PlayDodgeSound();
-            Helpers.singleton.SpawnHurtText("dodged", transform.position);
+            text = "dodged";
         }
         else
         {
             health -= (int)damage;
             sfxPlayer.PlayHurtSound();
             PlayAnimation("Hurt");
-            Helpers.singleton.SpawnHurtText(damage.ToString(), transform.position);
+            text = damage.ToString();
         }
+        Helpers.singleton.SpawnHurtText(text, transform.position + damageNumberOffset);
     }
 
     bool DodgedAttack()

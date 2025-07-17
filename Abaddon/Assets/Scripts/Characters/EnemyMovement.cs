@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //using UnityEditor;
@@ -371,8 +372,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.audSource = AudioManagerBetter.main.deathSfxPlayer; //the object is destroyed so it has to play the sound through a non-destroyed audio source
             sfxPlayer.PlayDeathSound();
             Controller.main.add_exp(Random.Range(1, 4));
-            GetComponent<ItemDropper>().DropRandomItem();
-            // PlayAnimation(direction, "death");
             Die();
             dead = true;
         }
@@ -393,19 +392,34 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void Die()
     {
-        print("hiiii");
         GameObject explosion = Instantiate(
             explosionPrefab,
             transform.position,
             Quaternion.identity
         );
+        if (explosion.TryGetComponent(out ExplosionEvents explosionEvents))
+        {
+            explosionEvents.AddComponent<ItemDropper>();
+            explosionEvents.GetComponent<ItemDropper>().dropTable =
+                GetComponent<ItemDropper>().dropTable;
+        }
+        else
+        {
+            Debug.LogWarning("Explosion prefab does not have ExplosionEvents component.");
+        }
         if (explosion.TryGetComponent(out Animator animator))
         {
-            Debug.Log("Playing explosion animation");
             animator.Play("explosion");
         }
-        Invoke(nameof(CallNextEnemy), 0f);
+        SpriteRenderer spr = GetComponentInChildren<SpriteRenderer>();
+        Animator anmr = GetComponentInChildren<Animator>();
+        if (spr != null && anmr != null)
+        {
+            spr.enabled = false;
+            anmr.enabled = false;
+        }
         Destroy(gameObject);
+        Invoke(nameof(CallNextEnemy), 0f);
     }
 
     // this is called by the animation

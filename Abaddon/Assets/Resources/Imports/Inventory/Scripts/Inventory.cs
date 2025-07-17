@@ -129,7 +129,7 @@ public class Inventory : MonoBehaviour
             return;
         if (UIStateManager.singleton.mostRecentState == UIState.Pause)
             return;
-        if (Controller.main != null)
+        if (Controller.main != null && !Controller.main.enabled)
             Controller.main.UIFloatText();
 
         if (Input.GetKeyDown(KeyCode.Tab)) // TODO: make this a rebindable key

@@ -241,6 +241,9 @@ public class Controller : MonoBehaviour
     [HideInInspector]
     public List<Quest> completed_quests;
 
+    [HideInInspector]
+    public bool hasMoved = false;
+
     #endregion
 
     #endregion
@@ -526,6 +529,7 @@ public class Controller : MonoBehaviour
             // If the player is trying to move and can, move them
             if (CanMove(objectsAhead))
             {
+                hasMoved = true;
                 transform.Translate(direction);
                 sfxPlayer.PlayWalkSound();
                 OnMoved?.Invoke();

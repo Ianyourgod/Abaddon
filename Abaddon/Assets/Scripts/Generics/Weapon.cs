@@ -97,9 +97,9 @@ public abstract class Weapon : MonoBehaviour
         tempDebugPosition = position;
         tempDebugOffset = centerOffset;
         tempDebugDimensions = rotatedBox;
-        Debug.Log(
-            $"GetFightablesInDamageArea: position={position}, direction={direction}, rotatedBox={rotatedBox}, centerOffset={centerOffset}"
-        );
+        // Debug.Log(
+        //     $"GetFightablesInDamageArea: position={position}, direction={direction}, rotatedBox={rotatedBox}, centerOffset={centerOffset}"
+        // );
 
         // print(GetSize());
         // print(position);

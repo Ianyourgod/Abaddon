@@ -67,7 +67,6 @@ public class WeepingEyeAttack : BaseAttack
                 break;
             case AttackStage.Attack:
                 // create beam no matter what
-                // CreateBeam(transform.position, windUpDirection);
                 if (WillAttack(transform.position, windUpDirection))
                 {
                     // only actually damage player if we hit them

@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 260473396267510432}
   - component: {fileID: 6746103534769685306}
   - component: {fileID: 5699517446026526786}
+  - component: {fileID: 2446050438131013723}
   m_Layer: 0
   m_Name: Shopkeeper
   m_TagString: Untagged
@@ -517,6 +518,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &2446050438131013723
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2904433931323081028}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89d77aeb63dfe9e3297094d87a1ec80d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &3558303114774720729
 GameObject:
   m_ObjectHideFlags: 0

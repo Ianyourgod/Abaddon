@@ -298,6 +298,7 @@ public class Inventory : MonoBehaviour
         {
             case Tab.Inventory:
                 inventoryObject.SetActive(true);
+                print(equipmentObject);
                 equipmentObject.SetActive(true);
                 statObject.SetActive(true);
                 craftObject.SetActive(true);

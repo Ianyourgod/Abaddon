@@ -66,7 +66,6 @@ public class Grid2D : MonoBehaviour
     public void CreateGrid()
     {
         Grid = new Node2D[gridSizeX, gridSizeY];
-        Vector3 halfNodeSize = Vector3.one * 0.5f;
         worldBottomLeft =
             transform.position - Vector3.right * gridSizeX / 2 - Vector3.up * gridSizeY / 2;
 

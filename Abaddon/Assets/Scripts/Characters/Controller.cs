@@ -348,7 +348,10 @@ public class Controller : MonoBehaviour
             done_with_tick = true;
         }
         UpdateHealthBar();
-        UIFloatText();
+        if (inventory != null && inventory.enabled != true)
+        {
+            UIFloatText();
+        }
 
         bool god_mode_keys_down = Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J);
 

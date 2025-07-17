@@ -289,7 +289,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-  worldBottomLeft: {x: -4, y: -4, z: 0}
+  worldBottomLeft: {x: 24, y: 66, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588
@@ -306,13 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audSource: {fileID: 1790465982330262463}
   playableOffScreen: 0
-  walkingSfx:
-  - {fileID: 8300000, guid: 41476d82e3c0e8545aca1013d1c27fa4, type: 3}
-  - {fileID: 8300000, guid: 35670e2d4a42314488d3056d72caa996, type: 3}
-  - {fileID: 8300000, guid: de5faead3c506a04680fc2e91473eb3a, type: 3}
-  - {fileID: 8300000, guid: b09f9e29eb6ec1c49a73dcf08659cfc6, type: 3}
-  - {fileID: 8300000, guid: 4db6591c6fd1fcb49a3e9d959c2d223e, type: 3}
-  - {fileID: 8300000, guid: db7ffc64e66500945aebe8685e449e09, type: 3}
+  walkingSfx: []
   dashSound: {fileID: 0}
   randomWalkingSound: 1
   hurtSfx:

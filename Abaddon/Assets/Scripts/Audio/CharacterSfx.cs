@@ -83,6 +83,9 @@ public class CharacterSfx : SfxPlayer
 
     public void PlayWalkSound()
     {
+        if (walkingSfx.Length == 0)
+            return;
+
         if (randomWalkingSound)
             PlayRandomSound(walkingSfx, addedWalkVolume);
         else

@@ -549,6 +549,11 @@ public class Controller : MonoBehaviour
                 // TODO: do animation + sfx. maybe do that in the interactable's interact function? since we might want different sfx depending on the thing
                 did_something = true;
             }
+            else
+            {
+                done_with_tick = true;
+                return;
+            }
         }
         if (Input.GetKey(SettingsMenu.singleton.attackKeybind.key))
         {
@@ -735,7 +740,7 @@ public class Controller : MonoBehaviour
             return;
         }
         current_enemy++;
-        enemies[current_enemy - 1].MakeDecision();
+        enemies[current_enemy - 1]?.MakeDecision();
     }
 
     public void KilledEnemy(EnemyType enemy)

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 964688453007807293}
   - component: {fileID: 1505603100342510588}
   - component: {fileID: 5550557964091436495}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

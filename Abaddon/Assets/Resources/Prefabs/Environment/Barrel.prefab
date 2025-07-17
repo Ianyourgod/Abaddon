@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  breakSprite: {fileID: 5921584980013508696, guid: 776420a6aa120db4a9332b2b79a1e853, type: 3}
+  explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
 --- !u!61 &2844499466063138201
 BoxCollider2D:
   m_ObjectHideFlags: 0

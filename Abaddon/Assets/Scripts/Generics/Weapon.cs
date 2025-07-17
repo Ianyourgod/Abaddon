@@ -146,7 +146,6 @@ public abstract class Weapon : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Debug.Log("OnDrawGizmos called for Weapon");
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(
             tempDebugPosition + tempDebugOffset,

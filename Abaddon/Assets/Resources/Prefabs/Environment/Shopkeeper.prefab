@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -2053826933, guid: 58e1e3c93826d91b0948b41cb179d48a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: Lizzie
+  voiceFrequency: 440
   messages:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: im so gerchy
@@ -136,7 +137,7 @@ MonoBehaviour:
     name: God Sword
     cost: 1
   inventory: {fileID: 0}
-  image: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
+  image: {fileID: -1568020271, guid: e3c47448291e3344280651ee2d09c5a8, type: 3}
 --- !u!61 &2621176004537065321
 BoxCollider2D:
   m_ObjectHideFlags: 0

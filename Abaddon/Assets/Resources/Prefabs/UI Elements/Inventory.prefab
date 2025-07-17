@@ -113,7 +113,6 @@ MonoBehaviour:
   equipmentType: Pet
   curItem: {fileID: 0}
   possibleEqips: []
-  curItemObj: {fileID: 0}
   wasEquipped: 0
   pastEquippedItemID: 0
 --- !u!1 &8687865404122627305
@@ -305,7 +304,6 @@ MonoBehaviour:
   equipmentType: Body
   curItem: {fileID: 0}
   possibleEqips: []
-  curItemObj: {fileID: 0}
   wasEquipped: 0
   pastEquippedItemID: 0
 --- !u!1 &8687865404198994859
@@ -502,7 +500,6 @@ MonoBehaviour:
   equipmentType: Legs
   curItem: {fileID: 0}
   possibleEqips: []
-  curItemObj: {fileID: 0}
   wasEquipped: 0
   pastEquippedItemID: 0
 --- !u!1 &8687865404953728303
@@ -615,10 +612,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf25b860202300418f603c2258bfa76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentType: Sword
+  equipmentType: Weapon
   curItem: {fileID: 0}
   possibleEqips: []
-  curItemObj: {fileID: 0}
   wasEquipped: 0
   pastEquippedItemID: 0
 --- !u!1 &8687865405038974982
@@ -735,7 +731,6 @@ MonoBehaviour:
   curItem: {fileID: 0}
   possibleEqips:
   - {fileID: 0}
-  curItemObj: {fileID: 0}
   wasEquipped: 0
   pastEquippedItemID: 0
 --- !u!1 &8687865405396357970

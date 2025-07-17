@@ -125,14 +125,14 @@ public class EquipmentSlot : MonoBehaviour
         Controller.main.UpdateDexterityModifier(-stats.dexterity);
         Controller.main.UpdateStrengthModifier(-stats.strength);
         Controller.main.UpdateWisdomModifier(-stats.wisdom);
-        foreach (EqippableItem eqippableItem in possibleEqips)
-        {
-            if (eqippableItem.ItemID == searchID)
-            {
-                eqippableItem.gameObject.SetActive(false);
-                curItem = GetComponent<Slot>().slotsItem;
-            }
-        }
+        // foreach (EqippableItem eqippableItem in possibleEqips)
+        // {
+        //     if (eqippableItem.ItemID == searchID)
+        //     {
+        //         eqippableItem.gameObject.SetActive(false);
+        //         curItem = GetComponent<Slot>().slotsItem;
+        //     }
+        // }
         if (equipmentType == Pet.petString)
         {
             Pet.main.setPetItem(null);

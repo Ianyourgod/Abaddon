@@ -107,6 +107,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
     {
         if (dead)
         {
+            Invoke(nameof(CallNextEnemy), 0f);
             return;
         }
 
@@ -131,7 +132,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
             if (direction == Vector2.zero)
             {
-                Invoke(nameof(callNextEnemy), 0f);
+                Invoke(nameof(CallNextEnemy), 0f);
                 return;
             }
 
@@ -139,11 +140,11 @@ public class EnemyMovement : MonoBehaviour, CanFight
         }
         else
         {
-            callNextEnemy();
+            CallNextEnemy();
         }
     }
 
-    private void callNextEnemy()
+    private void CallNextEnemy()
     {
         if (Controller.main == null)
             return;
@@ -160,7 +161,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         else if (followingPlayer && !CheckPlayerIsInFollowRange())
         {
             followingPlayer = false;
-            Invoke(nameof(callNextEnemy), 0f);
+            Invoke(nameof(CallNextEnemy), 0f);
             return;
         }
 
@@ -168,7 +169,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
         if (direction == Vector2.zero)
         {
-            Invoke(nameof(callNextEnemy), 0f);
+            Invoke(nameof(CallNextEnemy), 0f);
             return;
         }
 
@@ -203,11 +204,11 @@ public class EnemyMovement : MonoBehaviour, CanFight
             sfxPlayer.PlayWalkSound();
             transform.Translate(direction);
             // Debug.Log($"chika chika my name is {this.name} Moving in direction: {direction}");
-            Invoke(nameof(callNextEnemy), 0f);
+            Invoke(nameof(CallNextEnemy), 0f);
         }
         else
         {
-            Invoke(nameof(callNextEnemy), 0f);
+            Invoke(nameof(CallNextEnemy), 0f);
         }
     }
 
@@ -403,7 +404,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
             Debug.Log("Playing explosion animation");
             animator.Play("explosion");
         }
-        Invoke(nameof(callNextEnemy), 0f);
+        Invoke(nameof(CallNextEnemy), 0f);
         Destroy(gameObject);
     }
 
@@ -421,7 +422,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
         PlayAnimation(direction, "idle");
-        Invoke(nameof(callNextEnemy), 0f);
+        Invoke(nameof(CallNextEnemy), 0f);
     }
 
     public void HoldAttackEnd()
@@ -431,6 +432,6 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         Controller.main.enabled = true;
-        Invoke(nameof(callNextEnemy), 0f);
+        Invoke(nameof(CallNextEnemy), 0f);
     }
 }

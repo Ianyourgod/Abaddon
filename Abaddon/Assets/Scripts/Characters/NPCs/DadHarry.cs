@@ -6,6 +6,9 @@ using UnityEngine;
 public class DadHarry : GenericNPC
 {
     [SerializeField]
+    protected Message[] beforeCompletion;
+
+    [SerializeField]
     protected Message[] completionMessages;
 
     [SerializeField]
@@ -21,13 +24,11 @@ public class DadHarry : GenericNPC
 
         if (Controller.main.completed_quests.Contains(questID))
         {
-            print("you're soooo cool");
             return;
         }
 
         if (Controller.main.GetQuestState().EmoBoySaved)
         {
-            print("AAAAAAAA");
             Message[] m = messages;
             messages = completionMessages;
             base.StartConversation();
@@ -41,6 +42,13 @@ public class DadHarry : GenericNPC
         {
             base.StartConversation();
             Controller.main.current_quests.Add(questID);
+        }
+        else
+        {
+            Message[] m = messages;
+            messages = beforeCompletion;
+            base.StartConversation();
+            messages = m;
         }
         // TODO! text when you havent finished the quest
     }

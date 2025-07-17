@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ItemDropper))]
@@ -18,7 +19,7 @@ public class Breakable : MonoBehaviour, CanBeKilled
     private ItemDropper dropper;
 
     [SerializeField]
-    private GameObject breakSprite;
+    private GameObject explosionPrefab;
 
     public void Start()
     {
@@ -47,9 +48,27 @@ public class Breakable : MonoBehaviour, CanBeKilled
 
     public void Die()
     {
-        dropper.DropRandomItem();
-        print("spawning break sprite");
-        Instantiate(breakSprite, transform.position, Quaternion.identity);
+        // dropper.DropRandomItem();
+        // print("spawning explosion");
+        GameObject explosion = Instantiate(
+            explosionPrefab,
+            transform.position,
+            Quaternion.identity
+        );
+        if (explosion.TryGetComponent(out ExplosionEvents explosionEvents))
+        {
+            explosionEvents.AddComponent<ItemDropper>();
+            explosionEvents.GetComponent<ItemDropper>().dropTable =
+                GetComponent<ItemDropper>().dropTable;
+        }
+        else
+        {
+            Debug.LogWarning("Explosion prefab does not have ExplosionEvents component.");
+        }
+        if (explosion.TryGetComponent(out Animator animator))
+        {
+            animator.Play("explosion");
+        }
         Destroy(gameObject);
     }
 }

@@ -17,6 +17,10 @@ public class Keybind : MonoBehaviour
     {
         if (key != KeyCode.None)
         {
+            if (!buttonLabel)
+            {
+                print("I ERRORED: " + name);
+            }
             buttonLabel.text = $"{key} - {keybindLabel}";
         }
     }
@@ -41,11 +45,19 @@ public class Keybind : MonoBehaviour
     public void StartListeningForKey()
     {
         listeningForKey = true;
+        if (!buttonLabel)
+        {
+            print("I ERRORED: " + name);
+        }
         buttonLabel.text = $"... - {keybindLabel}";
     }
 
     void OnValidate()
     {
+        if (!buttonLabel)
+        {
+            print("I ERRORED: " + name);
+        }
         buttonLabel.text = $"{key} - {keybindLabel}";
     }
 }

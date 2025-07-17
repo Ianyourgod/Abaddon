@@ -43,6 +43,11 @@ public class Grid2D : MonoBehaviour
 
     private bool HasTile(Vector3 worldPosition)
     {
+        if (obstaclemaps == null)
+        {
+            return false;
+        }
+
         foreach (Tilemap tilemap in obstaclemaps)
         {
             Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);

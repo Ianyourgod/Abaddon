@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6462628818639776133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6462628820561290989}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1401633483
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: -462487305, guid: 2c32fc93c66bb2b46ab4b959d11eee68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f0475e8b1291ad4180d2a7706228982, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 6462628818639776133}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1df4e71e02d8893fc8b07b9332eef39a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5d65870a1ff23bf4d894f0a635cd2e73, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   animator: {fileID: 18587455}
   explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
   pathfinding: {fileID: 3445834741458170001}
-  animation_prefix: Goblin
+  animation_prefix: Gnome
   attack: {fileID: 2067440025226379969}
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}

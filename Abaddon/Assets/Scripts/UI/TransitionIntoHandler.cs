@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TransitionIntoHandler : MonoBehaviour
 {
+    public string mainMenuSceneName = "Real level copy";
+
     [SerializeField]
     TransistionScriptableObject transistionScriptableObject;
 
@@ -42,7 +44,7 @@ public class TransitionIntoHandler : MonoBehaviour
 
     public void SwitchSceneToTutorial()
     {
-        StartPlayScene = "Real Level";
+        StartPlayScene = mainMenuSceneName;
         SwitchScene();
     }
 

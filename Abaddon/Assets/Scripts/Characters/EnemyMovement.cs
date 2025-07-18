@@ -79,6 +79,15 @@ public class EnemyMovement : MonoBehaviour, CanFight
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
+
+        /*
+        float x_pos = transform.position.x - 0.5f;
+        float y_pos = transform.position.y - 0.5f;
+        if (x_pos != Mathf.Floor(x_pos) || y_pos != Mathf.Floor(y_pos))
+        {
+            print(this);
+        }
+        */
     }
 
     private void Start()

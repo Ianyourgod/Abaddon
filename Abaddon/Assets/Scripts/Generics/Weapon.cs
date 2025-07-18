@@ -91,12 +91,11 @@ public abstract class Weapon : MonoBehaviour
 
     public CanBeDamaged[] GetFightablesInDamageArea(Vector2 position, Vector2 direction)
     {
+        print("hiii");
+
         (Vector2 _rotatedBox, Vector2 centerOffset) = Rotate(GetSize(), direction); // 0.85 is to stop the tiles from overflowing into neighboring tiles
         Vector2 rotatedBox = _rotatedBox * 0.85f;
 
-        tempDebugPosition = position;
-        tempDebugOffset = centerOffset;
-        tempDebugDimensions = rotatedBox;
         // Debug.Log(
         //     $"GetFightablesInDamageArea: position={position}, direction={direction}, rotatedBox={rotatedBox}, centerOffset={centerOffset}"
         // );
@@ -108,26 +107,8 @@ public abstract class Weapon : MonoBehaviour
         // print(rotatedBox);
         // print(centerOffset);
 
-        float biggest_side = Mathf.Max(rotatedBox.x, rotatedBox.y);
-
         Vector2 boxCenter = position + centerOffset;
-        Collider2D[] colliders = Physics2D
-            .OverlapBoxAll(boxCenter, rotatedBox, 0f)
-            .ToList()
-            // Loop over all hits and run a raycast on them to see if an obstructable object is in the way.
-            .Where(collider =>
-            {
-                RaycastHit2D hit = Physics2D.Raycast(
-                    position,
-                    direction,
-                    biggest_side,
-                    hinderAttacksLayerMask
-                );
-                // Check if the collider either has nothing infront of it that can block the attack or if the object itself is a wall type
-                return hit.collider == null || hit.collider == collider;
-            })
-            .ToArray();
-        ;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, rotatedBox, 0f);
 
         List<CanBeDamaged> fightables = new List<CanBeDamaged>();
         foreach (Collider2D collider in colliders)
@@ -138,21 +119,6 @@ public abstract class Weapon : MonoBehaviour
             }
         }
         return fightables.ToArray();
-    }
-
-    Vector2 tempDebugPosition = Vector2.zero;
-    Vector2 tempDebugOffset = Vector2.zero;
-    Vector2 tempDebugDimensions = Vector2.zero;
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(
-            tempDebugPosition + tempDebugOffset,
-            new Vector3(tempDebugDimensions.x, tempDebugDimensions.y, 0.1f)
-        );
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(tempDebugPosition, tempDebugPosition + tempDebugOffset);
     }
 
     // Returns true if attack was successful, false otherwise

@@ -46,6 +46,8 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField]
     public Keybind previousDialogueKeybind;
 
+    private Keybind[] keybinds = new Keybind[0];
+
     [Header("Important objects")]
     [SerializeField]
     private GameObject backGround;
@@ -61,6 +63,25 @@ public class SettingsMenu : MonoBehaviour
         Disable();
     }
 
+    public void Start()
+    {
+        keybinds = new Keybind[]
+        {
+            moveUpwardKeybind,
+            moveRightKeybind,
+            moveDownwardKeybind,
+            moveLeftKeybind,
+            rotateLeftKeybind,
+            rotateRightKeybind,
+            interactKeybind,
+            dropKeybind,
+            attackKeybind,
+            skipDialogueKeybind,
+            nextDialogueKeybind,
+            previousDialogueKeybind,
+        };
+    }
+
     public void Enable()
     {
         backGround.SetActive(true);
@@ -70,6 +91,10 @@ public class SettingsMenu : MonoBehaviour
 
     public void Disable()
     {
+        for (int i = 0; i < keybinds.Length; i++)
+        {
+            keybinds[i].OnPointerExit(null);
+        }
         backGround.SetActive(false);
         if (Controller.main)
             Controller.main.enabled = true;

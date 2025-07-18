@@ -42,7 +42,7 @@ public class TransitionIntoHandler : MonoBehaviour
 
     public void SwitchSceneToTutorial()
     {
-        StartPlayScene = "Real Level";
+        StartPlayScene = "Real Level copy";
         SwitchScene();
     }
 

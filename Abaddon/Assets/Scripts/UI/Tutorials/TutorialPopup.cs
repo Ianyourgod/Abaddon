@@ -15,9 +15,9 @@ public class TutorialPopup : MonoBehaviour
     protected void Start()
     {
         // image.enabled = false;
-        onScreenPosition = transform.position;
-        offScreenPosition = onScreenPosition + new Vector2(0, 150);
-        transform.position = offScreenPosition;
+        onScreenPosition = transform.localPosition;
+        offScreenPosition = onScreenPosition + new Vector2(0, 100);
+        transform.localPosition = offScreenPosition;
     }
 
     public void Enable()
@@ -34,11 +34,19 @@ public class TutorialPopup : MonoBehaviour
     {
         if (shouldBeOnScreen)
         {
-            transform.position = Vector2.Lerp(transform.position, onScreenPosition, lerpSpeed);
+            transform.localPosition = Vector2.Lerp(
+                transform.localPosition,
+                onScreenPosition,
+                lerpSpeed
+            );
         }
         else
         {
-            transform.position = Vector2.Lerp(transform.position, offScreenPosition, lerpSpeed);
+            transform.localPosition = Vector2.Lerp(
+                transform.localPosition,
+                offScreenPosition,
+                lerpSpeed
+            );
         }
     }
 }

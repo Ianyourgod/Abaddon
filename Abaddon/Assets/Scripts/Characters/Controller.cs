@@ -1072,11 +1072,6 @@ public class Controller : MonoBehaviour
         return can_talk_to_npc || interactable_ahead;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, 2);
-    }
-
     public QuestState GetQuestState()
     {
         return quest_state;

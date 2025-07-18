@@ -13,7 +13,8 @@ public class Tut_Attack : TutorialPopup
 
     new void Update()
     {
-        shouldBeOnScreen = Controller.main.hasRotated && !Controller.main.hasAttacked;
+        shouldBeOnScreen =
+            Controller.main.hasMoved && Controller.main.hasRotated && !Controller.main.hasAttacked;
 
         base.Update();
     }

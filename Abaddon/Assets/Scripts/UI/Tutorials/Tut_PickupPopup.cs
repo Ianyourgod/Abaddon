@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tut_TabPopup : TutorialPopup
+public class Tut_PickupPopup : TutorialPopup
 {
     new void Start()
     {
@@ -13,7 +13,11 @@ public class Tut_TabPopup : TutorialPopup
 
     new void Update()
     {
-        shouldBeOnScreen = Controller.main.hasPickedUp && !Controller.main.hasOpenedInventory;
+        shouldBeOnScreen =
+            Controller.main.hasMoved
+            && Controller.main.hasRotated
+            && Controller.main.hasAttacked
+            && !Controller.main.hasPickedUp;
 
         base.Update();
     }

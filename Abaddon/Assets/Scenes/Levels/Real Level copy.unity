@@ -5183,6 +5183,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2129418986670962874}
     - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
+      propertyPath: tombstonePrefab
+      value: 
+      objectReference: {fileID: 6662185457682643381, guid: dfe8b68e525534e9cbd32a365d7a9764, type: 3}
+    - target: {fileID: 7842820053425721011, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: ticksBetweenDashes
       value: 3
       objectReference: {fileID: 0}
@@ -90826,6 +90830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83918e7808b63fb4b8d4eb9b7c8dda2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  songName: level1
 --- !u!114 &1045434974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91487,7 +91492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4887135980581437044, guid: d047fb96558e8174bb72c6404f081ce7, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887135980581437044, guid: d047fb96558e8174bb72c6404f081ce7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -92037,7 +92042,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1112416722}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86832f84a0cf34eb9b89129d49b7a15e, type: 3}
   m_Name: 
@@ -98619,7 +98624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x

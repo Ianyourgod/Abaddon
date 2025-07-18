@@ -1,10 +1,9 @@
 using System.Linq;
 using UnityEngine;
 
-public class Tombstone : MonoBehaviour, CanBeInteractedWith
+public class PlayerTombstone : MonoBehaviour, CanBeInteractedWith
 {
-    [SerializeField]
-    public Sprite brokenTombstoneSprite;
+    public Animator animator;
 
     [SerializeField]
     private Item[] items;
@@ -26,7 +25,7 @@ public class Tombstone : MonoBehaviour, CanBeInteractedWith
         );
         Controller.main.inventory.AddItems(items.ToList());
         items = new Item[0];
-        GetComponent<SpriteRenderer>().sprite = brokenTombstoneSprite;
+        animator.Play("break");
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }

@@ -214,10 +214,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTable: []
+  dropTable:
+  - item: {fileID: 0}
+    chance: 50
+  - item: {fileID: 7942134904652587003, guid: b9523e99e90695b94bea43ee36ebe515, type: 3}
+    chance: 12
+  - item: {fileID: 4887135980581437040, guid: 1a2c4ef10ae5d9a4bab0db990311b936, type: 3}
+    chance: 10
+  - item: {fileID: 4887135980581437040, guid: 45fe3f2198ae58243be0d4375cfe45ad, type: 3}
+    chance: 15
+  - item: {fileID: 7942134904652587003, guid: 1d37b72bf5b7fb8488c88d57762f931a, type: 3}
+    chance: 5
+  - item: {fileID: 7942134904652587003, guid: 5a70ff15ed58d898d903e8db160e4690, type: 3}
+    chance: 8
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
-  minGoldDropAmmount: 1
-  maxGoldDropAmmount: 1
+  minGoldDropAmount: 1
+  maxGoldDropAmount: 1
 --- !u!114 &5839526993926736556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,7 +302,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-  worldBottomLeft: {x: 24, y: 66, z: 0}
+  worldBottomLeft: {x: -4, y: -4, z: 0}
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588

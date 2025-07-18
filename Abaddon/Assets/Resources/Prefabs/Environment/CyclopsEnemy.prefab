@@ -201,23 +201,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable:
-  - item: {fileID: 4391921970457759463, guid: ca77ab225b4ee8749b69976c707d4944, type: 3}
-    chance: 1
-  - item: {fileID: 7942134904652587003, guid: b05ef4ba159aa834a89e517fc0d15c75, type: 3}
-    chance: 1
-  - item: {fileID: 4725385275330658725, guid: 77507ae9b9d47a042b1cebcae72bd494, type: 3}
-    chance: 1
-  - item: {fileID: 142329948193572683, guid: 6fdfe9e3efea0894dbe7482a302ffdcd, type: 3}
-    chance: 3
-  - item: {fileID: 1190457694924333475, guid: cda9cfbec4f158f4ab50e40213d1defb, type: 3}
-    chance: 2
-  - item: {fileID: 9061713491536200824, guid: 51983207e6c7b4d08b38dc9c0a7f460f, type: 3}
-    chance: 2
   - item: {fileID: 0}
-    chance: 15
+    chance: 20
+  - item: {fileID: 4887135980581437040, guid: f258d7b68500e584c8395879a328d4bb, type: 3}
+    chance: 9
+  - item: {fileID: 4887135980581437040, guid: 7760e112e0b685546964648a0c3ce166, type: 3}
+    chance: 9
+  - item: {fileID: 4725385275330658725, guid: 9e3651153020e6754bb0564646139d6f, type: 3}
+    chance: 9
+  - item: {fileID: 4391921970457759463, guid: 07dbe2e5a150e03a983495a4ba5ea095, type: 3}
+    chance: 9
+  - item: {fileID: 7942134904652587003, guid: 4a74bdcaa843ad5a2bff6f6a0e71e65d, type: 3}
+    chance: 9
+  - item: {fileID: 4391921970457759463, guid: a10857092fb2e3a50af56e082f7600fb, type: 3}
+    chance: 9
+  - item: {fileID: 4725385275330658725, guid: 012cda363b1895680a6c232b7d32f6bd, type: 3}
+    chance: 9
+  - item: {fileID: 7942134904652587003, guid: 5a70ff15ed58d898d903e8db160e4690, type: 3}
+    chance: 9
+  - item: {fileID: 7942134904652587003, guid: 1d37b72bf5b7fb8488c88d57762f931a, type: 3}
+    chance: 9
+  - item: {fileID: 4725385275330658725, guid: 0ea44f178e641e82e90cc826555aa0c5, type: 3}
+    chance: 9
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
-  minGoldDropAmmount: 1
-  maxGoldDropAmmount: 1
+  minGoldDropAmount: 1
+  maxGoldDropAmount: 1
 --- !u!114 &4107131594145436823
 MonoBehaviour:
   m_ObjectHideFlags: 0

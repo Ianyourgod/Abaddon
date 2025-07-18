@@ -117,7 +117,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.21133333}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -143,14 +143,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable:
-  - item: {fileID: 9061713491536200824, guid: 51983207e6c7b4d08b38dc9c0a7f460f, type: 3}
-    chance: 0.3
-  - item: {fileID: 9061713491536200824, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
-    chance: 0.3
-  - item: {fileID: 7753488132812357937, guid: aa80a6545973d5644abc7c6dc1464b8e, type: 3}
-    chance: 0.2
   - item: {fileID: 0}
-    chance: 0.2
+    chance: 15
+  - item: {fileID: 9061713491536200824, guid: 51983207e6c7b4d08b38dc9c0a7f460f, type: 3}
+    chance: 20
+  - item: {fileID: 9061713491536200824, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
+    chance: 25
+  - item: {fileID: 4887135980581437040, guid: d047fb96558e8174bb72c6404f081ce7, type: 3}
+    chance: 10
+  - item: {fileID: 8956186374661559890, guid: e8cc6eefff0d50b4e98cf80dae905c43, type: 3}
+    chance: 5
+  - item: {fileID: 4725385275330658725, guid: 47ed137dea838917c9a73ef7c2b450c5, type: 3}
+    chance: 10
+  - item: {fileID: 4391921970457759463, guid: 4a1991fa7678afc668583349e8c1fd1b, type: 3}
+    chance: 15
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
   minGoldDropAmount: 1
   maxGoldDropAmount: 1

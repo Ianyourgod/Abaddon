@@ -185,6 +185,7 @@ MonoBehaviour:
   followDistance: 10
   enemyDecisionDelay: 0.075
   enemyType: 0
+  damageNumberOffset: {x: 0, y: 0.5, z: 0}
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758
@@ -200,29 +201,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable:
-  - item: {fileID: 142329948193572683, guid: 6fdfe9e3efea0894dbe7482a302ffdcd, type: 3}
-    chance: 2
-  - item: {fileID: 7753488132812357937, guid: aa80a6545973d5644abc7c6dc1464b8e, type: 3}
-    chance: 2
-  - item: {fileID: 1262479493879880051, guid: 61f1092e182c5ef4e816a0215d134dcc, type: 3}
-    chance: 2
-  - item: {fileID: 4887135980581437040, guid: 24284c4de03da404a9cff3f2f752a574, type: 3}
-    chance: 2
-  - item: {fileID: 4725385275330658725, guid: 77507ae9b9d47a042b1cebcae72bd494, type: 3}
-    chance: 1
-  - item: {fileID: 7942134904652587003, guid: b05ef4ba159aa834a89e517fc0d15c75, type: 3}
-    chance: 1
-  - item: {fileID: 4391921970457759463, guid: ca77ab225b4ee8749b69976c707d4944, type: 3}
-    chance: 1
-  - item: {fileID: 1190457694924333475, guid: cda9cfbec4f158f4ab50e40213d1defb, type: 3}
-    chance: 1
-  - item: {fileID: 9061713491536200824, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
-    chance: 5
   - item: {fileID: 0}
-    chance: 25
+    chance: 20
+  - item: {fileID: 4887135980581437040, guid: 2ced8f6f7a70c774dab72c6163d734b8, type: 3}
+    chance: 7
+  - item: {fileID: 4725385275330658725, guid: 7ff3aa15b8468657e907d44508640666, type: 3}
+    chance: 7
+  - item: {fileID: 7942134904652587003, guid: 1b1c6627a4bdc8e15b2d7e786d0735d9, type: 3}
+    chance: 7
+  - item: {fileID: 4725385275330658725, guid: c3c30488840b42a28a8fecb16c837a88, type: 3}
+    chance: 7
+  - item: {fileID: 4391921970457759463, guid: 28c7ab18c862be5a4a1694188e4a27d2, type: 3}
+    chance: 7
+  - item: {fileID: 4725385275330658725, guid: bc1b02d0184e9d722bb8d6a599bcc1f7, type: 3}
+    chance: 7
+  - item: {fileID: 7942134904652587003, guid: b9523e99e90695b94bea43ee36ebe515, type: 3}
+    chance: 7
+  - item: {fileID: 4391921970457759463, guid: 599ac9cfb87a64d6c900b911f56a835f, type: 3}
+    chance: 7
+  - item: {fileID: 7942134904652587003, guid: f46ad8bbb27ba874bb5d3ea9dabf3451, type: 3}
+    chance: 7
+  - item: {fileID: 4887135980581437040, guid: 1a2c4ef10ae5d9a4bab0db990311b936, type: 3}
+    chance: 7
+  - item: {fileID: 4887135980581437040, guid: d047fb96558e8174bb72c6404f081ce7, type: 3}
+    chance: 7
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
-  minGoldDropAmmount: 1
-  maxGoldDropAmmount: 1
+  minGoldDropAmount: 1
+  maxGoldDropAmount: 1
 --- !u!114 &2067440025226379969
 MonoBehaviour:
   m_ObjectHideFlags: 0

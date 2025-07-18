@@ -199,6 +199,7 @@ MonoBehaviour:
   followDistance: 10
   enemyDecisionDelay: 0.075
   enemyType: 4
+  damageNumberOffset: {x: 0, y: 0.5, z: 0}
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758
@@ -310,7 +311,7 @@ MonoBehaviour:
   dashSound: {fileID: 0}
   randomWalkingSound: 1
   hurtSfx:
-  - {fileID: 8300000, guid: 9b67dccd3ed94f440b05d8b60cd97e2f, type: 3}
+  - {fileID: 8300000, guid: 2b89e102a76574adcab3a07aad49eb85, type: 3}
   randomHurtSound: 0
   attackSfx:
   - {fileID: 8300000, guid: 87a11442f8d414e47ba4c540a0a36a8c, type: 3}

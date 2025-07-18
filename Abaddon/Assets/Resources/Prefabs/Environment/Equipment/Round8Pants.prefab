@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4391921970457759461}
   - component: {fileID: 3814248207533364305}
   m_Layer: 0
-  m_Name: 1pants
+  m_Name: Round8Pants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: -518033937
   m_SortingLayer: 5
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 9c0676dca8584664b8d7666f225667fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0035c1b1f3d6f11c69991356e553dc85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   amountInStack: 1
   maxStackSize: 1
   ItemID: 8
-  itemSprite: {fileID: 21300000, guid: 9c0676dca8584664b8d7666f225667fb, type: 3}
+  itemSprite: {fileID: 21300000, guid: 0035c1b1f3d6f11c69991356e553dc85, type: 3}
   useOutline: 0
   close: 0
   canBePicked: 1
@@ -168,10 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e985dbc3237b45779e4687386c31a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constitution: 0
+  constitution: -1
   dexterity: 0
-  strength: 0
-  wisdom: 3
+  strength: 3
+  wisdom: 0
 --- !u!114 &3814248207533364305
 MonoBehaviour:
   m_ObjectHideFlags: 0

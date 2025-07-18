@@ -75,6 +75,7 @@ MonoBehaviour:
   statues: []
   vulnerable: 0
   enemiesToSpawn: []
+  explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
   spriteRenderer: {fileID: 435642702979050185}
   animator: {fileID: 8160346232297714436}
   enemiesPerStage: 2

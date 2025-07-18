@@ -16,6 +16,9 @@ public class Boss1 : MonoBehaviour, CanFight
     GameObject[] enemiesToSpawn;
 
     [SerializeField]
+    GameObject explosionPrefab;
+
+    [SerializeField]
     SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -125,7 +128,16 @@ public class Boss1 : MonoBehaviour, CanFight
         Controller.main.KilledEnemy(GetEnemyType());
         inFight = false;
         Debug.Log("i am 1ssoB, and i hate (but im also dead so)");
-        PlayAnimation("die");
+        // PlayAnimation("die");
+        GameObject explosion = Instantiate(
+            explosionPrefab,
+            transform.position,
+            Quaternion.identity
+        );
+        if (explosion.TryGetComponent(out Animator animator))
+        {
+            animator.Play("explosion");
+        }
         // set color to dark red
         spriteRenderer.color = new Color(0.5f, 0, 0);
 

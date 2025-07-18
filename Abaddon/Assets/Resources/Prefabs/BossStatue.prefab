@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boss: {fileID: 0}
   health: 20
+  explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
   animator: {fileID: 8561130896970507404}
 --- !u!61 &2578427940724015215
 BoxCollider2D:

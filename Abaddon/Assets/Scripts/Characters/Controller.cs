@@ -284,7 +284,7 @@ public class Controller : MonoBehaviour
                     new Vector3(transform.position.x, transform.position.y, -5),
                     Quaternion.identity
                 )
-                .GetComponent<Tombstone>();
+                .GetComponent<PlayerTombstone>();
             var unioned = inventory.slots.Union(inventory.equipSlots);
             Item[] items = unioned
                 .Where(slot => slot.slotsItem != null)

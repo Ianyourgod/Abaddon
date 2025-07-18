@@ -4,6 +4,9 @@ using UnityEngine;
 public class Tombstone : MonoBehaviour, CanBeInteractedWith
 {
     [SerializeField]
+    public Sprite brokenTombstoneSprite;
+
+    [SerializeField]
     private Item[] items;
 
     public void SetItems(Item[] newItems)
@@ -23,7 +26,7 @@ public class Tombstone : MonoBehaviour, CanBeInteractedWith
         );
         Controller.main.inventory.AddItems(items.ToList());
         items = new Item[0];
-        GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
+        GetComponent<SpriteRenderer>().sprite = brokenTombstoneSprite;
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }

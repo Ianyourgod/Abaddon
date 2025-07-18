@@ -135,7 +135,7 @@ MonoBehaviour:
   equipmentType: Body
   amountInStack: 1
   maxStackSize: 1
-  ItemID: 6
+  ItemID: 19
   itemSprite: {fileID: 21300000, guid: cd10e20bedcd145b4a30aa2813889175, type: 3}
   useOutline: 0
   close: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec21a3790fc79554da20cd1c50df411b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemID: 6
+  ItemID: 19
 --- !u!114 &4725385275330658727
 MonoBehaviour:
   m_ObjectHideFlags: 0

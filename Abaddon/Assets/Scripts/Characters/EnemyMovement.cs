@@ -414,10 +414,10 @@ public class EnemyMovement : MonoBehaviour, CanFight
             var currentItemDropper = GetComponent<ItemDropper>();
             explosionEvents.gameObject.AddComponent<ItemDropper>();
             explosionEvents.GetComponent<ItemDropper>().dropTable = currentItemDropper.dropTable;
-            explosionEvents.GetComponent<ItemDropper>().minGoldDropAmmount =
-                currentItemDropper.minGoldDropAmmount;
-            explosionEvents.GetComponent<ItemDropper>().maxGoldDropAmmount =
-                currentItemDropper.maxGoldDropAmmount;
+            explosionEvents.GetComponent<ItemDropper>().minGoldDropAmount =
+                currentItemDropper.minGoldDropAmount;
+            explosionEvents.GetComponent<ItemDropper>().maxGoldDropAmount =
+                currentItemDropper.maxGoldDropAmount;
             explosionEvents.GetComponent<ItemDropper>().goldCoinPrefab =
                 currentItemDropper.goldCoinPrefab;
         }

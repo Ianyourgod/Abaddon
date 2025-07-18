@@ -32,16 +32,17 @@ public class StatInfoUpdater : MonoBehaviour
         switch (stat)
         {
             case Stat.Wisdom:
-                text.text = $"{Controller.main.wisdom + Controller.main.wisModifier}";
+                text.text = $"Wisdom: {Controller.main.wisdom + Controller.main.wisModifier}";
                 break;
             case Stat.Strength:
-                text.text = $"{Controller.main.strength + Controller.main.strModifier}";
+                text.text = $"Strength: {Controller.main.strength + Controller.main.strModifier}";
                 break;
             case Stat.Dexterity:
-                text.text = $"{Controller.main.dexterity + Controller.main.dexModifier}";
+                text.text = $"Dexterity: {Controller.main.dexterity + Controller.main.dexModifier}";
                 break;
             case Stat.Constitution:
-                text.text = $"{Controller.main.constitution + Controller.main.conModifier}";
+                text.text =
+                    $"Constitution: {Controller.main.constitution + Controller.main.conModifier}";
                 break;
             case Stat.Health:
                 text.text = $"{Controller.main.health}";

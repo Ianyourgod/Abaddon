@@ -14,10 +14,10 @@ public class ItemDropper : MonoBehaviour
     public GameObject goldCoinPrefab;
 
     [SerializeField, Tooltip("Put both to zero to stop gold dropping")]
-    public int minGoldDropAmmount = 1; // Minimum amount of gold to drop
+    public int minGoldDropAmount = 1; // Minimum amount of gold to drop
 
     [SerializeField, Tooltip("Put both to zero to stop gold dropping")]
-    public int maxGoldDropAmmount = 1; // Minimum amount of gold to drop
+    public int maxGoldDropAmount = 1; // Minimum amount of gold to drop
     private static float DECAY_RATE = 0.1f; // Rate at which the drop chance decays per same item in the players inventory
 
     public void ForceDrop(GameObject item)
@@ -90,7 +90,7 @@ public class ItemDropper : MonoBehaviour
             Instantiate(item, transform.position, Quaternion.identity);
 
         // Drop a random amount of gold
-        if (goldCoinPrefab == null || minGoldDropAmmount <= 0 || maxGoldDropAmmount <= 0)
+        if (goldCoinPrefab == null || minGoldDropAmount <= 0 || maxGoldDropAmount <= 0)
         {
             print("No gold to drop");
             return;
@@ -98,7 +98,7 @@ public class ItemDropper : MonoBehaviour
 
         var gold = Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
         gold.GetComponent<GoldItem>()
-            .SetGoldCount(Random.Range(minGoldDropAmmount, maxGoldDropAmmount + 1));
+            .SetGoldCount(Random.Range(minGoldDropAmount, maxGoldDropAmount + 1));
     }
 
     public void UpdateProbabilities(DropTableEntry[] newDropTable) => dropTable = newDropTable;

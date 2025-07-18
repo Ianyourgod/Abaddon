@@ -14,6 +14,11 @@ public class CyclopsAttack : BaseAttack
 
     AttackStage attackStage = AttackStage.WindUp;
 
+    void Start()
+    {
+        damage = 6;
+    }
+
     public override bool WillAttack(Vector2 position, Vector2 direction)
     {
         // we check in a radius for the cyclops, don't care about raycast hits

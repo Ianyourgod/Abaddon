@@ -373,7 +373,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Semicolon))
+        if (Input.GetKey(KeyCode.Alpha4))
         {
             done_with_tick = true;
         }
@@ -429,7 +429,7 @@ public class Controller : MonoBehaviour
         enemies = FindObjectsOfType<EnemyMovement>();
         if (!done_with_tick)
         {
-            if (Time.time - turnEndStart < 15f || Input.GetKey(KeyCode.Semicolon))
+            if (Time.time - turnEndStart < 15f || Input.GetKey(KeyCode.Alpha4))
                 return;
 
             done_with_tick = true;

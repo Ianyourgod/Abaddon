@@ -7,6 +7,7 @@ public class Pet : MonoBehaviour
 
     [SerializeField]
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
     public Item petItem;
     public static string petString = "Pet";
 
@@ -27,6 +28,10 @@ public class Pet : MonoBehaviour
         if (Controller.main == null || petItem == null)
             return;
 
+        // the pet sprite is pointing right
+        bool playerIsRight = transform.position.x < Controller.main.transform.position.x;
+        setDirection(playerIsRight);
+
         if (Vector2.Distance(Controller.main.transform.position, transform.position) > 0.25f)
         {
             targetPosition = new Vector2(
@@ -44,9 +49,40 @@ public class Pet : MonoBehaviour
         }
     }
 
-    public void setPetItem(Item item)
+    public void setDirection(bool playerIsRight)
+    {
+        if (animator.runtimeAnimatorController != null)
+        {
+            animator.SetBool("playerIsLeft", !playerIsRight);
+            return;
+        }
+        if (spriteRenderer != null)
+        {
+            if (playerIsRight)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+    }
+
+    public void setPetItem(Item item, Animator anim)
     {
         petItem = item;
+        if (anim != null)
+        {
+            animator.runtimeAnimatorController = anim.runtimeAnimatorController;
+            animator.Play("Right");
+            spriteRenderer.sprite = null;
+            return;
+        }
+        else
+        {
+            animator.runtimeAnimatorController = null;
+        }
         if (petItem == null)
         {
             // clear pet
@@ -56,7 +92,6 @@ public class Pet : MonoBehaviour
         else
         {
             spriteRenderer.sprite = petItem.itemSprite;
-            return;
         }
     }
 }

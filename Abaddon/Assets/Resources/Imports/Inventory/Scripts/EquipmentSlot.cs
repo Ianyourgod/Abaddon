@@ -95,7 +95,7 @@ public class EquipmentSlot : MonoBehaviour
             }
             if (equipmentType == Pet.petString)
             {
-                Pet.main.setPetItem(item);
+                Pet.main.setPetItem(item, item.GetComponent<Animator>());
             }
             //for (int i = 0; i < possibleEqips.Length; i++)
             //{
@@ -135,7 +135,7 @@ public class EquipmentSlot : MonoBehaviour
         // }
         if (equipmentType == Pet.petString)
         {
-            Pet.main.setPetItem(null);
+            Pet.main.setPetItem(null, null);
         }
     }
 }

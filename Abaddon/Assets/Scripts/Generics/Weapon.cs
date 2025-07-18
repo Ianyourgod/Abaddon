@@ -50,9 +50,11 @@ public abstract class Weapon : MonoBehaviour
     {
         if (defaultWeapon == null)
         {
-            if (Controller.main == null)
-                return new Sword(); // unity yells at us for this but it's better than null reference exceptions
-            // alternatively you could just do it correctly..........
+            // don't instantiate like this
+            // better to just take the hit and get a null reference exception
+            // if (Controller.main == null)
+            //     return new Sword(); // unity yells at us for this but it's better than null reference exceptions
+            // // alternatively you could just do it correctly..........
 
             // Debug.Log("Default weapon is not set, setting to Sword.");
             defaultWeapon = Controller.main.GetComponent<Sword>();

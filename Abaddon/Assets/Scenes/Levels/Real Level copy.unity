@@ -91444,7 +91444,7 @@ MonoBehaviour:
   crtRenderSettings: {fileID: 11400000, guid: 2d929546960894d169f1999a321e4ff4, type: 2}
   _runtimeMaterial: {fileID: 621805452}
   data:
-    pixelationAmount: 2
+    pixelationAmount: 0
     maxColorChannels:
       red: 255
       green: 15
@@ -93019,7 +93019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[3].name
-      value: PLACEHOLDER NEW ARMOR
+      value: Mage's Helmet
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].cost
@@ -93031,11 +93031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[5].cost
-      value: 999
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[5].name
-      value: PLACEHOLDER NEW ARMOR
+      value: Boots
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[6].cost
@@ -93068,11 +93068,15 @@ PrefabInstance:
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[3].prefab
       value: 
-      objectReference: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
+      objectReference: {fileID: 7942134904652586948, guid: 1d37b72bf5b7fb8488c88d57762f931a, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].prefab
       value: 
       objectReference: {fileID: 8956186374661559889, guid: 5c06e6da5f72b2e4e8896b6dbbd88fc9, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 4391921970457759460, guid: 4a1991fa7678afc668583349e8c1fd1b, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[6].prefab
       value: 

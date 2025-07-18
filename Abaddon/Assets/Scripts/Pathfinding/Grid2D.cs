@@ -11,6 +11,9 @@ public class Grid2D : MonoBehaviour
 
     List<Tilemap> obstaclemaps;
 
+    // Cache for physics overlap checks
+    private Dictionary<Vector3, bool> obstacleCache = new Dictionary<Vector3, bool>();
+
     [SerializeField]
     LayerMask collideLayers;
 
@@ -43,23 +46,37 @@ public class Grid2D : MonoBehaviour
 
     private bool HasTile(Vector3 worldPosition)
     {
-        if (obstaclemaps == null)
+        // Check cache first
+        if (obstacleCache.TryGetValue(worldPosition, out bool cachedResult))
+            return cachedResult;
+
+        bool hasObstacle = false;
+
+        if (obstaclemaps != null)
         {
-            return false;
+            foreach (Tilemap tilemap in obstaclemaps)
+            {
+                Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+                if (tilemap.HasTile(cellPosition))
+                {
+                    hasObstacle = true;
+                    break; // Early exit if we find a tile
+                }
+            }
         }
 
-        foreach (Tilemap tilemap in obstaclemaps)
+        if (!hasObstacle)
         {
-            Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
-            if (tilemap.HasTile(cellPosition))
-                return true;
+            Vector3 new_position = worldPosition + new Vector3(.5f, .5f, 0);
+            if (new_position != transform.position && ObjectIsThere(new_position))
+            {
+                hasObstacle = true;
+            }
         }
-        Vector3 new_position = worldPosition + new Vector3(.5f, .5f, 0);
-        if (new_position == transform.position)
-            return false;
-        if (ObjectIsThere(new_position))
-            return true;
-        return false;
+
+        // Cache the result
+        obstacleCache[worldPosition] = hasObstacle;
+        return hasObstacle;
     }
 
     private bool ObjectIsThere(Vector3 position)
@@ -70,9 +87,15 @@ public class Grid2D : MonoBehaviour
 
     public void CreateGrid()
     {
+        // Clear cache when recreating grid
+        obstacleCache.Clear();
+
         Grid = new Node2D[gridSizeX, gridSizeY];
         worldBottomLeft =
             transform.position - Vector3.right * gridSizeX / 2 - Vector3.up * gridSizeY / 2;
+
+        int centerX = gridSizeX / 2;
+        int centerY = gridSizeY / 2;
 
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -81,14 +104,15 @@ public class Grid2D : MonoBehaviour
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * x + Vector3.up * y;
                 Grid[x, y] = new Node2D(false, worldPoint, x, y);
 
-                if (x == Math.Floor((float)gridSizeX / 2) && y == Math.Floor((float)gridSizeY / 2))
+                // Use integer comparison instead of Math.Floor for center check
+                if (x == centerX && y == centerY)
                 {
                     Grid[x, y].SetObstacle(false);
                 }
-                else if (HasTile(Grid[x, y].worldPosition))
-                    Grid[x, y].SetObstacle(true);
                 else
-                    Grid[x, y].SetObstacle(false);
+                {
+                    Grid[x, y].SetObstacle(HasTile(worldPoint));
+                }
             }
         }
     }
@@ -96,62 +120,19 @@ public class Grid2D : MonoBehaviour
     //gets the neighboring nodes in the 4 cardinal directions. If you would like to enable diagonal pathfinding, uncomment out that portion of code
     public List<Node2D> GetNeighbors(Node2D node)
     {
-        List<Node2D> neighbors = new List<Node2D>();
+        List<Node2D> neighbors = new List<Node2D>(4); // Pre-allocate capacity
+        int x = node.GridX;
+        int y = node.GridY;
 
-        //checks and adds top neighbor
-        if (
-            node.GridX >= 0
-            && node.GridX < gridSizeX
-            && node.GridY + 1 >= 0
-            && node.GridY + 1 < gridSizeY
-        )
-            neighbors.Add(Grid[node.GridX, node.GridY + 1]);
-
-        //checks and adds bottom neighbor
-        if (
-            node.GridX >= 0
-            && node.GridX < gridSizeX
-            && node.GridY - 1 >= 0
-            && node.GridY - 1 < gridSizeY
-        )
-            neighbors.Add(Grid[node.GridX, node.GridY - 1]);
-
-        //checks and adds right neighbor
-        if (
-            node.GridX + 1 >= 0
-            && node.GridX + 1 < gridSizeX
-            && node.GridY >= 0
-            && node.GridY < gridSizeY
-        )
-            neighbors.Add(Grid[node.GridX + 1, node.GridY]);
-
-        //checks and adds left neighbor
-        if (
-            node.GridX - 1 >= 0
-            && node.GridX - 1 < gridSizeX
-            && node.GridY >= 0
-            && node.GridY < gridSizeY
-        )
-            neighbors.Add(Grid[node.GridX - 1, node.GridY]);
-
-        /* Uncomment this code to enable diagonal movement
-        
-        //checks and adds top right neighbor
-        if (node.GridX + 1 >= 0 && node.GridX + 1< gridSizeX && node.GridY + 1 >= 0 && node.GridY + 1 < gridSizeY)
-            neighbors.Add(Grid[node.GridX + 1, node.GridY + 1]);
-
-        //checks and adds bottom right neighbor
-        if (node.GridX + 1>= 0 && node.GridX + 1 < gridSizeX && node.GridY - 1 >= 0 && node.GridY - 1 < gridSizeY)
-            neighbors.Add(Grid[node.GridX + 1, node.GridY - 1]);
-
-        //checks and adds top left neighbor
-        if (node.GridX - 1 >= 0 && node.GridX - 1 < gridSizeX && node.GridY + 1>= 0 && node.GridY + 1 < gridSizeY)
-            neighbors.Add(Grid[node.GridX - 1, node.GridY + 1]);
-
-        //checks and adds bottom left neighbor
-        if (node.GridX - 1 >= 0 && node.GridX - 1 < gridSizeX && node.GridY  - 1>= 0 && node.GridY  - 1 < gridSizeY)
-            neighbors.Add(Grid[node.GridX - 1, node.GridY - 1]);
-        */
+        // Check bounds once and add neighbors directly
+        if (y + 1 < gridSizeY) // Top
+            neighbors.Add(Grid[x, y + 1]);
+        if (y - 1 >= 0) // Bottom
+            neighbors.Add(Grid[x, y - 1]);
+        if (x + 1 < gridSizeX) // Right
+            neighbors.Add(Grid[x + 1, y]);
+        if (x - 1 >= 0) // Left
+            neighbors.Add(Grid[x - 1, y]);
 
         return neighbors;
     }

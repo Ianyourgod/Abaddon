@@ -13,7 +13,12 @@ public class Tut_TabPopup : TutorialPopup
 
     new void Update()
     {
-        shouldBeOnScreen = Controller.main.hasPickedUp && !Controller.main.hasOpenedInventory;
+        shouldBeOnScreen =
+            Controller.main.hasPickedUp
+            && Controller.main.hasMoved
+            && Controller.main.hasRotated
+            && Controller.main.hasAttacked
+            && !Controller.main.hasOpenedInventory;
 
         base.Update();
     }

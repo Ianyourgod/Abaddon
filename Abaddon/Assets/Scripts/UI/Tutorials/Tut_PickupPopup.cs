@@ -13,7 +13,11 @@ public class Tut_PickupPopup : TutorialPopup
 
     new void Update()
     {
-        shouldBeOnScreen = Controller.main.hasAttacked && !Controller.main.hasPickedUp;
+        shouldBeOnScreen =
+            Controller.main.hasMoved
+            && Controller.main.hasRotated
+            && Controller.main.hasAttacked
+            && !Controller.main.hasPickedUp;
 
         base.Update();
     }

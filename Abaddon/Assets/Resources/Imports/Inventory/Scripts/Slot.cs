@@ -274,6 +274,10 @@ public class Slot : MonoBehaviour
 
     public void DropItem(int removeQuantity, GameObject player, bool removeAll)
     {
+        if (GetComponent<EquipmentSlot>())
+        {
+            return; // TODO make this not break horribly
+        }
         if (slotsItem)
         {
             if (!removeAll)

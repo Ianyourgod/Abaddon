@@ -98116,13 +98116,69 @@ PrefabInstance:
       value: Shopkeeper (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
-      propertyPath: shopContents.Array.data[1].name
-      value: Different
+      propertyPath: shopContents.Array.data[0].name
+      value: Helmet
       objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[1].name
+      value: Boots
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[2].name
+      value: Helmet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[3].name
+      value: Helmet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[4].name
+      value: Helmet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[5].name
+      value: Helmet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[6].name
+      value: Helmet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[7].name
+      value: Helmet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: cabf391770efcc607a7844c969ae3929, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 1190457694924333472, guid: cda9cfbec4f158f4ab50e40213d1defb, type: 3}
+      objectReference: {fileID: 4391921970457759460, guid: 4a1991fa7678afc668583349e8c1fd1b, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[2].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: b9523e99e90695b94bea43ee36ebe515, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: f46ad8bbb27ba874bb5d3ea9dabf3451, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[4].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: 5a70ff15ed58d898d903e8db160e4690, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: 1b1c6627a4bdc8e15b2d7e786d0735d9, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[6].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: 1d37b72bf5b7fb8488c88d57762f931a, type: 3}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[7].prefab
+      value: 
+      objectReference: {fileID: 7942134904652586948, guid: 4a74bdcaa843ad5a2bff6f6a0e71e65d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
 --- !u!4 &1575001248 stripped

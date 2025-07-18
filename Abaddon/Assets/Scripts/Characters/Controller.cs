@@ -24,16 +24,16 @@ public class Controller : MonoBehaviour
     #region Stats
     [Header("Base Stats")]
     [SerializeField, Tooltip("Constitution (maximum health)")]
-    public int constitution = 9;
+    public int constitution = 10;
 
     [SerializeField, Tooltip("Dexterity (dodge chance)")]
-    public int dexterity = 9;
+    public int dexterity = 10;
 
     [SerializeField, Tooltip("Strength (attack damage)")]
-    public int strength = 9;
+    public int strength = 10;
 
     [SerializeField, Tooltip("Wisdom (ability damage)")]
-    public int wisdom = 9;
+    public int wisdom = 10;
 
     [SerializeField, Tooltip("Minimum stat roll")]
     public int minimum_stat_roll = 1;

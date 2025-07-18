@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1071471071999502505}
   - component: {fileID: 2566543999799314492}
   - component: {fileID: -4444107368564744036}
+  - component: {fileID: -8325891755140379443}
   m_Layer: 10
   m_Name: DecorTombstone
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: -445612203
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 99895972fcc794412b86e3be8da0e530, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3bc9d1cbdf3124c298223436ca76d47c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,3 +112,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-8325891755140379443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6662185457682643381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8992b309f9c64d2e872fc46efcdc94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brokenTombstoneSprite: {fileID: 21300000, guid: 3c9a603b1dd7a4b2f8d088ceaeab340e, type: 3}
+  items: []

@@ -201,26 +201,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTable:
-  - item: {fileID: 142329948193572683, guid: 6fdfe9e3efea0894dbe7482a302ffdcd, type: 3}
-    chance: 2
-  - item: {fileID: 7753488132812357937, guid: aa80a6545973d5644abc7c6dc1464b8e, type: 3}
-    chance: 2
-  - item: {fileID: 1262479493879880051, guid: 61f1092e182c5ef4e816a0215d134dcc, type: 3}
-    chance: 2
-  - item: {fileID: 4887135980581437040, guid: 24284c4de03da404a9cff3f2f752a574, type: 3}
-    chance: 2
-  - item: {fileID: 4725385275330658725, guid: 77507ae9b9d47a042b1cebcae72bd494, type: 3}
-    chance: 1
-  - item: {fileID: 7942134904652587003, guid: b05ef4ba159aa834a89e517fc0d15c75, type: 3}
-    chance: 1
-  - item: {fileID: 4391921970457759463, guid: ca77ab225b4ee8749b69976c707d4944, type: 3}
-    chance: 1
-  - item: {fileID: 1190457694924333475, guid: cda9cfbec4f158f4ab50e40213d1defb, type: 3}
-    chance: 1
-  - item: {fileID: 9061713491536200824, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
-    chance: 5
   - item: {fileID: 0}
-    chance: 25
+    chance: 9
+  - item: {fileID: 9061713491536200824, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
+    chance: 1
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
   minGoldDropAmmount: 1
   maxGoldDropAmmount: 1

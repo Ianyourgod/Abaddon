@@ -57,6 +57,10 @@ public class EquipmentSlot : MonoBehaviour
             Unequip();
             Equip();
         }
+        // if an error happens before here
+        // e.g. in equip or unequip
+        // it will not update the wasEquipped variable
+        // and stats will update forever
         wasEquipped = isEquipped();
         pastEquippedItemID = getCurrentEquippedItemID();
     }

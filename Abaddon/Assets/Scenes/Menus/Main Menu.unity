@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128973b1064ce4c2c867b6f030fab7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuSceneName: Real level copy
   transistionScriptableObject: {fileID: 11400000, guid: 04359389d16cf4c02a42ba37afda5d5a, type: 2}
   panel: {fileID: 898198653}
   StartPlayScene: Level 0
@@ -737,6 +738,10 @@ PrefabInstance:
     - target: {fileID: 4577299031533860270, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
       propertyPath: m_Name
       value: BgMusicPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847461268584302509, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
+      propertyPath: songName
+      value: menu1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 163e75929fe0b0647b701fbf73481577, type: 3}

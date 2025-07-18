@@ -935,7 +935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1239,7 +1239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4887135980581437044, guid: 7760e112e0b685546964648a0c3ce166, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4887135980581437044, guid: 7760e112e0b685546964648a0c3ce166, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1331,7 +1331,7 @@ PrefabInstance:
       objectReference: {fileID: 93473025}
     - target: {fileID: 3763769721077721194, guid: 6c0923943425cae4bae09e7c04f195a5, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3763769721077721194, guid: 6c0923943425cae4bae09e7c04f195a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3930,7 +3930,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &268079135
 PrefabInstance:
@@ -3945,7 +3945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382604692729912246, guid: db65c775020d93e44bb22c24a2a91e4f, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6382604692729912246, guid: db65c775020d93e44bb22c24a2a91e4f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4010,7 +4010,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &277160052
 Transform:
@@ -4025,7 +4025,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &282410588 stripped
 SpriteRenderer:
@@ -4572,7 +4572,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &308142747
 MonoBehaviour:
@@ -4592,28 +4592,34 @@ MonoBehaviour:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Oh my son, my poor son...
     time: 9
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Oh! Hello there!
     time: 10
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: My... my... my beautiful... boy... he's missing
     time: 9
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: PLEASE SAVE HIM!!!!
     time: 14
+    isPlayer: 0
     usingCPS: 1
   beforeCompletion: []
   completionMessages:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: THANK YOU SO MUCH FOR SAVING MY SON!
     time: 14
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Here, take this as a physical representation of my thanks.
     time: 9
+    isPlayer: 0
     usingCPS: 1
   questID: 1
   reward: {fileID: 8956186374661559890, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
@@ -5098,7 +5104,7 @@ PrefabInstance:
       objectReference: {fileID: 960358545}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5279,7 +5285,7 @@ Transform:
   - {fileID: 202659469}
   - {fileID: 653440817}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &350365890
 PrefabInstance:
@@ -7871,7 +7877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3866857552717066087, guid: 15cca9f27dcd0df3a841ab3172a408a5, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3866857552717066087, guid: 15cca9f27dcd0df3a841ab3172a408a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -88462,7 +88468,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4577299031533860265, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4577299031533860265, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89835,7 +89841,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &989784258
 MonoBehaviour:
@@ -90788,6 +90794,30 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1836151787}
+          m_TargetAssemblyTypeName: AudioManagerBetter, Assembly-CSharp
+          m_MethodName: SetLooping
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1836151787}
+          m_TargetAssemblyTypeName: AudioManagerBetter, Assembly-CSharp
+          m_MethodName: PlaySong
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: win1
             m_BoolArgument: 0
           m_CallState: 2
     onDisable:
@@ -91825,7 +91855,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1112416726
 MonoBehaviour:
@@ -92248,7 +92278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -92509,7 +92539,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1177358815
 PrefabInstance:
@@ -95418,7 +95448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95744,7 +95774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -99047,7 +99077,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1666517789
 MonoBehaviour:
@@ -101189,20 +101219,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songKeys.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songValues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songKeys.Array.data[0]
       value: level1
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songKeys.Array.data[1]
+      value: win1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songValues.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: aa470a1d7f71ed946a737ca4f2b7dd1b, type: 3}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songValues.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: f9d2837f21b64cc4687e084e74e376ba, type: 3}
     - target: {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -101221,7 +101259,7 @@ PrefabInstance:
       objectReference: {fileID: 1643267568}
     - target: {fileID: 7659419828651813427, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7659419828651813427, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_LocalPosition.x
@@ -101274,6 +101312,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+--- !u!114 &1836151787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+  m_PrefabInstance: {fileID: 1836151786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b238fb7cfb7e2f4f9f35c00c4fb7616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1840516255 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 791338427222224434, guid: c7c92d28fa60a0d42b9a97e321e44704, type: 3}
@@ -102622,7 +102671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7604413148527183425, guid: a5edf156c9c8581f5bf8f8a1f535cdce, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7604413148527183425, guid: a5edf156c9c8581f5bf8f8a1f535cdce, type: 3}
       propertyPath: m_LocalScale.x
@@ -105510,7 +105559,7 @@ RectTransform:
   - {fileID: 1648285627}
   - {fileID: 403082426}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

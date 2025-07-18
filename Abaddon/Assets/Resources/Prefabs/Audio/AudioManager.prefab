@@ -52,8 +52,12 @@ MonoBehaviour:
   musicVolume: 0.45
   songKeys:
   - level1
+  - win1
+  - menu1
   songValues:
   - {fileID: 8300000, guid: aa470a1d7f71ed946a737ca4f2b7dd1b, type: 3}
+  - {fileID: 8300000, guid: f9d2837f21b64cc4687e084e74e376ba, type: 3}
+  - {fileID: 8300000, guid: 885229310985c47458f1200401841346, type: 3}
   sfxSources: []
 --- !u!82 &5175779184006085023
 AudioSource:

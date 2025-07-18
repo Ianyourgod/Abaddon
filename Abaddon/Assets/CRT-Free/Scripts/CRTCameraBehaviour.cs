@@ -223,7 +223,6 @@ namespace BrewedInk.CRT
                 );
                 _runtimeMaterial.SetTexture(PropMonitorTexture, data.monitorTexture);
                 _runtimeMaterial.SetColor(PropMonitorColor, data.monitorColor);
-                /*
                 if (data.pixelationAmount > 1)
                 {
                     var downSample = Math.Min(300, data.pixelationAmount);
@@ -237,7 +236,6 @@ namespace BrewedInk.CRT
                     tempDest.Release();
                     return;
                 }
-                */
 
                 Graphics.Blit(src, dest, _runtimeMaterial);
                 return;

@@ -99,17 +99,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b2e6018b8d1ff7f8371f5a6de2f620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: Lizzie
-  voiceFrequency: 440
+  npcName: Gerch
+  voiceFrequency: 260
   messages:
-  - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
-    message: im so gerchy
-    time: 8
+  - profileImage: {fileID: 21300000, guid: 42d7da1cd216dbb239d966e929059ae2, type: 3}
+    message: "Welcome, welcome! Cave dwellers, adventurers, all are welcome at Gerch\u2019s
+      merch."
+    time: 12
+    isPlayer: 0
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
+    message: All?
+    time: 12
+    isPlayer: 1
+    usingCPS: 1
+  - profileImage: {fileID: 21300000, guid: 42d7da1cd216dbb239d966e929059ae2, type: 3}
+    message: "You got money, you've got my time. What do ya\u2019 need?"
+    time: 12
+    isPlayer: 0
     usingCPS: 1
   purchaseMessages:
   - profileImage: {fileID: 21300000, guid: 1940dbb7369dca35fa6744a24c554d39, type: 3}
     message: yaaay
     time: 8
+    isPlayer: 0
     usingCPS: 1
   shopContents:
   - prefab: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}

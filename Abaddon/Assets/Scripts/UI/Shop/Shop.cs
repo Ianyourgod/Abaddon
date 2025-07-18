@@ -142,7 +142,7 @@ public class Shop : MonoBehaviour
                 statsTextTwo.text =
                     min.Item1 > 0
                         ? $"+{second_max.Item1} {num_to_stat(second_max.Item2)}"
-                        : $"-{min.Item1} {num_to_stat(min.Item2)}";
+                        : $"{min.Item1} {num_to_stat(min.Item2)}";
             }
 
             statsTextOne.text = $"+{max.Item1} {num_to_stat(max.Item2)}";

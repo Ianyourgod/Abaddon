@@ -4779,11 +4779,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 69.5
       objectReference: {fileID: 0}
     - target: {fileID: 7842820053425721010, guid: a09e49c2ba5561e45a844ab7c254e969, type: 3}
       propertyPath: m_LocalPosition.z
@@ -88289,79 +88289,97 @@ MonoBehaviour:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: get away from me, creep
     time: 12
+    isPlayer: 0
     usingCPS: 1
   whenEnemiesDead:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: "\u2018When I was a young boy, my father took me into the city, to see
       a play,  wild\u2019 mm mm\u2026"
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: Excuse me?
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: "Who are you? Let me be, I must rot in this darkness\u2026"
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: I'm here to take you home?
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: I have no home
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: Your dad sent me. Come on.
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: "I have no family. I'm alone. All\u2026alone\u2026"
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: Your dad cared enough to offer an award for you. I did the work. Go
       back.
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: ...fine. You know capes aren't in style anymore, right?
     time: 12
+    isPlayer: 0
     usingCPS: 1
   afterEnemiesBeforeQuestComplete:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: Eugh, you again...
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: Yep.
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: whatever.
     time: 12
+    isPlayer: 0
     usingCPS: 1
   afterQuestComplete:
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: "My dad told me what he did. Thanks\u2026 or whatever. "
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: No problem?
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: "Do you, um\u2026 listen to MCR?"
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: Huh?
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 06022c3b0dcd07193ace5e700fcf95e7, type: 3}
     message: "Like\u2026 my chemical romantics?"
     time: 12
+    isPlayer: 0
     usingCPS: 1
   enemies:
   - {fileID: 1237236304}
@@ -93023,11 +93041,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[0].cost
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[0].name
-      value: God helmet
+      value: Silver Sword
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[1].cost
@@ -93051,7 +93069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[3].name
-      value: Knights sword
+      value: PLACEHOLDER NEW ARMOR
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].cost
@@ -93066,25 +93084,29 @@ PrefabInstance:
       value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[5].name
+      value: PLACEHOLDER NEW ARMOR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[6].cost
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[6].name
-      value: Farmers weapon
+      value: Little Potion
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[7].cost
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[7].name
-      value: Major potion
+      value: Big Potion
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[0].prefab
       value: 
-      objectReference: {fileID: 7942134904652586948, guid: b05ef4ba159aa834a89e517fc0d15c75, type: 3}
+      objectReference: {fileID: 4887135980581437043, guid: 2ced8f6f7a70c774dab72c6163d734b8, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[1].prefab
       value: 
@@ -93096,7 +93118,7 @@ PrefabInstance:
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[3].prefab
       value: 
-      objectReference: {fileID: 4887135980581437043, guid: 2ced8f6f7a70c774dab72c6163d734b8, type: 3}
+      objectReference: {fileID: 8956186374661559889, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].prefab
       value: 
@@ -93104,7 +93126,7 @@ PrefabInstance:
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[6].prefab
       value: 
-      objectReference: {fileID: 4887135980581437043, guid: 24284c4de03da404a9cff3f2f752a574, type: 3}
+      objectReference: {fileID: 9061713491536200831, guid: ac7fc7233e5d0409e91c8e0da3a16118, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[7].prefab
       value: 
@@ -99015,83 +99037,100 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: 
-  voiceFrequency: 440
+  voiceFrequency: 550
   messages:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Oh my son, my poor son...
     time: 9
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: What?
     time: 10
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Oh! Are you an adventurer? Oh, please, please help!
     time: 9
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: "Uh\u2026"
     time: 9
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: "I\u2019ll pay, please, I\u2019m just so worried, I\u2019ve been searching
       and I just can\u2019t find him."
     time: 13
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: "\u2026How much?"
     time: 9
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: "Well, I have this key, given to me by my brother, and I swear it\u2019s
       valuable! "
     time: 14
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: "It\u2019s for an old dragon\u2019s lair, there\u2019s sure to be treasure
       there, please\u2026"
     time: 14
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: A key?
     time: 9
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: "Yes, yes, a key. Please, will you find my son? Ensure he\u2019s not
       hurt, I want him home."
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: ... fine.
     time: 9
+    isPlayer: 1
     usingCPS: 1
   beforeCompletion:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Well, have you found him? Please, I'm worried.
     time: 12
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: "Uh\u2026 working on it."
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: "Oh, please do hurry! That boy always hides himself away in the darkest
       corners, I hope he has food\u2026"
     time: 12
+    isPlayer: 0
     usingCPS: 1
   completionMessages:
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: "Oh, I can\u2019t thank you enough, thank you, thank you for finding
       my son, I'm so relieved. As promised, your reward!"
     time: 14
+    isPlayer: 0
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 64b33ffc5a433dea289281913c4de6fd, type: 3}
     message: 'Thanks. '
     time: 12
+    isPlayer: 1
     usingCPS: 1
   - profileImage: {fileID: 21300000, guid: 39e887d59ff2f503b838e8d0ef5d70f2, type: 3}
     message: Come visit whenever, you'll always be welcome at our tent!
     time: 14
+    isPlayer: 0
     usingCPS: 1
   questID: 1
   reward: {fileID: 8956186374661559890, guid: 3cffb44c6c832784d8320f72be2ef6af, type: 3}

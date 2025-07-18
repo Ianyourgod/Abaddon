@@ -10,11 +10,6 @@ public class Pathfinding2D : MonoBehaviour
     Node2D seekerNode,
         targetNode;
 
-    // Pre-allocated collections to avoid garbage collection
-    private List<Node2D> openSet = new List<Node2D>();
-    private HashSet<Node2D> closedSet = new HashSet<Node2D>();
-    private List<Node2D> neighbors = new List<Node2D>();
-
     public (int, List<Node2D>) FindPath(Vector3 startPos, Vector3 targetPos)
     {
         grid.CreateGrid();
@@ -23,47 +18,50 @@ public class Pathfinding2D : MonoBehaviour
         seekerNode = grid.NodeFromWorldPoint(startPos);
         targetNode = grid.NodeFromWorldPoint(targetPos);
 
-        // Early exit if start or target is obstacle
-        if (seekerNode.obstacle || targetNode.obstacle)
-            return (0, null);
-
-        // Clear and reuse collections
-        openSet.Clear();
-        closedSet.Clear();
+        List<Node2D> openSet = new List<Node2D>();
+        HashSet<Node2D> closedSet = new HashSet<Node2D>();
         openSet.Add(seekerNode);
 
         //calculates path for pathfinding
         while (openSet.Count > 0)
         {
-            // Use more efficient node selection with early exit
-            Node2D currentNode = GetLowestFCostNode();
+            //iterates through openSet and finds lowest FCost
+            Node2D node = openSet[0];
+            for (int i = 1; i < openSet.Count; i++)
+            {
+                if (
+                    openSet[i].FCost < node.FCost
+                    || (openSet[i].FCost == node.FCost && openSet[i].hCost < node.hCost)
+                )
+                {
+                    node = openSet[i];
+                }
+            }
 
-            openSet.Remove(currentNode);
-            closedSet.Add(currentNode);
+            openSet.Remove(node);
+            closedSet.Add(node);
 
             //If target found, retrace path
-            if (currentNode == targetNode)
+            if (node == targetNode)
             {
                 RetracePath(seekerNode, targetNode);
-                return (currentNode.gCost, grid.path);
+                return (node.gCost, grid.path);
             }
 
             //adds neighbor nodes to openSet
-            neighbors = grid.GetNeighbors(currentNode);
-            for (int i = 0; i < neighbors.Count; i++)
+            foreach (Node2D neighbour in grid.GetNeighbors(node))
             {
-                Node2D neighbour = neighbors[i];
                 if (neighbour.obstacle || closedSet.Contains(neighbour))
                 {
                     continue;
                 }
 
-                int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+                int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
                 if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
                 {
                     neighbour.gCost = newCostToNeighbour;
                     neighbour.hCost = GetDistance(neighbour, targetNode);
-                    neighbour.parent = currentNode;
+                    neighbour.parent = node;
 
                     if (!openSet.Contains(neighbour))
                         openSet.Add(neighbour);
@@ -72,22 +70,6 @@ public class Pathfinding2D : MonoBehaviour
         }
 
         return (0, null);
-    }
-
-    private Node2D GetLowestFCostNode()
-    {
-        Node2D node = openSet[0];
-        for (int i = 1; i < openSet.Count; i++)
-        {
-            if (
-                openSet[i].FCost < node.FCost
-                || (openSet[i].FCost == node.FCost && openSet[i].hCost < node.hCost)
-            )
-            {
-                node = openSet[i];
-            }
-        }
-        return node;
     }
 
     //reverses calculated path so first node is closest to seeker
@@ -112,7 +94,8 @@ public class Pathfinding2D : MonoBehaviour
         int dstX = Mathf.Abs(nodeA.GridX - nodeB.GridX);
         int dstY = Mathf.Abs(nodeA.GridY - nodeB.GridY);
 
-        // Simplified calculation for 4-directional movement
-        return 10 * (dstX + dstY); // Only horizontal/vertical moves allowed
+        if (dstX > dstY)
+            return 14 * dstY + 10 * (dstX - dstY);
+        return 14 * dstX + 10 * (dstY - dstX);
     }
 }

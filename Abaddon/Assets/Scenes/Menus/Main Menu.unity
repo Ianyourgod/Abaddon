@@ -739,6 +739,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BgMusicPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 7847461268584302509, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
+      propertyPath: songName
+      value: menu1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 163e75929fe0b0647b701fbf73481577, type: 3}
 --- !u!1 &511774480

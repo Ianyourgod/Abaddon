@@ -104,6 +104,11 @@ public class AudioManagerBetter : MonoBehaviour
         musicSource.Play();
     }
 
+    public void SetLooping(bool shouldLoop)
+    {
+        musicSource.loop = shouldLoop;
+    }
+
     public void StopSong(AudioSource musicPlayer)
     {
         musicPlayer.Stop();

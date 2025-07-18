@@ -935,7 +935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 27
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3930,7 +3930,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &268079135
 PrefabInstance:
@@ -4010,7 +4010,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &277160052
 Transform:
@@ -4025,7 +4025,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &282410588 stripped
 SpriteRenderer:
@@ -4572,7 +4572,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &308142747
 MonoBehaviour:
@@ -90909,6 +90909,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1836151787}
+          m_TargetAssemblyTypeName: AudioManagerBetter, Assembly-CSharp
+          m_MethodName: SetLooping
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1836151787}
+          m_TargetAssemblyTypeName: AudioManagerBetter, Assembly-CSharp
+          m_MethodName: PlaySong
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: win1
+            m_BoolArgument: 0
+          m_CallState: 2
     onDisable:
       m_PersistentCalls:
         m_Calls:
@@ -92413,7 +92437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -92674,7 +92698,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1177358815
 PrefabInstance:
@@ -95583,7 +95607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95909,7 +95933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_RootOrder
-      value: 26
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5371642804132883659, guid: b683214dbddccb8e08dc07e79c2801da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -101354,20 +101378,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songKeys.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songValues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songKeys.Array.data[0]
       value: level1
       objectReference: {fileID: 0}
     - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songKeys.Array.data[1]
+      value: win1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: songValues.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: aa470a1d7f71ed946a737ca4f2b7dd1b, type: 3}
+    - target: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+      propertyPath: songValues.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: f9d2837f21b64cc4687e084e74e376ba, type: 3}
     - target: {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -101439,6 +101471,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7659419828651813425, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+--- !u!114 &1836151787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4879660520008433346, guid: c1f7a9ec0a8edd74d96930414c102653, type: 3}
+  m_PrefabInstance: {fileID: 1836151786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b238fb7cfb7e2f4f9f35c00c4fb7616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1840516255 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 791338427222224434, guid: c7c92d28fa60a0d42b9a97e321e44704, type: 3}

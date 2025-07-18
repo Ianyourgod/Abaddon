@@ -100,12 +100,12 @@ SpriteRenderer:
   m_SortingLayerID: -518033937
   m_SortingLayer: 5
   m_SortingOrder: 2
-  m_Sprite: {fileID: 844499229, guid: c03ba4d06bb77b94c88a5c9b74eb19a7, type: 3}
+  m_Sprite: {fileID: 270971725, guid: 9b08bdf0078e881448dc939267f01133, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -157,7 +157,7 @@ MonoBehaviour:
   amountInStack: 1
   maxStackSize: 1
   ItemID: 18
-  itemSprite: {fileID: 844499229, guid: c03ba4d06bb77b94c88a5c9b74eb19a7, type: 3}
+  itemSprite: {fileID: 270971725, guid: 9b08bdf0078e881448dc939267f01133, type: 3}
   useOutline: 0
   close: 0
   canBePicked: 1

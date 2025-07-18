@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 2844499466063138181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.48, y: -2.59, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -152,8 +152,8 @@ MonoBehaviour:
   - item: {fileID: 0}
     chance: 0.2
   goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
-  minGoldDropAmmount: 1
-  maxGoldDropAmmount: 1
+  minGoldDropAmount: 1
+  maxGoldDropAmount: 1
 --- !u!82 &964688453007807293
 AudioSource:
   m_ObjectHideFlags: 0

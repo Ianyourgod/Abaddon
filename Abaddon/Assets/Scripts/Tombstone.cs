@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class Tombstone : MonoBehaviour, CanBeInteractedWith
+public class Tombstone : MonoBehaviour, CanBeDamaged
 {
     [SerializeField]
     public Sprite brokenTombstoneSprite;
@@ -15,10 +15,10 @@ public class Tombstone : MonoBehaviour, CanBeInteractedWith
         items = copiedItems;
     }
 
-    public void Interact()
+    public int Hurt(int damage)
     {
         if (Controller.main == null)
-            return;
+            return -1;
 
         var nonVoidItems = items.Where(i => i != null).ToArray();
         print(
@@ -28,5 +28,6 @@ public class Tombstone : MonoBehaviour, CanBeInteractedWith
         items = new Item[0];
         GetComponent<SpriteRenderer>().sprite = brokenTombstoneSprite;
         gameObject.layer = LayerMask.NameToLayer("Default");
+        return -1;
     }
 }

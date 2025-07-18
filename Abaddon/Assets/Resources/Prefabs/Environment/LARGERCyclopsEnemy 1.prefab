@@ -305,7 +305,7 @@ MonoBehaviour:
   dashSound: {fileID: 0}
   randomWalkingSound: 1
   hurtSfx:
-  - {fileID: 8300000, guid: 9b67dccd3ed94f440b05d8b60cd97e2f, type: 3}
+  - {fileID: 8300000, guid: 82dcfb63ce0ef487ea3520df0a6a0a52, type: 3}
   randomHurtSound: 0
   attackSfx:
   - {fileID: 8300000, guid: 084cc2799655d49c2bc25c1fdf3de856, type: 3}

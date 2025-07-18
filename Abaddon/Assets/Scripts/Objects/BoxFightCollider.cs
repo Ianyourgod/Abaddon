@@ -26,8 +26,7 @@ public class BoxFightCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerInside)
-            return;
+        print("BoxFightCollider: OnTriggerEnter2D called" + playerInside);
 
         if (collision.gameObject.tag == "Player")
         {
@@ -56,6 +55,8 @@ public class BoxFightCollider : MonoBehaviour
         if (playerInside)
         {
             gate.Open();
+            playerInside = true;
+            print("Player died, opening gate.");
         }
     }
 }

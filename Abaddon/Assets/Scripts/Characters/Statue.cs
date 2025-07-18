@@ -24,6 +24,18 @@ public class Statue : MonoBehaviour, CanFight
         return EnemyType.Statue;
     }
 
+    public void Start()
+    {
+        Controller.main.onDie += () =>
+        {
+            if (isActive)
+            {
+                isActive = true;
+                PlayAnimation("idle");
+            }
+        };
+    }
+
     public int Heal(int amount)
     {
         health += amount;
@@ -71,13 +83,7 @@ public class Statue : MonoBehaviour, CanFight
 
     public void Activate()
     {
-        print("Activating statue");
         isActive = true;
-        print("Statue activated at position " + transform.position);
-        var child = transform.GetChild(0);
-        print("child: " + child.name);
-        var sprite = child.GetComponent<SpriteRenderer>();
-        print("sprite: " + sprite.name);
         PlayAnimation("activating");
     }
 }

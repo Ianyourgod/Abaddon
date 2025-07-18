@@ -9,10 +9,11 @@ public class Boss1 : MonoBehaviour, CanFight
     [SerializeField]
     List<Statue> statues = new List<Statue>();
 
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
     public bool vulnerable = false;
 
     [SerializeField]
-    GameObject baseEnemy;
+    GameObject[] enemiesToSpawn;
 
     [SerializeField]
     SpriteRenderer spriteRenderer;
@@ -40,8 +41,17 @@ public class Boss1 : MonoBehaviour, CanFight
 
     void Awake()
     {
-        Controller.OnTick += CustomUpdate;
         maxStages = statues.Count;
+        Controller.main.onDie += () =>
+        {
+            if (inFight)
+            {
+                foreach (GameObject enemy in spawnedEnemies)
+                {
+                    Destroy(enemy);
+                }
+            }
+        };
     }
 
     public EnemyType GetEnemyType()
@@ -99,7 +109,9 @@ public class Boss1 : MonoBehaviour, CanFight
         {
             Vector2 enemyPosition = GenerateRandomPosition();
             // make a copy of the base enemy
-            GameObject enemy = Instantiate(baseEnemy, enemyPosition, Quaternion.identity);
+            var randomEnemy = enemiesToSpawn[UnityEngine.Random.Range(0, enemiesToSpawn.Length)];
+
+            spawnedEnemies.Add(Instantiate(randomEnemy, enemyPosition, Quaternion.identity));
         }
 
         PlayAnimation("boss idle");
@@ -125,18 +137,6 @@ public class Boss1 : MonoBehaviour, CanFight
         yield return new WaitForSeconds(wait_time);
         Destroy(gameObject);
         UIStateManager.singleton.OpenUIPage(UIState.Win);
-    }
-
-    private void CustomUpdate()
-    {
-        {
-            // Debug.Log("uh oh im running out of ticks! " + ticks_till_move_back);
-            // if (ticks_till_move_back <= 0)
-            // {
-            //     stage--;
-            //     SpawnStatue();
-            // }
-        }
     }
 
     public void OnStatueDestroyed()

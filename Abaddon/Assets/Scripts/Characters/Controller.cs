@@ -292,6 +292,9 @@ public class Controller : MonoBehaviour
                 .ToArray();
             tombstone.SetItems(items);
             inventory.ClearInventory();
+            Camera.main.GetComponent<CameraScript>().ResetTarget(0.5f, useSmoothMovement: false);
+            Camera.main.GetComponent<CameraScript>().UpdateFOV(5f, 1f);
+            print("updating FOV to 5f");
         };
 
         sfxPlayer = GetComponent<PlayerSfx>();

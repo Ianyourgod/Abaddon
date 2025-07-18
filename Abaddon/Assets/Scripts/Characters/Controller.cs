@@ -1010,7 +1010,7 @@ public class Controller : MonoBehaviour
 
     float DexterityToPercent()
     {
-        return (dexterity + dexModifier - 10) / 20f;
+        return (dexterity + dexModifier - 8) / 20f;
     }
 
     public void Respawn()

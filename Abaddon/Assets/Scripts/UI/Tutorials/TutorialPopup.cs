@@ -16,7 +16,7 @@ public class TutorialPopup : MonoBehaviour
     {
         // image.enabled = false;
         onScreenPosition = transform.localPosition;
-        offScreenPosition = onScreenPosition + new Vector2(0, 100);
+        offScreenPosition = onScreenPosition + new Vector2(0, 200);
         transform.localPosition = offScreenPosition;
     }
 

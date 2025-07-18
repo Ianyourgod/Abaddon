@@ -54,7 +54,6 @@ MonoBehaviour:
   textObject: {fileID: 8585363338278044272}
   minimum: 0
   maximum: 1
-  speed: 0.5
   timeLimit: 2
   t: 0
 --- !u!23 &8585363338278044287
@@ -96,7 +95,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 669816403
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8585363338278044272
@@ -121,7 +120,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3.5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab9d363981a4ad438a0609027df48c3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ad9c603c0ab49a84397cc29ef638b47e, type: 2}
   m_sharedMaterial: {fileID: 7029800129240152067, guid: aab9d363981a4ad438a0609027df48c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -188,6 +187,6 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 8585363338278044287}
   m_maskType: 0

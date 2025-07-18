@@ -29,10 +29,12 @@ public class Pathfinding2D : MonoBehaviour
             Node2D node = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
-                if (openSet[i].FCost <= node.FCost)
+                if (
+                    openSet[i].FCost < node.FCost
+                    || (openSet[i].FCost == node.FCost && openSet[i].hCost < node.hCost)
+                )
                 {
-                    if (openSet[i].hCost < node.hCost)
-                        node = openSet[i];
+                    node = openSet[i];
                 }
             }
 

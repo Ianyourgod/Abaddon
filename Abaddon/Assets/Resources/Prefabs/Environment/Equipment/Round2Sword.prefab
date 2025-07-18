@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   constitution: 0
   dexterity: 0
-  strength: 0
+  strength: 5
   wisdom: 0
 --- !u!114 &510642772217015331
 MonoBehaviour:
@@ -204,4 +204,4 @@ MonoBehaviour:
   hinderAttacksLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  baseDamage: 3
+  baseDamage: 4

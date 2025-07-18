@@ -168,10 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e985dbc3237b45779e4687386c31a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constitution: -1
+  constitution: 0
   dexterity: 0
   strength: 0
-  wisdom: 2
+  wisdom: 4
 --- !u!114 &8588099376967644772
 MonoBehaviour:
   m_ObjectHideFlags: 0

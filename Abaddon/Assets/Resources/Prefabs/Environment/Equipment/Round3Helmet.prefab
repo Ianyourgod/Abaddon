@@ -169,9 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constitution: 0
-  dexterity: -2
-  strength: 2
-  wisdom: 0
+  dexterity: 0
+  strength: 0
+  wisdom: 4
 --- !u!114 &8588099376967644772
 MonoBehaviour:
   m_ObjectHideFlags: 0

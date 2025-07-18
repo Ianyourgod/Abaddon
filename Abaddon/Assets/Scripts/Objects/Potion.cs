@@ -5,7 +5,7 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     [SerializeField]
-    int healAmount = 10;
+    public int healAmount = 10;
 
     public void Consume()
     {

@@ -98,7 +98,11 @@ public class Shop : MonoBehaviour
         GameObject prefab = s_item.prefab;
         Item item = prefab.GetComponent<Item>();
         string item_name = s_item.name;
+        costText.text = $"{s_item.cost}";
+        itemTitle.text = item_name;
+
         StatModifier statModifier = prefab.GetComponent<StatModifier>();
+
         static string num_to_stat(int n)
         {
             return n switch
@@ -111,8 +115,6 @@ public class Shop : MonoBehaviour
             };
         }
 
-        costText.text = $"{s_item.cost}";
-        itemTitle.text = item_name;
         if (statModifier != null)
         {
             int strength = statModifier.strength;
@@ -151,6 +153,13 @@ public class Shop : MonoBehaviour
         {
             statsTextOne.text = "";
             statsTextTwo.text = "";
+        }
+
+        if (item.TryGetComponent(out Potion pot))
+        {
+            int healing = pot.healAmount;
+
+            statsTextOne.text = $"Heals {healing}";
         }
 
         current_item = prefab;

@@ -93023,11 +93023,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].cost
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].name
-      value: A mans best friend
+      value: Ghostie
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[5].cost
@@ -93072,7 +93072,7 @@ PrefabInstance:
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[4].prefab
       value: 
-      objectReference: {fileID: 8956186374661559889, guid: 5c06e6da5f72b2e4e8896b6dbbd88fc9, type: 3}
+      objectReference: {fileID: 8956186374661559889, guid: c7bda1c15b1c5d94da1e10b5cac32974, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[5].prefab
       value: 
@@ -97532,12 +97532,16 @@ PrefabInstance:
       value: Shopkeeper (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
+      propertyPath: shopContents.Array.data[0].cost
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[0].name
-      value: Helmet
+      value: Lightning Bug
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[1].name
-      value: Boots
+      value: Helmet
       objectReference: {fileID: 0}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[2].name
@@ -97566,11 +97570,11 @@ PrefabInstance:
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[0].prefab
       value: 
-      objectReference: {fileID: 7942134904652586948, guid: cabf391770efcc607a7844c969ae3929, type: 3}
+      objectReference: {fileID: 8956186374661559889, guid: e8cc6eefff0d50b4e98cf80dae905c43, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 4391921970457759460, guid: 4a1991fa7678afc668583349e8c1fd1b, type: 3}
+      objectReference: {fileID: 7942134904652586948, guid: cabf391770efcc607a7844c969ae3929, type: 3}
     - target: {fileID: 6760820603442688047, guid: 30828c783705c8cce99cc86e8b8e0d25, type: 3}
       propertyPath: shopContents.Array.data[2].prefab
       value: 

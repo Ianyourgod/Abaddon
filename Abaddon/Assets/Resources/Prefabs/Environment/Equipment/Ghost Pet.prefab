@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constitution: 0
-  dexterity: 0
+  dexterity: 2
   strength: 0
   wisdom: 0
 --- !u!114 &8797630982188822369

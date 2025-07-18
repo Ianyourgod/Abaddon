@@ -6,6 +6,13 @@ public class ExplosionEvents : MonoBehaviour
     {
         print("Triggering item drop");
         var itemDropper = GetComponent<ItemDropper>();
-        itemDropper.DropRandomItem();
+        if (itemDropper != null)
+        {
+            itemDropper.DropRandomItem();
+        }
+        else
+        {
+            Debug.LogWarning("ItemDropper component not found on explosion object.");
+        }
     }
 }

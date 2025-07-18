@@ -10,6 +10,9 @@ public class Statue : MonoBehaviour, CanFight
     int health = 20;
 
     [SerializeField]
+    GameObject explosionPrefab;
+
+    [SerializeField]
     Animator animator;
 
     private bool isActive = false;
@@ -71,6 +74,15 @@ public class Statue : MonoBehaviour, CanFight
     public void Die()
     {
         boss.OnStatueDestroyed();
+        GameObject explosion = Instantiate(
+            explosionPrefab,
+            transform.position,
+            Quaternion.identity
+        );
+        if (explosion.TryGetComponent(out Animator animator))
+        {
+            animator.Play("explosion");
+        }
         Destroy(gameObject);
     }
 

@@ -9,7 +9,6 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(SaveAndLoad))]
 public class Inventory : MonoBehaviour
 {
     AudioClip openingSfx;

@@ -74,7 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statues: []
   vulnerable: 0
-  baseEnemy: {fileID: 0}
+  enemiesToSpawn: []
   spriteRenderer: {fileID: 435642702979050185}
   animator: {fileID: 8160346232297714436}
   enemiesPerStage: 2
@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -449822794, guid: 7665daa76cdbd41fcbabf15fc50d2cc7, type: 3}
-  m_Color: {r: 0.745283, g: 0.5189699, b: 0.38318795, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -158,7 +158,7 @@ public class Boss1 : MonoBehaviour, CanFight
         if (vulnerable)
         {
             damageTakenThisRound += damage;
-            PlayAnimation("damage");
+            PlayAnimation("hurt");
             if (damageTakenThisRound >= damagePerRound)
             {
                 damageTakenThisRound = 0;

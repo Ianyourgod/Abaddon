@@ -47,7 +47,7 @@ public class DialogueVisualiser : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        //audioSource.volume = 0.45f;
+        audioSource.volume = 1f;
         if (!singleton)
             singleton = this;
         print($"{profileImage.gameObject.name} {textbox.gameObject.name}");
@@ -157,10 +157,11 @@ public class DialogueVisualiser : MonoBehaviour
     }
 
     public void WriteMessage(Message msg) =>
-        WriteMessage(msg.message, msg.time, msg.usingCPS, msg.profileImage);
+        WriteMessage(msg.message, msg.isPlayer, msg.time, msg.usingCPS, msg.profileImage);
 
     public void WriteMessage(
         string message,
+        bool isPlayer,
         float time = 8f,
         TimeSettings usingCPS = TimeSettings.SecondsPerChar,
         Sprite img = null
@@ -187,7 +188,9 @@ public class DialogueVisualiser : MonoBehaviour
         }
         timeLeftToType = startAmount;
 
-        AudioClip clip = CreateToneAudioClip(current_npc_freq, startAmount, 10);
+        float freq = isPlayer ? 440f : current_npc_freq;
+
+        AudioClip clip = CreateToneAudioClip(freq, startAmount, 10);
         audioSource.clip = clip;
         audioSource.Play();
 
@@ -244,6 +247,7 @@ public class DialogueVisualiser : MonoBehaviour
     )
     {
         current_npc_freq = voiceFrequency;
+        audioSource.volume = 440f / voiceFrequency;
         onDoneTalking = onFinish;
         messageQueue.Clear();
         messageQueue.AddRange(messages);
@@ -336,6 +340,7 @@ public struct Message
     public Sprite profileImage;
     public string message;
     public float time;
+    public bool isPlayer;
 
     //Whether the message should use time as a measure of characters per second or how long the whole message should take
 
@@ -345,6 +350,7 @@ public struct Message
     {
         this.time = time;
         this.message = message;
+        this.isPlayer = false;
         this.usingCPS = usingCPS;
         this.profileImage = profileImage;
     }
@@ -354,6 +360,7 @@ public struct Message
     {
         this.time = time;
         this.message = message;
+        this.isPlayer = false;
         this.usingCPS = usingCPS;
         profileImage = null;
     }

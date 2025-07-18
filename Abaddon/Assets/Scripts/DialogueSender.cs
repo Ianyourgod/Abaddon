@@ -11,6 +11,7 @@ public class DialogueSender : MonoBehaviour
     {
         DialogueVisualiser.singleton.WriteMessage(
             "This is a test message",
+            false,
             1,
             TimeSettings.CharsPerSecond
         );

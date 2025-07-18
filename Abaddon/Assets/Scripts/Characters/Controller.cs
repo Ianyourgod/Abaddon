@@ -813,6 +813,11 @@ public class Controller : MonoBehaviour
         // Debug.Log(
         //     $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
         // );
+        if (enemies[current_enemy - 1] == null)
+        {
+            NextEnemy();
+            return;
+        }
         enemies[current_enemy - 1]?.MakeDecision();
     }
 

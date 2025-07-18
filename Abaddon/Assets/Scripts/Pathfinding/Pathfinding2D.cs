@@ -1,15 +1,16 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(Grid2D))]
-
 public class Pathfinding2D : MonoBehaviour
 {
-    [SerializeField] public Grid2D grid;
-    Node2D seekerNode, targetNode;
+    [SerializeField]
+    public Grid2D grid;
+    Node2D seekerNode,
+        targetNode;
 
-    public List<Node2D> FindPath(Vector3 startPos, Vector3 targetPos)
+    public (int, List<Node2D>) FindPath(Vector3 startPos, Vector3 targetPos)
     {
         grid.CreateGrid();
 
@@ -20,19 +21,20 @@ public class Pathfinding2D : MonoBehaviour
         List<Node2D> openSet = new List<Node2D>();
         HashSet<Node2D> closedSet = new HashSet<Node2D>();
         openSet.Add(seekerNode);
-        
+
         //calculates path for pathfinding
         while (openSet.Count > 0)
         {
-
             //iterates through openSet and finds lowest FCost
             Node2D node = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
-                if (openSet[i].FCost <= node.FCost)
+                if (
+                    openSet[i].FCost < node.FCost
+                    || (openSet[i].FCost == node.FCost && openSet[i].hCost < node.hCost)
+                )
                 {
-                    if (openSet[i].hCost < node.hCost)
-                        node = openSet[i];
+                    node = openSet[i];
                 }
             }
 
@@ -43,9 +45,9 @@ public class Pathfinding2D : MonoBehaviour
             if (node == targetNode)
             {
                 RetracePath(seekerNode, targetNode);
-                return grid.path;
+                return (node.gCost, grid.path);
             }
-            
+
             //adds neighbor nodes to openSet
             foreach (Node2D neighbour in grid.GetNeighbors(node))
             {
@@ -67,7 +69,7 @@ public class Pathfinding2D : MonoBehaviour
             }
         }
 
-        return null;
+        return (0, null);
     }
 
     //reverses calculated path so first node is closest to seeker
@@ -84,7 +86,6 @@ public class Pathfinding2D : MonoBehaviour
         path.Reverse();
 
         grid.path = path;
-
     }
 
     //gets distance between 2 nodes for calculating cost

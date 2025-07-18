@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class DetectAnimationEvent : MonoBehaviour
 {
-    [SerializeField] EnemyMovement enemyMovement;
+    [SerializeField]
+    EnemyMovement enemyMovement;
 
-    public enum Direction {
+    public enum Direction
+    {
         Up,
         Down,
         Left,
-        Right
+        Right,
     }
 
-    private Vector2 GetDirectionVector(Direction direction) {
-        switch (direction) {
+    public static Vector2 GetDirectionVector(Direction direction)
+    {
+        switch (direction)
+        {
             case Direction.Up:
                 return Vector2.up;
             case Direction.Down:
@@ -28,15 +32,24 @@ public class DetectAnimationEvent : MonoBehaviour
         }
     }
 
-    public void AttackTiming(Direction direction) {
-        enemyMovement.AttackTiming(GetDirectionVector((direction)));
+    public void AttackTiming(Direction direction)
+    {
+        enemyMovement.AttackTiming(GetDirectionVector(direction));
     }
 
-    public void AttackEnd(Direction direction) {
-        enemyMovement.AttackEnd(GetDirectionVector((direction)));
+    public void AttackEnd(Direction direction)
+    {
+        enemyMovement.AttackEnd(GetDirectionVector(direction));
     }
 
-    public void Die() {
+    public void HoldAttackEnd()
+    {
+        enemyMovement.HoldAttackEnd();
+    }
+
+    public void Die()
+    {
+        print("DYING DYING DYING");
         enemyMovement.Die();
     }
 }

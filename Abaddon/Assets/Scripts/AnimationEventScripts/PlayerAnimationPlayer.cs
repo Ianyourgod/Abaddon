@@ -9,44 +9,40 @@ public class PlayerAnimationPlayer : MonoBehaviour
         Up,
         Down,
         Left,
-        Right
+        Right,
     }
 
-    [SerializeField] Animator animator;
+    static Vector2 DirToVec(Direction dir)
+    {
+        return dir switch
+        {
+            Direction.Up => Vector2.up,
+            Direction.Down => Vector2.down,
+            Direction.Left => Vector2.left,
+            Direction.Right => Vector2.right,
+            _ => Vector2.zero,
+        };
+    }
+
+    [SerializeField]
+    Animator animator;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start() { }
 
     // Update is called once per frame
-    void Update()
-    {
-
-    }
+    void Update() { }
 
     public void PlayIdleAnimation(Direction direction)
     {
-        switch (direction)
-        {
-            case Direction.Up:
-                animator.Play("Player_animation_back_level_0_idle");
-                break;
-            case Direction.Down:
-                animator.Play("Player_animation_front_level_0_idle");
-                break;
-            case Direction.Left:
-                animator.Play("Player_animation_left_level_0_idle");
-                break;
-            case Direction.Right:
-                animator.Play("Player_animation_right_level_0_idle");
-                break;
-        }
+        Controller.main.PlayAnimation("Idle", DirToVec(direction));
     }
 
     public void AttackAnimationFinishHandler()
     {
+        if (Controller.main == null)
+            return;
+
         Controller.main.AttackAnimationFinishHandler();
     }
 }

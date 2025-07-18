@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f312d9f3f24cdb944c1453a1accefb, type: 3}
+  m_Name: RetroRed 1
+  m_EditorClassIdentifier: 
+  data:
+    pixelationAmount: 5
+    maxColorChannels:
+      red: 2
+      green: 2
+      blue: 2
+      greyScale: 0
+    dithering4: 0
+    dithering8: 0.351
+    vignette: 0.561
+    innerCurve: 2.51
+    monitorCurve: 0.083
+    monitorInnerSize:
+      width: 0
+      height: 0
+    monitorOutterSize:
+      width: 0.13
+      height: 0.137
+    zoom: 1.222
+    monitorRoundness: 0.2
+    monitorTexture: {fileID: 2800000, guid: a5e897f9f29eb488ba4791cd52d004b5, type: 3}
+    monitorColor: {r: 0.13950695, g: 0.14944103, b: 0.31132078, a: 0.34117648}
+    innerMonitorDarkness: 0.256
+    innerMonitorShine: 0.171
+    colorScans:
+      greenChannelMultiplier: -0.212
+      redBlueChannelMultiplier: -0.044
+      sizeMultiplier: 0.51
+    innerMonitorShineRadius: -0.087
+    innerMonitorShineCurve: 10
+  validationId: 8b19c5cf-0265-4197-979d-909dfbc5e72c

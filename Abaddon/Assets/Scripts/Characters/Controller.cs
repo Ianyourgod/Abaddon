@@ -368,7 +368,6 @@ public class Controller : MonoBehaviour
         // ));
 
         quest_state = new QuestState();
-        print("health: " + health);
     }
 
     void Update()
@@ -379,9 +378,16 @@ public class Controller : MonoBehaviour
             {
                 return;
             }
-            Debug.Log(
-                $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
-            );
+
+            if (enemies.Length > current_enemy - 1 && current_enemy != 0)
+            {
+                Debug.Log(current_enemy);
+                Debug.Log(
+                    $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
+                );
+            }
+            else
+                Debug.Log($"CUrrent enemy: {current_enemy} (OOB)");
 
             done_with_tick = true;
         }
@@ -453,18 +459,12 @@ public class Controller : MonoBehaviour
                 sfxPlayer.PlayDashSound();
                 OnMoved?.Invoke();
                 ticksUntilDash = ticksBetweenDashes;
-                current_enemy = 0;
                 FinishTick();
             }
             else
             {
                 print("Couldn't dash, something in the way or not enough ticks");
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            animator.Play("Hammer Attack left");
         }
 
         if (Input.GetKeyDown(SettingsMenu.singleton.interactKeybind.key))
@@ -590,7 +590,6 @@ public class Controller : MonoBehaviour
         }
         done_with_tick = false;
         GameObject[] objectsAhead = SendRaycast(current_player_direction);
-        current_enemy = 0;
         PlayAnimation("Idle", direction);
 
         bool did_something = false;
@@ -802,6 +801,7 @@ public class Controller : MonoBehaviour
 
     public void FinishTick()
     {
+        current_enemy = 0;
         turnEndStart = Time.time;
         OnTick?.Invoke();
         NextEnemy();
@@ -835,10 +835,8 @@ public class Controller : MonoBehaviour
                 if (current_quests.Contains(Quest.Kill15Gnomes))
                 {
                     quest_state.Kill15Gnomes += 1;
-                    print(quest_state.Kill15Gnomes);
-                    if (quest_state.Kill15Gnomes >= 2)
+                    if (quest_state.Kill15Gnomes >= 15)
                     {
-                        print("COMPLETED COMPLETED COMPLETED COMLPETED COMPLERTERD");
                         current_quests.Remove(Quest.Kill15Gnomes);
                         completed_quests.Add(Quest.Kill15Gnomes);
                     }

@@ -72,6 +72,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
         return enemyType;
     }
 
+    private bool called_next_enemy = true;
+
     private void Awake()
     {
         sfxPlayer = GetComponent<EnemySfx>();
@@ -118,6 +120,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     public void MakeDecision()
     {
+        called_next_enemy = false;
+
         if (dead)
         {
             Invoke(nameof(CallNextEnemy), 0f);
@@ -159,6 +163,7 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private void CallNextEnemy()
     {
+        called_next_enemy = true;
         if (Controller.main == null)
             return;
 
@@ -436,8 +441,11 @@ public class EnemyMovement : MonoBehaviour, CanFight
             spr.enabled = false;
             anmr.enabled = false;
         }
+
+        if (!called_next_enemy)
+            CallNextEnemy();
+
         Destroy(gameObject);
-        Invoke(nameof(CallNextEnemy), 0f);
     }
 
     // this is called by the animation

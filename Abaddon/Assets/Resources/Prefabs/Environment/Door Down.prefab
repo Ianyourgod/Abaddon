@@ -92,7 +92,6 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/Door Down.prefab
   - component: {fileID: 2355098126803883066}
   - component: {fileID: 2355098126803883069}
   - component: {fileID: 2355098126803883068}
@@ -100,14 +99,6 @@ GameObject:
   - component: {fileID: 75101271994771949}
   m_Layer: 10
   m_Name: Door Down
-========
-  - component: {fileID: 2161739694323559846}
-  - component: {fileID: 2161739694323559847}
-  - component: {fileID: 2161739694323559832}
-  - component: {fileID: 7754701769216707252}
-  m_Layer: 10
-  m_Name: Healing Fountain
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/Healing Fountain.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb0567a9a8d0cc4eb877a6aedfde5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/Door Down.prefab
   audSource: {fileID: 75101271994771949}
   playableOffScreen: 0
   lockedDoorSfx:
@@ -206,17 +196,10 @@ MonoBehaviour:
   addedUnlockLockedVolume: 0
 --- !u!82 &75101271994771949
 AudioSource:
-========
-  animator: {fileID: 2161739693777232112}
-  healthStored: 50
---- !u!114 &7754701769216707252
-MonoBehaviour:
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/Healing Fountain.prefab
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/Door Down.prefab
   m_GameObject: {fileID: 2355098126803883067}
   m_Enabled: 1
   serializedVersion: 4
@@ -307,15 +290,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-========
-  m_GameObject: {fileID: 2161739694323559833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fb8b86fd3a6b4ea9bfbb16a2730ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundKeys:
-  - drink
-  soundValues:
-  - {fileID: 8300000, guid: 3a0431fdf9d48fe4aaf795f8ef56aa30, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/Healing Fountain.prefab

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
 guid: 5dcc7a8870aabef4896a1e8789de6a4f
-========
-guid: 8bb8eff95db44ad43a1e73b0b5d54460
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -109,11 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       name: Forward_Attackidle_wingedeye-Sheet_0
-========
-      name: Left_AttackIdle_wingedeye-Sheet_0
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 0
@@ -127,23 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       spriteID: 9a50e693cd8cf764e83063f2329a1301
       internalID: 2028120412
-========
-      spriteID: de0be68071acd5c4fa70234bbfede2ea
-      internalID: -2057351698
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       name: Forward_Attackidle_wingedeye-Sheet_1
-========
-      name: Left_AttackIdle_wingedeye-Sheet_1
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 32
@@ -157,23 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       spriteID: 8e56e36ad5cb1b74e85943d069b16eb0
       internalID: 535357189
-========
-      spriteID: 99015f53b1ccbd942916cb368688ed9c
-      internalID: 1684106540
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       name: Forward_Attackidle_wingedeye-Sheet_2
-========
-      name: Left_AttackIdle_wingedeye-Sheet_2
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 64
@@ -187,13 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       spriteID: 2b63ed22df331b04d8bc9a14f1399da4
       internalID: -1467065903
-========
-      spriteID: abdd896a26d6ec844aa119330e78086b
-      internalID: 2058102276
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
@@ -209,15 +178,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       Forward_Attackidle_wingedeye-Sheet_2: -1467065903
       Forward_Attackidle_wingedeye-Sheet_1: 535357189
       Forward_Attackidle_wingedeye-Sheet_0: 2028120412
-========
-      Left_AttackIdle_wingedeye-Sheet_2: 2058102276
-      Left_AttackIdle_wingedeye-Sheet_0: -2057351698
-      Left_AttackIdle_wingedeye-Sheet_1: 1684106540
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Left_AttackIdle_wingedeye-Sheet.png.meta
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

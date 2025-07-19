@@ -6,11 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_idle.anim
   m_Name: BOSS1_animation_idle
-========
-  m_Name: Gate_Open
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Enviroment/Gate_Open.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -24,11 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_idle.anim
       value: {fileID: 21300000, guid: 53ebf5c73623c4a058f38c1d0797651c, type: 3}
-========
-      value: {fileID: 21300000, guid: 7eda6ad80a1160d2d9a6136ca36fddb0, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Enviroment/Gate_Open.anim
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,11 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_idle.anim
     - {fileID: 21300000, guid: 53ebf5c73623c4a058f38c1d0797651c, type: 3}
-========
-    - {fileID: 21300000, guid: 7eda6ad80a1160d2d9a6136ca36fddb0, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Enviroment/Gate_Open.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

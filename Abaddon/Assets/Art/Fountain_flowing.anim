@@ -6,11 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Abaddon/Assets/Art/Fountain_flowing.anim
   m_Name: Fountain_flowing
-========
-  m_Name: BOSS1_animation_die
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -24,15 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-<<<<<<<< HEAD:Abaddon/Assets/Art/Fountain_flowing.anim
       value: {fileID: 294021447, guid: 0c9711937fa794c68bc7cd0e4de9b138, type: 3}
     - time: 0.083333336
       value: {fileID: -1283963906, guid: 0c9711937fa794c68bc7cd0e4de9b138, type: 3}
     - time: 0.16666667
       value: {fileID: -893197540, guid: 0c9711937fa794c68bc7cd0e4de9b138, type: 3}
-========
-      value: {fileID: 21300000, guid: 4ccfaba4b3e3497dcb3b0cede122e91e, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,23 +44,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-<<<<<<<< HEAD:Abaddon/Assets/Art/Fountain_flowing.anim
     - {fileID: 294021447, guid: 0c9711937fa794c68bc7cd0e4de9b138, type: 3}
     - {fileID: -1283963906, guid: 0c9711937fa794c68bc7cd0e4de9b138, type: 3}
     - {fileID: -893197540, guid: 0c9711937fa794c68bc7cd0e4de9b138, type: 3}
-========
-    - {fileID: 21300000, guid: 4ccfaba4b3e3497dcb3b0cede122e91e, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-<<<<<<<< HEAD:Abaddon/Assets/Art/Fountain_flowing.anim
     m_StopTime: 0.25
-========
-    m_StopTime: 0.016666668
->>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

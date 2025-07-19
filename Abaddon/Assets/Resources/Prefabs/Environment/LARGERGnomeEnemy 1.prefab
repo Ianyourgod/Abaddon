@@ -12,14 +12,8 @@ GameObject:
   - component: {fileID: 6462628818639776139}
   - component: {fileID: 18587455}
   - component: {fileID: 4503870971181943354}
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   m_Layer: 0
   m_Name: GnomeSprite
-========
-  - component: {fileID: 1571497891}
-  m_Layer: 0
-  m_Name: WeepingEyeSprite
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,11 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   m_ConstrainProportionsScale: 0
-========
-  m_ConstrainProportionsScale: 1
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   m_Children: []
   m_Father: {fileID: 6462628820561290989}
   m_RootOrder: 0
@@ -84,13 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1401633483
   m_SortingLayer: 6
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4f0475e8b1291ad4180d2a7706228982, type: 3}
-========
-  m_SortingOrder: 100
-  m_Sprite: {fileID: 1418451878, guid: f3896d1868b0bb74b8789ba96b6ccb60, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,11 +96,7 @@ Animator:
   m_GameObject: {fileID: 6462628818639776133}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   m_Controller: {fileID: 9100000, guid: 5d65870a1ff23bf4d894f0a635cd2e73, type: 2}
-========
-  m_Controller: {fileID: 9100000, guid: b16daa88601cdd348a9bbb4bb0dc3c9c, type: 2}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,19 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 6462628820561290990}
---- !u!114 &1571497891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6462628818639776133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdec66f6111a8984aa89be0e4c8c7e1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weepingEyeAttack: {fileID: 5839526993926736556}
 --- !u!1 &6462628820561290991
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,22 +130,14 @@ GameObject:
   - component: {fileID: 6462628820561290989}
   - component: {fileID: 6462628820561290990}
   - component: {fileID: 3913921436897795758}
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   - component: {fileID: 2067440025226379969}
-========
-  - component: {fileID: 5839526993926736556}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   - component: {fileID: 6613495682198188706}
   - component: {fileID: 3445834741458170001}
   - component: {fileID: 2650337504027634204}
   - component: {fileID: 756127580436248588}
   - component: {fileID: 1790465982330262463}
   m_Layer: 6
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   m_Name: LARGERGnomeEnemy 1
-========
-  m_Name: WeepingEyeEnemy
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   m_TagString: first_enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,24 +177,15 @@ MonoBehaviour:
   animator: {fileID: 18587455}
   explosionPrefab: {fileID: 3371079913364271518, guid: a270b3a7962fb754785a8625d7adeebe, type: 3}
   pathfinding: {fileID: 3445834741458170001}
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   animation_prefix: Gnome
   attack: {fileID: 2067440025226379969}
-========
-  animation_prefix: Weepingeye
-  attack: {fileID: 5839526993926736556}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   walkingSfxPlayer: {fileID: 0}
   hurtSfxPlayer: {fileID: 0}
   detectionDistance: 10
   followDistance: 20
   enemyDecisionDelay: 0.075
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   enemyType: 0
   damageNumberOffset: {x: 0, y: 0.5, z: 0}
-========
-  enemyType: 4
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   forceAttackNextTurn: 0
   health: 10
 --- !u!114 &3913921436897795758
@@ -249,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba067436b290aa4d87c75ef70e33a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   dropTable:
   - item: {fileID: 0}
     chance: 9
@@ -259,13 +209,6 @@ MonoBehaviour:
   minGoldDropAmmount: 1
   maxGoldDropAmmount: 1
 --- !u!114 &2067440025226379969
-========
-  dropTable: []
-  goldCoinPrefab: {fileID: 2404969428711074706, guid: 51fee510bc2a9449bac9ead2c521e4bf, type: 3}
-  minGoldDropAmmount: 1
-  maxGoldDropAmmount: 1
---- !u!114 &5839526993926736556
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,24 +217,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6462628820561290991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   m_Script: {fileID: 11500000, guid: 0af1f3be3c8a4cd6eac2ec7c8b0e9f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
   enemyMovement: {fileID: 6462628820561290990}
   sfxPlayer: {fileID: 0}
-========
-  m_Script: {fileID: 11500000, guid: f826fc547c315f848b3e27f608620b35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  enemyMovement: {fileID: 6462628820561290990}
-  sfxPlayer: {fileID: 0}
-  beamObject: {fileID: 7250217862652373946, guid: a3764ba81bc299744a697204fe430eeb, type: 3}
-  windUpDirection: {x: 0, y: 0}
-  attackStage: 0
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
 --- !u!61 &6613495682198188706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -346,11 +277,7 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 73792
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   worldBottomLeft: {x: -4, y: -4, z: 0}
-========
-  worldBottomLeft: {x: 24, y: 66, z: 0}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   gridSizeX: 9
   gridSizeY: 9
 --- !u!114 &756127580436248588
@@ -367,7 +294,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audSource: {fileID: 1790465982330262463}
   playableOffScreen: 0
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   walkingSfx:
   - {fileID: 8300000, guid: 41476d82e3c0e8545aca1013d1c27fa4, type: 3}
   - {fileID: 8300000, guid: 35670e2d4a42314488d3056d72caa996, type: 3}
@@ -375,16 +301,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b09f9e29eb6ec1c49a73dcf08659cfc6, type: 3}
   - {fileID: 8300000, guid: 4db6591c6fd1fcb49a3e9d959c2d223e, type: 3}
   - {fileID: 8300000, guid: db7ffc64e66500945aebe8685e449e09, type: 3}
-========
-  walkingSfx: []
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   dashSound: {fileID: 0}
   randomWalkingSound: 1
   hurtSfx:
   - {fileID: 8300000, guid: 9b67dccd3ed94f440b05d8b60cd97e2f, type: 3}
   randomHurtSound: 0
   attackSfx:
-<<<<<<<< HEAD:Abaddon/Assets/Resources/Prefabs/Environment/LARGERGnomeEnemy 1.prefab
   - {fileID: 8300000, guid: cd28fc8a7c7cd6d408fc1d489edf17a2, type: 3}
   swooshSfx: []
   randomSwooshSound: 0
@@ -392,14 +314,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a30404f9d3a20a4da50bffcd9f305ed, type: 3}
   - {fileID: 8300000, guid: ecd0ed764eaf7e54ab4bd7ef41627d4d, type: 3}
   - {fileID: 8300000, guid: a3e09c5f0cb35714fbf0888e82057647, type: 3}
-========
-  - {fileID: 8300000, guid: 87a11442f8d414e47ba4c540a0a36a8c, type: 3}
-  - {fileID: 8300000, guid: 1cbb97b805d4943c7b897911be08ddb7, type: 3}
-  swooshSfx: []
-  randomSwooshSound: 0
-  deathSfx:
-  - {fileID: 8300000, guid: 2fc7fc08280b543be90e5b86461b512b, type: 3}
->>>>>>>> creating-new-level:Abaddon/Assets/Resources/Prefabs/Environment/WeepingEyeEnemy.prefab
   randomDeathSound: 0
   addedWalkVolume: 0
   addedHurtVolume: 0.02

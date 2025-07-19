@@ -813,11 +813,9 @@ public class Controller : MonoBehaviour
             return;
         }
         current_enemy++;
-        ///*
-        Debug.Log(
-            $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
-        );
-        //*/
+        // Debug.Log(
+        //     $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
+        // );
         if (enemies[current_enemy - 1] == null)
         {
             NextEnemy();

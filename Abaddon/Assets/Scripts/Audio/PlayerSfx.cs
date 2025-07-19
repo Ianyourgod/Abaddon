@@ -5,28 +5,19 @@ using UnityEngine;
 public class PlayerSfx : CharacterSfx
 {
     [Header("PlayerSfx References")]
-    [SerializeField]
-    AudioClip[] dodgeSfx;
-
-    [SerializeField]
-    bool randomDodgeSound = false;
+    [SerializeField] AudioClip[] dodgeSfx;
+    [SerializeField] bool randomDodgeSound = false;
 
     [Header("PlayerSfx Attributes")]
-    [Tooltip(
-        "(volume is in 0.01 scale) How much volume you want to add to your dodge sound effects"
-    )]
-    [SerializeField]
-    float addedDodgeVolume = 0f;
+    [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your dodge sound effects")]
+    [SerializeField] float addedDodgeVolume = 0f;
 
-    void Awake()
-    {
+    void Awake(){
         playableOffScreen = true;
     }
 
-    public void PlayDodgeSound()
-    {
-        if (randomDodgeSound)
-        {
+    public void PlayDodgeSound(){
+        if (randomDodgeSound){
             PlayRandomSound(dodgeSfx, addedDodgeVolume);
             return;
         }

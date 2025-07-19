@@ -10,8 +10,7 @@ public class TransistionScriptableObject : ScriptableObject
     public float timeDelay = 0f;
     public float timeToFade = 1f;
 
-    public enum TransitionType
-    {
+    public enum TransitionType {
         Fade,
         Swipe_Left,
         Swipe_Right,

@@ -4,30 +4,24 @@ using UnityEngine;
 
 public class WinScreen : MonoBehaviour
 {
-    [SerializeField]
-    GameObject[] requiredEnemies;
+    [SerializeField] GameObject[] requiredEnemies;
     bool allEnemiesDead = false;
 
-    void Update()
-    {
-        if (allEnemiesDead)
-        {
+    void Update() {
+        if (allEnemiesDead) {
             return;
         }
 
         allEnemiesDead = true;
-        foreach (GameObject enemy in requiredEnemies)
-        {
-            if (enemy != null)
-            {
+        foreach (GameObject enemy in requiredEnemies) {
+            if (enemy != null) {
                 allEnemiesDead = false;
                 return;
             }
         }
 
         // set all children to active
-        foreach (Transform child in transform)
-        {
+        foreach (Transform child in transform) {
             child.gameObject.SetActive(true);
         }
     }

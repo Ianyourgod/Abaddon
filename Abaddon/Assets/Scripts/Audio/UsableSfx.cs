@@ -6,22 +6,19 @@ public class UsableSfx : ItemSfx
 {
     [Header("UsableSfx References")]
     [Tooltip("Include all use item sound effects for this item")]
-    [SerializeField]
-    AudioClip[] useItemSfx;
-
+    [SerializeField] AudioClip[] useItemSfx;
     [Tooltip("Whether the action will play a random sound effect from the list or not")]
-    [SerializeField]
-    bool randomUseSound = false;
-
+    [SerializeField] bool randomUseSound = false;
     [Space]
-    [Header("UseableSfx Attributes")]
-    [Tooltip(
-        "(volume is in 0.01 scale) How much volume you want to add to your use item sound effects"
-    )]
-    [SerializeField]
-    float addedUseVolume = 0f;
 
-    void Start() { }
+    [Header("UseableSfx Attributes")]
+    [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your use item sound effects")]
+    [SerializeField] float addedUseVolume = 0f;
+
+    void Start()
+    {
+        //audSource = Controller.main.GetComponent<AudioSource>();
+    }
 
     public void PlayUseSound()
     {

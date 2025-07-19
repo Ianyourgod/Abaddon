@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SpawnExplosion : MonoBehaviour
 {
-    [SerializeField]
-    GameObject explosion;
-
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(explosion, transform.position, Quaternion.identity);
+        Instantiate((UnityEngine.GameObject)Resources.Load("Prefabs/Explosion"), transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+        
+    }
 }

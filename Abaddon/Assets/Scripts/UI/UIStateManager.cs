@@ -1,243 +1,163 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public enum UIState
-{
+public enum UIState {
     Pause,
     Dialogue,
     Inventory,
     Death,
-    Win,
-    Shop,
-    Settings,
-}
-
-[Serializable]
-public struct UIScreen
-{
-    [Tooltip("The state of the screen. This is used to identify the screen and to open/close it.")]
-    public UIState state;
-
-    [Tooltip(
-        "If a screen is in this list, it will be automatically closed when this screen is opened."
-    )]
-    public UIState[] overrides;
-
-    [Tooltip(
-        "If a screen is in this list, it will be ignored to open while this is open but not removed if already open."
-    )]
-    public UIState[] inhibits;
-
-    [Tooltip("The game object that will be enabled/disabled when the screen is opened/closed.")]
-    public GameObject screenObject;
-
-    [Tooltip(
-        "The key that will be used to open/close the screen ACROSS THE WHOLE GAME. Use sparingly, instead opt for local logic that calls ToggleUIPage."
-    )]
-    public KeyCode defaultKey;
-
-    [Tooltip("The events that will be called when the screen is enabled/disabled.")]
-    public UnityEvent onEnable,
-        onDisable;
-
-    [Tooltip("Close the screen when ESC is pressed.")]
-    public bool closeOnEsc;
-
-    [Tooltip("If you wouldn't like the screen object to get disabled when it's not open")]
-    public bool dontDisableOnClose;
+    Win
 }
 
 public class UIStateManager : MonoBehaviour
 {
+    [SerializeField] private readonly GameObject _pauseScreen;
+    [SerializeField] private readonly UnityEvent _pauseOnEnable;
+    [SerializeField] private readonly UnityEvent _pauseOnDisable;
+    private UIScreen pauseScreen;
+
+    [SerializeField] private readonly GameObject _inventoryScreen;
+    [SerializeField] private readonly UnityEvent _inventoryOnEnable;
+    [SerializeField] private readonly UnityEvent _inventoryOnDisable;
+    private UIScreen inventoryScreen;
+
+    private Dictionary<UIState, UIScreen> mapping;
+
+    [SerializeField] private readonly GameObject _dialogueScreen;
+    [SerializeField] private readonly GameObject _deathScreen;
+    [SerializeField] private readonly GameObject _winScreen;
+
     public static UIStateManager singleton;
-
-    [Tooltip("The simple black background that darkens the screen when a menu pops up.")]
-    [SerializeField]
-    private Image darkener;
-
-    [Tooltip("The list of screens that can be opened/closed and their settings.")]
-    [SerializeField]
-    private List<UIScreen> screens = new List<UIScreen>();
-
-    [SerializeField]
-    string MainMenuScene = "Main Menu";
-
+    [SerializeField] private List<UIScreen> screens = new List<UIScreen>();
+    [SerializeField] private GameObject darkener_prefab;
+    private Image darkenerInstance;
     private float _darkenerOpacity = 1;
-    public float darkenerOpacity
-    {
-        get { return _darkenerOpacity; }
-        set
-        {
-            _darkenerOpacity = Mathf.Clamp01(value);
-            var color = darkener.color;
+    public float darkenerOpacity {
+        get {
+            return _darkenerOpacity;
+        } 
+        set {
+            _darkenerOpacity = value;
+            var color = darkenerInstance.color;
             color.a = value;
-            darkener.color = color;
+            darkenerInstance.color = color;
         }
     }
 
-    public Stack<UIState> activeScreens { get; private set; } = new Stack<UIState>();
-    private float lerpSpeed = 0;
-    private float intendedDarkValue = 0;
-    private bool isBeingAltered = false;
-    public UIState? mostRecentState => activeScreens.TryPeek(out var state) ? state : null;
-    public UIScreen? currentScreen =>
-        mostRecentState != null ? screens.First(screen => screen.state == mostRecentState) : null;
-
-    private void Awake()
+    [Serializable] public struct UIScreen
     {
+        public UIState state;
+        public GameObject screenObject;
+        public UnityEvent onEnable;
+        public UnityEvent onDisable;
+    }
+
+    public UIState? currentState {get; private set;} = null;
+
+    private void Awake() {
         singleton = this;
+        darkenerInstance = Instantiate(darkener_prefab, transform).GetComponent<Image>();
+        darkenerInstance.transform.SetAsFirstSibling();
+        darkenerInstance.gameObject.SetActive(false);
+        pauseScreen = new UIScreen() {
+            state = UIState.Pause,
+            screenObject = _pauseScreen,
+            onEnable = _pauseOnEnable,
+            onDisable = _pauseOnDisable
+        };
+        inventoryScreen = new UIScreen() {
+            state = UIState.Inventory,
+            screenObject = _inventoryScreen,
+            onEnable = _inventoryOnEnable,
+            onDisable = _inventoryOnDisable
+        };
+        mapping = new Dictionary<UIState, UIScreen>() {
+            { UIState.Pause, pauseScreen },
+            { UIState.Inventory, inventoryScreen },
+        };
     }
 
-    private void Update()
-    {
-        bool ran_close_on_esc = false;
-        screens.ForEach(screen =>
-        {
-            if (
-                Input.GetKeyDown(screen.defaultKey)
-                && !(ran_close_on_esc && screen.defaultKey == KeyCode.Escape) // prevent the pause screen from appearing if we closed, lets say, the inventory, with escape
-            )
-                ToggleUIPage(screen.state);
-            else if (
-                screen.closeOnEsc
-                && mostRecentState == screen.state
-                && Input.GetKeyDown(KeyCode.Escape)
-            )
-            {
-                CloseUIPage(screen.state);
-                ran_close_on_esc = true;
-            }
-        });
-
-        if (isBeingAltered && lerpSpeed != 0)
-        {
-            darkenerOpacity = Mathf.Lerp(
-                darkenerOpacity,
-                intendedDarkValue,
-                Time.deltaTime * lerpSpeed
-            );
-            if (Mathf.Abs(intendedDarkValue - darkenerOpacity) < 0.03f)
-            {
-                lerpSpeed = 0;
-                darkenerOpacity = intendedDarkValue;
-                if (intendedDarkValue == 0)
-                    SetDarkenedBackground(false);
-                intendedDarkValue = 0;
-            }
+    public UIScreen StateToScreen(UIState state) {
+        switch (state) {
+            case UIState.Pause:
+                return pauseScreen;
+            // case UIState.Dialogue:
+            //     return dialogueScreen;
+            case UIState.Inventory:
+                return inventoryScreen;
+            // case UIState.Death:
+            //     return deathScreen;
+            // case UIState.Win:
+            //     return winScreen;
+            default:
+                throw new ArgumentException("Invalid UIState");
         }
     }
 
-    public void FadeInDarkener(float speed, float endValue = 1, float startValue = 0)
-    {
-        isBeingAltered = true;
-        SetDarkenedBackground(true);
-        lerpSpeed = speed;
-        intendedDarkValue = endValue;
-        darkenerOpacity = startValue;
-    }
-
-    public void FadeOutDarkener(float speed, float? startValue = null)
-    {
-        isBeingAltered = true;
-        lerpSpeed = speed;
-        intendedDarkValue = 0;
-        darkenerOpacity = startValue ?? darkenerOpacity;
-    }
-
-    public void ToggleUIPage(UIState newState)
-    {
-        if (mostRecentState == newState)
-            CloseUIPage(newState);
-        else
+    public void ToggleUIPage(UIState newState) {
+        if (currentState == newState) {
+            ClosePages();
+        }
+        else {
             OpenUIPage(newState);
+        }
     }
 
-    public void OpenUIPage(UIState newState)
-    {
-        if (newState == mostRecentState)
-            return;
-        if (
-            currentScreen != null
-            && (
-                currentScreen.Value.overrides.Contains(newState)
-                || currentScreen.Value.inhibits.Contains(newState)
-            )
-        )
-            return;
-        CloseSubordinatePages(newState);
+    public void OpenUIPage2(UIState newState) {
+        if (newState == currentState) return;
+        UIScreen screen;
+        if (currentState != null) {
+            screen = StateToScreen((UIState)currentState);
+            screen.screenObject.SetActive(false);
+            screen.onDisable?.Invoke();
+        }
+        
+        screen = StateToScreen(newState);
+        StateToScreen((UIState)currentState).screenObject.SetActive(true);
+        screen.screenObject.SetActive(false);
+        screen.onEnable?.Invoke();
 
-        activeScreens.Push(newState);
-        foreach (var screen in screens.Where(screen => screen.state == newState))
-        {
-            if (screen.screenObject)
-                screen.screenObject.SetActive(true);
+        currentState = newState;
+    }
+
+    public void ClosePage2() {
+        currentState = null;
+        foreach (var screen in screens) {
+            if (screen.screenObject.activeInHierarchy) {
+                screen.onDisable?.Invoke();
+            }
+            screen.screenObject.SetActive(false);
+        }
+    }
+
+
+    public void OpenUIPage(UIState newState) {
+        if (newState == currentState) return;
+        
+        ClosePages();
+        currentState = newState;
+        foreach (var screen in screens.Where(screen => screen.state == newState)) {
+            screen.screenObject.SetActive(true);
             screen.onEnable?.Invoke();
         }
     }
 
-    public void ForceDarkenerTo(float newOpacity)
-    {
-        isBeingAltered = false;
-        darkenerOpacity = newOpacity;
-        SetDarkenedBackground(newOpacity != 0);
-    }
-
-    public void CloseUIPage(UIState newState)
-    {
-        if (newState != mostRecentState)
-            return;
-        activeScreens.Pop();
-
-        foreach (var screen in screens.Where(screen => screen.state == newState))
-        {
-            screen.onDisable?.Invoke();
-            if (screen.screenObject && !screen.dontDisableOnClose)
-                screen.screenObject.SetActive(false);
+    public void ClosePages() {
+        currentState = null;
+        foreach (var screen in screens) {
+            if (screen.screenObject.activeInHierarchy) {
+                screen.onDisable?.Invoke();
+            }
+            screen.screenObject.SetActive(false);
         }
     }
 
-    public void CloseOpenUIPages()
-    {
-        if (activeScreens == null)
-            return;
-
-        while (activeScreens.Count > 0)
-            CloseUIPage(activeScreens.Peek());
-    }
-
-    UIScreen GetScreen(UIState state) => screens.First(screen => screen.state == state);
-
-    void CloseSubordinatePages(UIState newState)
-    {
-        if (activeScreens == null)
-            return;
-
-        foreach (
-            var screen in screens.Where(screen =>
-                GetScreen(newState).overrides.Contains(screen.state)
-            )
-        )
-            CloseUIPage(screen.state);
-    }
-
-    public void SetDarkenedBackground(bool shouldDarken) => darkener.enabled = shouldDarken;
-
-    public void ToggleDarkenedBackground() => darkener.enabled = !darkener.enabled;
-
-    public void Quit()
-    {
-        SceneManager.LoadScene(MainMenuScene);
-    }
-
-    public void OpenSettingsPage()
-    {
-        CloseOpenUIPages();
-        OpenUIPage(UIState.Settings);
-    }
+    public void SetDarkenedBackground(bool shouldDarken) => darkenerInstance.gameObject.SetActive(shouldDarken);
+    public void ToggleDarkenedBackground() => darkenerInstance.gameObject.SetActive(!darkenerInstance.IsActive());
 }

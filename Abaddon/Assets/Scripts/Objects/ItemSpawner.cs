@@ -9,16 +9,21 @@ public class ItemSpawner : MonoBehaviour
         Gnome,
         Pixie,
         Barrel,
-        Vase,
+        Vase
     }
 
     string drop;
-
     // Start is called before the first frame update
-    void Start() { }
+    void Start()
+    {
+
+    }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+
+    }
 
     public void SpawnRandom(TableTypes table)
     {
@@ -107,24 +112,13 @@ public class ItemSpawner : MonoBehaviour
                 drop = "minorpotion";
                 break;
         }
-        Instantiate(
-            (UnityEngine.Object)Resources.Load($"Prefabs/Environment/Equipment/{drop}"),
-            transform.position,
-            Quaternion.identity
-        );
+        Instantiate((UnityEngine.Object)Resources.Load($"Prefabs/Equipment/{drop}"), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     public void SpawnPath(string path)
     {
-        Debug.Log(path);
-        Instantiate(Resources.Load(path), transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-
-    public void SpawnPath(GameObject obj)
-    {
-        Instantiate(obj, transform.position, Quaternion.identity);
+        Instantiate((UnityEngine.Object)Resources.Load(path), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

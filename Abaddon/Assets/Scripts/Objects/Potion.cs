@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Potion : MonoBehaviour
 {
-    [SerializeField]
-    public int healAmount = 10;
+    [SerializeField] int healAmount = 10;
 
-    public void Consume()
-    {
-        if (Controller.main == null)
-            return;
-
-        GetComponent<SfxPlayerBetter>().PlaySound("drink");
+    public void Consume(UISfx sfxPlayer) {
+        sfxPlayer.PlayUseSound(0);
         Controller.main.HealPlayer(healAmount);
     }
 }

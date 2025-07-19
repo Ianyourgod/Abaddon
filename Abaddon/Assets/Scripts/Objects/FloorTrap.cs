@@ -4,26 +4,15 @@ using UnityEngine;
 
 public class FloorTrap : MonoBehaviour
 {
-    [SerializeField]
-    uint damage = 2;
+    [SerializeField] uint damage = 2;
 
-    void Awake()
-    {
-        Controller.OnMoved += CustomUpdate;
+    void Awake() {
+        Controller.OnTick += CustomUpdate;
     }
 
-    void OnDestroy()
-    {
-        Controller.OnMoved -= CustomUpdate;
-    }
-
-    void CustomUpdate()
-    {
-        if (!this || Controller.main == null)
-            return;
-
-        if (Vector2.Distance(transform.position, Controller.main.transform.position) < 0.5f)
-        {
+    void CustomUpdate() {
+        if (!this) return;
+        if (transform.position == Controller.main.transform.position) {
             Controller.main.DamagePlayer(damage, false);
         }
     }

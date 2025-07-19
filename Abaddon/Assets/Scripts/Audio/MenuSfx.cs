@@ -6,20 +6,14 @@ public class MenuSfx : SfxPlayer
 {
     [Header("MenuSfx References")]
     [Tooltip("Include all press button sound effects for this item")]
-    [SerializeField]
-    AudioClip[] pressSfx;
-
+    [SerializeField] AudioClip[] pressSfx;
     [Tooltip("Whether the action will play a random sound effect from the list or not")]
-    [SerializeField]
-    bool randomPressSound = false;
-
+    [SerializeField] bool randomPressSound = false;
     [Space]
+
     [Header("MenuSfx Attributes")]
-    [Tooltip(
-        "(volume is in 0.01 scale) How much volume you want to add to your press button sound effects"
-    )]
-    [SerializeField]
-    float addedPressVolume = 0f;
+    [Tooltip("(volume is in 0.01 scale) How much volume you want to add to your press button sound effects")]
+    [SerializeField] float addedPressVolume = 0f;
 
     public void PlayPressSound()
     {

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TextFadeUp : MonoBehaviour
 {
-    [SerializeField]
-    SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     public float minimum = 0f;
     public float maximum = 1f;
@@ -26,14 +25,9 @@ public class TextFadeUp : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x, Mathf.Lerp(minimum, maximum, t), 0);
-        GetComponent<SpriteRenderer>().color = new Color(
-            GetComponent<SpriteRenderer>().color.r,
-            GetComponent<SpriteRenderer>().color.g,
-            GetComponent<SpriteRenderer>().color.b,
-            Mathf.Lerp(1f, 0f, t)
-        );
+        GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, Mathf.Lerp(1f, 0f, t));
 
-        t += 0.5f * Time.deltaTime;
+        t += 0.5f * Time.deltaTime; 
         if (t > timeLimit)
         {
             Destroy(gameObject);

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
 guid: 0c9711937fa794c68bc7cd0e4de9b138
+========
+guid: 5dcc7a8870aabef4896a1e8789de6a4f
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -70,7 +74,11 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
     textureCompression: 1
+========
+    textureCompression: 2
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,13 +113,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       name: NEWERHealingFountain (1)-Sheet_0
+========
+      name: Forward_Attackidle_wingedeye-Sheet_0
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 0
         y: 0
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
         width: 128
         height: 128
+========
+        width: 32
+        height: 32
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,13 +136,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       spriteID: 10937034ba798418aa07672433dada92
       internalID: 294021447
+========
+      spriteID: 9a50e693cd8cf764e83063f2329a1301
+      internalID: 2028120412
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       name: NEWERHealingFountain (1)-Sheet_1
       rect:
         serializedVersion: 2
@@ -133,6 +156,15 @@ TextureImporter:
         y: 0
         width: 128
         height: 128
+========
+      name: Forward_Attackidle_wingedeye-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,13 +172,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       spriteID: f094d86c073394cd3ba5b8f3aa5794b9
       internalID: -1283963906
+========
+      spriteID: 8e56e36ad5cb1b74e85943d069b16eb0
+      internalID: 535357189
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       name: NEWERHealingFountain (1)-Sheet_2
       rect:
         serializedVersion: 2
@@ -154,6 +192,15 @@ TextureImporter:
         y: 0
         width: 128
         height: 128
+========
+      name: Forward_Attackidle_wingedeye-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,8 +208,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       spriteID: 37db8406d61144cc5bf57bf7701f3ce9
       internalID: -893197540
+========
+      spriteID: 2b63ed22df331b04d8bc9a14f1399da4
+      internalID: -1467065903
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
@@ -178,9 +230,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+<<<<<<<< HEAD:Abaddon/Assets/Art/NEWERHealingFountain (1)-Sheet.png.meta
       NEWERHealingFountain (1)-Sheet_1: -1283963906
       NEWERHealingFountain (1)-Sheet_0: 294021447
       NEWERHealingFountain (1)-Sheet_2: -893197540
+========
+      Forward_Attackidle_wingedeye-Sheet_2: -1467065903
+      Forward_Attackidle_wingedeye-Sheet_1: 535357189
+      Forward_Attackidle_wingedeye-Sheet_0: 2028120412
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Forward_Attackidle_wingedeye-Sheet.png.meta
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Firefly Pet.meta
 guid: c75ec5c0f8ac3204498a6d6f4bd57788
+========
+guid: acb60eb353a1c0e449eada591737b848
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Misc.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

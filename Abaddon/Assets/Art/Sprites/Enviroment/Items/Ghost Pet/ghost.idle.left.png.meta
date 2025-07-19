@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
 guid: 82531aaab0290fe4b873c86d8239cfc2
+========
+guid: c78c6831eff79a34b98dcbfba687a9e2
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +109,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_0
+========
+      name: Up_Idle_wingedeye-Sheet_0
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +127,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: bb96403ec0846ae4588c8ed2048e416a
       internalID: -337529494
+========
+      spriteID: 6ccf5778073c6964ba711a41d354702e
+      internalID: 1870491860
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_1
+========
+      name: Up_Idle_wingedeye-Sheet_1
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 32
@@ -140,14 +157,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: 93594fa1f64f5704391a29bc92d44213
       internalID: 367714932
+========
+      spriteID: 4660161109e32bf4293e6345c73727ef
+      internalID: -195129966
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_2
+========
+      name: Up_Idle_wingedeye-Sheet_2
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 64
@@ -161,14 +187,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: 46b802e4be2f20243b8c2f1fa0998377
       internalID: -1138892342
+========
+      spriteID: 14a3de2e1a7622243b277b96cac3c998
+      internalID: -700505169
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_3
+========
+      name: Up_Idle_wingedeye-Sheet_3
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 96
@@ -182,14 +217,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: 28b784c8c378cbb4abb2f189a8eaa909
       internalID: -1817197234
+========
+      spriteID: 35888bebde34d054ab512dcc97ada9bf
+      internalID: -271910031
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_4
+========
+      name: Up_Idle_wingedeye-Sheet_4
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 128
@@ -203,14 +247,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: 4273d7e6ff95a1e43b94467ab2519ae6
       internalID: 1649583687
+========
+      spriteID: a76a032b0dbb164479e8068cc8f71c28
+      internalID: 1858039813
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_5
+========
+      name: Up_Idle_wingedeye-Sheet_5
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 160
@@ -224,14 +277,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: ff8988e570d5c9f439118b57c5b9c02c
       internalID: -2056889385
+========
+      spriteID: 88007db6835d9814aa20ba021b6e7188
+      internalID: 2028898883
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_6
+========
+      name: Up_Idle_wingedeye-Sheet_6
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 192
@@ -245,14 +307,23 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: ccb3f3e6c0a4a8f4bab7d962e7719f37
       internalID: -1099928447
+========
+      spriteID: eaa06d12779876d4b8f174b1ef61cf74
+      internalID: -1701010416
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       name: ghost.idle.left_7
+========
+      name: Up_Idle_wingedeye-Sheet_7
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       rect:
         serializedVersion: 2
         x: 224
@@ -266,6 +337,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       spriteID: d4519e3adaafc5a4ea0d13f3c75a83a1
       internalID: 1124926958
       vertices: []
@@ -310,6 +382,10 @@ TextureImporter:
       bones: []
       spriteID: adbd1c4e22475f14f8fc95e755a86123
       internalID: -1196460762
+========
+      spriteID: d1d233a7eee884e4ca3d553aa479f98e
+      internalID: 535335057
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
       vertices: []
       indices: 
       edges: []
@@ -325,6 +401,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.left.png.meta
       ghost.idle.left_5: -2056889385
       ghost.idle.left_9: -1196460762
       ghost.idle.left_6: -1099928447
@@ -335,6 +412,16 @@ TextureImporter:
       ghost.idle.left_0: -337529494
       ghost.idle.left_7: 1124926958
       ghost.idle.left_2: -1138892342
+========
+      Up_Idle_wingedeye-Sheet_4: 1858039813
+      Up_Idle_wingedeye-Sheet_6: -1701010416
+      Up_Idle_wingedeye-Sheet_2: -700505169
+      Up_Idle_wingedeye-Sheet_0: 1870491860
+      Up_Idle_wingedeye-Sheet_3: -271910031
+      Up_Idle_wingedeye-Sheet_5: 2028898883
+      Up_Idle_wingedeye-Sheet_7: 535335057
+      Up_Idle_wingedeye-Sheet_1: -195129966
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Sprites/Enviroment/Weeping Eye/Up_Idle_wingedeye-Sheet.png.meta
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

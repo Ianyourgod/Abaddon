@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
 guid: 862d76e820025de4fa687789547cfcfb
+========
+guid: 6e4a441a7a39349a6b658442d6854814
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -70,7 +74,11 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
     textureCompression: 2
+========
+    textureCompression: 1
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,211 +113,361 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_0
+========
+      name: statueidle_sheet_0
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: 5c1a557de10c85e4494a830e331bf9d5
       internalID: 826979304
+========
+      spriteID: 88d7426d75f7347bca213f082fc1331a
+      internalID: 493666401
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_1
+========
+      name: statueidle_sheet_1
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: 782dcc20cd951644796d23bcbf64913f
       internalID: 1467888551
+========
+      spriteID: 37ab7638dfd234295b6f82c2c49584da
+      internalID: -288555801
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_2
+========
+      name: statueidle_sheet_2
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: 9dea6cf8b88824c4f8692636355449e5
       internalID: 1833464886
+========
+      spriteID: be05cc1d706604a83bde34393585c473
+      internalID: 634016620
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_3
+========
+      name: statueidle_sheet_3
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 96
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: 9496e12946ae8a647a2ea727d9d93efc
       internalID: 1622041967
+========
+      spriteID: c565a2626563245d9bccdc4c7bc5248f
+      internalID: 825051832
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_4
+========
+      name: statueidle_sheet_4
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: e4065268917da1e4a831d15259485d5d
       internalID: -727930624
+========
+      spriteID: ff1997dd03b2b472fb0d5c6390527788
+      internalID: -1695175823
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_5
+========
+      name: statueidle_sheet_5
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 160
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: d122d1208e5532744abbff28812b79f9
       internalID: 1260566077
+========
+      spriteID: a9f6fc218636c4261a6430e79da3cc94
+      internalID: -675399186
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_6
+========
+      name: statueidle_sheet_6
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 192
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: fdc2314a84eb9b844b29e436cedf545c
       internalID: -309172093
+========
+      spriteID: dd1c2967b81104a38bead7e7252ec56e
+      internalID: 370774232
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_7
+========
+      name: statueidle_sheet_7
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 224
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: 8ad74650af997b249a1cb7b0f950515a
       internalID: 302694168
+========
+      spriteID: 30705a28564814658ac6cba61bcce9ae
+      internalID: -1396185221
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_8
+========
+      name: statueidle_sheet_8
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 256
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: adb37dd6e9894aa4d8da1392e900ce20
       internalID: 1909040963
+========
+      spriteID: a7d804f2ac4df46daa01c6a8d7b548cb
+      internalID: -1985723145
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       name: ghost.idle.right_9
+========
+      name: statueidle_sheet_9
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       rect:
         serializedVersion: 2
         x: 288
         y: 0
         width: 32
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+========
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       spriteID: 7e4158e92e6aabe43896e4c5ee75d63c
       internalID: -688464480
+========
+      spriteID: bd43a37505e7146f6a7034b3fe1ce650
+      internalID: -1113473778
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
       vertices: []
       indices: 
       edges: []
@@ -325,6 +483,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+<<<<<<<< HEAD:Abaddon/Assets/Art/Sprites/Enviroment/Items/Ghost Pet/ghost.idle.right.png.meta
       ghost.idle.right_7: 302694168
       ghost.idle.right_8: 1909040963
       ghost.idle.right_0: 826979304
@@ -335,6 +494,18 @@ TextureImporter:
       ghost.idle.right_2: 1833464886
       ghost.idle.right_3: 1622041967
       ghost.idle.right_9: -688464480
+========
+      statueidle_sheet_6: 370774232
+      statueidle_sheet_4: -1695175823
+      statueidle_sheet_0: 493666401
+      statueidle_sheet_8: -1985723145
+      statueidle_sheet_1: -288555801
+      statueidle_sheet_9: -1113473778
+      statueidle_sheet_7: -1396185221
+      statueidle_sheet_3: 825051832
+      statueidle_sheet_5: -675399186
+      statueidle_sheet_2: 634016620
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/statueidle_sheet.png.meta
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

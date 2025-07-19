@@ -6,7 +6,11 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
   m_Name: BOSS1_animation_die
+========
+  m_Name: BOSS1_animation_idle
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_idle.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +24,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
+<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
       value: {fileID: 21300000, guid: 4ccfaba4b3e3497dcb3b0cede122e91e, type: 3}
+========
+      value: {fileID: 21300000, guid: 53ebf5c73623c4a058f38c1d0797651c, type: 3}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_idle.anim
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,7 +48,11 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
+<<<<<<<< HEAD:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_die.anim
     - {fileID: 21300000, guid: 4ccfaba4b3e3497dcb3b0cede122e91e, type: 3}
+========
+    - {fileID: 21300000, guid: 53ebf5c73623c4a058f38c1d0797651c, type: 3}
+>>>>>>>> creating-new-level:Abaddon/Assets/Art/Animations/Boss/BOSS1_animation_idle.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

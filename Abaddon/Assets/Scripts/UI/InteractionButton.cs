@@ -32,7 +32,7 @@ public class InteractionButton : MonoBehaviour
             transform.localPosition = Vector2.Lerp(
                 transform.localPosition,
                 onScreenPosition,
-                lerpSpeed
+                lerpSpeed * Time.deltaTime * 120f
             );
         }
         else
@@ -40,7 +40,7 @@ public class InteractionButton : MonoBehaviour
             transform.localPosition = Vector2.Lerp(
                 transform.localPosition,
                 offScreenPosition,
-                lerpSpeed
+                lerpSpeed * Time.deltaTime * 120f
             );
         }
     }

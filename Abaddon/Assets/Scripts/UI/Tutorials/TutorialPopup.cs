@@ -37,7 +37,7 @@ public class TutorialPopup : MonoBehaviour
             transform.localPosition = Vector2.Lerp(
                 transform.localPosition,
                 onScreenPosition,
-                lerpSpeed
+                lerpSpeed * Time.deltaTime * 60f
             );
         }
         else
@@ -45,7 +45,7 @@ public class TutorialPopup : MonoBehaviour
             transform.localPosition = Vector2.Lerp(
                 transform.localPosition,
                 offScreenPosition,
-                lerpSpeed
+                lerpSpeed * Time.deltaTime * 60f
             );
         }
     }

@@ -373,10 +373,19 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Alpha4))
+        if (!done_with_tick)
         {
+            if (Time.time - turnEndStart < 15f && !Input.GetKey(KeyCode.Alpha4))
+            {
+                return;
+            }
+            Debug.Log(
+                $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
+            );
+
             done_with_tick = true;
         }
+
         UpdateHealthBar();
         if (inventory != null && inventory.enabled != true)
         {
@@ -427,13 +436,6 @@ public class Controller : MonoBehaviour
         }
 
         enemies = FindObjectsOfType<EnemyMovement>();
-        if (!done_with_tick)
-        {
-            if (Time.time - turnEndStart < 15f || Input.GetKey(KeyCode.Alpha4))
-                return;
-
-            done_with_tick = true;
-        }
 
         if (god_mode)
         {

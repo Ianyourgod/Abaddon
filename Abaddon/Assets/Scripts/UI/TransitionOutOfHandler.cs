@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class TransitionOutOfHandler : MonoBehaviour
 {
-    //YHIS IS REESE AND I SUCK AT CODE LMAOOOOOOOOOOOO
-    [SerializeField] TransistionScriptableObject transistionScriptableObject;
-    [SerializeField] UnityEngine.UI.Image panel;
+    [SerializeField]
+    TransistionScriptableObject transistionScriptableObject;
+
+    [SerializeField]
+    Image panel;
     private float timeElapsed = 0;
 
-    void Start() {
+    void Start()
+    {
         enabled = true;
         panel.enabled = true;
         panel.gameObject.SetActive(true);
@@ -22,9 +25,11 @@ public class TransitionOutOfHandler : MonoBehaviour
         Color end = new Color(start.r, start.g, start.b, 0);
         float t = timeElapsed / transistionScriptableObject.timeToFade;
         panel.color = Color.Lerp(start, end, t);
-        
-        if (panel.color.a <= 0.05f) {
+
+        if (panel.color.a <= 0.05f)
+        {
             panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, 0);
+            panel.gameObject.SetActive(false);
             Destroy(this);
         }
         timeElapsed += Time.deltaTime;

@@ -1,63 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+// using UnityEngine.SceneManagement;
 
-public class AudioManager : MonoBehaviour
-{
-    public static AudioManager main;
+// public class AudioManager : MonoBehaviour
+// {
+//     public static AudioManager main;
 
-    [Header("References")]
-    public AudioSource deathSfxPlayer;
+//     [Header("References")]
+//     public AudioSource deathSfxPlayer;
 
-    [Header("Attributes")]
-    public float musicVolume = 0.02f;
-    public float sfxVolume = 0.02f;
-    [SerializeField] float maxVolume = 1f;
-    [SerializeField] KeyCode increaseKey;
-    [SerializeField] KeyCode decreaseKey;
+//     [Header("Attributes")]
+//     public float musicVolume = 0.02f;
+//     public float sfxVolume = 0.02f;
 
-    [HideInInspector] public MusicManager musicManager;
+//     [SerializeField]
+//     float maxVolume = 1f;
 
-    void Awake(){
-        main =  this;
-        musicManager = GetComponent<MusicManager>();
+//     [HideInInspector]
+//     public MusicManager musicManager;
 
-        //GameObject[] objs = GameObject.FindGameObjectsWithTag("AudioManager");
+//     void Awake()
+//     {
+//         main = this;
+//         musicManager = GetComponent<MusicManager>();
 
-        //if (objs.Length > 1)
-        //{
-            //Destroy(this.gameObject);
-        //}
+//         //GameObject[] objs = GameObject.FindGameObjectsWithTag("AudioManager");
 
-        //DontDestroyOnLoad(this);
-    }
+//         //if (objs.Length > 1)
+//         //{
+//         //Destroy(this.gameObject);
+//         //}
 
-    void Update(){
-        if (Input.GetKeyDown(increaseKey) && (musicVolume + 0.01f) <= maxVolume)
-        {
-            IncreaseVolume(0.01f);
-        }
-        if (Input.GetKeyDown(decreaseKey) && (musicVolume - 0.01f) >= 0f)
-        {
-            DecreaseVolume(0.01f);
-        }
-    }
+//         //DontDestroyOnLoad(this);
+//     }
 
-    public void IncreaseVolume(float amount)
-    {
-        musicVolume += amount;
-        sfxVolume += amount;
-    }
+//     void Update()
+//     {
+//         // if (
+//         //     Input.GetKeyDown(SettingsMenu.singleton.increaseVolumeKeybind.key)
+//         //     && (musicVolume + 0.01f) <= maxVolume
+//         // )
+//         // {
+//         //     IncreaseVolume(0.01f);
+//         // }
+//         // if (
+//         //     Input.GetKeyDown(SettingsMenu.singleton.decreaseVolumeKeybind.key)
+//         //     && (musicVolume - 0.01f) >= 0f
+//         // )
+//         // {
+//         //     DecreaseVolume(0.01f);
+//         // }
+//     }
 
-    public void DecreaseVolume(float amount)
-    {
-        musicVolume -= amount;
-        sfxVolume -= amount;
-    }
+//     public void IncreaseVolume(float amount)
+//     {
+//         musicVolume += amount;
+//         sfxVolume += amount;
+//     }
 
-    public void StopTheMusic()
-    {
-        musicManager.musicAudSource.Stop();
-    }
-}
+//     public void DecreaseVolume(float amount)
+//     {
+//         musicVolume -= amount;
+//         sfxVolume -= amount;
+//     }
+
+//     public void StopTheMusic()
+//     {
+//         musicManager.musicAudSource.Stop();
+//     }
+// }

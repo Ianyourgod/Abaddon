@@ -372,13 +372,13 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
+        if (GetCurrentAnimation() != currentAnimation)
+        {
+            animator.Play(currentAnimation);
+        }
+
         if (!done_with_tick)
         {
-            if (Time.time - turnEndStart < 15f && !Input.GetKey(KeyCode.Alpha4))
-            {
-                return;
-            }
-
             if (enemies.Length > current_enemy - 1 && current_enemy != 0)
             {
                 Debug.Log(current_enemy);
@@ -633,6 +633,10 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKey(SettingsMenu.singleton.attackKeybind.key))
         {
+            if (currentAnimation.Contains("Attack") || done_with_tick)
+            {
+                return;
+            }
             // Debug.Log("V pressed, checking for enemies to attack");
             var weapon = Weapon.GetCurrentWeapon();
             CanBeDamaged[] enemies = weapon.GetFightablesInDamageArea(
@@ -801,6 +805,7 @@ public class Controller : MonoBehaviour
 
     public void FinishTick()
     {
+        Debug.Log("Tick finished");
         current_enemy = 0;
         turnEndStart = Time.time;
         OnTick?.Invoke();
@@ -962,6 +967,8 @@ public class Controller : MonoBehaviour
         throw new Exception("Invalid direction");
     }
 
+    public string currentAnimation = "";
+
     public void PlayAnimation(string action, Vector2? facingDirection = null)
     {
         if (facingDirection == null || facingDirection == Vector2.zero)
@@ -981,8 +988,15 @@ public class Controller : MonoBehaviour
         }
 
         string animation = $"Player{DirectionToAnimationLabel((Vector2)facingDirection)}{action}"; // Changing this line
+        currentAnimation = animation;
         // print($"Playing animation: {animation}");
         animator.Play(animation);
+    }
+
+    public string GetCurrentAnimation()
+    {
+        // https://discussions.unity.com/t/how-to-get-current-animation-name/69393/5
+        return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 
     public void DamagePlayer(uint damage, bool dodgeable = true)
@@ -1032,7 +1046,7 @@ public class Controller : MonoBehaviour
 
     public void AttackAnimationFinishHandler()
     {
-        // print("Attack animation finished, resetting sorting layer");
+        print("Attack animation finished, resetting sorting layer");
         animator.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Characters");
         FinishTick();
         PlayAnimation("Idle", current_player_direction);

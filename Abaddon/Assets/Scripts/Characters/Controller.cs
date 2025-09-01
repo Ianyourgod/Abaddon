@@ -379,17 +379,7 @@ public class Controller : MonoBehaviour
 
         if (!done_with_tick)
         {
-            if (enemies.Length > current_enemy - 1 && current_enemy != 0)
-            {
-                Debug.Log(current_enemy);
-                Debug.Log(
-                    $"Current enemy: {current_enemy} Name: {enemies[current_enemy - 1]?.name} Position: {enemies[current_enemy - 1]?.transform.position}"
-                );
-            }
-            else
-                Debug.Log($"CUrrent enemy: {current_enemy} (OOB)");
-
-            done_with_tick = true;
+            return;
         }
 
         UpdateHealthBar();

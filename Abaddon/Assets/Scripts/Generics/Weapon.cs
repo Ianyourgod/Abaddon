@@ -93,8 +93,6 @@ public abstract class Weapon : MonoBehaviour
 
     public CanBeDamaged[] GetFightablesInDamageArea(Vector2 position, Vector2 direction)
     {
-        print("hiii");
-
         (Vector2 _rotatedBox, Vector2 centerOffset) = Rotate(GetSize(), direction); // 0.85 is to stop the tiles from overflowing into neighboring tiles
         Vector2 rotatedBox = _rotatedBox * 0.85f;
 

@@ -74,6 +74,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
 
     private bool called_next_enemy = true;
 
+    private string currentAnimation = "";
+
     private void Awake()
     {
         sfxPlayer = GetComponent<EnemySfx>();
@@ -98,6 +100,20 @@ public class EnemyMovement : MonoBehaviour, CanFight
         int gridSize = (int)(detectionDistance * 2 + 1);
         pathfinding.grid.gridSizeX = gridSize;
         pathfinding.grid.gridSizeY = gridSize;
+    }
+
+    private void Update()
+    {
+        if (GetCurrentAnimation() != currentAnimation)
+        {
+            animator.Play(currentAnimation);
+        }
+    }
+
+    private string GetCurrentAnimation()
+    {
+        // https://discussions.unity.com/t/how-to-get-current-animation-name/69393/5
+        return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 
     bool CheckPlayerIsInDetectionRange()
@@ -368,6 +384,8 @@ public class EnemyMovement : MonoBehaviour, CanFight
         string animation = $"{animation_prefix}_animation_{DirectionToString(direction)}_{action}";
         // Debug.Log($"Playing animation: {animation}");
         animator.Play(animation);
+
+        currentAnimation = animation;
     }
 
     void OnDrawGizmosSelected()

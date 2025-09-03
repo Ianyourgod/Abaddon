@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128973b1064ce4c2c867b6f030fab7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuSceneName: Real level copy
+  mainMenuSceneName: IntroAnimation
   transistionScriptableObject: {fileID: 11400000, guid: 04359389d16cf4c02a42ba37afda5d5a, type: 2}
   panel: {fileID: 898198653}
   StartPlayScene: Level 0
